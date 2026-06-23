@@ -236,6 +236,7 @@ export default function GamePage() {
 
   const dismissTransition = useCallback(() => {
     dispatch({ type: 'DISMISS_TRANSITION' })
+    setGoalEvent(null)
   }, [])
 
   const dismissJornal = useCallback(() => {

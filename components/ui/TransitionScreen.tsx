@@ -37,16 +37,19 @@ type Props = {
 function BadgeResultado({
   placarDelta,
   adversario,
+  alvoVitoria,
   empateValido,
 }: {
   placarDelta: number
   adversario: string
+  alvoVitoria: number
   empateValido: boolean
 }) {
-  const isFaseGrupo = empateValido
+  const isVitoria = placarDelta >= alvoVitoria
+  const isEmpate  = !isVitoria && placarDelta > 0 && empateValido
 
-  if (placarDelta > 0) {
-    const label = isFaseGrupo ? 'Vitória' : 'Classificado'
+  if (isVitoria) {
+    const label = empateValido ? 'Vitória' : 'Classificado'
     return (
       <div className="flex flex-col items-center gap-[6px] mb-[28px]">
         <span
@@ -56,13 +59,13 @@ function BadgeResultado({
           {label}
         </span>
         <span className="font-headline font-bold text-[14px] text-white/60">
-          Brasil {placarDelta > 0 ? `+${placarDelta}` : placarDelta} · {adversario}
+          Brasil +{placarDelta} · {adversario}
         </span>
       </div>
     )
   }
 
-  if (placarDelta === 0) {
+  if (isEmpate) {
     return (
       <div className="flex flex-col items-center gap-[6px] mb-[28px]">
         <span
@@ -72,7 +75,7 @@ function BadgeResultado({
           Empate
         </span>
         <span className="font-headline font-bold text-[14px] text-white/50">
-          Brasil 0 · {adversario}
+          Brasil +{placarDelta} · {adversario}
         </span>
       </div>
     )
@@ -87,7 +90,7 @@ function BadgeResultado({
         Derrota
       </span>
       <span className="font-headline font-bold text-[14px] text-white/50">
-        Brasil {placarDelta} · {adversario}
+        Brasil {placarDelta > 0 ? `+${placarDelta}` : placarDelta} · {adversario}
       </span>
     </div>
   )
@@ -198,6 +201,7 @@ export default function TransitionScreen({
           <BadgeResultado
             placarDelta={lastResult.placarDelta}
             adversario={lastResult.adversario}
+            alvoVitoria={bracketEntry.alvoVitoria}
             empateValido={bracketEntry.empateValido}
           />
         )}

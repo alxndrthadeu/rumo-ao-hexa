@@ -168,7 +168,7 @@ export default function ArquetipoPage() {
               Suas informações
             </p>
 
-            <div className="flex gap-[10px] items-end">
+            <div className="flex gap-[10px] items-start">
               {/* Nome */}
               <div className="flex-1 min-w-0">
                 <label className="font-headline font-bold text-[10px] tracking-[0.1em] uppercase text-preto/50 block mb-[5px]">
@@ -180,7 +180,7 @@ export default function ArquetipoPage() {
                   onChange={e => setNome(e.target.value.slice(0, 20))}
                   placeholder="Ex: Ronaldo"
                   maxLength={20}
-                  className="w-full border-2 border-preto/20 focus:border-preto px-[10px] py-[9px] font-headline font-bold text-[15px] text-preto bg-papel outline-none transition-colors"
+                  className="w-full h-[46px] border-2 border-preto/20 focus:border-preto px-[10px] font-headline font-bold text-[15px] text-preto bg-papel outline-none transition-colors"
                 />
               </div>
 
@@ -195,7 +195,7 @@ export default function ArquetipoPage() {
                   value={camisa}
                   onChange={e => handleCamisa(e.target.value)}
                   placeholder="10"
-                  className="w-full border-2 border-preto/20 focus:border-preto px-[10px] py-[9px] font-headline font-black italic text-[20px] text-preto text-center bg-papel outline-none transition-colors"
+                  className="w-full h-[46px] border-2 border-preto/20 focus:border-preto px-[10px] font-headline font-black italic text-[20px] text-preto text-center bg-papel outline-none transition-colors"
                 />
               </div>
             </div>
