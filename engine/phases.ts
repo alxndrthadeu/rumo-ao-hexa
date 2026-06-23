@@ -11,7 +11,6 @@ import { raiseFlag, applyCareerFlag, resetMatchFlags } from './flags'
 import { applyMediaBias } from './media'
 import { advanceSeed, seedToFloat } from './rng'
 import { checkMatchResult, matchPoints } from './score'
-import { initMatchScore } from './score'
 import { buildMatchRecord } from './jornal'
 
 // ─── Helpers internos ────────────────────────────────────────────────────────
@@ -138,10 +137,10 @@ function applyInterviewChoice(
   const variante = card.variantes[state.arquetipo]
   const escolha = variante[lado]
 
-  // Efeitos: midia recebe viés do arquétipo
+  // Efeitos: midia recebe viés do arquétipo + nível atual de mídia
   const rawMidia = escolha.efeitos.midia ?? 0
   const biasedMidia = rawMidia !== 0
-    ? applyMediaBias(rawMidia, card.carga, state.arquetipo)
+    ? applyMediaBias(rawMidia, card.carga, state.arquetipo, state.barras.midia)
     : 0
 
   const efeitos = { ...escolha.efeitos, midia: biasedMidia || undefined }
@@ -219,7 +218,6 @@ export function resolveMatchEnd(
 
   // Avança para próxima partida
   const nextPartida = s.partidaAtual + 1
-  const nextMoral = s.barras.moral
   const bonusCrescimento = resultado === 'vitoria' && s.arquetipo === 'futuro'
     ? Math.min(s.bonusCrescimento + 1, 3)
     : s.bonusCrescimento
@@ -228,7 +226,7 @@ export function resolveMatchEnd(
     ...s,
     partidaAtual: nextPartida,
     fase: 'planejar',
-    placarPartida: initMatchScore(nextMoral),
+    placarPartida: 0,
     flagsPartida: [],
     bonusCrescimento,
   }

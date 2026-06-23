@@ -1,0 +1,37 @@
+[
+  {
+    "id": "imprensa_favoravel",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 1,
+    "texto": "A imprensa está do seu lado. Manchetes de elogio, torcida confiante. Mas o favoritismo tem peso.",
+    "esquerda": {
+      "texto": "Usa o momentum, alimenta a expectativa",
+      "efeitos": { "moral": 8, "torcida": 5 },
+      "flags_partida": ["showman"]
+    },
+    "direita": {
+      "texto": "Mantém o pé no chão, ignora o barulho",
+      "efeitos": { "moral": 5 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "imprensa_hostil",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 1,
+    "texto": "A imprensa atacou. Manchetes duras, pressão em cima. O vestiário sente o peso antes do apito.",
+    "esquerda": {
+      "texto": "Vai pro confronto, defende o time publicamente",
+      "efeitos": { "midia": 8 },
+      "flags_partida": ["pavio_curto"],
+      "risco": { "tipo": "polemica", "chance": 0.4, "efeitos": { "moral": -10 } }
+    },
+    "direita": {
+      "texto": "Silêncio é a melhor resposta",
+      "efeitos": { "moral": 5 },
+      "flags_partida": ["frieza"]
+    }
+  }
+]

@@ -24,11 +24,6 @@ export function createRunState(arquetipo: Arquetipo, seed: number, nomeJogador: 
   }
 }
 
-export function getInitialPlacar(moral: number): number {
-  if (moral >= config.moral.highThreshold) return config.moral.highBonus
-  if (moral <= config.moral.lowThreshold) return config.moral.lowPenalty
-  return config.moral.neutralScore
-}
 
 export function isGameOver(state: RunState): boolean {
   return state.morto

@@ -1,12 +1,6 @@
 import type { Efeitos, ResultadoPartida } from './types'
 import config from '@/data/config.json'
 
-export function initMatchScore(moral: number): number {
-  if (moral >= config.moral.highThreshold) return config.moral.highBonus
-  if (moral <= config.moral.lowThreshold) return config.moral.lowPenalty
-  return config.moral.neutralScore
-}
-
 export function applyScoreDelta(placar: number, delta: number): number {
   return placar + delta
 }

@@ -172,14 +172,7 @@ export default function TransitionScreen({
           </span>
         </div>
 
-        <PlacarInicial placar={initialPlacar} adversario={bracketEntry.adversario} />
-
-        {initialPlacar !== 0 && (
-          <p className="font-headline font-bold text-[10px] tracking-[0.1em] uppercase mt-[10px]"
-            style={{ color: 'rgba(255,255,255,0.4)' }}>
-            {initialPlacar > 0 ? '↑ moral alta — vantagem inicial' : '↓ moral baixa — desvantagem inicial'}
-          </p>
-        )}
+        <PlacarInicial placar={0} adversario={bracketEntry.adversario} />
 
         <p className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase mt-[44px]"
           style={{ color: 'rgba(255,255,255,0.3)' }}>

@@ -4,8 +4,8 @@ import type { BracketEntry, RunState } from '@/engine/types'
 import Bars from './Bars'
 import PhaseHeader from './PhaseHeader'
 
-// Minuto simbólico por posição no deck de reagir (3 cartas restantes = 22', etc.)
-const REAGIR_MINUTO: Record<number, string> = { 3: "22'", 2: "55'", 1: "88'" }
+// Minuto simbólico por cartas restantes antes da escolha (5 cartas no deck)
+const REAGIR_MINUTO: Record<number, string> = { 5: "15'", 4: "45'", 3: "60'", 2: "88'", 1: "90+'" }
 
 export default function HUD({
   state,

@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { dbGetRunState, dbUpdateRunState } from '@/lib/db'
 import { applyCardChoice, resolveMatchEnd } from '@/engine/phases'
 import { buildPreGameDeck, buildMatchDeck, getCardById, getInterviewCard, loadBracket } from '@/engine/deck'
-import { initMatchScore } from '@/engine/score'
 import type { BracketEntry, Carta, CartaEntrevista, ClasseInimigo, RunState } from '@/engine/types'
 
 type Params = { params: Promise<{ sessionId: string }> }
@@ -29,7 +28,7 @@ export async function POST(req: NextRequest, { params }: Params) {
   const bracket = loadBracket()
   const bracketEntry = bracket[state.partidaAtual - 1]
 
-  const card = findCardById(state, cardId, bracketEntry.classe)
+  const card = findCardById(state, cardId)
   if (!card) {
     return NextResponse.json({ error: 'carta não encontrada' }, { status: 400 })
   }
@@ -51,13 +50,14 @@ export async function POST(req: NextRequest, { params }: Params) {
         newState.partidaAtual,
         bracketEntry.classe,
         newState.arquetipo,
-        newState.seed
+        newState.seed,
+        newState.barras
       )
       newState = {
         ...newState,
         fase: 'reagir',
         seed: newSeed,
-        placarPartida: initMatchScore(newState.barras.moral),
+        placarPartida: 0,
         cartasRestantes: reagirCards.map(c => c.id),
       }
       nextCards = reagirCards
@@ -72,12 +72,12 @@ export async function POST(req: NextRequest, { params }: Params) {
     } else if (state.fase === 'entrevista') {
       newState = resolveMatchEnd(newState, bracketEntry, flagsPartidaSnapshot)
       if (!newState.morto) {
-        const [ancora, circo] = buildPreGameDeck(newState.partidaAtual)
+        const preGameCards = buildPreGameDeck(newState.partidaAtual, newState.barras.midia)
         newState = {
           ...newState,
-          cartasRestantes: [ancora.id, circo.id],
+          cartasRestantes: preGameCards.map(c => c.id),
         }
-        nextCards = [ancora, circo]
+        nextCards = preGameCards
       }
     }
   } else if (!newState.morto) {
@@ -104,13 +104,10 @@ export async function POST(req: NextRequest, { params }: Params) {
 function findCardById(
   state: RunState,
   cardId: string,
-  _classe: ClasseInimigo
 ): Carta | CartaEntrevista | null {
   if (state.fase === 'planejar') {
-    const [ancora, circo] = buildPreGameDeck(state.partidaAtual)
-    if (ancora.id === cardId) return ancora
-    if (circo.id === cardId) return circo
-    return null
+    const cards = buildPreGameDeck(state.partidaAtual, state.barras.midia)
+    return cards.find(c => c.id === cardId) ?? null
   }
   if (state.fase === 'reagir') {
     if (!state.cartasRestantes.includes(cardId)) return null
@@ -128,8 +125,8 @@ function getRemainingCards(
   _bracket: BracketEntry[]
 ): (Carta | CartaEntrevista)[] {
   if (state.fase === 'planejar') {
-    const [ancora, circo] = buildPreGameDeck(state.partidaAtual)
-    return [ancora, circo].filter(c => state.cartasRestantes.includes(c.id))
+    const cards = buildPreGameDeck(state.partidaAtual, state.barras.midia)
+    return cards.filter(c => state.cartasRestantes.includes(c.id))
   }
   if (state.fase === 'reagir') {
     return state.cartasRestantes

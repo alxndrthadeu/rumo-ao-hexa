@@ -12,9 +12,8 @@ import GoalToast, { type GoalEvent } from '@/components/ui/GoalToast'
 import GameOverScreen from '@/components/ui/GameOverScreen'
 import JornalScreen from '@/components/ui/JornalScreen'
 
-// ─── Minutos simbólicos por posição no deck de reagir ────────────────────────
-// cartasRestantes.length antes da escolha: 3 → 1ª carta, 2 → 2ª carta, 1 → 3ª carta
-const REAGIR_MINUTO: Record<number, number> = { 3: 22, 2: 55, 1: 88 }
+// Minuto simbólico por cartas restantes antes da escolha (5 cartas no deck)
+const REAGIR_MINUTO: Record<number, number> = { 5: 15, 4: 45, 3: 60, 2: 88, 1: 90 }
 
 // ─── State ───────────────────────────────────────────────────────────────────
 
@@ -29,7 +28,6 @@ type GameState = {
   currentCard: Carta | CartaEntrevista | null
   transition: TransitionType | null
   lastResult: LastResult | null
-  initialPlacar: number | null
   showJornal: boolean
   jornalRecord: MatchRecord | null
   showGameOver: boolean
@@ -44,7 +42,6 @@ const initial: GameState = {
   currentCard: null,
   transition: null,
   lastResult: null,
-  initialPlacar: null,
   showJornal: false,
   jornalRecord: null,
   showGameOver: false,
@@ -84,7 +81,6 @@ function reducer(state: GameState, action: GameAction): GameState {
         currentCard: action.card,
         transition: null,
         lastResult: null,
-        initialPlacar: null,
         showJornal: false,
         jornalRecord: null,
         showGameOver: false,
@@ -109,12 +105,6 @@ function reducer(state: GameState, action: GameAction): GameState {
           ? { adversario: action.prevBracketEntry.adversario, placarDelta: action.runState.placarPartida }
         : state.lastResult
 
-      // initialPlacar: capturado quando o match_start é disparado
-      const initialPlacar =
-        transition === 'match_start'
-          ? action.runState.placarPartida
-          : state.initialPlacar
-
       // JornalScreen aparece ANTES da transição nova_partida
       if (transition === 'nova_partida') {
         const historia = action.runState.historicoPartidas
@@ -126,7 +116,6 @@ function reducer(state: GameState, action: GameAction): GameState {
           currentCard: action.nextCard,
           transition: null,
           lastResult,
-          initialPlacar,
           showJornal: true,
           jornalRecord,
           isSubmitting: false,
@@ -140,7 +129,6 @@ function reducer(state: GameState, action: GameAction): GameState {
         currentCard: action.nextCard,
         transition,
         lastResult,
-        initialPlacar,
         isSubmitting: false,
       }
     }
@@ -306,7 +294,6 @@ export default function GamePage() {
         type={state.transition}
         bracketEntry={state.bracketEntry}
         partida={state.runState.partidaAtual}
-        initialPlacar={state.initialPlacar ?? undefined}
         lastResult={state.lastResult}
         onDismiss={dismissTransition}
       />

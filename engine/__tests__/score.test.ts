@@ -1,36 +1,13 @@
 import { describe, it, expect } from 'vitest'
 import {
-  initMatchScore,
   applyScoreDelta,
   resolveCondicional,
   checkMatchResult,
   checkGroupClassification,
 } from '../score'
 
-describe('initMatchScore (Moral → Placar inicial)', () => {
-  it('Moral 75 → Placar inicial +1', () => {
-    expect(initMatchScore(75)).toBe(1)
-  })
-
-  it('Moral 50 → Placar inicial 0', () => {
-    expect(initMatchScore(50)).toBe(0)
-  })
-
-  it('Moral 20 → Placar inicial -1', () => {
-    expect(initMatchScore(20)).toBe(-1)
-  })
-
-  it('Moral 70 → Placar inicial +1 (exato no limiar)', () => {
-    expect(initMatchScore(70)).toBe(1)
-  })
-
-  it('Moral 30 → Placar inicial -1 (exato no limiar)', () => {
-    expect(initMatchScore(30)).toBe(-1)
-  })
-})
-
 describe('checkMatchResult', () => {
-  // Grupo (partidas 1-3): empate é possível
+  // Grupo (partidas 1-3): alvo=2, empate se placar=1
   it('partida 1, placar +2 → vitória', () => {
     expect(checkMatchResult(2, 2, 1)).toBe('vitoria')
   })
@@ -43,29 +20,37 @@ describe('checkMatchResult', () => {
     expect(checkMatchResult(0, 2, 1)).toBe('derrota')
   })
 
-  it('partida 3, placar +3 → vitória', () => {
-    expect(checkMatchResult(3, 3, 3)).toBe('vitoria')
+  it('partida 1, placar -1 → derrota', () => {
+    expect(checkMatchResult(-1, 2, 1)).toBe('derrota')
   })
 
-  it('partida 3, placar +2 → empate', () => {
-    expect(checkMatchResult(2, 3, 3)).toBe('empate')
+  it('partida 3, placar +2 → vitória', () => {
+    expect(checkMatchResult(2, 2, 3)).toBe('vitoria')
   })
 
-  // Mata-mata (partidas 4-7): empate = derrota
-  it('partida 4, placar +2 → derrota (mata-mata, empate não vale)', () => {
-    expect(checkMatchResult(2, 3, 4)).toBe('derrota')
+  it('partida 3, placar +1 → empate', () => {
+    expect(checkMatchResult(1, 2, 3)).toBe('empate')
   })
 
-  it('partida 4, placar +3 → vitória (mata-mata)', () => {
-    expect(checkMatchResult(3, 3, 4)).toBe('vitoria')
+  // Mata-mata (partidas 4-7): não existe empate
+  it('partida 4, placar +2 → vitória (alvo=2)', () => {
+    expect(checkMatchResult(2, 2, 4)).toBe('vitoria')
   })
 
-  it('partida 7, placar +5 → vitória (final)', () => {
-    expect(checkMatchResult(5, 5, 7)).toBe('vitoria')
+  it('partida 4, placar +1 → derrota (abaixo do alvo, mata-mata)', () => {
+    expect(checkMatchResult(1, 2, 4)).toBe('derrota')
   })
 
-  it('partida 7, placar +4 → derrota (final, empate = derrota)', () => {
-    expect(checkMatchResult(4, 5, 7)).toBe('derrota')
+  it('partida 5, placar +3 → vitória (alvo=3)', () => {
+    expect(checkMatchResult(3, 3, 5)).toBe('vitoria')
+  })
+
+  it('partida 7, placar +4 → vitória (alvo=4)', () => {
+    expect(checkMatchResult(4, 4, 7)).toBe('vitoria')
+  })
+
+  it('partida 7, placar +3 → derrota (final, abaixo do alvo)', () => {
+    expect(checkMatchResult(3, 4, 7)).toBe('derrota')
   })
 })
 

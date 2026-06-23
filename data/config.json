@@ -10,12 +10,11 @@
     "alertThresholdMin": 15,
     "alertThresholdMax": 85
   },
-  "moral": {
+  "deckBonus": {
     "highThreshold": 70,
     "lowThreshold": 30,
-    "highBonus": 1,
-    "neutralScore": 0,
-    "lowPenalty": -1
+    "midiaHighThreshold": 70,
+    "midiaLowThreshold": 30
   },
   "media": {
     "elogioBase": 10,
@@ -24,7 +23,9 @@
       "estrela": { "ELOGIO": 1.0, "CRITICA": 1.0 },
       "caido":   { "ELOGIO": 0.5, "CRITICA": 2.0 },
       "futuro":  { "ELOGIO": 2.0, "CRITICA": 0.5 }
-    }
+    },
+    "midiaBonusFactor": 1.25,
+    "midiaPenaltyFactor": 1.25
   },
   "group": {
     "win": 3,

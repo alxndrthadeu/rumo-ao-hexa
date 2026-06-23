@@ -3,7 +3,7 @@
 export type Carga = 'ELOGIO' | 'CRITICA' | 'NEUTRA'
 export type Fase = 'planejar' | 'reagir' | 'entrevista'
 export type Naipe = 'ancora' | 'circo'
-export type Camada = 'generica' | 'classe' | 'assinatura'
+export type Camada = 'generica' | 'classe' | 'assinatura' | 'bonus' | 'especial'
 export type Barra = 'torcida' | 'midia' | 'moral' | 'fisico'
 export type Arquetipo = 'estrela' | 'caido' | 'futuro'
 export type ClasseInimigo =

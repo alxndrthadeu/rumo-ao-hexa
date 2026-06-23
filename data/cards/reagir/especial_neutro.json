@@ -1,0 +1,63 @@
+[
+  {
+    "id": "esp_penalti_marcado",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 1,
+    "texto": "Pênalti pro Brasil nos acréscimos. O estádio para. A bola é sua.",
+    "esquerda": {
+      "texto": "Assume a cobrança",
+      "efeitos": { "placar": "condicional" },
+      "climax": true,
+      "condicional": {
+        "limiar": 1,
+        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+      }
+    },
+    "direita": {
+      "texto": "Passa pro batedor oficial",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["coletivo"]
+    }
+  },
+  {
+    "id": "esp_contra_decisivo",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 1,
+    "texto": "Acréscimos. Você rouba a bola no meio-campo e só tem o goleiro na frente.",
+    "esquerda": {
+      "texto": "Vai pro gol sem olhar pra trás",
+      "efeitos": { "placar": 2 },
+      "flags_partida": ["heroi", "ousado"]
+    },
+    "direita": {
+      "texto": "Espera o apoio antes de finalizar",
+      "efeitos": { "placar": 1, "torcida": 5 },
+      "flags_partida": ["coletivo"]
+    }
+  },
+  {
+    "id": "esp_cabecada_acrescimos",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 1,
+    "texto": "Escanteio nos acréscimos. Você sobe mais alto que todo mundo na área.",
+    "esquerda": {
+      "texto": "Cabeceia com toda força",
+      "efeitos": { "placar": "condicional" },
+      "climax": true,
+      "condicional": {
+        "limiar": 0,
+        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+      }
+    },
+    "direita": {
+      "texto": "Desvia de cabeça pro companheiro melhor posicionado",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["disciplinado"]
+    }
+  }
+]

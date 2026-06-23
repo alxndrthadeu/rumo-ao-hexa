@@ -1,0 +1,36 @@
+[
+  {
+    "id": "esp_onda_torcida",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 1,
+    "texto": "A torcida vira uma onda verde e amarela nos acréscimos. Energia impossível de ignorar.",
+    "esquerda": {
+      "texto": "Canaliza e parte pra cima",
+      "efeitos": { "placar": 2, "torcida": 5 },
+      "flags_partida": ["heroi", "showman"]
+    },
+    "direita": {
+      "texto": "Mantém o foco no sistema tático",
+      "efeitos": { "placar": 1, "moral": 5 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "esp_calor_casa",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 1,
+    "texto": "A torcida nunca parou de acreditar. No acréscimo, eles cantam mais alto do que nunca.",
+    "esquerda": {
+      "texto": "Joga por eles, dá tudo que tem",
+      "efeitos": { "placar": 1, "torcida": 10 },
+      "flags_partida": ["showman", "lider"]
+    },
+    "direita": {
+      "texto": "Transforma o barulho em concentração",
+      "efeitos": { "placar": 2, "moral": 5 },
+      "flags_partida": ["frieza"]
+    }
+  }
+]

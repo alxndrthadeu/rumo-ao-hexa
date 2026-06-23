@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest'
 import { createRunState } from '../state'
-import { initMatchScore } from '../score'
 import { applyCardChoice, resolveMatchEnd } from '../phases'
 import { buildPreGameDeck, buildMatchDeck, getInterviewCard, loadBracket } from '../deck'
 import type { Carta } from '../types'
@@ -12,18 +11,21 @@ describe('Integração — fatia vertical', () => {
     const bracket = loadBracket()[0] // Marrocos, técnico
 
     // ── FASE PLANEJAR ──────────────────────────────────────
-    const [ancora, circo] = buildPreGameDeck(1)
-    s = applyCardChoice(s, ancora, 'esquerda')
-    if (!s.morto) s = applyCardChoice(s, circo, 'direita')
+    const preGameCards = buildPreGameDeck(1, s.barras.midia)
+    expect(preGameCards.length).toBeGreaterThanOrEqual(2)
 
-    expect(s.flagsPartida.length).toBeGreaterThan(0)
+    s = applyCardChoice(s, preGameCards[0], 'esquerda')
+    if (!s.morto) s = applyCardChoice(s, preGameCards[1], 'direita')
+
     expect(s.morto).toBe(false)
 
     // ── FASE REAGIR ────────────────────────────────────────
-    const { cards: matchDeck, seed: newSeed } = buildMatchDeck(1, 'tecnico', 'estrela', s.seed)
-    expect(matchDeck).toHaveLength(3)
+    const { cards: matchDeck, seed: newSeed } = buildMatchDeck(
+      1, 'tecnico', 'estrela', s.seed, s.barras
+    )
+    expect(matchDeck).toHaveLength(5)
 
-    s = { ...s, placarPartida: initMatchScore(s.barras.moral), seed: newSeed }
+    s = { ...s, placarPartida: 0, seed: newSeed }
 
     for (const carta of matchDeck) {
       if (s.morto) break
@@ -46,8 +48,9 @@ describe('Integração — fatia vertical', () => {
     // ── RESOLUÇÃO ──────────────────────────────────────────
     if (!s.morto) {
       const sPos = resolveMatchEnd(s, bracket)
-      // Após resolução, estado avançou ou foi eliminado
       expect(sPos.partidaAtual === 2 || sPos.morto).toBe(true)
+      // Próxima partida começa com placar 0
+      if (!sPos.morto) expect(sPos.placarPartida).toBe(0)
     }
   })
 
@@ -106,20 +109,21 @@ describe('Integração — fatia vertical', () => {
     expect(JSON.stringify(s)).toBe(original)
   })
 
-  it('resolveMatchEnd avança para partida 2 após J1', () => {
+  it('resolveMatchEnd avança para partida 2 após J1 com placar 0', () => {
     let s = createRunState('estrela', 1, 'Teste', 10)
-    s = { ...s, placarPartida: 3, pontosGrupo: 0 } // vitória clara
+    s = { ...s, placarPartida: 2, pontosGrupo: 0 } // vitória (alvo=2)
     const bracket = loadBracket()[0]
     const next = resolveMatchEnd(s, bracket)
     expect(next.partidaAtual).toBe(2)
     expect(next.pontosGrupo).toBe(3)
     expect(next.morto).toBe(false)
+    expect(next.placarPartida).toBe(0) // sempre começa zerado
   })
 
   it('resolveMatchEnd elimina no mata-mata por derrota', () => {
     let s = createRunState('estrela', 1, 'Teste', 10)
     s = { ...s, placarPartida: 0, partidaAtual: 4 }
-    const bracket = loadBracket()[3] // oitavas
+    const bracket = loadBracket()[3] // oitavas, alvo=2
     const next = resolveMatchEnd(s, bracket)
     expect(next.morto).toBe(true)
     expect(next.causaMorte).toBe('placar')
@@ -128,14 +132,13 @@ describe('Integração — fatia vertical', () => {
   it('resolveMatchEnd elimina grupos com pontos insuficientes após J3', () => {
     let s = createRunState('estrela', 1, 'Teste', 10)
     s = { ...s, placarPartida: 0, partidaAtual: 3, pontosGrupo: 3 }
-    const bracket = loadBracket()[2] // grupo 3
+    const bracket = loadBracket()[2] // grupo 3, alvo=2
     const next = resolveMatchEnd(s, bracket)
     expect(next.morto).toBe(true)
     expect(next.causaMorte).toBe('placar')
   })
 
   it('niggle divida_lesao aumenta custo de Físico negativo (Craque Caído)', () => {
-    // Caído começa com divida_lesao no array de niggles
     let s = createRunState('caido', 1, 'Teste', 10)
     expect(s.niggles).toContain('divida_lesao')
     const fisicoBefore = s.barras.fisico
@@ -150,7 +153,6 @@ describe('Integração — fatia vertical', () => {
     }
 
     const result = applyCardChoice(s, carta, 'esquerda')
-    // -10 × 1.5 = -15, então fisico cai 15 (ou morre se chegar a 0)
     if (!result.morto) {
       expect(result.barras.fisico).toBe(Math.max(0, fisicoBefore - 15))
     } else {
@@ -160,7 +162,6 @@ describe('Integração — fatia vertical', () => {
 
   it('growth bonus do Futuro soma ao placar antes da checagem condicional', () => {
     let s = createRunState('futuro', 1, 'Teste', 10)
-    // Simula 2 vitórias: bonusCrescimento = 2
     s = { ...s, bonusCrescimento: 2, placarPartida: 0 }
 
     const carta: Carta = {
@@ -180,7 +181,6 @@ describe('Integração — fatia vertical', () => {
       direita: { texto: 'Neutro', efeitos: {} },
     }
 
-    // placar=0, bonus=2 → efetivo=2 >= limiar=2 → ramoA → +3
     const result = applyCardChoice(s, carta, 'esquerda')
     expect(result.placarPartida).toBe(3)
   })
@@ -206,8 +206,45 @@ describe('Integração — fatia vertical', () => {
       direita: { texto: 'Neutro', efeitos: {} },
     }
 
-    // placar=0, sem bonus → 0 < limiar=2 → ramoB → -1
     const result = applyCardChoice(s, carta, 'esquerda')
     expect(result.placarPartida).toBe(-1)
+  })
+
+  it('deck de reagir tem 5 cartas para todos os arquétipos', () => {
+    const barras = { moral: 60, fisico: 65, torcida: 70 }
+    for (const arq of ['estrela', 'caido', 'futuro'] as const) {
+      const { cards } = buildMatchDeck(1, 'tecnico', arq, 42, barras)
+      expect(cards).toHaveLength(5)
+    }
+  })
+
+  it('bar effects: moral alta injeta bonus_moral_alto no slot 0 (sem assinatura inicio)', () => {
+    // Partida 2 não tem assinatura com posicao='inicio', então moral injeta no slot 0
+    const barrasAltas = { moral: 80, fisico: 60, torcida: 60 }
+    const { cards } = buildMatchDeck(2, 'saco_pancada', 'estrela', 42, barrasAltas)
+    expect(cards[0].id).toBe('bonus_moral_alto')
+  })
+
+  it('bar effects: físico baixo injeta cansaco_extremo no slot 3', () => {
+    const barrasBaixas = { moral: 60, fisico: 20, torcida: 60 }
+    const { cards } = buildMatchDeck(1, 'tecnico', 'estrela', 42, barrasBaixas)
+    expect(cards[3].id).toBe('cansaco_extremo')
+  })
+
+  it('pré-jogo retorna 3 cartas com mídia alta', () => {
+    const cards = buildPreGameDeck(1, 80)
+    expect(cards).toHaveLength(3)
+    expect(cards[2].id).toBe('imprensa_favoravel')
+  })
+
+  it('pré-jogo retorna 3 cartas com mídia baixa', () => {
+    const cards = buildPreGameDeck(1, 20)
+    expect(cards).toHaveLength(3)
+    expect(cards[2].id).toBe('imprensa_hostil')
+  })
+
+  it('pré-jogo retorna 2 cartas com mídia neutra', () => {
+    const cards = buildPreGameDeck(1, 50)
+    expect(cards).toHaveLength(2)
   })
 })

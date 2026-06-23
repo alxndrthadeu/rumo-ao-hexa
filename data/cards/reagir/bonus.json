@@ -1,0 +1,72 @@
+[
+  {
+    "id": "bonus_moral_alto",
+    "fase": "reagir",
+    "camada": "bonus",
+    "partida": 1,
+    "texto": "Você entra em campo mais focado do que nunca. Cabeça limpa, perna leve.",
+    "esquerda": {
+      "texto": "Parte pra cima desde o apito",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["ousado", "disciplinado"]
+    },
+    "direita": {
+      "texto": "Começa controlado, espera o momento",
+      "efeitos": { "moral": 5 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "crise_moral",
+    "fase": "reagir",
+    "camada": "bonus",
+    "partida": 1,
+    "texto": "A cabeça pesa antes do apito. Algo não está certo dentro de você.",
+    "esquerda": {
+      "texto": "Força a cabeça pra cima na base da raça",
+      "efeitos": { "moral": 8 },
+      "flags_partida": ["raca"],
+      "risco": { "tipo": "erro_pressao", "chance": 0.4, "efeitos": { "placar": -1 } }
+    },
+    "direita": {
+      "texto": "Deixa o jogo te encontrar",
+      "efeitos": { "placar": -1 },
+      "flags_partida": ["covarde"]
+    }
+  },
+  {
+    "id": "bonus_fisico_alto",
+    "fase": "reagir",
+    "camada": "bonus",
+    "partida": 1,
+    "texto": "Segundo tempo e você está mais forte que qualquer um em campo. As pernas não mentem.",
+    "esquerda": {
+      "texto": "Acelera, usa o físico pra decidir",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["raca"]
+    },
+    "direita": {
+      "texto": "Segura o ritmo, deixa o jogo vir",
+      "efeitos": { "fisico": 3, "moral": 3 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "cansaco_extremo",
+    "fase": "reagir",
+    "camada": "bonus",
+    "partida": 1,
+    "texto": "O corpo cobra a conta. Faltam 25 minutos e você está no limite.",
+    "esquerda": {
+      "texto": "Aperta os dentes e vai",
+      "efeitos": { "placar": 1, "fisico": -8 },
+      "flags_partida": ["raca"],
+      "niggle": "muscular"
+    },
+    "direita": {
+      "texto": "Pede substituição antes que piore",
+      "efeitos": { "fisico": 5, "torcida": -5 },
+      "flags_partida": ["disciplinado"]
+    }
+  }
+]
