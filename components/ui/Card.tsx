@@ -109,8 +109,9 @@ export default function Card({
       {/* Carta arrastável */}
       <div
         {...bind()}
-        className="flex-1 mx-[15px] flex flex-col justify-between bg-papel border-2 border-preto cursor-grab active:cursor-grabbing touch-none"
+        className="flex-1 mx-[15px] flex flex-col justify-between bg-papel border-2 border-preto cursor-grab active:cursor-grabbing"
         style={{
+          touchAction: 'pan-y',
           transform: `translateX(${tx}px) rotate(${rot}deg)`,
           transition: Math.abs(dragX) > 0 ? 'none' : 'transform 0.26s ease, opacity 0.22s',
           opacity: confirming ? 0 : 1,

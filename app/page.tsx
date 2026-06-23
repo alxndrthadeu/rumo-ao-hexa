@@ -139,6 +139,12 @@ export default function Home() {
         >
           Escolher Arquétipo →
         </Link>
+        <Link
+          href="/como-jogar"
+          className="w-full text-center block font-headline font-bold text-[13px] text-preto/50 py-[14px] hover:text-preto/80 transition-colors"
+        >
+          Primeira vez? Veja o guia →
+        </Link>
       </div>
     </div>
   )
