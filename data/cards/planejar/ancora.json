@@ -81,6 +81,23 @@
     }
   },
   {
+    "id": "anc_pressao_tecnico",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 2,
+    "texto": "O técnico passa na sua concentração e muda seu posicionamento no esquema. Sem explicação.",
+    "esquerda": {
+      "texto": "Aceita em silêncio, confia no processo",
+      "efeitos": { "moral": -5, "fisico": 3 },
+      "flags_partida": ["disciplinado"]
+    },
+    "direita": {
+      "texto": "Pede explicação antes do treino",
+      "efeitos": { "moral": 8 },
+      "flag_carreira": "lider"
+    }
+  },
+  {
     "id": "anc_video",
     "fase": "planejar",
     "naipe": "ancora",
@@ -95,6 +112,23 @@
       "texto": "Dorme, eu resolvo em campo",
       "efeitos": { "fisico": 5, "moral": -5 },
       "flags_partida": ["boemio"]
+    }
+  },
+  {
+    "id": "anc_briga_dupla",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 3,
+    "texto": "Dois companheiros brigaram no treino. Todo mundo viu. O técnico quer que o grupo resolva internamente.",
+    "esquerda": {
+      "texto": "Entra como mediador, acalma os dois",
+      "efeitos": { "moral": 10 },
+      "flag_carreira": "lider"
+    },
+    "direita": {
+      "texto": "Não é meu problema, cada um com o seu",
+      "efeitos": { "moral": -5 },
+      "flag_carreira": "problematico"
     }
   },
   {
@@ -115,6 +149,22 @@
     }
   },
   {
+    "id": "anc_sono",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 4,
+    "texto": "Você não dormiu direito. Ansiedade pré-jogo ou barulho do hotel?",
+    "esquerda": {
+      "texto": "Vai logo pro treino, força na vontade",
+      "efeitos": { "fisico": -8, "moral": 5 },
+      "flags_partida": ["raca"]
+    },
+    "direita": {
+      "texto": "Pede ao médico algo pra relaxar",
+      "efeitos": { "fisico": 5, "moral": -3 }
+    }
+  },
+  {
     "id": "anc_imprensa_treino",
     "fase": "planejar",
     "naipe": "ancora",
@@ -128,6 +178,92 @@
       "texto": "Treino aberto, dá show",
       "efeitos": { "midia": 8, "torcida": 5, "moral": -5 },
       "flags_partida": ["showman"]
+    }
+  },
+  {
+    "id": "anc_reserva_reclama",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 5,
+    "texto": "Um reserva te acusa em particular de monopolizar o holofote e ignorar o grupo.",
+    "esquerda": {
+      "texto": "Ouve, reconhece, promete mudar",
+      "efeitos": { "moral": 8 },
+      "flag_carreira": "humilde"
+    },
+    "direita": {
+      "texto": "Ignora, tem jogo pra ganhar",
+      "efeitos": { "moral": -8, "midia": 3 },
+      "flag_carreira": "arrogante"
+    }
+  },
+  {
+    "id": "anc_meditacao",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 6,
+    "texto": "O psicólogo da seleção sugere uma sessão de mindfulness antes da semifinal. Parece bobagem.",
+    "esquerda": {
+      "texto": "Topa e leva a sério",
+      "efeitos": { "moral": 10, "fisico": 3 }
+    },
+    "direita": {
+      "texto": "Dispensa, prefere fazer mais físico",
+      "efeitos": { "fisico": 5, "moral": -5 }
+    }
+  },
+  {
+    "id": "anc_estrela_carta_especial",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "requer_passiva": "estrela",
+    "partida": 2,
+    "texto": "A imprensa já te considera o craque do torneio depois de dois jogos. O peso do rótulo começa a aparecer nos treinos.",
+    "esquerda": {
+      "texto": "Abraça a expectativa, treina ainda mais",
+      "efeitos": { "fisico": -5, "moral": 8 },
+      "flags_partida": ["disciplinado"]
+    },
+    "direita": {
+      "texto": "Baixa a guarda — já provei o suficiente",
+      "efeitos": { "fisico": 5, "moral": -10 },
+      "flag_carreira": "arrogante"
+    }
+  },
+  {
+    "id": "anc_caido_carta_especial",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "requer_passiva": "caido",
+    "partida": 3,
+    "texto": "Você cruza com um ex-companheiro que foi cortado da seleção por você ter voltado. Clima pesado.",
+    "esquerda": {
+      "texto": "Para, conversa, tira o peso",
+      "efeitos": { "moral": 10 },
+      "flag_carreira": "lider"
+    },
+    "direita": {
+      "texto": "Faz que não viu, não é hora",
+      "efeitos": { "moral": -8 },
+      "flag_carreira": "problematico"
+    }
+  },
+  {
+    "id": "anc_futuro_carta_especial",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "requer_passiva": "futuro",
+    "partida": 2,
+    "texto": "Os veteranos do grupo resolvem te 'iniciar' com uma pegadinha pesada no vestiário. Ritual de passagem.",
+    "esquerda": {
+      "texto": "Ri junto, entra no grupo",
+      "efeitos": { "moral": 10, "torcida": 5 },
+      "flag_carreira": "lider"
+    },
+    "direita": {
+      "texto": "Fica sério, não acha graça",
+      "efeitos": { "moral": -5 },
+      "flag_carreira": "problematico"
     }
   }
 ]

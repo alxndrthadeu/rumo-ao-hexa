@@ -2,15 +2,16 @@
 
 import { useCallback, useEffect, useReducer, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
+import Link from 'next/link'
 import type { BracketEntry, Carta, CartaEntrevista, MatchRecord, RunState } from '@/engine/types'
 import type { ActionResponse, RunStateResponse } from '@/lib/api-types'
 import HUD from '@/components/ui/HUD'
 import Card from '@/components/ui/Card'
-import GroupResult from '@/components/ui/GroupResult'
 import TransitionScreen, { type TransitionType } from '@/components/ui/TransitionScreen'
 import GoalToast, { type GoalEvent } from '@/components/ui/GoalToast'
 import GameOverScreen from '@/components/ui/GameOverScreen'
 import JornalScreen from '@/components/ui/JornalScreen'
+import LiveScoreboard from '@/components/ui/LiveScoreboard'
 
 // Minuto simbólico por cartas restantes antes da escolha (5 cartas no deck)
 const REAGIR_MINUTO: Record<number, number> = { 5: 15, 4: 45, 3: 60, 2: 88, 1: 90 }
@@ -153,7 +154,6 @@ export default function GamePage() {
   const sessionId = params.sessionId
 
   const [state, dispatch] = useReducer(reducer, initial)
-  const [groupResultDismissed, setGroupResultDismissed] = useState(false)
   const [goalEvent, setGoalEvent] = useState<GoalEvent | null>(null)
 
   useEffect(() => {
@@ -278,11 +278,12 @@ export default function GamePage() {
   }
 
   // Jornal: aparece após cada partida, antes da transição nova_partida
-  if (state.showJornal && state.jornalRecord) {
+  if (state.showJornal && state.jornalRecord && state.runState) {
     return (
       <JornalScreen
         record={state.jornalRecord}
         sessionId={sessionId}
+        runState={state.runState}
         onDismiss={dismissJornal}
       />
     )
@@ -301,10 +302,14 @@ export default function GamePage() {
     )
   }
 
-  // Tabela do grupo (após partida 3, antes de oitavas)
-  const showGroupResult = state.runState.partidaAtual === 4 && !groupResultDismissed
-  if (showGroupResult) {
-    return <GroupResult onContinue={() => setGroupResultDismissed(true)} />
+  // Card de crise ativo? (não mostrar banner de pré-jogo durante crise)
+  const isCriseActive = state.currentCard !== null &&
+    'camada' in state.currentCard &&
+    (state.currentCard as Carta).camada === 'crise'
+
+  const FASE_LABEL: Record<string, string> = {
+    grupo: 'Fase de Grupos', oitavas: 'Oitavas de Final',
+    quartas: 'Quartas de Final', semi: 'Semifinal', final: 'Final',
   }
 
   return (
@@ -323,7 +328,44 @@ export default function GamePage() {
         }}
       />
 
-      <div className="flex-1 flex flex-col pt-4">
+      {/* ── Banner de pré-jogo (concentração) ── */}
+      {state.runState.fase === 'planejar' && !isCriseActive && (
+        <div className="bg-papel border-b-2 border-preto/10 px-[15px] py-[14px]">
+          <p className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase text-preto/40 mb-[4px]">
+            Concentração · Jogo {state.runState.partidaAtual} de 7
+          </p>
+          <h2 className="font-headline font-black italic text-[28px] leading-[0.9] tracking-[-1px] text-preto">
+            vs {state.bracketEntry.adversario}
+          </h2>
+          <div className="flex items-center justify-between mt-[8px]">
+            <div className="flex items-center gap-[8px]">
+              <span
+                className="font-headline font-bold text-[9px] tracking-[0.05em] uppercase text-white px-[8px] py-[3px]"
+                style={{ background: 'var(--color-azul)', transform: 'skewX(-6deg)' }}
+              >
+                {FASE_LABEL[state.bracketEntry.fase] ?? state.bracketEntry.fase}
+              </span>
+            </div>
+            <Link
+              href={`/historico/${sessionId}`}
+              className="font-headline font-bold text-[11px] tracking-[0.05em] uppercase text-preto/50 border-2 border-preto/20 px-[10px] py-[5px] hover:bg-preto hover:text-white transition-colors"
+            >
+              Edições →
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* ── Placar ao vivo (reagir) ── */}
+      {state.runState.fase === 'reagir' && (
+        <LiveScoreboard
+          placar={state.runState.placarPartida}
+          adversario={state.bracketEntry.adversario}
+          cartasRestantes={state.runState.cartasRestantes.length}
+        />
+      )}
+
+      <div className="flex-1 flex flex-col pt-3">
         {state.currentCard ? (
           <Card
             card={state.currentCard}
@@ -339,7 +381,7 @@ export default function GamePage() {
       </div>
 
       {state.error && (
-        <div className="fixed bottom-6 left-4 right-4 z-50">
+        <div className="fixed bottom-6 z-50 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[448px]">
           <div className="bg-vermelho text-white px-4 py-3 font-headline font-bold text-sm text-center"
             style={{ boxShadow: '3px 3px 0 #100F0D' }}>
             {state.error} — tente novamente

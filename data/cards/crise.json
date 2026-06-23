@@ -4,14 +4,14 @@
     "fase": "planejar",
     "partida": 0,
     "camada": "crise",
-    "texto": "Um jornalista revelou que você tem conta ativa em site de apostas — com apostas em jogos da Copa nos quais você participou. A CBF convocou reunião de emergência. O país inteiro discute.",
+    "texto": "Um jornalista revelou que você tem conta ativa em site de apostas — com apostas em jogos da Copa nos quais você participou. A CBF convocou reunião de emergência. O país inteiro discute. Sua carreira pode acabar aqui.",
     "esquerda": {
       "texto": "Convoca coletiva, nega tudo, chora ao vivo",
-      "efeitos": { "torcida": -15, "moral": -25, "fisico": -10 }
+      "efeitos": { "torcida": -20, "moral": -35, "fisico": -15 }
     },
     "direita": {
       "texto": "Silêncio total. Deixa o advogado falar",
-      "efeitos": { "torcida": -25, "moral": -15, "fisico": -5 }
+      "efeitos": { "torcida": -35, "moral": -20, "fisico": -10 }
     }
   },
   {
@@ -19,14 +19,14 @@
     "fase": "planejar",
     "partida": 0,
     "camada": "crise",
-    "texto": "Fotos vazaram de você em hotel a dois quarteirões da concentração, em festa, na véspera de treino. Alguém do staff vendeu a história. A torcida está pedindo sua exclusão da Copa.",
+    "texto": "Fotos vazaram de você em hotel a dois quarteirões da concentração, em festa, na véspera de treino. Alguém do staff vendeu a história. Redes sociais explodiram. A torcida pede sua cabeça, o técnico te chamou na sala às 6h da manhã.",
     "esquerda": {
       "texto": "Pede desculpas públicas, chora em live com a família",
-      "efeitos": { "midia": 15, "moral": -30, "fisico": -5 }
+      "efeitos": { "midia": 10, "moral": -40, "fisico": -15 }
     },
     "direita": {
       "texto": "Nega, chama de perseguição, vai às redes sociais",
-      "efeitos": { "midia": -20, "moral": -20, "fisico": -10 }
+      "efeitos": { "midia": -25, "moral": -30, "fisico": -15 }
     }
   },
   {
@@ -34,14 +34,14 @@
     "fase": "planejar",
     "partida": 0,
     "camada": "crise",
-    "texto": "Seu empresário foi gravado dizendo que você formalmente pediu ao técnico para ser dispensado por 'questões pessoais'. Os áudios circulam entre jornalistas. O vestiário está em silêncio.",
+    "texto": "Seu empresário foi gravado dizendo que você formalmente pediu ao técnico para ser dispensado por 'questões pessoais'. Os áudios circulam entre jornalistas. O vestiário está em silêncio. A CBF quer uma explicação agora.",
     "esquerda": {
       "texto": "Reúne o vestiário, chora, jura que vai jogar pelo grupo",
-      "efeitos": { "torcida": -10, "midia": -25, "fisico": -15 }
+      "efeitos": { "torcida": -15, "midia": -35, "fisico": -20 }
     },
     "direita": {
       "texto": "Nota oficial e fechamento total — nada mais a declarar",
-      "efeitos": { "torcida": -25, "midia": -10, "fisico": -15 }
+      "efeitos": { "torcida": -35, "midia": -15, "fisico": -20 }
     }
   },
   {
@@ -49,14 +49,14 @@
     "fase": "planejar",
     "partida": 0,
     "camada": "crise",
-    "texto": "Uma fonte anônima em agência antidoping disse a um jornal alemão que sua amostra pré-Copa apresentou anomalias. A CBF nega. A FIFA não confirma. O mundo espera uma resposta sua.",
+    "texto": "Uma fonte anônima em agência antidoping disse a um jornal alemão que sua amostra pré-Copa apresentou anomalias. A CBF nega. A FIFA não confirma. O mundo para. O técnico te tira do treino enquanto a situação não se resolve.",
     "esquerda": {
       "texto": "Solicita re-exame ao vivo, paralisa treinos até sair resultado",
-      "efeitos": { "torcida": -10, "midia": -25, "moral": -20 }
+      "efeitos": { "torcida": -15, "midia": -35, "moral": -25 }
     },
     "direita": {
       "texto": "Treina normalmente, diz confiar nos processos",
-      "efeitos": { "torcida": -20, "midia": -15, "moral": -20 }
+      "efeitos": { "torcida": -30, "midia": -20, "moral": -25 }
     }
   }
 ]

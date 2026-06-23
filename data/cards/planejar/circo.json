@@ -85,6 +85,24 @@
     }
   },
   {
+    "id": "cir_live_rival",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 2,
+    "texto": "Um jogador rival faz uma live provocando o Brasil e cita você pelo nome. Viralizou.",
+    "esquerda": {
+      "texto": "Responde na mesma moeda, manda um recado",
+      "efeitos": { "midia": 8, "moral": -5 },
+      "flags_partida": ["pavio_curto"],
+      "gancho_entrevista": "polemica"
+    },
+    "direita": {
+      "texto": "Silêncio. Resposta no campo.",
+      "efeitos": { "moral": 8 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
     "id": "cir_romance",
     "fase": "planejar",
     "naipe": "circo",
@@ -100,6 +118,22 @@
       "texto": "Ignora, minha vida é minha",
       "efeitos": { "moral": 3, "midia": -3 },
       "flags_partida": ["frio"]
+    }
+  },
+  {
+    "id": "cir_tatuagem",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 3,
+    "texto": "Você aparece no treino com uma tatuagem nova no pescoço. A imprensa vai de tudo: arte ou loucura?",
+    "esquerda": {
+      "texto": "É meu corpo, tenho orgulho",
+      "efeitos": { "midia": 8, "torcida": 5, "moral": -3 },
+      "flag_carreira": "vitrine"
+    },
+    "direita": {
+      "texto": "Fica quieto, deixa as imagens falar",
+      "efeitos": { "midia": 3 }
     }
   },
   {
@@ -121,6 +155,22 @@
     }
   },
   {
+    "id": "cir_vazamento_salario",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 4,
+    "texto": "Um portal vaza seu salário no clube. A cifra é absurda. A torcida reage mal: 'ganha isso e joga assim?'",
+    "esquerda": {
+      "texto": "Enfrenta o assunto: 'mereço cada centavo'",
+      "efeitos": { "midia": 10, "torcida": -12 },
+      "flag_carreira": "arrogante"
+    },
+    "direita": {
+      "texto": "Silêncio — vai mostrar em campo",
+      "efeitos": { "moral": 5, "midia": -5 }
+    }
+  },
+  {
     "id": "cir_cabelo",
     "fase": "planejar",
     "naipe": "circo",
@@ -137,6 +187,23 @@
     }
   },
   {
+    "id": "cir_documentario",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 5,
+    "texto": "Uma plataforma quer filmar um documentário sobre sua Copa. Câmeras no treino e no quarto do hotel.",
+    "esquerda": {
+      "texto": "Aceita — sua história merece ser contada",
+      "efeitos": { "midia": 10, "moral": -5, "fisico": -3 },
+      "flag_carreira": "vitrine"
+    },
+    "direita": {
+      "texto": "Não agora. Copa primeiro.",
+      "efeitos": { "moral": 8 },
+      "flag_carreira": "entregue"
+    }
+  },
+  {
     "id": "cir_grife",
     "fase": "planejar",
     "naipe": "circo",
@@ -150,6 +217,78 @@
     "direita": {
       "texto": "Aceita, vira editorial de moda",
       "efeitos": { "midia": 8, "moral": -5 },
+      "flag_carreira": "vitrine"
+    }
+  },
+  {
+    "id": "cir_troll_imprensa",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 6,
+    "texto": "Um jornalista escreve que você é 'o jogador mais superestimado da Copa'. A coluna viraliza.",
+    "esquerda": {
+      "texto": "Responde publicamente, cita o nome dele",
+      "efeitos": { "midia": 12, "moral": -8 },
+      "flags_partida": ["pavio_curto"],
+      "gancho_entrevista": "polemica"
+    },
+    "direita": {
+      "texto": "Printa, guarda pra motivação",
+      "efeitos": { "moral": 10 },
+      "flags_partida": ["raca"]
+    }
+  },
+  {
+    "id": "cir_estrela_carta_especial",
+    "fase": "planejar",
+    "naipe": "circo",
+    "requer_passiva": "estrela",
+    "partida": 3,
+    "texto": "Você recebe o prêmio de melhor jogador da fase de grupos — mas o Brasil empatou a última partida. Elogio vira alvo.",
+    "esquerda": {
+      "texto": "Agradece o prêmio, dedica ao time",
+      "efeitos": { "midia": 5, "torcida": 8, "moral": 3 },
+      "flag_carreira": "humilde"
+    },
+    "direita": {
+      "texto": "Exibe o troféu, está orgulhoso",
+      "efeitos": { "midia": 12, "torcida": -8 },
+      "flag_carreira": "arrogante"
+    }
+  },
+  {
+    "id": "cir_caido_carta_especial",
+    "fase": "planejar",
+    "naipe": "circo",
+    "requer_passiva": "caido",
+    "partida": 4,
+    "texto": "Um perfil anônimo posta um compilado de todos seus erros históricos. 'Esse é o mesmo jogador?' A torcida debate.",
+    "esquerda": {
+      "texto": "Compartilha o post com um recado: 'obrigado pela motivação'",
+      "efeitos": { "torcida": 10, "midia": 5, "moral": 5 },
+      "flag_carreira": "humilde"
+    },
+    "direita": {
+      "texto": "Pede pra assessoria denunciar o perfil",
+      "efeitos": { "moral": -5, "midia": -5 },
+      "flag_carreira": "problematico"
+    }
+  },
+  {
+    "id": "cir_futuro_carta_especial",
+    "fase": "planejar",
+    "naipe": "circo",
+    "requer_passiva": "futuro",
+    "partida": 3,
+    "texto": "Uma revista internacional diz que você é 'o futuro do futebol'. Sua foto na capa. No dia do treino decisivo.",
+    "esquerda": {
+      "texto": "Ignora a capa, vai pro treino focado",
+      "efeitos": { "moral": 8, "fisico": 3 },
+      "flags_partida": ["disciplinado"]
+    },
+    "direita": {
+      "texto": "Tira foto com a revista, posta nas redes",
+      "efeitos": { "midia": 12, "torcida": 8, "moral": -5 },
       "flag_carreira": "vitrine"
     }
   }

@@ -21,8 +21,9 @@ export async function GET(_req: NextRequest, { params }: Params) {
   let cards = null
   if (!isGameOver) {
     if (state.fase === 'planejar') {
-      const [ancora, circo] = buildPreGameDeck(state.partidaAtual)
-      cards = [ancora, circo]
+      const preGameCards = buildPreGameDeck(state.partidaAtual, state.barras.midia, state.crise, state.arquetipo)
+      const ids = new Set(state.cartasRestantes.length > 0 ? state.cartasRestantes : preGameCards.map(c => c.id))
+      cards = preGameCards.filter(c => ids.has(c.id))
     } else if (state.fase === 'reagir') {
       cards = state.cartasRestantes
         .map(id => getCardById(id))

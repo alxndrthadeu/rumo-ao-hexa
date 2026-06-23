@@ -86,7 +86,7 @@ export async function POST(req: NextRequest, { params }: Params) {
     } else if (state.fase === 'entrevista') {
       newState = resolveMatchEnd(newState, bracketEntry, flagsPartidaSnapshot)
       if (!newState.morto) {
-        const preGameCards = buildPreGameDeck(newState.partidaAtual, newState.barras.midia, newState.crise)
+        const preGameCards = buildPreGameDeck(newState.partidaAtual, newState.barras.midia, newState.crise, newState.arquetipo)
         newState = {
           ...newState,
           cartasRestantes: preGameCards.map(c => c.id),
@@ -120,7 +120,7 @@ function findCardById(
   cardId: string,
 ): Carta | CartaEntrevista | null {
   if (state.fase === 'planejar') {
-    const cards = buildPreGameDeck(state.partidaAtual, state.barras.midia, state.crise)
+    const cards = buildPreGameDeck(state.partidaAtual, state.barras.midia, state.crise, state.arquetipo)
     return cards.find(c => c.id === cardId) ?? null
   }
   if (state.fase === 'reagir') {
@@ -139,7 +139,7 @@ function getRemainingCards(
   _bracket: BracketEntry[]
 ): (Carta | CartaEntrevista)[] {
   if (state.fase === 'planejar') {
-    const cards = buildPreGameDeck(state.partidaAtual, state.barras.midia, state.crise)
+    const cards = buildPreGameDeck(state.partidaAtual, state.barras.midia, state.crise, state.arquetipo)
     return cards.filter(c => state.cartasRestantes.includes(c.id))
   }
   if (state.fase === 'reagir') {

@@ -18,7 +18,11 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={`${inter.variable} ${saira.variable} ${archivo.variable} h-full`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col md:bg-azul">
+        <div className="flex flex-col flex-1 w-full md:max-w-[480px] md:mx-auto md:shadow-[0_0_80px_rgba(0,0,0,0.5)]">
+          {children}
+        </div>
+      </body>
     </html>
   )
 }

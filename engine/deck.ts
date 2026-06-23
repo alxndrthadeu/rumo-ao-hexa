@@ -58,9 +58,18 @@ export function loadBracket(): BracketEntry[] {
 }
 
 // ─── Pré-jogo ─────────────────────────────────────────────────────────────────
-// Retorna 2 cartas normalmente; 3 quando mídia é extrema (carta de imprensa extra)
+// Retorna 2-4 cartas:
+//   [ancora, circo] base
+//   + carta especial do arquétipo (requer_passiva), se existir para esta partida
+//   + carta de imprensa (se mídia extrema)
+//   + carta de crise na frente (se ativa)
 
-export function buildPreGameDeck(partida: number, midia?: number, crise?: CriseState): Carta[] {
+export function buildPreGameDeck(
+  partida: number,
+  midia?: number,
+  crise?: CriseState,
+  arquetipo?: Arquetipo
+): Carta[] {
   const ancoras = ancoraCards.filter(c => !c.requer_passiva)
   const circos  = circoCards.filter(c => !c.requer_passiva)
 
@@ -72,6 +81,14 @@ export function buildPreGameDeck(partida: number, midia?: number, crise?: CriseS
   const circo  = assCirco ?? circos[(partida - 1) % circos.length]
 
   const deck: Carta[] = [ancora, circo]
+
+  // Carta especial do arquétipo (ancora ou circo com requer_passiva)
+  if (arquetipo) {
+    const passiva = [...ancoraCards, ...circoCards].find(
+      c => c.requer_passiva === arquetipo && c.partida === partida
+    )
+    if (passiva) deck.push(passiva)
+  }
 
   if (midia !== undefined) {
     const { midiaHighThreshold, midiaLowThreshold } = config.deckBonus

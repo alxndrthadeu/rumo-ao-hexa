@@ -36,12 +36,13 @@ export default function HUD({
               {minuto}
             </span>
           )}
-          {sessionId && (
+          {/* Link do jornal visível só durante reagir/entrevista — planejar usa o banner */}
+          {sessionId && state.fase !== 'planejar' && (
             <Link
               href={`/historico/${sessionId}`}
-              className="font-headline font-bold text-[9px] tracking-[0.15em] uppercase text-white/40 hover:text-white/70 transition-colors"
+              className="font-headline font-bold text-[9px] tracking-[0.12em] uppercase text-white/40 border border-white/20 px-[7px] py-[3px] hover:text-white/70 hover:border-white/40 transition-colors"
             >
-              📰
+              Edições
             </Link>
           )}
         </div>
