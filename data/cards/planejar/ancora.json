@@ -1,0 +1,65 @@
+[
+  {
+    "id": "anc_treino_extra",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 1,
+    "texto": "O preparador montou um trabalho extra de finalização. Puxado, vai te deixar moído amanhã.",
+    "esquerda": {
+      "texto": "Encara o trabalho dobrado",
+      "efeitos": { "fisico": -5 },
+      "flags_partida": ["disciplinado"]
+    },
+    "direita": {
+      "texto": "Pega leve, poupa as pernas",
+      "efeitos": { "fisico": 5, "moral": -5 }
+    }
+  },
+  {
+    "id": "anc_tatica",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 1,
+    "texto": "O técnico te chama pra uma conversa tática privada. Quer te dar mais responsabilidade no esquema.",
+    "esquerda": {
+      "texto": "Aceita o papel de líder",
+      "efeitos": { "moral": 10 },
+      "flag_carreira": "lider"
+    },
+    "direita": {
+      "texto": "Prefiro só jogar, professor",
+      "efeitos": { "moral": -5, "fisico": 3 }
+    }
+  },
+  {
+    "id": "anc_niggle",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 1,
+    "texto": "Uma fisgada no músculo aparece no treino. O médico sugere poupar.",
+    "esquerda": {
+      "texto": "Poupa e trata",
+      "efeitos": { "fisico": 10, "moral": -5 }
+    },
+    "direita": {
+      "texto": "Esconde a dor, treina normal",
+      "efeitos": { "moral": 5, "fisico": -5 },
+      "niggle": "muscular"
+    }
+  },
+  {
+    "id": "anc_fisio",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 1,
+    "texto": "O departamento médico quer fazer um protocolo de recuperação chato e demorado.",
+    "esquerda": {
+      "texto": "Segue o protocolo à risca",
+      "efeitos": { "fisico": 8, "moral": -3 }
+    },
+    "direita": {
+      "texto": "Abrevia, quer treinar com a bola",
+      "efeitos": { "moral": 5, "fisico": -5 }
+    }
+  }
+]

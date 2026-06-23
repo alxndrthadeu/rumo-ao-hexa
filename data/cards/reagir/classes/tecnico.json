@@ -1,0 +1,136 @@
+[
+  {
+    "id": "tec_pressao_alta",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 1,
+    "texto": "Eles marcam em cima desde a saída de bola. Você recebe de costas, dois em cima.",
+    "esquerda": {
+      "texto": "Tenta o giro de placa",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["ousado"],
+      "risco": { "tipo": "perda_bola", "chance": 0.35, "efeitos": { "placar": -1 } }
+    },
+    "direita": {
+      "texto": "Devolve de primeira, segura simples",
+      "efeitos": { "placar": 0 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "tec_posse_deles",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 1,
+    "texto": "O time deles toca, toca, toca. Você corre atrás da bola há cinco minutos.",
+    "esquerda": {
+      "texto": "Sai pra pressionar sozinho",
+      "efeitos": { "fisico": -5, "placar": 1 },
+      "flags_partida": ["raca"]
+    },
+    "direita": {
+      "texto": "Mantém a linha, espera o erro",
+      "efeitos": { "placar": 0 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "tec_armadilha",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 1,
+    "texto": "Eles armam a linha de impedimento com precisão suíça. Você fica preso atrás dela.",
+    "esquerda": {
+      "texto": "Tenta romper na velocidade",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["ousado"],
+      "risco": { "tipo": "impedimento", "chance": 0.4, "efeitos": { "placar": -1 } }
+    },
+    "direita": {
+      "texto": "Vem de trás pra receber",
+      "efeitos": { "placar": 1, "moral": 3 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "tec_camisa10",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 1,
+    "texto": "O cérebro do time deles dita o ritmo. Se você não o marcar, ele te mata.",
+    "esquerda": {
+      "texto": "Larga teu jogo pra marcá-lo",
+      "efeitos": { "placar": -1, "moral": 5 },
+      "flags_partida": ["coletivo"]
+    },
+    "direita": {
+      "texto": "Deixa a marcação pro volante, foca no ataque",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["ousado"]
+    }
+  },
+  {
+    "id": "tec_paciencia",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 1,
+    "texto": "O jogo trava. Zero espaço. A torcida fica impaciente e cobra velocidade.",
+    "esquerda": {
+      "texto": "Força a jogada pra agradar",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["ousado"],
+      "risco": { "tipo": "contra_ataque", "chance": 0.35, "efeitos": { "placar": -2 } }
+    },
+    "direita": {
+      "texto": "Tem paciência, valoriza a posse",
+      "efeitos": { "placar": 0, "moral": 5 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "tec_contra_golpe",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 1,
+    "texto": "Você perde a bola no ataque e eles saem em velocidade letal. Erro seu.",
+    "esquerda": {
+      "texto": "Volta correndo, desarma na raça",
+      "efeitos": { "fisico": -8, "placar": 1 },
+      "flags_partida": ["raca"]
+    },
+    "direita": {
+      "texto": "Reclama de falta em vez de voltar",
+      "efeitos": { "placar": -1 },
+      "flags_partida": ["covarde"]
+    }
+  },
+  {
+    "id": "tec_brecha_unica",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 1,
+    "texto": "Depois de muito sufoco, um espaço se abre na defesa organizada deles. Raro.",
+    "esquerda": {
+      "texto": "Aproveita na hora",
+      "efeitos": { "placar": "condicional" },
+      "climax": true,
+      "condicional": {
+        "limiar": 0,
+        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+      }
+    },
+    "direita": {
+      "texto": "Recua pra construir melhor",
+      "efeitos": { "placar": 0 },
+      "flags_partida": ["disciplinado"]
+    }
+  }
+]

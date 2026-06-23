@@ -1,0 +1,38 @@
+{
+  "estrela": {
+    "nome": "A Estrela do Momento",
+    "personagem": "Lucas, O Vendaval",
+    "camisa": 7,
+    "torcida": 70,
+    "midia": 75,
+    "moral": 60,
+    "fisico": 65,
+    "passiva": "homem_marcado",
+    "viesMidia": "neutro",
+    "niggles": []
+  },
+  "caido": {
+    "nome": "O Craque Caído",
+    "personagem": "Mauricio Jr., O Príncipe",
+    "camisa": 10,
+    "torcida": 55,
+    "midia": 80,
+    "moral": 50,
+    "fisico": 50,
+    "passiva": "divida_lesao",
+    "viesMidia": "hostil",
+    "niggles": ["divida_lesao"]
+  },
+  "futuro": {
+    "nome": "O Futuro do País",
+    "personagem": "Théo, O Menino",
+    "camisa": 19,
+    "torcida": 50,
+    "midia": 55,
+    "moral": 60,
+    "fisico": 75,
+    "passiva": "joia_bruta",
+    "viesMidia": "permissivo",
+    "niggles": []
+  }
+}

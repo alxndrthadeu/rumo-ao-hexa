@@ -27,6 +27,12 @@ export interface Efeitos {
   placar?: number | 'condicional'
 }
 
+export interface CondicionalRamo {
+  efeitos: Efeitos
+  flags_partida?: string[]
+  climax?: boolean
+}
+
 export interface Risco {
   tipo: string
   chance: number
@@ -42,6 +48,12 @@ export interface Escolha {
   niggle?: string
   gancho_entrevista?: string
   risco?: Risco
+  // Preenchido quando efeitos.placar === 'condicional'
+  condicional?: {
+    limiar: number
+    ramoA: CondicionalRamo
+    ramoB: CondicionalRamo
+  }
 }
 
 export interface Carta {
@@ -95,6 +107,7 @@ export interface RunState {
   bonusCrescimento: number
   morto: boolean
   causaMorte?: CausaMorte
+  barraMorte?: { barra: Barra; extreme: 'min' | 'max' }
   seed: number
 }
 
@@ -119,4 +132,13 @@ export interface ActionResult {
   phaseResult?: PhaseResult
   nextCards?: Carta[]
   nextInterviewCard?: CartaEntrevista
+}
+
+// ─── Legacy ──────────────────────────────────────────────────────────────────
+
+export interface Legacy {
+  nota: number
+  epitafio: string
+  causa: string
+  reputacao: string
 }

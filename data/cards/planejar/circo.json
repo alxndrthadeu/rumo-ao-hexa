@@ -1,0 +1,69 @@
+[
+  {
+    "id": "cir_meme",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 1,
+    "texto": "Sai uma figurinha tua com cara de bobo virando meme nacional. Todo grupo de zap tem.",
+    "esquerda": {
+      "texto": "Posta rindo de si mesmo",
+      "efeitos": { "torcida": 8, "midia": 5 },
+      "flags_partida": ["showman"]
+    },
+    "direita": {
+      "texto": "Finge que não viu",
+      "efeitos": {}
+    }
+  },
+  {
+    "id": "cir_videogame",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 1,
+    "texto": "Te flagram jogando videogame de madrugada num story. 'Concentração total', ironiza a imprensa.",
+    "esquerda": {
+      "texto": "Relaxar também é preparo",
+      "efeitos": { "torcida": 5, "midia": -5 },
+      "flags_partida": ["boemio"]
+    },
+    "direita": {
+      "texto": "Apaga o story na hora",
+      "efeitos": { "moral": 3, "torcida": -3 },
+      "flags_partida": ["frio"]
+    }
+  },
+  {
+    "id": "cir_torcedor",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 1,
+    "texto": "Um garotinho com sua camisa te espera horas no hotel. A mídia tá filmando.",
+    "esquerda": {
+      "texto": "Para, conversa, dá a chuteira",
+      "efeitos": { "torcida": 10, "midia": 5 },
+      "flag_carreira": "idolo"
+    },
+    "direita": {
+      "texto": "Acena rápido e entra",
+      "efeitos": { "fisico": 3, "torcida": -5 }
+    }
+  },
+  {
+    "id": "cir_polemica_antiga",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 1,
+    "texto": "Ressuscitam um tweet antigo e bobo teu. Pequena tempestade nas redes.",
+    "esquerda": {
+      "texto": "Pede desculpas público",
+      "efeitos": { "torcida": 5, "midia": -5 },
+      "flag_carreira": "humilde"
+    },
+    "direita": {
+      "texto": "Era outra época, superem",
+      "efeitos": { "midia": 5, "torcida": -5 },
+      "flag_carreira": "arrogante",
+      "gancho_entrevista": "polemica"
+    }
+  }
+]

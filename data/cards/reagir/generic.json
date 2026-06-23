@@ -1,0 +1,99 @@
+[
+  {
+    "id": "gen_falta_sofrida",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Você sofre uma falta dura na entrada da área. Dá pra bater.",
+    "esquerda": {
+      "texto": "Bate a falta você mesmo",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["ousado"],
+      "risco": { "tipo": "erro_falta", "chance": 0.3, "efeitos": { "torcida": -3 } }
+    },
+    "direita": {
+      "texto": "Deixa pro especialista",
+      "efeitos": { "placar": 0 },
+      "flags_partida": ["coletivo"]
+    }
+  },
+  {
+    "id": "gen_contra_ataque",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Roubada de bola, campo aberto, três contra dois. A bola chega em você.",
+    "esquerda": {
+      "texto": "Encara o goleiro sozinho",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["ousado"]
+    },
+    "direita": {
+      "texto": "Serve o companheiro melhor posto",
+      "efeitos": { "placar": 1, "torcida": 3 },
+      "flags_partida": ["coletivo"]
+    }
+  },
+  {
+    "id": "gen_juiz_erra",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "O juiz marca um impedimento que não existiu. Seu gol foi anulado.",
+    "esquerda": {
+      "texto": "Reclama com fúria",
+      "efeitos": {},
+      "flags_partida": ["pavio_curto"],
+      "risco": { "tipo": "amarelo", "chance": 0.4, "efeitos": { "fisico": -8 } }
+    },
+    "direita": {
+      "texto": "Engole e volta pra marca",
+      "efeitos": { "moral": 5 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "gen_penalti_a_favor",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Pênalti pro Brasil! Você pega a bola e olha pro juiz. É sua a responsabilidade?",
+    "esquerda": {
+      "texto": "Assume a cobrança",
+      "efeitos": { "placar": "condicional" },
+      "climax": true,
+      "condicional": {
+        "limiar": 1,
+        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+      }
+    },
+    "direita": {
+      "texto": "Passa pro batedor oficial",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["coletivo"]
+    }
+  },
+  {
+    "id": "gen_tempo_final",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "45 do segundo tempo, placar empatado. Última jogada do jogo, a bola é sua.",
+    "esquerda": {
+      "texto": "Arrisca o tudo ou nada",
+      "efeitos": { "placar": "condicional" },
+      "climax": true,
+      "condicional": {
+        "limiar": 1,
+        "ramoA": { "efeitos": { "placar": 3 }, "flags_partida": ["heroi"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+      }
+    },
+    "direita": {
+      "texto": "Segura pra não perder",
+      "efeitos": { "placar": 0 },
+      "flags_partida": ["frieza"]
+    }
+  }
+]
