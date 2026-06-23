@@ -1,0 +1,38 @@
+{
+  "bars": {
+    "initial": {
+      "estrela": { "torcida": 70, "midia": 75, "moral": 60, "fisico": 65 },
+      "caido":   { "torcida": 55, "midia": 80, "moral": 50, "fisico": 50 },
+      "futuro":  { "torcida": 50, "midia": 55, "moral": 60, "fisico": 75 }
+    },
+    "deathMin": 0,
+    "deathMax": 100,
+    "alertThresholdMin": 15,
+    "alertThresholdMax": 85
+  },
+  "moral": {
+    "highThreshold": 70,
+    "lowThreshold": 30,
+    "highBonus": 1,
+    "neutralScore": 0,
+    "lowPenalty": -1
+  },
+  "media": {
+    "elogioBase": 10,
+    "criticaBase": -10,
+    "multipliers": {
+      "estrela": { "ELOGIO": 1.0, "CRITICA": 1.0 },
+      "caido":   { "ELOGIO": 0.5, "CRITICA": 2.0 },
+      "futuro":  { "ELOGIO": 2.0, "CRITICA": 0.5 }
+    }
+  },
+  "group": {
+    "win": 3,
+    "draw": 1,
+    "loss": 0,
+    "classifyMin": 5
+  },
+  "bonus": {
+    "futuroMaxGrowth": 3
+  }
+}
