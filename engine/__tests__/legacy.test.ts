@@ -3,7 +3,7 @@ import { generateLegacy } from '../legacy'
 import { createRunState } from '../state'
 
 function makeState(overrides: Partial<Parameters<typeof createRunState>[0] extends never ? never : ReturnType<typeof createRunState>>) {
-  return { ...createRunState('estrela', 1), ...overrides }
+  return { ...createRunState('estrela', 1, 'Teste', 10), ...overrides }
 }
 
 describe('generateLegacy', () => {
@@ -63,7 +63,7 @@ describe('generateLegacy', () => {
 
   it('Príncipe + vitória → epitáfio especial', () => {
     const s = {
-      ...createRunState('caido', 1),
+      ...createRunState('caido', 1, 'Teste', 10),
       causaMorte: 'vitoria' as const,
       morto: true,
       flagsCarreira: { humilde: 1 },
@@ -74,7 +74,7 @@ describe('generateLegacy', () => {
 
   it('Menino + eliminação precoce → epitáfio especial', () => {
     const s = {
-      ...createRunState('futuro', 1),
+      ...createRunState('futuro', 1, 'Teste', 10),
       causaMorte: 'placar' as const,
       morto: true,
       partidaAtual: 2,

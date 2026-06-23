@@ -76,6 +76,15 @@ function resolveEpitafio(
     return map[flag] ?? 'A Copa acabou cedo demais. Ficou o gosto amargo do "e se".'
   }
 
+  if (causa === 'expulsao') {
+    const map: Record<string, string> = {
+      pavio_curto: 'O cartão vermelho na Copa. Saiu cedo, com raiva. O talento desperdiçado em um segundo.',
+      problematico:'A expulsão não surpreendeu ninguém. O problema dentro de campo era o mesmo de fora.',
+      raca:        'Foi de raça até o fim — longe demais. O coração bom demais cobrou o preço.',
+    }
+    return map[flag] ?? 'Expulso. Em dois minutos, jogou fora o que levou anos pra construir.'
+  }
+
   if (causa === 'barra' && state.barraMorte) {
     const { barra, extreme } = state.barraMorte
     if (barra === 'fisico') return 'O corpo traiu o talento. Saiu de maca, no auge, sem se despedir.'

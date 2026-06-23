@@ -58,11 +58,14 @@ function applyFlags(state: RunState, escolha: Escolha): RunState {
 
 function applyRisco(state: RunState, escolha: Escolha): RunState {
   if (!escolha.risco) return state
-  const { chance, efeitos } = escolha.risco
+  const { tipo, chance, efeitos } = escolha.risco
   const newSeed = advanceSeed(state.seed)
   const roll = seedToFloat(newSeed)
   let s = { ...state, seed: newSeed }
   if (roll < chance) {
+    if (tipo === 'cartao_vermelho') {
+      return { ...s, morto: true, causaMorte: 'expulsao' }
+    }
     s = applyBarDelta(s, efeitos)
     if (typeof efeitos.placar === 'number') {
       s = { ...s, placarPartida: applyScoreDelta(s.placarPartida, efeitos.placar) }

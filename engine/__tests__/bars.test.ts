@@ -3,7 +3,7 @@ import { applyBarDelta, applyNiggleModifier, checkBarDeath } from '../bars'
 import { createRunState } from '../state'
 
 function stateWith(barras: { torcida: number; midia: number; moral: number; fisico: number }) {
-  const s = createRunState('estrela', 1)
+  const s = createRunState('estrela', 1, 'Teste', 10)
   return { ...s, barras }
 }
 

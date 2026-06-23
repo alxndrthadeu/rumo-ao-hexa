@@ -3,6 +3,9 @@ import type { BracketEntry, RunState } from '@/engine/types'
 import Bars from './Bars'
 import PhaseHeader from './PhaseHeader'
 
+// Minuto simbólico por posição no deck de reagir (3 cartas restantes = 22', etc.)
+const REAGIR_MINUTO: Record<number, string> = { 3: "22'", 2: "55'", 1: "88'" }
+
 export default function HUD({
   state,
   bracketEntry,
@@ -11,35 +14,42 @@ export default function HUD({
   bracketEntry: BracketEntry
 }) {
   const placar = state.placarPartida
+  const minuto = state.fase === 'reagir'
+    ? (REAGIR_MINUTO[state.cartasRestantes.length] ?? "90'")
+    : null
 
   return (
     <div className="bg-azul text-white px-[14px] pt-[11px] pb-[12px]">
-      {/* Linha superior: fase + partida/adversário */}
+      {/* Linha superior: fase + partida/adversário + minuto */}
       <div className="flex items-center justify-between mb-[3px]">
         <PhaseHeader
           fase={state.fase}
           adversario={bracketEntry.adversario}
           partida={state.partidaAtual}
         />
-        {state.fase === 'reagir' && (
+        {minuto && (
           <span
-            className="font-headline font-bold text-[9.5px] tracking-[0.15em] uppercase"
-            style={{ color: 'rgba(255,255,255,0.72)' }}
+            className="font-headline font-black italic text-[15px] leading-none text-amarelo"
           >
-            MOM
+            {minuto}
           </span>
         )}
       </div>
 
-      {/* Linha do placar */}
-      <div className="flex items-baseline gap-2 mb-[11px]">
-        <span className="font-headline font-black italic text-[27px] tracking-[-0.5px] leading-none">
-          BRASIL
+      {/* Linha do jogador + placar */}
+      <div className="flex items-center gap-[8px] mb-[11px]">
+        <span
+          className="font-headline font-black italic text-[22px] leading-none text-white/40 shrink-0"
+        >
+          #{state.camisa}
+        </span>
+        <span className="font-headline font-black italic text-[22px] tracking-[-0.5px] leading-none truncate">
+          {state.nomeJogador.toUpperCase()}
         </span>
         {state.fase === 'reagir' && (
           <span
             className={clsx(
-              'font-headline font-black italic text-[15px] ml-auto',
+              'font-headline font-black italic text-[15px] ml-auto shrink-0',
               placar > 0 ? 'text-amarelo' : placar < 0 ? 'text-vermelho' : 'text-white/50'
             )}
           >

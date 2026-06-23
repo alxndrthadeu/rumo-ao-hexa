@@ -9,7 +9,7 @@ import {
 import { createRunState } from '../state'
 
 function baseState() {
-  return createRunState('estrela', 1)
+  return createRunState('estrela', 1, 'Teste', 10)
 }
 
 describe('raiseFlag', () => {

@@ -1,10 +1,12 @@
 import type { Arquetipo, RunState } from './types'
 import config from '@/data/config.json'
 
-export function createRunState(arquetipo: Arquetipo, seed: number): RunState {
+export function createRunState(arquetipo: Arquetipo, seed: number, nomeJogador: string, camisa: number): RunState {
   const barras = config.bars.initial[arquetipo]
   return {
     arquetipo,
+    nomeJogador,
+    camisa,
     partidaAtual: 1,
     fase: 'planejar',
     cartasRestantes: [],

@@ -16,6 +16,7 @@ export interface RunStateResponse {
 export interface ActionResponse {
   state: RunState
   nextCards: Carta[] | CartaEntrevista[] | null
+  bracketEntry: BracketEntry
   isGameOver: boolean
 }
 

@@ -4,6 +4,7 @@
     "fase": "reagir",
     "camada": "assinatura",
     "partida": 1,
+    "posicao": "inicio",
     "texto": "É a estreia numa Copa do Mundo. O hino toca e você sente o peso de uma nação inteira nos ombros.",
     "esquerda": {
       "texto": "Deixa a emoção virar combustível",
@@ -131,6 +132,7 @@
     "fase": "reagir",
     "camada": "assinatura",
     "partida": 7,
+    "posicao": "inicio",
     "texto": "Os mais velhos falam dos fantasmas de finais perdidas. A nação prende a respiração.",
     "esquerda": {
       "texto": "Esse fantasma morre hoje.",

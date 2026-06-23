@@ -86,10 +86,25 @@ export function buildMatchDeck(
   )
 
   const finalCards = assinatura
-    ? [...afterPassiva.slice(0, 2), assinatura]
+    ? assinatura.posicao === 'inicio'
+      ? [assinatura, ...afterPassiva.slice(0, 2)]
+      : [...afterPassiva.slice(0, 2), assinatura]
     : afterPassiva
 
   return { cards: finalCards, seed: s2 }
+}
+
+// Lookup global por ID — evita rebuildar o deck com seed errado
+const ALL_PLAY_CARDS: Carta[] = [
+  ...genericCards,
+  ...ancoraCards,
+  ...circoCards,
+  ...assinaturaCards,
+  ...Object.values(CLASS_CARDS).flat(),
+]
+
+export function getCardById(id: string): Carta | CartaEntrevista | null {
+  return ALL_PLAY_CARDS.find(c => c.id === id) ?? null
 }
 
 // Seleciona carta de entrevista pela flag dominante

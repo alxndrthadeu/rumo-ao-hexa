@@ -8,7 +8,7 @@ import type { Carta } from '../types'
 describe('Integração — fatia vertical', () => {
   it('run completa Partida 1 como Estrela — mecânica fim-a-fim', () => {
     const SEED = 12345
-    let s = createRunState('estrela', SEED)
+    let s = createRunState('estrela', SEED, 'Teste', 10)
     const bracket = loadBracket()[0] // Marrocos, técnico
 
     // ── FASE PLANEJAR ──────────────────────────────────────
@@ -52,7 +52,7 @@ describe('Integração — fatia vertical', () => {
   })
 
   it('morte por barra interrompe a partida imediatamente', () => {
-    let s = createRunState('caido', 99999)
+    let s = createRunState('caido', 99999, 'Teste', 10)
     s = { ...s, barras: { ...s.barras, fisico: 5 } }
 
     const carta: Carta = {
@@ -72,7 +72,7 @@ describe('Integração — fatia vertical', () => {
   })
 
   it('morte por barra no extremo máximo (Torcida=100)', () => {
-    let s = createRunState('estrela', 1)
+    let s = createRunState('estrela', 1, 'Teste', 10)
     s = { ...s, barras: { ...s.barras, torcida: 95 } }
 
     const carta: Carta = {
@@ -92,7 +92,7 @@ describe('Integração — fatia vertical', () => {
   })
 
   it('estado não muta após applyCardChoice', () => {
-    const s = createRunState('futuro', 42)
+    const s = createRunState('futuro', 42, 'Teste', 10)
     const original = JSON.stringify(s)
     const carta: Carta = {
       id: 'test_neutral',
@@ -107,7 +107,7 @@ describe('Integração — fatia vertical', () => {
   })
 
   it('resolveMatchEnd avança para partida 2 após J1', () => {
-    let s = createRunState('estrela', 1)
+    let s = createRunState('estrela', 1, 'Teste', 10)
     s = { ...s, placarPartida: 3, pontosGrupo: 0 } // vitória clara
     const bracket = loadBracket()[0]
     const next = resolveMatchEnd(s, bracket)
@@ -117,7 +117,7 @@ describe('Integração — fatia vertical', () => {
   })
 
   it('resolveMatchEnd elimina no mata-mata por derrota', () => {
-    let s = createRunState('estrela', 1)
+    let s = createRunState('estrela', 1, 'Teste', 10)
     s = { ...s, placarPartida: 0, partidaAtual: 4 }
     const bracket = loadBracket()[3] // oitavas
     const next = resolveMatchEnd(s, bracket)
@@ -126,7 +126,7 @@ describe('Integração — fatia vertical', () => {
   })
 
   it('resolveMatchEnd elimina grupos com pontos insuficientes após J3', () => {
-    let s = createRunState('estrela', 1)
+    let s = createRunState('estrela', 1, 'Teste', 10)
     s = { ...s, placarPartida: 0, partidaAtual: 3, pontosGrupo: 3 }
     const bracket = loadBracket()[2] // grupo 3
     const next = resolveMatchEnd(s, bracket)
@@ -136,7 +136,7 @@ describe('Integração — fatia vertical', () => {
 
   it('niggle divida_lesao aumenta custo de Físico negativo (Craque Caído)', () => {
     // Caído começa com divida_lesao no array de niggles
-    let s = createRunState('caido', 1)
+    let s = createRunState('caido', 1, 'Teste', 10)
     expect(s.niggles).toContain('divida_lesao')
     const fisicoBefore = s.barras.fisico
 
@@ -159,7 +159,7 @@ describe('Integração — fatia vertical', () => {
   })
 
   it('growth bonus do Futuro soma ao placar antes da checagem condicional', () => {
-    let s = createRunState('futuro', 1)
+    let s = createRunState('futuro', 1, 'Teste', 10)
     // Simula 2 vitórias: bonusCrescimento = 2
     s = { ...s, bonusCrescimento: 2, placarPartida: 0 }
 
@@ -186,7 +186,7 @@ describe('Integração — fatia vertical', () => {
   })
 
   it('growth bonus NÃO se aplica a outros arquétipos', () => {
-    let s = createRunState('estrela', 1)
+    let s = createRunState('estrela', 1, 'Teste', 10)
     s = { ...s, bonusCrescimento: 2, placarPartida: 0 }
 
     const carta: Carta = {

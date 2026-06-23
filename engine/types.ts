@@ -15,7 +15,7 @@ export type ClasseInimigo =
   | 'saco_pancada'
 
 export type ResultadoPartida = 'vitoria' | 'empate' | 'derrota'
-export type CausaMorte = 'placar' | 'barra' | 'vitoria'
+export type CausaMorte = 'placar' | 'barra' | 'vitoria' | 'expulsao'
 
 // ─── Estruturas de carta ─────────────────────────────────────────────────────
 
@@ -67,6 +67,7 @@ export interface Carta {
   camada?: Camada
   requer_classe?: ClasseInimigo
   requer_passiva?: Arquetipo
+  posicao?: 'inicio' | 'fim'
 }
 
 export interface CartaEntrevista {
@@ -95,6 +96,8 @@ export interface BracketEntry {
 
 export interface RunState {
   arquetipo: Arquetipo
+  nomeJogador: string
+  camisa: number
   partidaAtual: number
   fase: Fase
   cartasRestantes: string[]

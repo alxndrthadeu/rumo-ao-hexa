@@ -21,12 +21,13 @@ function formatNota(n: number): string {
   return (n / 10).toFixed(1).replace('.', ',')
 }
 
-export default function LegacyCard({ legacy }: { legacy: Legacy }) {
+export default function LegacyCard({ legacy, nomeJogador, camisa }: { legacy: Legacy; nomeJogador?: string; camisa?: number }) {
   const { nota, epitafio, causa, reputacao } = legacy
   const [copied, setCopied] = useState(false)
 
   async function handleShare() {
-    const text = `🇧🇷 Rumo ao Hexa — nota ${formatNota(nota)}/10\n"${epitafio}"\n#RumoAoHexa`
+    const quem = nomeJogador ? `#${camisa} ${nomeJogador}` : 'Rumo ao Hexa'
+    const text = `🇧🇷 ${quem} — nota ${formatNota(nota)}/10\n"${epitafio}"\n#RumoAoHexa`
     if (typeof navigator !== 'undefined' && navigator.share) {
       try { await navigator.share({ title: 'Rumo ao Hexa', text }) } catch {}
     } else if (typeof navigator !== 'undefined' && navigator.clipboard) {

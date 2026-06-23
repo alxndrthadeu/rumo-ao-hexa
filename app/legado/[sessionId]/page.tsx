@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
-import { createServerClient } from '@/lib/supabase/server'
+import { dbGetRunState } from '@/lib/db'
 import { generateLegacy } from '@/engine/legacy'
 import type { RunState } from '@/engine/types'
 import LegacyCard from '@/components/ui/LegacyCard'
@@ -10,23 +10,19 @@ export default async function LegadoPage({
   params: Promise<{ sessionId: string }>
 }) {
   const { sessionId } = await params
-  const supabase = createServerClient()
 
-  const { data, error } = await supabase
-    .from('run_states')
-    .select('state, morto')
-    .eq('session_id', sessionId)
-    .single()
+  const row = await dbGetRunState(sessionId)
+  if (!row) redirect('/')
+  if (!row.morto) redirect(`/jogar/${sessionId}`)
 
-  if (error || !data) {
-    redirect('/')
-  }
+  const state = row.state as RunState
+  const legacy = generateLegacy(state)
 
-  if (!data.morto) {
-    redirect(`/jogar/${sessionId}`)
-  }
-
-  const legacy = generateLegacy(data.state as RunState)
-
-  return <LegacyCard legacy={legacy} />
+  return (
+    <LegacyCard
+      legacy={legacy}
+      nomeJogador={state.nomeJogador}
+      camisa={state.camisa}
+    />
+  )
 }

@@ -2,6 +2,10 @@
   "estrela": {
     "nome": "A Estrela do Momento",
     "personagem": "Lucas, O Vendaval",
+    "descricao": "Homem do momento — a torcida ama, a imprensa é neutra. O risco é o excesso de expectativa.",
+    "lore": "Você é o nome em todos os cartazes, a camisa mais vendida da Copa. A torcida te carrega no ombro e a mídia precisa de você — mas também te vigia. Um tropeço e o herói vira alvo. Sustente o nível e você vai longe.",
+    "especial": "Adversários montam esquema só pra te parar. Você é o alvo.",
+    "viesExplicado": "Imprensa equilibrada — elogio e crítica dependem do seu campo.",
     "camisa": 7,
     "torcida": 70,
     "midia": 75,
@@ -14,6 +18,10 @@
   "caido": {
     "nome": "O Craque Caído",
     "personagem": "Mauricio Jr., O Príncipe",
+    "descricao": "Talento imenso, mas manchado. A imprensa é hostil e o físico fragilizado. Uma run de redenção.",
+    "lore": "Cirurgias, manchetes, anos no ostracismo. Você voltou quando ninguém acreditava mais. A imprensa está esperando o próximo erro e o físico cobra o preço de cada escolha. Mas se você chegar na final, ninguém vai esquecer.",
+    "especial": "Lesões custam 1.5× mais. O corpo tem memória.",
+    "viesExplicado": "A imprensa é hostil — seus erros viram manchete, seus acertos somem.",
     "camisa": 10,
     "torcida": 55,
     "midia": 80,
@@ -26,6 +34,10 @@
   "futuro": {
     "nome": "O Futuro do País",
     "personagem": "Théo, O Menino",
+    "descricao": "18 anos, nenhuma pressão. A mídia ainda ama. Mas o hype pode virar bomba a qualquer hora.",
+    "lore": "Dezoito anos, primeira Copa, zero cobranças — por enquanto. A mídia te trata como joia e a torcida quer acreditar. Cada vitória alimenta o crescimento. Mas o momento em que o país decidir que você é o escolhido, o peso vai chegar de uma vez.",
+    "especial": "Cada vitória acumula bônus de crescimento no placar.",
+    "viesExplicado": "Mídia favorável — erros são desculpados, acertos são amplificados.",
     "camisa": 19,
     "torcida": 50,
     "midia": 55,
