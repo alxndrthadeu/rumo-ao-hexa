@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import Link from 'next/link'
 import type { BracketEntry, RunState } from '@/engine/types'
 import Bars from './Bars'
 import PhaseHeader from './PhaseHeader'
@@ -9,9 +10,11 @@ const REAGIR_MINUTO: Record<number, string> = { 3: "22'", 2: "55'", 1: "88'" }
 export default function HUD({
   state,
   bracketEntry,
+  sessionId,
 }: {
   state: RunState
   bracketEntry: BracketEntry
+  sessionId?: string
 }) {
   const placar = state.placarPartida
   const minuto = state.fase === 'reagir'
@@ -20,20 +23,28 @@ export default function HUD({
 
   return (
     <div className="bg-azul text-white px-[14px] pt-[11px] pb-[12px]">
-      {/* Linha superior: fase + partida/adversário + minuto */}
+      {/* Linha superior: fase + partida/adversário + minuto + histórico */}
       <div className="flex items-center justify-between mb-[3px]">
         <PhaseHeader
           fase={state.fase}
           adversario={bracketEntry.adversario}
           partida={state.partidaAtual}
         />
-        {minuto && (
-          <span
-            className="font-headline font-black italic text-[15px] leading-none text-amarelo"
-          >
-            {minuto}
-          </span>
-        )}
+        <div className="flex items-center gap-[10px]">
+          {minuto && (
+            <span className="font-headline font-black italic text-[15px] leading-none text-amarelo">
+              {minuto}
+            </span>
+          )}
+          {sessionId && (
+            <Link
+              href={`/historico/${sessionId}`}
+              className="font-headline font-bold text-[9px] tracking-[0.15em] uppercase text-white/40 hover:text-white/70 transition-colors"
+            >
+              📰
+            </Link>
+          )}
+        </div>
       </div>
 
       {/* Linha do jogador + placar */}

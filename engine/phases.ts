@@ -12,6 +12,7 @@ import { applyMediaBias } from './media'
 import { advanceSeed, seedToFloat } from './rng'
 import { checkMatchResult, matchPoints } from './score'
 import { initMatchScore } from './score'
+import { buildMatchRecord } from './jornal'
 
 // ─── Helpers internos ────────────────────────────────────────────────────────
 
@@ -169,13 +170,30 @@ function applyInterviewChoice(
 
 // ─── Resolução de fim de partida ─────────────────────────────────────────────
 
-export function resolveMatchEnd(state: RunState, bracket: BracketEntry): RunState {
+export function resolveMatchEnd(
+  state: RunState,
+  bracket: BracketEntry,
+  flagsPartidaSnapshot: string[] = []
+): RunState {
   if (state.morto) return state
 
   const resultado = checkMatchResult(state.placarPartida, bracket.alvoVitoria, bracket.partida)
   const pontos = matchPoints(resultado)
 
-  let s = state
+  // Registra a partida no histórico (flags capturadas antes do reset da entrevista)
+  const record = buildMatchRecord(
+    state.partidaAtual,
+    bracket.adversario,
+    bracket.fase,
+    state.placarPartida,
+    resultado,
+    flagsPartidaSnapshot
+  )
+
+  let s: RunState = {
+    ...state,
+    historicoPartidas: [...state.historicoPartidas, record],
+  }
 
   // Vitória na final = hexa
   if (bracket.partida === 7 && resultado === 'vitoria') {

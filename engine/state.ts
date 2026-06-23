@@ -17,6 +17,7 @@ export function createRunState(arquetipo: Arquetipo, seed: number, nomeJogador: 
     flagsCarreira: {},
     niggles: arquetipo === 'caido' ? ['divida_lesao'] : [],
     bonusCrescimento: 0,
+    historicoPartidas: [],
     morto: false,
     causaMorte: undefined,
     seed,

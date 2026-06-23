@@ -99,6 +99,7 @@ export interface RunState {
   nomeJogador: string
   camisa: number
   partidaAtual: number
+  historicoPartidas: MatchRecord[]
   fase: Fase
   cartasRestantes: string[]
   barras: { torcida: number; midia: number; moral: number; fisico: number }
@@ -135,6 +136,19 @@ export interface ActionResult {
   phaseResult?: PhaseResult
   nextCards?: Carta[]
   nextInterviewCard?: CartaEntrevista
+}
+
+// ─── Histórico de partidas ───────────────────────────────────────────────────
+
+export interface MatchRecord {
+  partida: number
+  adversario: string
+  fase: string
+  placarDelta: number
+  resultado: ResultadoPartida
+  flagsDestaque: string[]
+  manchete: string
+  corpo: string
 }
 
 // ─── Legacy ──────────────────────────────────────────────────────────────────

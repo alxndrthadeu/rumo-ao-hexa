@@ -34,6 +34,9 @@ export async function POST(req: NextRequest, { params }: Params) {
     return NextResponse.json({ error: 'carta não encontrada' }, { status: 400 })
   }
 
+  // Captura flags ANTES da entrevista resetar (applyInterviewChoice chama resetMatchFlags)
+  const flagsPartidaSnapshot = state.fase === 'entrevista' ? [...state.flagsPartida] : []
+
   let newState: RunState = applyCardChoice(state, card, escolha)
   newState = {
     ...newState,
@@ -67,7 +70,7 @@ export async function POST(req: NextRequest, { params }: Params) {
       }
       nextCards = [interviewCard]
     } else if (state.fase === 'entrevista') {
-      newState = resolveMatchEnd(newState, bracketEntry)
+      newState = resolveMatchEnd(newState, bracketEntry, flagsPartidaSnapshot)
       if (!newState.morto) {
         const [ancora, circo] = buildPreGameDeck(newState.partidaAtual)
         newState = {

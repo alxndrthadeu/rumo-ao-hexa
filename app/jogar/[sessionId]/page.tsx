@@ -2,13 +2,15 @@
 
 import { useCallback, useEffect, useReducer, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import type { BracketEntry, Carta, CartaEntrevista, RunState } from '@/engine/types'
+import type { BracketEntry, Carta, CartaEntrevista, MatchRecord, RunState } from '@/engine/types'
 import type { ActionResponse, RunStateResponse } from '@/lib/api-types'
 import HUD from '@/components/ui/HUD'
 import Card from '@/components/ui/Card'
 import GroupResult from '@/components/ui/GroupResult'
 import TransitionScreen, { type TransitionType } from '@/components/ui/TransitionScreen'
 import GoalToast, { type GoalEvent } from '@/components/ui/GoalToast'
+import GameOverScreen from '@/components/ui/GameOverScreen'
+import JornalScreen from '@/components/ui/JornalScreen'
 
 // ─── Minutos simbólicos por posição no deck de reagir ────────────────────────
 // cartasRestantes.length antes da escolha: 3 → 1ª carta, 2 → 2ª carta, 1 → 3ª carta
@@ -27,6 +29,10 @@ type GameState = {
   currentCard: Carta | CartaEntrevista | null
   transition: TransitionType | null
   lastResult: LastResult | null
+  initialPlacar: number | null
+  showJornal: boolean
+  jornalRecord: MatchRecord | null
+  showGameOver: boolean
   isSubmitting: boolean
   error: string | null
 }
@@ -38,6 +44,10 @@ const initial: GameState = {
   currentCard: null,
   transition: null,
   lastResult: null,
+  initialPlacar: null,
+  showJornal: false,
+  jornalRecord: null,
+  showGameOver: false,
   isSubmitting: false,
   error: null,
 }
@@ -46,6 +56,8 @@ type GameAction =
   | { type: 'LOADED'; runState: RunState; bracketEntry: BracketEntry; card: Carta | CartaEntrevista }
   | { type: 'SUBMITTING' }
   | { type: 'ACTION_DONE'; prevFase: string; prevPartida: number; prevPlacar: number; prevBracketEntry: BracketEntry; runState: RunState; bracketEntry: BracketEntry; nextCard: Carta | CartaEntrevista | null }
+  | { type: 'GAME_OVER'; runState: RunState }
+  | { type: 'DISMISS_JORNAL' }
   | { type: 'DISMISS_TRANSITION' }
   | { type: 'ERROR'; message: string }
 
@@ -72,6 +84,10 @@ function reducer(state: GameState, action: GameAction): GameState {
         currentCard: action.card,
         transition: null,
         lastResult: null,
+        initialPlacar: null,
+        showJornal: false,
+        jornalRecord: null,
+        showGameOver: false,
         isSubmitting: false,
         error: null,
       }
@@ -84,11 +100,39 @@ function reducer(state: GameState, action: GameAction): GameState {
         action.runState.fase,
         action.runState.partidaAtual
       )
-      // Captura resultado da partida ao terminar entrevista
+
+      // lastResult: reagir→entrevista usa placar final do reagir; entrevista→planejar usa prevPlacar
       const lastResult: LastResult | null =
         action.prevFase === 'entrevista' && action.runState.fase === 'planejar'
           ? { adversario: action.prevBracketEntry.adversario, placarDelta: action.prevPlacar }
-          : state.lastResult
+        : action.prevFase === 'reagir' && action.runState.fase === 'entrevista'
+          ? { adversario: action.prevBracketEntry.adversario, placarDelta: action.runState.placarPartida }
+        : state.lastResult
+
+      // initialPlacar: capturado quando o match_start é disparado
+      const initialPlacar =
+        transition === 'match_start'
+          ? action.runState.placarPartida
+          : state.initialPlacar
+
+      // JornalScreen aparece ANTES da transição nova_partida
+      if (transition === 'nova_partida') {
+        const historia = action.runState.historicoPartidas
+        const jornalRecord = historia[historia.length - 1] ?? null
+        return {
+          ...state,
+          runState: action.runState,
+          bracketEntry: action.bracketEntry,
+          currentCard: action.nextCard,
+          transition: null,
+          lastResult,
+          initialPlacar,
+          showJornal: true,
+          jornalRecord,
+          isSubmitting: false,
+        }
+      }
+
       return {
         ...state,
         runState: action.runState,
@@ -96,9 +140,14 @@ function reducer(state: GameState, action: GameAction): GameState {
         currentCard: action.nextCard,
         transition,
         lastResult,
+        initialPlacar,
         isSubmitting: false,
       }
     }
+    case 'GAME_OVER':
+      return { ...state, runState: action.runState, showGameOver: true, isSubmitting: false }
+    case 'DISMISS_JORNAL':
+      return { ...state, showJornal: false, jornalRecord: null, transition: 'nova_partida' }
     case 'DISMISS_TRANSITION':
       return { ...state, transition: null, lastResult: null }
     case 'ERROR':
@@ -147,10 +196,10 @@ export default function GamePage() {
   async function handleChoice(lado: 'esquerda' | 'direita') {
     if (!state.currentCard || state.isSubmitting || !state.runState) return
 
-    const prevFase       = state.runState.fase
-    const prevPartida    = state.runState.partidaAtual
-    const prevPlacar     = state.runState.placarPartida
-    const prevCartasLen  = state.runState.cartasRestantes.length
+    const prevFase        = state.runState.fase
+    const prevPartida     = state.runState.partidaAtual
+    const prevPlacar      = state.runState.placarPartida
+    const prevCartasLen   = state.runState.cartasRestantes.length
     const prevBracketEntry = state.bracketEntry!
 
     dispatch({ type: 'SUBMITTING' })
@@ -167,7 +216,7 @@ export default function GamePage() {
       const data: ActionResponse = await res.json()
 
       if (data.isGameOver) {
-        router.push(`/legado/${sessionId}`)
+        dispatch({ type: 'GAME_OVER', runState: data.state })
         return
       }
 
@@ -201,6 +250,10 @@ export default function GamePage() {
     dispatch({ type: 'DISMISS_TRANSITION' })
   }, [])
 
+  const dismissJornal = useCallback(() => {
+    dispatch({ type: 'DISMISS_JORNAL' })
+  }, [])
+
   // ─── Render states ──────────────────────────────────────────────────────────
 
   if (state.status === 'loading') {
@@ -225,6 +278,27 @@ export default function GamePage() {
     )
   }
 
+  // Tela de game over (antes do redirect para legado)
+  if (state.showGameOver) {
+    return (
+      <GameOverScreen
+        state={state.runState}
+        onDone={() => router.push(`/legado/${sessionId}`)}
+      />
+    )
+  }
+
+  // Jornal: aparece após cada partida, antes da transição nova_partida
+  if (state.showJornal && state.jornalRecord) {
+    return (
+      <JornalScreen
+        record={state.jornalRecord}
+        sessionId={sessionId}
+        onDismiss={dismissJornal}
+      />
+    )
+  }
+
   // Tela de transição entre fases
   if (state.transition) {
     return (
@@ -232,6 +306,7 @@ export default function GamePage() {
         type={state.transition}
         bracketEntry={state.bracketEntry}
         partida={state.runState.partidaAtual}
+        initialPlacar={state.initialPlacar ?? undefined}
         lastResult={state.lastResult}
         onDismiss={dismissTransition}
       />
@@ -246,7 +321,7 @@ export default function GamePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-papel">
-      <HUD state={state.runState} bracketEntry={state.bracketEntry} />
+      <HUD state={state.runState} bracketEntry={state.bracketEntry} sessionId={sessionId} />
 
       {/* Faixa de cor indicando fase atual */}
       <div
