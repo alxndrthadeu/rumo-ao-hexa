@@ -1,35 +1,30 @@
-'use client'
-
 import clsx from 'clsx'
 import type { RunState } from '@/engine/types'
 
 const BARS = [
-  { key: 'torcida' as const, label: 'Torcida', emoji: '🏟️' },
-  { key: 'midia' as const, label: 'Mídia', emoji: '📺' },
-  { key: 'moral' as const, label: 'Moral', emoji: '🤝' },
-  { key: 'fisico' as const, label: 'Físico', emoji: '⚽' },
+  { key: 'torcida' as const, label: 'Tor' },
+  { key: 'midia'   as const, label: 'Míd' },
+  { key: 'moral'   as const, label: 'Mor' },
+  { key: 'fisico'  as const, label: 'Fís' },
 ]
 
 const ALERT_MIN = 15
 const ALERT_MAX = 85
 
-function BarItem({ label, emoji, value }: { label: string; emoji: string; value: number }) {
+function MiniBar({ label, value }: { label: string; value: number }) {
   const isDanger = value <= ALERT_MIN || value >= ALERT_MAX
-
   return (
-    <div className="flex flex-col gap-0.5">
-      <div className="flex justify-between items-center">
-        <span className="text-xs font-medium text-white/80">
-          {emoji} {label}
-        </span>
-        <span className={clsx('text-xs tabular-nums font-bold', isDanger ? 'text-vermelho' : 'text-white/60')}>
-          {value}
-        </span>
+    <div>
+      <div
+        className="font-headline font-bold text-[8px] tracking-[0.05em] uppercase mb-[3px]"
+        style={{ color: 'rgba(255,255,255,0.7)' }}
+      >
+        {label}
       </div>
-      <div className="h-1.5 bg-white/20 rounded-full overflow-hidden">
+      <div className="h-[7px]" style={{ background: 'rgba(255,255,255,0.2)' }}>
         <div
           className={clsx(
-            'h-full rounded-full transition-all duration-500',
+            'h-full transition-all duration-500',
             isDanger ? 'bg-vermelho' : 'bg-amarelo'
           )}
           style={{ width: `${value}%` }}
@@ -41,9 +36,9 @@ function BarItem({ label, emoji, value }: { label: string; emoji: string; value:
 
 export default function Bars({ barras }: { barras: RunState['barras'] }) {
   return (
-    <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-      {BARS.map(({ key, label, emoji }) => (
-        <BarItem key={key} label={label} emoji={emoji} value={barras[key]} />
+    <div className="grid grid-cols-4 gap-[7px]">
+      {BARS.map(({ key, label }) => (
+        <MiniBar key={key} label={label} value={barras[key]} />
       ))}
     </div>
   )

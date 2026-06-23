@@ -1,9 +1,10 @@
+import clsx from 'clsx'
 import type { Fase } from '@/engine/types'
 
-const LABELS: Record<Fase, { titulo: string; sub: string }> = {
-  planejar:   { titulo: 'VÉSPERA',     sub: 'CONCENTRAÇÃO' },
-  reagir:     { titulo: '90 MINUTOS',  sub: '' },
-  entrevista: { titulo: 'ZONA MISTA',  sub: 'COLETIVA' },
+const LABELS: Record<Fase, { titulo: string; sub: string; cor: string }> = {
+  planejar:   { titulo: 'Véspera',    sub: 'Concentração', cor: 'bg-azul'    },
+  reagir:     { titulo: '90 Min',     sub: '',             cor: 'bg-vermelho' },
+  entrevista: { titulo: 'Zona Mista', sub: 'Coletiva',     cor: 'bg-verde'   },
 }
 
 export default function PhaseHeader({
@@ -15,19 +16,26 @@ export default function PhaseHeader({
   adversario?: string
   partida: number
 }) {
-  const { titulo, sub } = LABELS[fase]
-  const subtitulo = fase === 'reagir' && adversario ? `vs ${adversario.toUpperCase()}` : sub
+  const { titulo, sub, cor } = LABELS[fase]
+  const subtitulo = fase === 'reagir' && adversario ? adversario.toUpperCase() : sub.toUpperCase()
 
   return (
-    <div className="text-center py-2">
-      <p className="font-headline font-black text-[10px] tracking-[0.2em] text-amarelo/70 uppercase">
-        PARTIDA {partida} · {titulo}
-      </p>
-      {subtitulo && (
-        <p className="font-headline font-bold text-xs tracking-widest text-white/60 uppercase mt-0.5">
-          {subtitulo}
-        </p>
-      )}
+    <div className="flex items-center gap-3 mb-[3px]">
+      <span
+        className={clsx(
+          'inline-block font-headline font-black italic text-[11px] tracking-[0.08em] uppercase text-white px-[10px] py-[4px]',
+          cor
+        )}
+        style={{ transform: 'skewX(-8deg)' }}
+      >
+        {titulo}
+      </span>
+      <span
+        className="font-headline font-bold text-[9px] tracking-[0.15em] uppercase"
+        style={{ color: 'rgba(255,255,255,0.72)' }}
+      >
+        P{partida} · {subtitulo}
+      </span>
     </div>
   )
 }

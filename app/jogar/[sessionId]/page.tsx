@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useReducer } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import type { BracketEntry, Carta, CartaEntrevista, RunState } from '@/engine/types'
 import type { ActionResponse, RunStateResponse } from '@/lib/api-types'
 import HUD from '@/components/ui/HUD'
 import Card from '@/components/ui/Card'
+import GroupResult from '@/components/ui/GroupResult'
 
 // ─── State ───────────────────────────────────────────────────────────────────
 
@@ -71,6 +72,7 @@ export default function GamePage() {
   const sessionId = params.sessionId
 
   const [state, dispatch] = useReducer(reducer, initial)
+  const [groupResultDismissed, setGroupResultDismissed] = useState(false)
 
   useEffect(() => {
     async function load() {
@@ -147,6 +149,12 @@ export default function GamePage() {
         </button>
       </div>
     )
+  }
+
+  const showGroupResult = state.status === 'playing' && state.runState?.partidaAtual === 4 && !groupResultDismissed
+
+  if (showGroupResult) {
+    return <GroupResult onContinue={() => setGroupResultDismissed(true)} />
   }
 
   return (

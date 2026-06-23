@@ -20,36 +20,44 @@ function resolveCard(
   return { texto: c.texto, esquerda: c.esquerda, direita: c.direita }
 }
 
-function EfeitoChips({ efeitos }: { efeitos: Escolha['efeitos'] }) {
-  const labels: Record<string, string> = {
-    torcida: 'Tor',
-    midia: 'Míd',
-    moral: 'Mor',
-    fisico: 'Fís',
-    placar: 'Plc',
+const EFFECT_LABELS: Record<string, string> = {
+  torcida: 'Tor', midia: 'Míd', moral: 'Mor', fisico: 'Fís', placar: 'Plc',
+}
+
+function Chip({ label, value, isFlag }: { label: string; value?: number; isFlag?: boolean }) {
+  if (isFlag) {
+    return (
+      <span className="font-headline font-bold text-[10px] tracking-[0.03em] px-[7px] py-[3px] bg-vermelho text-white whitespace-nowrap">
+        {label}
+      </span>
+    )
   }
+  if (value === undefined) return null
   return (
-    <div className="flex flex-wrap gap-1 mt-1">
-      {Object.entries(efeitos).map(([k, v]) => {
-        if (v === 'condicional') return null
-        if (typeof v !== 'number') return null
-        return (
-          <span
-            key={k}
-            className={clsx(
-              'text-[10px] font-bold px-1.5 py-0.5 rounded',
-              v > 0 ? 'bg-verde/15 text-verde' : 'bg-vermelho/15 text-vermelho'
-            )}
-          >
-            {labels[k] ?? k} {v > 0 ? `+${v}` : v}
-          </span>
-        )
-      })}
-    </div>
+    <span
+      className={clsx(
+        'font-headline font-bold text-[10px] tracking-[0.03em] px-[7px] py-[3px] whitespace-nowrap',
+        value > 0 ? 'bg-verde text-white' : 'bg-vermelho text-white'
+      )}
+    >
+      {EFFECT_LABELS[label] ?? label} {value > 0 ? `+${value}` : value}
+    </span>
   )
 }
 
-const DRAG_THRESHOLD = 72
+function EfeitosRow({ escolha }: { escolha: Escolha }) {
+  const chips: React.ReactNode[] = []
+  Object.entries(escolha.efeitos).forEach(([k, v]) => {
+    if (typeof v === 'number') chips.push(<Chip key={k} label={k} value={v} />)
+  })
+  escolha.flags_partida?.slice(0, 1).forEach(f =>
+    chips.push(<Chip key={`flag-${f}`} label={f.replace(/_/g, ' ')} isFlag />)
+  )
+  if (chips.length === 0) return null
+  return <div className="flex flex-wrap gap-[4px] mt-[6px]">{chips}</div>
+}
+
+const DRAG_THRESHOLD = 80
 
 export default function Card({
   card,
@@ -74,7 +82,7 @@ export default function Card({
       onChoice(lado)
       setDragX(0)
       setConfirming(null)
-    }, 280)
+    }, 260)
   }
 
   const bind = useDrag(
@@ -83,97 +91,102 @@ export default function Card({
       if (!last) {
         setDragX(mx)
       } else {
-        if (mx < -DRAG_THRESHOLD) {
-          choose('esquerda')
-        } else if (mx > DRAG_THRESHOLD) {
-          choose('direita')
-        } else {
-          setDragX(0)
-        }
+        if (mx < -DRAG_THRESHOLD) choose('esquerda')
+        else if (mx > DRAG_THRESHOLD) choose('direita')
+        else setDragX(0)
       }
     },
     { axis: 'x', filterTaps: true }
   )
 
-  const isDraggingLeft = dragX < -24
+  const isDraggingLeft  = dragX < -24
   const isDraggingRight = dragX > 24
-  const isDragging = isDraggingLeft || isDraggingRight
-
-  const rotate = dragX * 0.04
-  const tx = confirming === 'esquerda' ? -320 : confirming === 'direita' ? 320 : dragX * 0.35
+  const tx = confirming === 'esquerda' ? -360 : confirming === 'direita' ? 360 : dragX * 0.35
+  const rot = dragX * 0.04
 
   return (
     <div className="flex flex-col flex-1 select-none">
-      {/* Card */}
+      {/* Carta arrastável */}
       <div
         {...bind()}
-        className={clsx(
-          'flex-1 mx-4 rounded-2xl p-6 flex flex-col justify-between',
-          'shadow-lg cursor-grab active:cursor-grabbing touch-none',
-          isDraggingLeft && !confirming ? 'bg-vermelho/8' :
-          isDraggingRight && !confirming ? 'bg-verde/8' : 'bg-white',
-          confirming && 'opacity-0',
-          disabled && 'pointer-events-none opacity-60'
-        )}
+        className="flex-1 mx-[15px] flex flex-col justify-between bg-papel border-2 border-preto cursor-grab active:cursor-grabbing touch-none"
         style={{
-          transform: `translateX(${tx}px) rotate(${rotate}deg)`,
-          transition: isDragging ? 'background-color 0.1s' : 'transform 0.28s ease, background-color 0.1s, opacity 0.22s',
+          transform: `translateX(${tx}px) rotate(${rot}deg)`,
+          transition: Math.abs(dragX) > 0 ? 'none' : 'transform 0.26s ease, opacity 0.22s',
+          opacity: confirming ? 0 : 1,
+          boxShadow: isDraggingLeft
+            ? `inset 3px 0 0 var(--color-vermelho)`
+            : isDraggingRight
+            ? `inset -3px 0 0 var(--color-verde)`
+            : undefined,
         }}
       >
-        <p className="font-headline font-bold italic text-xl leading-snug text-preto">
-          {texto}
-        </p>
+        {/* Texto da carta */}
+        <div className="px-[15px] pt-[18px] pb-[14px]">
+          <p className="font-headline font-bold italic text-[19px] leading-[1.25] tracking-[-0.3px] text-preto text-center">
+            {texto}
+          </p>
+        </div>
 
-        <div className="flex gap-3 mt-6">
-          {/* Hint esquerda */}
+        {/* Escolhas */}
+        <div>
+          {/* Esquerda */}
           <div
             className={clsx(
-              'flex-1 rounded-xl border-2 p-3 transition-all duration-150',
-              isDraggingLeft
-                ? 'border-vermelho bg-vermelho/10 opacity-100'
-                : 'border-gray-200 opacity-35'
+              'border-t-2 border-preto px-[12px] py-[11px] flex items-start gap-[10px]',
+              isDraggingLeft ? 'bg-vermelho/10' : 'bg-white'
             )}
           >
-            <p className="text-xs font-medium text-preto leading-tight">← {esquerda.texto}</p>
-            <EfeitoChips efeitos={esquerda.efeitos} />
+            <span className="font-headline font-black italic text-[17px] text-vermelho leading-none mt-[1px] shrink-0">←</span>
+            <div className="flex-1">
+              <p className="text-[14px] leading-[1.2] font-medium text-preto">{esquerda.texto}</p>
+              <EfeitosRow escolha={esquerda} />
+            </div>
           </div>
-
-          {/* Hint direita */}
+          {/* Direita */}
           <div
             className={clsx(
-              'flex-1 rounded-xl border-2 p-3 transition-all duration-150',
-              isDraggingRight
-                ? 'border-verde bg-verde/10 opacity-100'
-                : 'border-gray-200 opacity-35'
+              'border-t-2 border-preto px-[12px] py-[11px] flex items-start gap-[10px]',
+              isDraggingRight ? 'bg-verde/10' : 'bg-white'
             )}
           >
-            <p className="text-xs font-medium text-preto leading-tight text-right">{direita.texto} →</p>
-            <EfeitoChips efeitos={direita.efeitos} />
+            <div className="flex-1 text-right">
+              <p className="text-[14px] leading-[1.2] font-medium text-preto">{direita.texto}</p>
+              <div className="flex flex-wrap gap-[4px] mt-[6px] justify-end">
+                {Object.entries(direita.efeitos).map(([k, v]) =>
+                  typeof v === 'number' ? <Chip key={k} label={k} value={v} /> : null
+                )}
+                {direita.flags_partida?.slice(0, 1).map(f =>
+                  <Chip key={`flag-${f}`} label={f.replace(/_/g, ' ')} isFlag />
+                )}
+              </div>
+            </div>
+            <span className="font-headline font-black italic text-[17px] text-verde leading-none mt-[1px] shrink-0">→</span>
           </div>
         </div>
       </div>
 
-      {/* Botões de toque (fallback acessível) */}
-      <div className="flex gap-3 px-4 pt-3 pb-6">
+      {/* Hint swipe */}
+      <p className="font-headline font-bold text-[10px] tracking-[0.2em] uppercase text-center mt-[14px] mb-[4px]"
+         style={{ color: 'var(--color-tinta-2, #4B4A45)' }}>
+        ← arrasta para escolher →
+      </p>
+
+      {/* Botões fallback acessíveis */}
+      <div className="flex gap-[9px] px-[15px] pb-[20px] pt-[6px]">
         <button
           onClick={() => choose('esquerda')}
           disabled={disabled || !!confirming}
-          className={clsx(
-            'flex-1 py-3 px-2 rounded-xl border-2 font-headline font-bold text-sm transition-colors',
-            'border-vermelho text-vermelho hover:bg-vermelho/8 active:bg-vermelho/15',
-            'disabled:opacity-40 disabled:cursor-not-allowed'
-          )}
+          className="flex-1 min-h-[44px] border-2 border-preto bg-white font-headline font-bold italic text-[13px] text-vermelho tracking-[0.3px] hover:bg-vermelho hover:text-white transition-colors disabled:opacity-40"
+          style={{ boxShadow: '3px 3px 0 #100F0D' }}
         >
           ← {esquerda.texto}
         </button>
         <button
           onClick={() => choose('direita')}
           disabled={disabled || !!confirming}
-          className={clsx(
-            'flex-1 py-3 px-2 rounded-xl border-2 font-headline font-bold text-sm transition-colors',
-            'border-verde text-verde hover:bg-verde/8 active:bg-verde/15',
-            'disabled:opacity-40 disabled:cursor-not-allowed'
-          )}
+          className="flex-1 min-h-[44px] border-2 border-preto bg-white font-headline font-bold italic text-[13px] text-verde tracking-[0.3px] hover:bg-verde hover:text-white transition-colors disabled:opacity-40"
+          style={{ boxShadow: '3px 3px 0 #100F0D' }}
         >
           {direita.texto} →
         </button>
