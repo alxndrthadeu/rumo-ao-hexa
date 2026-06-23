@@ -61,5 +61,73 @@
       "texto": "Abrevia, quer treinar com a bola",
       "efeitos": { "moral": 5, "fisico": -5 }
     }
+  },
+  {
+    "id": "anc_night",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 2,
+    "texto": "Véspera de jogo. O grupo vai jantar fora pra descontrair. Pode ser bom… ou virar foto.",
+    "esquerda": {
+      "texto": "Fica no hotel, dorme cedo",
+      "efeitos": { "fisico": 5, "midia": -3 },
+      "flags_partida": ["disciplinado"]
+    },
+    "direita": {
+      "texto": "Vai pra night com a galera",
+      "efeitos": { "moral": 8, "torcida": 3, "fisico": -8 },
+      "flags_partida": ["boemio"],
+      "risco": { "tipo": "manchete", "chance": 0.3, "efeitos": { "midia": -10 } }
+    }
+  },
+  {
+    "id": "anc_video",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 3,
+    "texto": "Sessão de vídeo do adversário às 6h da manhã. Sono ou dever de casa?",
+    "esquerda": {
+      "texto": "Acorda e estuda o rival",
+      "efeitos": { "moral": 8, "fisico": -3 },
+      "flags_partida": ["disciplinado"]
+    },
+    "direita": {
+      "texto": "Dorme, eu resolvo em campo",
+      "efeitos": { "fisico": 5, "moral": -5 },
+      "flags_partida": ["boemio"]
+    }
+  },
+  {
+    "id": "anc_capitao",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 4,
+    "texto": "O capitão veterano te chama pra um café. Quer saber se pode contar com você nos momentos difíceis.",
+    "esquerda": {
+      "texto": "Pode contar comigo, sempre.",
+      "efeitos": { "moral": 10, "torcida": 3 },
+      "flag_carreira": "lider"
+    },
+    "direita": {
+      "texto": "Evita o compromisso",
+      "efeitos": { "moral": -8 },
+      "flag_carreira": "problematico"
+    }
+  },
+  {
+    "id": "anc_imprensa_treino",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 5,
+    "texto": "A imprensa pede um treino aberto. Pode ser palco ou armadilha.",
+    "esquerda": {
+      "texto": "Treino fechado, foco total",
+      "efeitos": { "moral": 5, "midia": -5 }
+    },
+    "direita": {
+      "texto": "Treino aberto, dá show",
+      "efeitos": { "midia": 8, "torcida": 5, "moral": -5 },
+      "flags_partida": ["showman"]
+    }
   }
 ]

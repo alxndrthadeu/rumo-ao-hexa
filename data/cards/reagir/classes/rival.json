@@ -1,0 +1,116 @@
+[
+  {
+    "id": "riv_final_antecipada",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 1,
+    "texto": "A imprensa transformou isso numa final antecipada. A pressão é absurda antes da bola rolar.",
+    "esquerda": {
+      "texto": "Abraça o peso, é o teu palco",
+      "efeitos": { "midia": 8, "torcida": 5, "moral": -5 },
+      "flags_partida": ["showman"]
+    },
+    "direita": {
+      "texto": "Trata como jogo normal, blinda a cabeça",
+      "efeitos": { "moral": 8 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "riv_provocacao_rival",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 1,
+    "texto": "O camisa 10 deles te provoca sobre antigas eliminações. Doeu.",
+    "esquerda": {
+      "texto": "Responde com a boca",
+      "efeitos": {},
+      "flags_partida": ["pavio_curto"],
+      "risco": { "tipo": "confusao_geral", "chance": 0.4, "efeitos": { "moral": -8, "fisico": -5 } }
+    },
+    "direita": {
+      "texto": "Responde com futebol",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "riv_torcida_dividida",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 1,
+    "texto": "Metade do estádio é deles. O barulho é ensurdecedor e hostil contra você.",
+    "esquerda": {
+      "texto": "Silencia a torcida com ousadia",
+      "efeitos": { "placar": 1, "torcida": 5 },
+      "flags_partida": ["ousado"]
+    },
+    "direita": {
+      "texto": "Usa o ódio como combustível",
+      "efeitos": { "moral": 8, "fisico": -3 },
+      "flags_partida": ["raca"]
+    }
+  },
+  {
+    "id": "riv_historia",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 1,
+    "texto": "Narram no telão os fantasmas das eliminações passadas. O peso da história cai.",
+    "esquerda": {
+      "texto": "Hoje a história muda comigo.",
+      "efeitos": { "moral": 8, "midia": 5 },
+      "flags_partida": ["lider"]
+    },
+    "direita": {
+      "texto": "O peso te trava por um instante",
+      "efeitos": { "moral": -5 },
+      "flags_partida": ["covarde"]
+    }
+  },
+  {
+    "id": "riv_gol_rival",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 1,
+    "texto": "Eles fazem o gol e comemoram na tua cara, apontando pra ti. Humilhação nacional iminente.",
+    "esquerda": {
+      "texto": "Promete resposta, lidera a reação",
+      "efeitos": { "moral": 5, "placar": 1, "fisico": -5 },
+      "flags_partida": ["lider", "raca"]
+    },
+    "direita": {
+      "texto": "A raiva te cega",
+      "efeitos": { "moral": -5 },
+      "flags_partida": ["pavio_curto"]
+    }
+  },
+  {
+    "id": "riv_imortal",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 1,
+    "texto": "Chance de ouro contra o maior rival, num clássico que será lembrado pra sempre. É AGORA.",
+    "esquerda": {
+      "texto": "Decide o clássico",
+      "efeitos": { "placar": "condicional" },
+      "climax": true,
+      "condicional": {
+        "limiar": 1,
+        "ramoA": { "efeitos": { "placar": 3, "midia": 10 }, "flags_partida": ["heroi"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["vilao"], "climax": true }
+      }
+    },
+    "direita": {
+      "texto": "Joga seguro num jogo desses",
+      "efeitos": { "placar": 0 },
+      "flags_partida": ["frieza"]
+    }
+  }
+]

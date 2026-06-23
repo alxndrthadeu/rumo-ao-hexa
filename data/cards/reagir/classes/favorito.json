@@ -1,0 +1,116 @@
+[
+  {
+    "id": "fav_marcam_primeiro",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 1,
+    "texto": "Eles abrem o placar com naturalidade assustadora. Agora você corre atrás.",
+    "esquerda": {
+      "texto": "Puxa o time pra reação imediata",
+      "efeitos": { "moral": 5, "fisico": -5, "placar": 1 },
+      "flags_partida": ["lider"]
+    },
+    "direita": {
+      "texto": "Mantém a calma, joga a longo prazo",
+      "efeitos": { "placar": 0 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "fav_qualidade",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 1,
+    "texto": "O nível deles é outro. Cada toque é perfeito. Dá um frio sentir a diferença.",
+    "esquerda": {
+      "texto": "Eu também sou desse nível.",
+      "efeitos": { "placar": 1, "midia": 3 },
+      "flags_partida": ["ousado"]
+    },
+    "direita": {
+      "texto": "Respeita demais, recua",
+      "efeitos": { "placar": -1 },
+      "flags_partida": ["covarde"]
+    }
+  },
+  {
+    "id": "fav_pressao_placar",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 1,
+    "texto": "Vocês precisam do gol e o tempo corre. Eles administram com cinismo.",
+    "esquerda": {
+      "texto": "Arrisca tudo no ataque",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["ousado"],
+      "risco": { "tipo": "contra_ataque", "chance": 0.35, "efeitos": { "placar": -2 } }
+    },
+    "direita": {
+      "texto": "Constrói com paciência",
+      "efeitos": { "placar": 0 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "fav_estrela_deles",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 1,
+    "texto": "O craque deles faz uma jogada de outro mundo e a torcida neutra aplaude. Te ofusca.",
+    "esquerda": {
+      "texto": "Responde com uma jogada sua",
+      "efeitos": { "placar": "condicional" },
+      "climax": true,
+      "condicional": {
+        "limiar": 1,
+        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+      }
+    },
+    "direita": {
+      "texto": "Foca no coletivo, sem duelo de egos",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["coletivo"]
+    }
+  },
+  {
+    "id": "fav_respeito",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 1,
+    "texto": "No túnel, o capitão lendário deles aperta tua mão: 'cuidado comigo hoje, garoto'.",
+    "esquerda": {
+      "texto": "O cuidado é seu.",
+      "efeitos": { "midia": 5, "moral": 3 },
+      "flags_partida": ["arrogante"]
+    },
+    "direita": {
+      "texto": "Abaixa a cabeça, intimidado",
+      "efeitos": { "moral": -5 },
+      "flags_partida": ["covarde"]
+    }
+  },
+  {
+    "id": "fav_virada_possivel",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 1,
+    "texto": "Você diminui e o estádio acende. Dá pra buscar a virada histórica contra o favorito.",
+    "esquerda": {
+      "texto": "Vai pra cima sem freio",
+      "efeitos": { "placar": 1, "fisico": -5 },
+      "flags_partida": ["raca", "ousado"]
+    },
+    "direita": {
+      "texto": "Garante o resultado que já tem",
+      "efeitos": { "placar": 0 },
+      "flags_partida": ["frieza"]
+    }
+  }
+]

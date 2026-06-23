@@ -1,0 +1,112 @@
+[
+  {
+    "id": "sac_favoritismo",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 1,
+    "texto": "Todo mundo já te deu a vitória antes do apito. Empatar aqui seria um vexame nacional.",
+    "esquerda": {
+      "texto": "Joga sério apesar do favoritismo",
+      "efeitos": { "placar": 1, "moral": 3 },
+      "flags_partida": ["disciplinado"]
+    },
+    "direita": {
+      "texto": "Relaxa, subestima o adversário",
+      "efeitos": { "placar": -1 },
+      "flags_partida": ["arrogante"]
+    }
+  },
+  {
+    "id": "sac_pressao_goleada",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 1,
+    "texto": "A torcida não quer só ganhar — quer goleada e show. Cobram cada toque pra trás.",
+    "esquerda": {
+      "texto": "Vai pro ataque buscar o show",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["showman"],
+      "risco": { "tipo": "sem_show", "chance": 0.3, "efeitos": { "torcida": -5 } }
+    },
+    "direita": {
+      "texto": "Administra o resultado magro",
+      "efeitos": { "placar": 0, "torcida": -5 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "sac_zagueiro_heroi",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 1,
+    "texto": "O goleiro adversário, anônimo, está fazendo a partida da vida contra você. Trava tudo.",
+    "esquerda": {
+      "texto": "Insiste até furar",
+      "efeitos": { "placar": 1, "fisico": -5 },
+      "flags_partida": ["raca"]
+    },
+    "direita": {
+      "texto": "Frustra-se e força demais",
+      "efeitos": { "placar": -1 },
+      "flags_partida": ["afobado"]
+    }
+  },
+  {
+    "id": "sac_humilhacao_risco",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 1,
+    "texto": "Eles armam um contra-ataque inesperado. Tomar gol DELES seria manchete vergonhosa.",
+    "esquerda": {
+      "texto": "Volta correndo pra evitar o mico",
+      "efeitos": { "fisico": -8, "placar": 1 },
+      "flags_partida": ["raca"]
+    },
+    "direita": {
+      "texto": "Confia na defesa, fica no ataque",
+      "efeitos": { "placar": 0 },
+      "risco": { "tipo": "gol_adversario", "chance": 0.3, "efeitos": { "placar": -2, "torcida": -8 } }
+    }
+  },
+  {
+    "id": "sac_show_pessoal",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 1,
+    "texto": "Jogo fácil, espaço pra brilhar. Chance de fazer driblar e encantar a torcida.",
+    "esquerda": {
+      "texto": "Capricha no drible desnecessário",
+      "efeitos": { "torcida": 8, "midia": 5 },
+      "flags_partida": ["showman"],
+      "risco": { "tipo": "perda_bola", "chance": 0.25, "efeitos": { "moral": -5 } }
+    },
+    "direita": {
+      "texto": "Joga simples e eficiente",
+      "efeitos": { "placar": 1, "moral": 3 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "sac_golear",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 1,
+    "texto": "5 a 0 e a bola sobra pra você fazer mais um. Goleada histórica à vista.",
+    "esquerda": {
+      "texto": "Faz o seu, sem dó",
+      "efeitos": { "placar": 1, "midia": 5 },
+      "flags_partida": ["heroi"]
+    },
+    "direita": {
+      "texto": "Cede a vez ao reserva que nunca marca",
+      "efeitos": { "moral": 8, "torcida": 8 },
+      "flag_carreira": "lider"
+    }
+  }
+]

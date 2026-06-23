@@ -65,5 +65,92 @@
       "flag_carreira": "arrogante",
       "gancho_entrevista": "polemica"
     }
+  },
+  {
+    "id": "cir_paternidade",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 2,
+    "texto": "Tua parceira liga chorando de alegria: o exame deu positivo, você vai ser pai. E o jogo é amanhã.",
+    "esquerda": {
+      "texto": "Foca no jogo, comemora depois",
+      "efeitos": { "moral": 5, "midia": -3 },
+      "flags_partida": ["frio"],
+      "gancho_entrevista": "cabeca_em_casa"
+    },
+    "direita": {
+      "texto": "Some a tarde toda pra ligar pra família",
+      "efeitos": { "torcida": 5, "fisico": -5 },
+      "gancho_entrevista": "cabeca_em_casa"
+    }
+  },
+  {
+    "id": "cir_romance",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 3,
+    "texto": "Vaza nas redes que você reatou com uma influencer famosa. Vira trending na véspera.",
+    "esquerda": {
+      "texto": "Assume publicamente, posta junto",
+      "efeitos": { "midia": 8, "moral": -5 },
+      "flag_carreira": "vitrine",
+      "gancho_entrevista": "romance"
+    },
+    "direita": {
+      "texto": "Ignora, minha vida é minha",
+      "efeitos": { "moral": 3, "midia": -3 },
+      "flags_partida": ["frio"]
+    }
+  },
+  {
+    "id": "cir_conselho_casa",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 4,
+    "texto": "Você posta uma frase fofa: 'sempre escuto os conselhos da minha esposa'. A torcida derrete; o vestiário te paga.",
+    "esquerda": {
+      "texto": "Abraça a zoeira, ri junto",
+      "efeitos": { "torcida": 5, "moral": 5 },
+      "flag_carreira": "lider"
+    },
+    "direita": {
+      "texto": "Se irrita com a gozação",
+      "efeitos": { "moral": -5 },
+      "flags_partida": ["pavio_curto"],
+      "gancho_entrevista": "climao_vestiario"
+    }
+  },
+  {
+    "id": "cir_cabelo",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 5,
+    "texto": "O cabeleireiro fez um corte novo ousado pro jogo. A internet vai amar ou destruir.",
+    "esquerda": {
+      "texto": "Mantém o visual maluco",
+      "efeitos": { "midia": 5 },
+      "flag_carreira": "vitrine"
+    },
+    "direita": {
+      "texto": "Volta pro corte normal",
+      "efeitos": { "moral": 3 }
+    }
+  },
+  {
+    "id": "cir_grife",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 6,
+    "texto": "Uma grife de luxo te oferece um cachê absurdo pra usar a roupa deles na chegada ao estádio.",
+    "esquerda": {
+      "texto": "Recusa, chega de moletom do time",
+      "efeitos": { "moral": 5 },
+      "flag_carreira": "entregue"
+    },
+    "direita": {
+      "texto": "Aceita, vira editorial de moda",
+      "efeitos": { "midia": 8, "moral": -5 },
+      "flag_carreira": "vitrine"
+    }
   }
 ]

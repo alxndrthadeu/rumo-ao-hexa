@@ -95,5 +95,272 @@
       "efeitos": { "placar": 0 },
       "flags_partida": ["frieza"]
     }
+  },
+  {
+    "id": "gen_companheiro_livre",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Você está marcado, mas o camisa 9 grita livre do outro lado.",
+    "esquerda": {
+      "texto": "Insiste no seu lance",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["ousado"]
+    },
+    "direita": {
+      "texto": "Toca pro 9",
+      "efeitos": { "placar": 1, "moral": 3 },
+      "flags_partida": ["coletivo"]
+    }
+  },
+  {
+    "id": "gen_chuva",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Cai um temporal. O gramado vira sabão e ninguém controla a bola.",
+    "esquerda": {
+      "texto": "Aposta no caos, parte pra cima",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["ousado"],
+      "risco": { "tipo": "perda_bola", "chance": 0.35, "efeitos": { "placar": -1 } }
+    },
+    "direita": {
+      "texto": "Joga seguro, segura a posse",
+      "efeitos": { "placar": 0 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "gen_vaia",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "A torcida adversária faz um barulho ensurdecedor toda vez que você pega a bola.",
+    "esquerda": {
+      "texto": "Pede mais, provoca de volta",
+      "efeitos": { "torcida": 5, "midia": 5 },
+      "flags_partida": ["showman"],
+      "risco": { "tipo": "erro_pressao", "chance": 0.25, "efeitos": { "torcida": -8 } }
+    },
+    "direita": {
+      "texto": "Ignora, cabeça baixa no jogo",
+      "efeitos": { "moral": 5 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "gen_cansaco",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Faltam 20 minutos e suas pernas pesam. O banco pergunta se você aguenta.",
+    "esquerda": {
+      "texto": "Eu fico, professor.",
+      "efeitos": { "fisico": -8 },
+      "flags_partida": ["raca"]
+    },
+    "direita": {
+      "texto": "Pede a substituição",
+      "efeitos": { "fisico": 5, "torcida": -3 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "gen_lance_violento",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Um adversário entra com a sola na sua canela. Dói de verdade.",
+    "esquerda": {
+      "texto": "Revida na hora",
+      "efeitos": {},
+      "flags_partida": ["pavio_curto", "vilao"],
+      "risco": { "tipo": "cartao_vermelho", "chance": 0.6, "efeitos": { "fisico": -15, "moral": -10 } }
+    },
+    "direita": {
+      "texto": "Fica caído, pede falta",
+      "efeitos": { "fisico": -5 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "gen_gol_anulado_var",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Você balança a rede, corre pra comemorar — e o VAR chama o juiz.",
+    "esquerda": {
+      "texto": "Cerca o monitor, pressiona",
+      "efeitos": {},
+      "flags_partida": ["pavio_curto"]
+    },
+    "direita": {
+      "texto": "Espera de mãos na cintura",
+      "efeitos": { "moral": 3 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "gen_companheiro_expulso",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Seu companheiro é expulso. Vocês jogam com um a menos por 30 minutos.",
+    "esquerda": {
+      "texto": "Chama a responsa, puxa o time",
+      "efeitos": { "moral": 8, "fisico": -5 },
+      "flags_partida": ["lider", "raca"]
+    },
+    "direita": {
+      "texto": "Se esconde, espera passar",
+      "efeitos": { "moral": -5 },
+      "flags_partida": ["covarde"]
+    }
+  },
+  {
+    "id": "gen_torcida_canta",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "A torcida brasileira começa a cantar SEU nome no meio do jogo.",
+    "esquerda": {
+      "texto": "Levanta o braço, pede mais",
+      "efeitos": { "torcida": 8 },
+      "flags_partida": ["showman"]
+    },
+    "direita": {
+      "texto": "Aponta pro escudo no peito",
+      "efeitos": { "torcida": 10, "moral": 5 },
+      "flag_carreira": "idolo"
+    }
+  },
+  {
+    "id": "gen_drible_sofrido",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "O lateral te dá um drible feio e a galera adversária faz 'olé'. Humilhação.",
+    "esquerda": {
+      "texto": "Vai pra cima na bronca, recupera",
+      "efeitos": { "placar": 1, "fisico": -5 },
+      "flags_partida": ["raca"]
+    },
+    "direita": {
+      "texto": "Mantém a posição, joga frio",
+      "efeitos": { "placar": 0 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "gen_chance_clara",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Sobra limpa pra você na pequena área. Só empurrar.",
+    "esquerda": {
+      "texto": "Finaliza de primeira",
+      "efeitos": { "placar": "condicional" },
+      "climax": true,
+      "condicional": {
+        "limiar": 0,
+        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+      }
+    },
+    "direita": {
+      "texto": "Ajeita pra bater melhor",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "gen_lider_cobra",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "O capitão grita com você por ter perdido uma marcação. Na frente de todos.",
+    "esquerda": {
+      "texto": "Aceita a bronca, corre mais",
+      "efeitos": { "moral": 5, "fisico": -5 },
+      "flags_partida": ["disciplinado"]
+    },
+    "direita": {
+      "texto": "Responde à altura",
+      "efeitos": { "moral": -8 },
+      "flags_partida": ["pavio_curto"],
+      "flag_carreira": "problematico"
+    }
+  },
+  {
+    "id": "gen_simulacao",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Você cai na área num contato leve. O juiz hesita. Dá pra 'cavar' o pênalti.",
+    "esquerda": {
+      "texto": "Cava, faz drama",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["vilao"],
+      "risco": { "tipo": "var_simulacao", "chance": 0.4, "efeitos": { "torcida": -8, "midia": -8 } }
+    },
+    "direita": {
+      "texto": "Levanta e segue",
+      "efeitos": { "torcida": 5 },
+      "flag_carreira": "entregue"
+    }
+  },
+  {
+    "id": "gen_provocacao_geral",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Um adversário cochicha algo no teu ouvido sobre tua família.",
+    "esquerda": {
+      "texto": "Parte pra cima dele",
+      "efeitos": {},
+      "flags_partida": ["pavio_curto", "vilao"],
+      "risco": { "tipo": "cartao_vermelho", "chance": 0.5, "efeitos": { "fisico": -15 } }
+    },
+    "direita": {
+      "texto": "Sorri e dá as costas",
+      "efeitos": { "moral": 8 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "gen_apoio_reserva",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Do banco, um reserva veterano te dá uma dica tática no intervalo.",
+    "esquerda": {
+      "texto": "Ouve e aplica",
+      "efeitos": { "moral": 5, "placar": 1 },
+      "flags_partida": ["disciplinado"]
+    },
+    "direita": {
+      "texto": "Eu sei o que faço.",
+      "efeitos": { "moral": -3 },
+      "flags_partida": ["arrogante"]
+    }
+  },
+  {
+    "id": "gen_lesao_leve",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Você sente uma fisgada ao arrancar. Pode ser nada, pode ser tudo.",
+    "esquerda": {
+      "texto": "Sai pra não arriscar",
+      "efeitos": { "fisico": 5, "torcida": -5 },
+      "flags_partida": ["disciplinado"]
+    },
+    "direita": {
+      "texto": "Aperta os dentes e continua",
+      "efeitos": { "fisico": -8 },
+      "flags_partida": ["raca"],
+      "niggle": "muscular"
+    }
   }
 ]
