@@ -34,5 +34,8 @@
   },
   "bonus": {
     "futuroMaxGrowth": 3
+  },
+  "niggle": {
+    "costMultiplier": 1.5
   }
 }

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { applyBarDelta, checkBarDeath } from '../bars'
+import { applyBarDelta, applyNiggleModifier, checkBarDeath } from '../bars'
 import { createRunState } from '../state'
 
 function stateWith(barras: { torcida: number; midia: number; moral: number; fisico: number }) {
@@ -71,5 +71,33 @@ describe('applyBarDelta', () => {
     const state = stateWith(mid)
     applyBarDelta(state, { torcida: 10 })
     expect(state.barras.torcida).toBe(50)
+  })
+})
+
+describe('applyNiggleModifier', () => {
+  it('sem niggle: efeitos não mudam', () => {
+    const efeitos = { fisico: -10, moral: 5 }
+    expect(applyNiggleModifier([], efeitos)).toEqual(efeitos)
+  })
+
+  it('com divida_lesao: custo negativo de Físico aumenta 1.5×', () => {
+    const result = applyNiggleModifier(['divida_lesao'], { fisico: -10 })
+    expect(result.fisico).toBe(-15)
+  })
+
+  it('com divida_lesao: Físico positivo não é afetado', () => {
+    const result = applyNiggleModifier(['divida_lesao'], { fisico: 10 })
+    expect(result.fisico).toBe(10)
+  })
+
+  it('com divida_lesao: outras barras não são afetadas', () => {
+    const result = applyNiggleModifier(['divida_lesao'], { fisico: -8, moral: -5 })
+    expect(result.fisico).toBe(-12)
+    expect(result.moral).toBe(-5)
+  })
+
+  it('niggle diferente de divida_lesao não aplica modificador', () => {
+    const efeitos = { fisico: -10 }
+    expect(applyNiggleModifier(['outro_niggle'], efeitos)).toEqual(efeitos)
   })
 })

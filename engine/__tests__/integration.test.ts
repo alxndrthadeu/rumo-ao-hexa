@@ -133,4 +133,81 @@ describe('Integração — fatia vertical', () => {
     expect(next.morto).toBe(true)
     expect(next.causaMorte).toBe('placar')
   })
+
+  it('niggle divida_lesao aumenta custo de Físico negativo (Craque Caído)', () => {
+    // Caído começa com divida_lesao no array de niggles
+    let s = createRunState('caido', 1)
+    expect(s.niggles).toContain('divida_lesao')
+    const fisicoBefore = s.barras.fisico
+
+    const carta: Carta = {
+      id: 'test_fisico_drain',
+      fase: 'reagir',
+      partida: 1,
+      texto: 'Drena físico',
+      esquerda: { texto: 'Drena -10', efeitos: { fisico: -10 } },
+      direita:  { texto: 'Neutro',    efeitos: {} },
+    }
+
+    const result = applyCardChoice(s, carta, 'esquerda')
+    // -10 × 1.5 = -15, então fisico cai 15 (ou morre se chegar a 0)
+    if (!result.morto) {
+      expect(result.barras.fisico).toBe(Math.max(0, fisicoBefore - 15))
+    } else {
+      expect(result.causaMorte).toBe('barra')
+    }
+  })
+
+  it('growth bonus do Futuro soma ao placar antes da checagem condicional', () => {
+    let s = createRunState('futuro', 1)
+    // Simula 2 vitórias: bonusCrescimento = 2
+    s = { ...s, bonusCrescimento: 2, placarPartida: 0 }
+
+    const carta: Carta = {
+      id: 'test_condicional',
+      fase: 'reagir',
+      partida: 1,
+      texto: 'Condicional',
+      esquerda: {
+        texto: 'Condicional',
+        efeitos: { placar: 'condicional' },
+        condicional: {
+          limiar: 2,
+          ramoA: { efeitos: { placar: 3 } },
+          ramoB: { efeitos: { placar: -1 } },
+        },
+      },
+      direita: { texto: 'Neutro', efeitos: {} },
+    }
+
+    // placar=0, bonus=2 → efetivo=2 >= limiar=2 → ramoA → +3
+    const result = applyCardChoice(s, carta, 'esquerda')
+    expect(result.placarPartida).toBe(3)
+  })
+
+  it('growth bonus NÃO se aplica a outros arquétipos', () => {
+    let s = createRunState('estrela', 1)
+    s = { ...s, bonusCrescimento: 2, placarPartida: 0 }
+
+    const carta: Carta = {
+      id: 'test_condicional_estrela',
+      fase: 'reagir',
+      partida: 1,
+      texto: 'Condicional',
+      esquerda: {
+        texto: 'Condicional',
+        efeitos: { placar: 'condicional' },
+        condicional: {
+          limiar: 2,
+          ramoA: { efeitos: { placar: 3 } },
+          ramoB: { efeitos: { placar: -1 } },
+        },
+      },
+      direita: { texto: 'Neutro', efeitos: {} },
+    }
+
+    // placar=0, sem bonus → 0 < limiar=2 → ramoB → -1
+    const result = applyCardChoice(s, carta, 'esquerda')
+    expect(result.placarPartida).toBe(-1)
+  })
 })

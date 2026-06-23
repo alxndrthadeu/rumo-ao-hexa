@@ -1,7 +1,7 @@
 import type { Arquetipo, BracketEntry, Carta, CartaEntrevista, ClasseInimigo } from './types'
 import { advanceSeed, seedToFloat } from './rng'
 import { resolveInterviewFlag } from './flags'
-import { injectClassCards, injectPassiveCards } from './injection'
+import { injectClassCards, injectEvolucaoPair, injectPassiveCards } from './injection'
 
 import ancoraData from '@/data/cards/planejar/ancora.json'
 import circoData from '@/data/cards/planejar/circo.json'
@@ -69,9 +69,11 @@ export function buildMatchDeck(
   }
   const base = shuffled.slice(0, 3)
 
-  // Injeta carta da classe (substitui posição 0)
+  // Injeta cartas da classe — evolucao injeta par obrigatório (talento + brecha)
   const classePool = CLASS_CARDS[classe] ?? []
-  const { cards: afterClass, seed: s2 } = injectClassCards(base, classePool, s)
+  const { cards: afterClass, seed: s2 } = classe === 'evolucao'
+    ? injectEvolucaoPair(base, classePool, s)
+    : injectClassCards(base, classePool, s)
 
   // Injeta passiva do arquétipo
   const afterPassiva = injectPassiveCards(afterClass, arquetipo)

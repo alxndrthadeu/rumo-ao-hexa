@@ -5,6 +5,17 @@ const { deathMin, deathMax } = config.bars
 
 const BAR_KEYS: Barra[] = ['torcida', 'midia', 'moral', 'fisico']
 
+// Aumenta o custo de efeitos negativos no Físico quando niggle divida_lesao está ativo.
+export function applyNiggleModifier(niggles: string[], efeitos: Efeitos): Efeitos {
+  if (!niggles.includes('divida_lesao')) return efeitos
+  const fisico = efeitos.fisico
+  if (fisico === undefined || fisico >= 0) return efeitos
+  return {
+    ...efeitos,
+    fisico: Math.round(fisico * config.niggle.costMultiplier),
+  }
+}
+
 export function applyBarDelta(state: RunState, efeitos: Efeitos): RunState {
   const barras = { ...state.barras }
 
