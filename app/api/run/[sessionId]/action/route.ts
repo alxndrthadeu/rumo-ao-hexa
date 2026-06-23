@@ -33,6 +33,8 @@ export async function POST(req: NextRequest, { params }: Params) {
     return NextResponse.json({ error: 'carta não encontrada' }, { status: 400 })
   }
 
+  const isCriseCard = card.fase !== 'entrevista' && (card as import('@/engine/types').Carta).camada === 'crise'
+
   // Captura flags ANTES da entrevista resetar (applyInterviewChoice chama resetMatchFlags)
   const flagsPartidaSnapshot = state.fase === 'entrevista' ? [...state.flagsPartida] : []
 
@@ -40,6 +42,18 @@ export async function POST(req: NextRequest, { params }: Params) {
   newState = {
     ...newState,
     cartasRestantes: newState.cartasRestantes.filter(id => id !== cardId),
+  }
+
+  // Sobreviveu à carta de crise — limpa crise e marca flag de carreira
+  if (isCriseCard && !newState.morto) {
+    newState = {
+      ...newState,
+      crise: undefined,
+      flagsCarreira: {
+        ...newState.flagsCarreira,
+        sobreviveu_crise: (newState.flagsCarreira.sobreviveu_crise ?? 0) + 1,
+      },
+    }
   }
 
   let nextCards: Carta[] | CartaEntrevista[] | null = null
@@ -72,7 +86,7 @@ export async function POST(req: NextRequest, { params }: Params) {
     } else if (state.fase === 'entrevista') {
       newState = resolveMatchEnd(newState, bracketEntry, flagsPartidaSnapshot)
       if (!newState.morto) {
-        const preGameCards = buildPreGameDeck(newState.partidaAtual, newState.barras.midia)
+        const preGameCards = buildPreGameDeck(newState.partidaAtual, newState.barras.midia, newState.crise)
         newState = {
           ...newState,
           cartasRestantes: preGameCards.map(c => c.id),
@@ -106,7 +120,7 @@ function findCardById(
   cardId: string,
 ): Carta | CartaEntrevista | null {
   if (state.fase === 'planejar') {
-    const cards = buildPreGameDeck(state.partidaAtual, state.barras.midia)
+    const cards = buildPreGameDeck(state.partidaAtual, state.barras.midia, state.crise)
     return cards.find(c => c.id === cardId) ?? null
   }
   if (state.fase === 'reagir') {
@@ -125,7 +139,7 @@ function getRemainingCards(
   _bracket: BracketEntry[]
 ): (Carta | CartaEntrevista)[] {
   if (state.fase === 'planejar') {
-    const cards = buildPreGameDeck(state.partidaAtual, state.barras.midia)
+    const cards = buildPreGameDeck(state.partidaAtual, state.barras.midia, state.crise)
     return cards.filter(c => state.cartasRestantes.includes(c.id))
   }
   if (state.fase === 'reagir') {

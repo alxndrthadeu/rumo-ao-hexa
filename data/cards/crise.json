@@ -1,0 +1,62 @@
+[
+  {
+    "id": "crise_midia",
+    "fase": "planejar",
+    "partida": 0,
+    "camada": "crise",
+    "texto": "Um jornalista revelou que você tem conta ativa em site de apostas — com apostas em jogos da Copa nos quais você participou. A CBF convocou reunião de emergência. O país inteiro discute.",
+    "esquerda": {
+      "texto": "Convoca coletiva, nega tudo, chora ao vivo",
+      "efeitos": { "torcida": -15, "moral": -25, "fisico": -10 }
+    },
+    "direita": {
+      "texto": "Silêncio total. Deixa o advogado falar",
+      "efeitos": { "torcida": -25, "moral": -15, "fisico": -5 }
+    }
+  },
+  {
+    "id": "crise_torcida",
+    "fase": "planejar",
+    "partida": 0,
+    "camada": "crise",
+    "texto": "Fotos vazaram de você em hotel a dois quarteirões da concentração, em festa, na véspera de treino. Alguém do staff vendeu a história. A torcida está pedindo sua exclusão da Copa.",
+    "esquerda": {
+      "texto": "Pede desculpas públicas, chora em live com a família",
+      "efeitos": { "midia": 15, "moral": -30, "fisico": -5 }
+    },
+    "direita": {
+      "texto": "Nega, chama de perseguição, vai às redes sociais",
+      "efeitos": { "midia": -20, "moral": -20, "fisico": -10 }
+    }
+  },
+  {
+    "id": "crise_moral",
+    "fase": "planejar",
+    "partida": 0,
+    "camada": "crise",
+    "texto": "Seu empresário foi gravado dizendo que você formalmente pediu ao técnico para ser dispensado por 'questões pessoais'. Os áudios circulam entre jornalistas. O vestiário está em silêncio.",
+    "esquerda": {
+      "texto": "Reúne o vestiário, chora, jura que vai jogar pelo grupo",
+      "efeitos": { "torcida": -10, "midia": -25, "fisico": -15 }
+    },
+    "direita": {
+      "texto": "Nota oficial e fechamento total — nada mais a declarar",
+      "efeitos": { "torcida": -25, "midia": -10, "fisico": -15 }
+    }
+  },
+  {
+    "id": "crise_fisico",
+    "fase": "planejar",
+    "partida": 0,
+    "camada": "crise",
+    "texto": "Uma fonte anônima em agência antidoping disse a um jornal alemão que sua amostra pré-Copa apresentou anomalias. A CBF nega. A FIFA não confirma. O mundo espera uma resposta sua.",
+    "esquerda": {
+      "texto": "Solicita re-exame ao vivo, paralisa treinos até sair resultado",
+      "efeitos": { "torcida": -10, "midia": -25, "moral": -20 }
+    },
+    "direita": {
+      "texto": "Treina normalmente, diz confiar nos processos",
+      "efeitos": { "torcida": -20, "midia": -15, "moral": -20 }
+    }
+  }
+]

@@ -5,6 +5,10 @@ import { useDrag } from '@use-gesture/react'
 import clsx from 'clsx'
 import type { Arquetipo, Carta, CartaEntrevista, Escolha } from '@/engine/types'
 
+function isCriseCard(card: Carta | CartaEntrevista): boolean {
+  return card.fase !== 'entrevista' && (card as Carta).camada === 'crise'
+}
+
 type AnyCard = Carta | CartaEntrevista
 
 function resolveCard(
@@ -103,13 +107,17 @@ export default function Card({
   const isDraggingRight = dragX > 24
   const tx = confirming === 'esquerda' ? -360 : confirming === 'direita' ? 360 : dragX * 0.35
   const rot = dragX * 0.04
+  const isCrise = isCriseCard(card)
 
   return (
     <div className="flex flex-col flex-1 select-none">
       {/* Carta arrastável */}
       <div
         {...bind()}
-        className="flex-1 mx-[15px] flex flex-col justify-between bg-papel border-2 border-preto cursor-grab active:cursor-grabbing"
+        className={clsx(
+          'flex-1 mx-[15px] flex flex-col justify-between bg-papel cursor-grab active:cursor-grabbing',
+          isCrise ? 'border-2 border-vermelho' : 'border-2 border-preto'
+        )}
         style={{
           touchAction: 'pan-y',
           transform: `translateX(${tx}px) rotate(${rot}deg)`,
@@ -119,12 +127,29 @@ export default function Card({
             ? `inset 3px 0 0 var(--color-vermelho)`
             : isDraggingRight
             ? `inset -3px 0 0 var(--color-verde)`
+            : isCrise
+            ? '4px 4px 0 var(--color-vermelho)'
             : undefined,
         }}
       >
+        {/* Cabeçalho de crise */}
+        {isCrise && (
+          <div className="bg-vermelho px-[15px] py-[9px] flex items-center gap-[8px]">
+            <span className="font-headline font-black italic text-[11px] tracking-[0.2em] uppercase text-white">
+              Crise de Vestiario
+            </span>
+            <span className="font-headline font-bold text-[10px] text-white/60 ml-auto">
+              Segunda chance
+            </span>
+          </div>
+        )}
+
         {/* Texto da carta */}
         <div className="px-[15px] pt-[18px] pb-[14px]">
-          <p className="font-headline font-bold italic text-[19px] leading-[1.25] tracking-[-0.3px] text-preto text-center">
+          <p className={clsx(
+            'font-headline font-bold italic leading-[1.25] tracking-[-0.3px] text-preto text-center',
+            isCrise ? 'text-[17px]' : 'text-[19px]'
+          )}>
             {texto}
           </p>
         </div>

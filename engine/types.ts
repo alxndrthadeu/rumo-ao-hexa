@@ -3,7 +3,7 @@
 export type Carga = 'ELOGIO' | 'CRITICA' | 'NEUTRA'
 export type Fase = 'planejar' | 'reagir' | 'entrevista'
 export type Naipe = 'ancora' | 'circo'
-export type Camada = 'generica' | 'classe' | 'assinatura' | 'bonus' | 'especial'
+export type Camada = 'generica' | 'classe' | 'assinatura' | 'bonus' | 'especial' | 'crise'
 export type Barra = 'torcida' | 'midia' | 'moral' | 'fisico'
 export type Arquetipo = 'estrela' | 'caido' | 'futuro'
 export type ClasseInimigo =
@@ -16,6 +16,11 @@ export type ClasseInimigo =
 
 export type ResultadoPartida = 'vitoria' | 'empate' | 'derrota'
 export type CausaMorte = 'placar' | 'barra' | 'vitoria' | 'expulsao'
+
+export interface CriseState {
+  barra: Barra
+  extreme: 'min' | 'max'
+}
 
 // ─── Estruturas de carta ─────────────────────────────────────────────────────
 
@@ -109,6 +114,7 @@ export interface RunState {
   flagsCarreira: Record<string, number>
   niggles: string[]
   bonusCrescimento: number
+  crise?: CriseState
   morto: boolean
   causaMorte?: CausaMorte
   barraMorte?: { barra: Barra; extreme: 'min' | 'max' }

@@ -54,7 +54,7 @@ describe('Integração — fatia vertical', () => {
     }
   })
 
-  it('morte por barra interrompe a partida imediatamente', () => {
+  it('primeiro estouro de barra dispara crise (não morte imediata)', () => {
     let s = createRunState('caido', 99999, 'Teste', 10)
     s = { ...s, barras: { ...s.barras, fisico: 5 } }
 
@@ -68,13 +68,32 @@ describe('Integração — fatia vertical', () => {
     }
 
     const result = applyCardChoice(s, carta, 'esquerda')
+    expect(result.morto).toBe(false)
+    expect(result.crise).toEqual({ barra: 'fisico', extreme: 'min' })
+    expect(result.barras.fisico).toBe(5)
+  })
+
+  it('segundo estouro de barra com crise ativa mata imediatamente', () => {
+    let s = createRunState('caido', 99999, 'Teste', 10)
+    s = { ...s, barras: { ...s.barras, fisico: 5 }, crise: { barra: 'moral', extreme: 'min' } }
+
+    const carta: Carta = {
+      id: 'test_drena_fisico_2',
+      fase: 'reagir',
+      partida: 1,
+      texto: 'Teste — drena Físico (crise ativa)',
+      esquerda: { texto: 'Drena -10', efeitos: { fisico: -10 } },
+      direita:  { texto: 'Neutro',    efeitos: {} },
+    }
+
+    const result = applyCardChoice(s, carta, 'esquerda')
     expect(result.morto).toBe(true)
     expect(result.causaMorte).toBe('barra')
     expect(result.barraMorte?.barra).toBe('fisico')
     expect(result.barraMorte?.extreme).toBe('min')
   })
 
-  it('morte por barra no extremo máximo (Torcida=100)', () => {
+  it('primeiro estouro máximo (Torcida=100) dispara crise', () => {
     let s = createRunState('estrela', 1, 'Teste', 10)
     s = { ...s, barras: { ...s.barras, torcida: 95 } }
 
@@ -88,10 +107,9 @@ describe('Integração — fatia vertical', () => {
     }
 
     const result = applyCardChoice(s, carta, 'esquerda')
-    expect(result.morto).toBe(true)
-    expect(result.causaMorte).toBe('barra')
-    expect(result.barraMorte?.barra).toBe('torcida')
-    expect(result.barraMorte?.extreme).toBe('max')
+    expect(result.morto).toBe(false)
+    expect(result.crise).toEqual({ barra: 'torcida', extreme: 'max' })
+    expect(result.barras.torcida).toBe(95)
   })
 
   it('estado não muta após applyCardChoice', () => {

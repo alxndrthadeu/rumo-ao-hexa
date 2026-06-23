@@ -1,4 +1,4 @@
-import type { Arquetipo, BracketEntry, Carta, CartaEntrevista, ClasseInimigo } from './types'
+import type { Arquetipo, BracketEntry, Carta, CartaEntrevista, ClasseInimigo, CriseState } from './types'
 import { advanceSeed, seedToFloat } from './rng'
 import { resolveInterviewFlag } from './flags'
 import { injectClassCards, injectEvolucaoPair, injectPassiveCards } from './injection'
@@ -20,6 +20,7 @@ import especNeutroData    from '@/data/cards/reagir/especial_neutro.json'
 import especFavorData     from '@/data/cards/reagir/especial_favoravel.json'
 import especHostilData    from '@/data/cards/reagir/especial_hostil.json'
 import entrevistaData from '@/data/cards/entrevista.json'
+import criseData      from '@/data/cards/crise.json'
 import bracketData    from '@/data/bracket.json'
 
 const ancoraCards     = ancoraData     as unknown as Carta[]
@@ -32,6 +33,7 @@ const especNeutroCards    = especNeutroData    as unknown as Carta[]
 const especFavorCards     = especFavorData     as unknown as Carta[]
 const especHostilCards    = especHostilData    as unknown as Carta[]
 const entrevistaCards = entrevistaData as unknown as CartaEntrevista[]
+const criseCards      = criseData      as unknown as Carta[]
 
 const CLASS_CARDS: Record<ClasseInimigo, Carta[]> = {
   tecnico:         tecnicoData    as unknown as Carta[],
@@ -58,7 +60,7 @@ export function loadBracket(): BracketEntry[] {
 // ─── Pré-jogo ─────────────────────────────────────────────────────────────────
 // Retorna 2 cartas normalmente; 3 quando mídia é extrema (carta de imprensa extra)
 
-export function buildPreGameDeck(partida: number, midia?: number): Carta[] {
+export function buildPreGameDeck(partida: number, midia?: number, crise?: CriseState): Carta[] {
   const ancoras = ancoraCards.filter(c => !c.requer_passiva)
   const circos  = circoCards.filter(c => !c.requer_passiva)
 
@@ -75,6 +77,12 @@ export function buildPreGameDeck(partida: number, midia?: number): Carta[] {
     const { midiaHighThreshold, midiaLowThreshold } = config.deckBonus
     if (midia >= midiaHighThreshold) deck.push(IMPRENSA_FAVORAVEL)
     else if (midia <= midiaLowThreshold) deck.push(IMPRENSA_HOSTIL)
+  }
+
+  // Carta de crise é sempre a primeira — aparece antes da concentração normal
+  if (crise) {
+    const criseCard = criseCards.find(c => c.id === `crise_${crise.barra}`)
+    if (criseCard) deck.unshift(criseCard)
   }
 
   return deck
@@ -173,6 +181,7 @@ const ALL_PLAY_CARDS: Carta[] = [
   ...especNeutroCards,
   ...especFavorCards,
   ...especHostilCards,
+  ...criseCards,
   ...Object.values(CLASS_CARDS).flat(),
 ]
 

@@ -115,14 +115,17 @@ export function applyCardChoice(
   // 5. Risco
   s = applyRisco(s, escolha)
 
-  // 6. Morte de barra — imediata
+  // 6. Barra no limite — primeira vez dispara crise; segunda vez é morte real
   const death = checkBarDeath(s)
   if (death.dead) {
+    if (s.crise) {
+      return { ...s, morto: true, causaMorte: 'barra', barraMorte: { barra: death.barra!, extreme: death.extreme! } }
+    }
+    const criseFloor = death.extreme === 'min' ? 5 : 95
     return {
       ...s,
-      morto: true,
-      causaMorte: 'barra',
-      barraMorte: { barra: death.barra!, extreme: death.extreme! },
+      crise: { barra: death.barra!, extreme: death.extreme! },
+      barras: { ...s.barras, [death.barra!]: criseFloor },
     }
   }
 
@@ -150,14 +153,17 @@ function applyInterviewChoice(
   // Flag de carreira
   if (escolha.flag_carreira) s = applyCareerFlag(s, escolha.flag_carreira)
 
-  // Morte de barra
+  // Morte de barra — mesma lógica de crise
   const death = checkBarDeath(s)
   if (death.dead) {
+    if (s.crise) {
+      return { ...s, morto: true, causaMorte: 'barra', barraMorte: { barra: death.barra!, extreme: death.extreme! } }
+    }
+    const criseFloor = death.extreme === 'min' ? 5 : 95
     return {
       ...s,
-      morto: true,
-      causaMorte: 'barra',
-      barraMorte: { barra: death.barra!, extreme: death.extreme! },
+      crise: { barra: death.barra!, extreme: death.extreme! },
+      barras: { ...s.barras, [death.barra!]: criseFloor },
     }
   }
 
