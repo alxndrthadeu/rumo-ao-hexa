@@ -8,13 +8,22 @@
     "texto": "O camisa 10 deles, um talento em ascensão, te dá um drible humilhante. Eles têm gente boa.",
     "esquerda": {
       "texto": "Vai atrás na raça, recupera",
-      "efeitos": { "fisico": -5, "placar": 1 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "fisico": -5,
+        "placar": 1
+      },
+      "flags_partida": [
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Reorganiza, não se expõe",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -26,18 +35,40 @@
     "texto": "O zagueiro deles, ainda cru, erra feio a saída de bola. A sobra é tua, limpa.",
     "esquerda": {
       "texto": "Aproveita o presente na hora",
-      "efeitos": { "placar": "condicional" },
+      "efeitos": {
+        "placar": "condicional"
+      },
       "climax": true,
       "condicional": {
         "limiar": 0,
-        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
-        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+        "ramoA": {
+          "efeitos": {
+            "placar": 2
+          },
+          "flags_partida": [
+            "heroi"
+          ],
+          "climax": true
+        },
+        "ramoB": {
+          "efeitos": {
+            "placar": -1
+          },
+          "flags_partida": [
+            "afobado"
+          ],
+          "climax": true
+        }
       }
     },
     "direita": {
       "texto": "Hesita, respeita demais, desperdiça",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["covarde"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "covarde"
+      ]
     }
   },
   {
@@ -49,13 +80,22 @@
     "texto": "Eles jogam com a energia de quem não tem nada a perder. Te pressionam com gana.",
     "esquerda": {
       "texto": "Bate de frente na intensidade",
-      "efeitos": { "fisico": -5, "placar": 1 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "fisico": -5,
+        "placar": 1
+      },
+      "flags_partida": [
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Usa a experiência, controla o tempo",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -67,12 +107,18 @@
     "texto": "A pouca experiência cobra: eles se afobam e deixam um buraco enorme no meio.",
     "esquerda": {
       "texto": "Invade o espaço",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["ousado"]
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ]
     },
     "direita": {
       "texto": "Não percebe a tempo",
-      "efeitos": { "placar": 0 }
+      "efeitos": {
+        "placar": 0
+      }
     }
   },
   {
@@ -84,13 +130,22 @@
     "texto": "A joia deles dá um show individual. A imprensa neutra já o compara a você.",
     "esquerda": {
       "texto": "Responde, mostra quem é o craque",
-      "efeitos": { "placar": 1, "midia": 5 },
-      "flags_partida": ["ousado"]
+      "efeitos": {
+        "placar": 1,
+        "midia": 5
+      },
+      "flags_partida": [
+        "ousado"
+      ]
     },
     "direita": {
       "texto": "Não entra no duelo de egos",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["coletivo"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
     }
   },
   {
@@ -102,13 +157,74 @@
     "texto": "Depois de te assustar, eles relaxam achando que está ganho. Vacilo coletivo.",
     "esquerda": {
       "texto": "Pune o relaxamento na hora",
-      "efeitos": { "placar": 2 },
-      "flags_partida": ["heroi"]
+      "efeitos": {
+        "placar": 2
+      },
+      "flags_partida": [
+        "heroi"
+      ]
     },
     "direita": {
       "texto": "Joga junto, espera o apito",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "evo_pressao_jovem",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "evolucao",
+    "partida": 1,
+    "texto": "A juventude deles te pressiona sem medo, com energia de sobra. Querem te tirar do sério.",
+    "esquerda": {
+      "texto": "Bate de frente na intensidade",
+      "efeitos": {
+        "fisico": -5,
+        "placar": 1
+      },
+      "flags_partida": [
+        "raca"
+      ]
+    },
+    "direita": {
+      "texto": "Usa a manha pra escapar",
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "evo_afobamento",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "evolucao",
+    "partida": 1,
+    "texto": "Eufóricos, eles se lançam todos ao ataque e esquecem de marcar. O campo abre atrás.",
+    "esquerda": {
+      "texto": "Explora o espaço na hora",
+      "efeitos": {
+        "placar": 2
+      },
+      "flags_partida": [
+        "heroi"
+      ]
+    },
+    "direita": {
+      "texto": "Não vê a brecha a tempo",
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "afobado"
+      ]
     }
   }
 ]

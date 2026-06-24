@@ -64,7 +64,11 @@ function applyRisco(state: RunState, escolha: Escolha): RunState {
   let s = { ...state, seed: newSeed }
   if (roll < chance) {
     if (tipo === 'cartao_vermelho') {
-      return { ...s, morto: true, causaMorte: 'expulsao' }
+      // Mata-mata (partida >= 4): expulsão elimina a equipe imediatamente
+      if (s.partidaAtual >= 4) {
+        return { ...s, morto: true, causaMorte: 'expulsao' }
+      }
+      // Fase de grupos: aplica penalidade de placar mas continua a partida
     }
     s = applyBarDelta(s, efeitos)
     if (typeof efeitos.placar === 'number') {
@@ -186,17 +190,19 @@ export function resolveMatchEnd(
   const pontos = matchPoints(resultado)
 
   // Registra a partida no histórico (flags capturadas antes do reset da entrevista)
-  const record = buildMatchRecord(
+  const { record, seed: seedAfterJornal } = buildMatchRecord(
     state.partidaAtual,
     bracket.adversario,
     bracket.fase,
     state.placarPartida,
     resultado,
-    flagsPartidaSnapshot
+    flagsPartidaSnapshot,
+    state.seed
   )
 
   let s: RunState = {
     ...state,
+    seed: seedAfterJornal,
     historicoPartidas: [...state.historicoPartidas, record],
   }
 
@@ -233,6 +239,8 @@ export function resolveMatchEnd(
     partidaAtual: nextPartida,
     fase: 'planejar',
     placarPartida: 0,
+    golsBrasil: 0,
+    golsAdversario: 0,
     flagsPartida: [],
     bonusCrescimento,
   }

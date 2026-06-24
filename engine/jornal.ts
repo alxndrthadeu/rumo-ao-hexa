@@ -1,4 +1,5 @@
 import type { MatchRecord, ResultadoPartida } from './types'
+import { advanceSeed, seedToFloat } from './rng'
 
 // ─── Manchetes por flag + resultado ──────────────────────────────────────────
 
@@ -139,40 +140,59 @@ function match(flags: string[], rule: MancheteRule): boolean {
 export function generateManchete(
   resultado: ResultadoPartida,
   flags: string[],
-  adversario: string
-): { manchete: string; corpo: string } {
+  adversario: string,
+  seed: number
+): { manchete: string; corpo: string; seed: number } {
+  let s = seed
   const matching = REGRAS.filter(rule => {
     if (rule.resultado && rule.resultado !== resultado) return false
     return match(flags, rule)
   })
 
+  let manchete: string
+  let corpo: string
+
   if (matching.length > 0) {
-    const rule = matching[Math.floor(Math.random() * matching.length)]
-    const opcao = rule.opcoes[Math.floor(Math.random() * rule.opcoes.length)]
-    return { manchete: opcao.manchete, corpo: opcao.corpo }
+    s = advanceSeed(s)
+    const rule = matching[Math.floor(seedToFloat(s) * matching.length)]
+    s = advanceSeed(s)
+    const opcao = rule.opcoes[Math.floor(seedToFloat(s) * rule.opcoes.length)]
+    manchete = opcao.manchete
+    corpo = opcao.corpo
+  } else {
+    // Fallback por resultado
+    const adversarioUpper = adversario.toUpperCase()
+    if (resultado === 'vitoria') {
+      const fallbacks = [
+        { manchete: `BRASIL VENCE ${adversarioUpper}. A COPA CONTINUA.`, corpo: 'Vitória sem drama. O Brasil fez o que tinha que fazer e segue na competição.' },
+        { manchete: `MISSÃO CUMPRIDA. BRASIL PASSA ${adversarioUpper}.`, corpo: 'Eficiência quando importa. O Brasil não precisou de muito pra conseguir o que precisava.' },
+      ]
+      s = advanceSeed(s)
+      const f = fallbacks[Math.floor(seedToFloat(s) * fallbacks.length)]
+      manchete = f.manchete
+      corpo = f.corpo
+    } else if (resultado === 'derrota') {
+      const fallbacks = [
+        { manchete: `DERROTA AMARGA. ${adversarioUpper} PARA O BRASIL.`, corpo: 'Uma noite difícil. O Brasil cai, mas a lição fica. A Copa é implacável.' },
+        { manchete: `${adversarioUpper} FOI MELHOR. E MOSTROU.`,         corpo: 'Não teve desculpa. O adversário foi superior e a derrota é justa.' },
+      ]
+      s = advanceSeed(s)
+      const f = fallbacks[Math.floor(seedToFloat(s) * fallbacks.length)]
+      manchete = f.manchete
+      corpo = f.corpo
+    } else {
+      const fallbacks = [
+        { manchete: 'EMPATE. UM PASSO DE CADA VEZ.',       corpo: 'Nenhum dos dois foi melhor. O Brasil segura o ponto e mantém a campanha viva.' },
+        { manchete: 'UM PONTO. UMA LIÇÃO.',                corpo: 'Não foi o que se queria, mas foi o que se conseguiu. A Copa não espera.' },
+      ]
+      s = advanceSeed(s)
+      const f = fallbacks[Math.floor(seedToFloat(s) * fallbacks.length)]
+      manchete = f.manchete
+      corpo = f.corpo
+    }
   }
 
-  // Fallback por resultado
-  const adversarioUpper = adversario.toUpperCase()
-  if (resultado === 'vitoria') {
-    const fallbacks = [
-      { manchete: `BRASIL VENCE ${adversarioUpper}. A COPA CONTINUA.`, corpo: 'Vitória sem drama. O Brasil fez o que tinha que fazer e segue na competição.' },
-      { manchete: `MISSÃO CUMPRIDA. BRASIL PASSA ${adversarioUpper}.`, corpo: 'Eficiência quando importa. O Brasil não precisou de muito pra conseguir o que precisava.' },
-    ]
-    return fallbacks[Math.floor(Math.random() * fallbacks.length)]
-  }
-  if (resultado === 'derrota') {
-    const fallbacks = [
-      { manchete: `DERROTA AMARGA. ${adversarioUpper} PARA O BRASIL.`, corpo: 'Uma noite difícil. O Brasil cai, mas a lição fica. A Copa é implacável.' },
-      { manchete: `${adversarioUpper} FOI MELHOR. E MOSTROU.`,         corpo: 'Não teve desculpa. O adversário foi superior e a derrota é justa.' },
-    ]
-    return fallbacks[Math.floor(Math.random() * fallbacks.length)]
-  }
-  const empFallbacks = [
-    { manchete: 'EMPATE. UM PASSO DE CADA VEZ.',       corpo: 'Nenhum dos dois foi melhor. O Brasil segura o ponto e mantém a campanha viva.' },
-    { manchete: 'UM PONTO. UMA LIÇÃO.',                corpo: 'Não foi o que se queria, mas foi o que se conseguiu. A Copa não espera.' },
-  ]
-  return empFallbacks[Math.floor(Math.random() * empFallbacks.length)]
+  return { manchete, corpo, seed: s }
 }
 
 export function buildMatchRecord(
@@ -181,11 +201,12 @@ export function buildMatchRecord(
   fase: string,
   placarDelta: number,
   resultado: ResultadoPartida,
-  flags: string[]
-): MatchRecord {
+  flags: string[],
+  seed: number
+): { record: MatchRecord; seed: number } {
   const topFlags = [...flags].slice(-4) // mais recentes têm mais peso
-  const { manchete, corpo } = generateManchete(resultado, topFlags, adversario)
-  return {
+  const { manchete, corpo, seed: newSeed } = generateManchete(resultado, topFlags, adversario, seed)
+  const record: MatchRecord = {
     partida,
     adversario,
     fase,
@@ -195,4 +216,5 @@ export function buildMatchRecord(
     manchete,
     corpo,
   }
+  return { record, seed: newSeed }
 }

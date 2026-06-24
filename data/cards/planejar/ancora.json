@@ -7,12 +7,19 @@
     "texto": "O preparador montou um trabalho extra de finalização. Puxado, vai te deixar moído amanhã.",
     "esquerda": {
       "texto": "Encara o trabalho dobrado",
-      "efeitos": { "fisico": -5 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "fisico": -5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     },
     "direita": {
       "texto": "Pega leve, poupa as pernas",
-      "efeitos": { "fisico": 5, "moral": -5 }
+      "efeitos": {
+        "fisico": 5,
+        "moral": -5
+      }
     }
   },
   {
@@ -23,12 +30,17 @@
     "texto": "O técnico te chama pra uma conversa tática privada. Quer te dar mais responsabilidade no esquema.",
     "esquerda": {
       "texto": "Aceita o papel de líder",
-      "efeitos": { "moral": 10 },
+      "efeitos": {
+        "moral": 10
+      },
       "flag_carreira": "lider"
     },
     "direita": {
       "texto": "Prefiro só jogar, professor",
-      "efeitos": { "moral": -5, "fisico": 3 }
+      "efeitos": {
+        "moral": -5,
+        "fisico": 3
+      }
     }
   },
   {
@@ -39,11 +51,17 @@
     "texto": "Uma fisgada no músculo aparece no treino. O médico sugere poupar.",
     "esquerda": {
       "texto": "Poupa e trata",
-      "efeitos": { "fisico": 10, "moral": -5 }
+      "efeitos": {
+        "fisico": 10,
+        "moral": -5
+      }
     },
     "direita": {
       "texto": "Esconde a dor, treina normal",
-      "efeitos": { "moral": 5, "fisico": -5 },
+      "efeitos": {
+        "moral": 5,
+        "fisico": -5
+      },
       "niggle": "muscular"
     }
   },
@@ -55,11 +73,17 @@
     "texto": "O departamento médico quer fazer um protocolo de recuperação chato e demorado.",
     "esquerda": {
       "texto": "Segue o protocolo à risca",
-      "efeitos": { "fisico": 8, "moral": -3 }
+      "efeitos": {
+        "fisico": 8,
+        "moral": -3
+      }
     },
     "direita": {
       "texto": "Abrevia, quer treinar com a bola",
-      "efeitos": { "moral": 5, "fisico": -5 }
+      "efeitos": {
+        "moral": 5,
+        "fisico": -5
+      }
     }
   },
   {
@@ -70,14 +94,31 @@
     "texto": "Véspera de jogo. O grupo vai jantar fora pra descontrair. Pode ser bom… ou virar foto.",
     "esquerda": {
       "texto": "Fica no hotel, dorme cedo",
-      "efeitos": { "fisico": 5, "midia": -3 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "fisico": 5,
+        "midia": -3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     },
     "direita": {
       "texto": "Vai pra night com a galera",
-      "efeitos": { "moral": 8, "torcida": 3, "fisico": -8 },
-      "flags_partida": ["boemio"],
-      "risco": { "tipo": "manchete", "chance": 0.3, "efeitos": { "midia": -10 } }
+      "efeitos": {
+        "moral": 8,
+        "torcida": 3,
+        "fisico": -8
+      },
+      "flags_partida": [
+        "boemio"
+      ],
+      "risco": {
+        "tipo": "manchete",
+        "chance": 0.3,
+        "efeitos": {
+          "midia": -10
+        }
+      }
     }
   },
   {
@@ -88,12 +129,19 @@
     "texto": "O técnico passa na sua concentração e muda seu posicionamento no esquema. Sem explicação.",
     "esquerda": {
       "texto": "Aceita em silêncio, confia no processo",
-      "efeitos": { "moral": -5, "fisico": 3 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "moral": -5,
+        "fisico": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     },
     "direita": {
       "texto": "Pede explicação antes do treino",
-      "efeitos": { "moral": 8 },
+      "efeitos": {
+        "moral": 8
+      },
       "flag_carreira": "lider"
     }
   },
@@ -105,13 +153,23 @@
     "texto": "Sessão de vídeo do adversário às 6h da manhã. Sono ou dever de casa?",
     "esquerda": {
       "texto": "Acorda e estuda o rival",
-      "efeitos": { "moral": 8, "fisico": -3 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "moral": 8,
+        "fisico": -3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     },
     "direita": {
       "texto": "Dorme, eu resolvo em campo",
-      "efeitos": { "fisico": 5, "moral": -5 },
-      "flags_partida": ["boemio"]
+      "efeitos": {
+        "fisico": 5,
+        "moral": -5
+      },
+      "flags_partida": [
+        "boemio"
+      ]
     }
   },
   {
@@ -122,12 +180,16 @@
     "texto": "Dois companheiros brigaram no treino. Todo mundo viu. O técnico quer que o grupo resolva internamente.",
     "esquerda": {
       "texto": "Entra como mediador, acalma os dois",
-      "efeitos": { "moral": 10 },
+      "efeitos": {
+        "moral": 10
+      },
       "flag_carreira": "lider"
     },
     "direita": {
       "texto": "Não é meu problema, cada um com o seu",
-      "efeitos": { "moral": -5 },
+      "efeitos": {
+        "moral": -5
+      },
       "flag_carreira": "problematico"
     }
   },
@@ -139,12 +201,17 @@
     "texto": "O capitão veterano te chama pra um café. Quer saber se pode contar com você nos momentos difíceis.",
     "esquerda": {
       "texto": "Pode contar comigo, sempre.",
-      "efeitos": { "moral": 10, "torcida": 3 },
+      "efeitos": {
+        "moral": 10,
+        "torcida": 3
+      },
       "flag_carreira": "lider"
     },
     "direita": {
       "texto": "Evita o compromisso",
-      "efeitos": { "moral": -8 },
+      "efeitos": {
+        "moral": -8
+      },
       "flag_carreira": "problematico"
     }
   },
@@ -156,12 +223,20 @@
     "texto": "Você não dormiu direito. Ansiedade pré-jogo ou barulho do hotel?",
     "esquerda": {
       "texto": "Vai logo pro treino, força na vontade",
-      "efeitos": { "fisico": -8, "moral": 5 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "fisico": -8,
+        "moral": 5
+      },
+      "flags_partida": [
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Pede ao médico algo pra relaxar",
-      "efeitos": { "fisico": 5, "moral": -3 }
+      "efeitos": {
+        "fisico": 5,
+        "moral": -3
+      }
     }
   },
   {
@@ -172,12 +247,21 @@
     "texto": "A imprensa pede um treino aberto. Pode ser palco ou armadilha.",
     "esquerda": {
       "texto": "Treino fechado, foco total",
-      "efeitos": { "moral": 5, "midia": -5 }
+      "efeitos": {
+        "moral": 5,
+        "midia": -5
+      }
     },
     "direita": {
       "texto": "Treino aberto, dá show",
-      "efeitos": { "midia": 8, "torcida": 5, "moral": -5 },
-      "flags_partida": ["showman"]
+      "efeitos": {
+        "midia": 8,
+        "torcida": 5,
+        "moral": -5
+      },
+      "flags_partida": [
+        "showman"
+      ]
     }
   },
   {
@@ -188,12 +272,17 @@
     "texto": "Um reserva te acusa em particular de monopolizar o holofote e ignorar o grupo.",
     "esquerda": {
       "texto": "Ouve, reconhece, promete mudar",
-      "efeitos": { "moral": 8 },
+      "efeitos": {
+        "moral": 8
+      },
       "flag_carreira": "humilde"
     },
     "direita": {
       "texto": "Ignora, tem jogo pra ganhar",
-      "efeitos": { "moral": -8, "midia": 3 },
+      "efeitos": {
+        "moral": -8,
+        "midia": 3
+      },
       "flag_carreira": "arrogante"
     }
   },
@@ -205,11 +294,17 @@
     "texto": "O psicólogo da seleção sugere uma sessão de mindfulness antes da semifinal. Parece bobagem.",
     "esquerda": {
       "texto": "Topa e leva a sério",
-      "efeitos": { "moral": 10, "fisico": 3 }
+      "efeitos": {
+        "moral": 10,
+        "fisico": 3
+      }
     },
     "direita": {
       "texto": "Dispensa, prefere fazer mais físico",
-      "efeitos": { "fisico": 5, "moral": -5 }
+      "efeitos": {
+        "fisico": 5,
+        "moral": -5
+      }
     }
   },
   {
@@ -221,12 +316,20 @@
     "texto": "A imprensa já te considera o craque do torneio depois de dois jogos. O peso do rótulo começa a aparecer nos treinos.",
     "esquerda": {
       "texto": "Abraça a expectativa, treina ainda mais",
-      "efeitos": { "fisico": -5, "moral": 8 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "fisico": -5,
+        "moral": 8
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     },
     "direita": {
       "texto": "Baixa a guarda — já provei o suficiente",
-      "efeitos": { "fisico": 5, "moral": -10 },
+      "efeitos": {
+        "fisico": 5,
+        "moral": -10
+      },
       "flag_carreira": "arrogante"
     }
   },
@@ -239,12 +342,16 @@
     "texto": "Você cruza com um ex-companheiro que foi cortado da seleção por você ter voltado. Clima pesado.",
     "esquerda": {
       "texto": "Para, conversa, tira o peso",
-      "efeitos": { "moral": 10 },
+      "efeitos": {
+        "moral": 10
+      },
       "flag_carreira": "lider"
     },
     "direita": {
       "texto": "Faz que não viu, não é hora",
-      "efeitos": { "moral": -8 },
+      "efeitos": {
+        "moral": -8
+      },
       "flag_carreira": "problematico"
     }
   },
@@ -257,13 +364,392 @@
     "texto": "Os veteranos do grupo resolvem te 'iniciar' com uma pegadinha pesada no vestiário. Ritual de passagem.",
     "esquerda": {
       "texto": "Ri junto, entra no grupo",
-      "efeitos": { "moral": 10, "torcida": 5 },
+      "efeitos": {
+        "moral": 10,
+        "torcida": 5
+      },
       "flag_carreira": "lider"
     },
     "direita": {
       "texto": "Fica sério, não acha graça",
-      "efeitos": { "moral": -5 },
+      "efeitos": {
+        "moral": -5
+      },
       "flag_carreira": "problematico"
+    }
+  },
+  {
+    "id": "anc_bola_parada",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 1,
+    "texto": "Sobra um tempo no fim do treino. Dá pra ficar batendo bola parada até a mão doer, ou poupar a cabeça e as pernas.",
+    "esquerda": {
+      "texto": "Treina até a exaustão",
+      "efeitos": {
+        "moral": 8,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Descansa, preserva as pernas",
+      "efeitos": {
+        "fisico": 5,
+        "moral": -3
+      }
+    }
+  },
+  {
+    "id": "anc_dieta",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 2,
+    "texto": "O nutricionista impõe uma dieta rígida na véspera. O chef do hotel, de sacanagem, fez sua sobremesa favorita.",
+    "esquerda": {
+      "texto": "Segue a dieta à risca",
+      "efeitos": {
+        "fisico": 8,
+        "moral": -3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Cede à sobremesa, mata a vontade",
+      "efeitos": {
+        "moral": 5,
+        "fisico": -5
+      }
+    }
+  },
+  {
+    "id": "anc_estudo_goleiro",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 2,
+    "texto": "O analista te entrega um dossiê dos cantos e manias do goleiro adversário. Vai render horas de tela.",
+    "esquerda": {
+      "texto": "Estuda cada detalhe do goleiro",
+      "efeitos": {
+        "moral": 8,
+        "fisico": -3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "\"Resolvo no instinto.\"",
+      "efeitos": {
+        "fisico": 3,
+        "moral": -3
+      },
+      "flags_partida": [
+        "ousado"
+      ]
+    }
+  },
+  {
+    "id": "anc_gelo",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 3,
+    "texto": "O protocolo manda banho de gelo de quinze minutos. Dói, congela, ninguém aguenta até o fim.",
+    "esquerda": {
+      "texto": "Encara o gelo inteiro",
+      "efeitos": {
+        "fisico": 10,
+        "moral": -5
+      }
+    },
+    "direita": {
+      "texto": "Abrevia, não suporta",
+      "efeitos": {
+        "fisico": -5,
+        "moral": 5
+      }
+    }
+  },
+  {
+    "id": "anc_conversa_reserva",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 3,
+    "texto": "Um reserva importante está pra baixo, achando que não joga mais nesta Copa. Uma palavra sua mudaria o clima do grupo.",
+    "esquerda": {
+      "texto": "Procura ele, levanta o grupo",
+      "efeitos": {
+        "moral": 8
+      },
+      "flags_partida": [
+        "lider"
+      ],
+      "flag_carreira": "lider"
+    },
+    "direita": {
+      "texto": "Foca só na sua preparação",
+      "efeitos": {
+        "fisico": 3,
+        "moral": -3
+      },
+      "flags_partida": [
+        "frio"
+      ]
+    }
+  },
+  {
+    "id": "anc_psicologo_pressao",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 4,
+    "texto": "A psicóloga da seleção quer trabalhar o medo de decidir um mata-mata. Mexer nisso pode ajudar — ou abrir feridas.",
+    "esquerda": {
+      "texto": "Encara a conversa difícil",
+      "efeitos": {
+        "moral": 10,
+        "fisico": -3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "\"Tô bem, não preciso disso.\"",
+      "efeitos": {
+        "moral": -3
+      },
+      "flags_partida": [
+        "frio"
+      ]
+    }
+  },
+  {
+    "id": "anc_viagem",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 4,
+    "texto": "O deslocamento pro estádio é longo e desgastante. Dá pra dormir no ônibus ou revisar o esquema com o capitão.",
+    "esquerda": {
+      "texto": "Dorme e recupera as energias",
+      "efeitos": {
+        "fisico": 8,
+        "moral": -3
+      }
+    },
+    "direita": {
+      "texto": "Revisa o esquema com o capitão",
+      "efeitos": {
+        "moral": 8,
+        "fisico": -3
+      },
+      "flags_partida": [
+        "lider",
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "anc_massagem",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 5,
+    "texto": "O fisioterapeuta oferece uma sessão extra de massagem que vai roubar boa parte do seu sono.",
+    "esquerda": {
+      "texto": "Faz a massagem, cuida do corpo",
+      "efeitos": {
+        "fisico": 8,
+        "moral": -3
+      }
+    },
+    "direita": {
+      "texto": "Prefere dormir cedo",
+      "efeitos": {
+        "fisico": 3,
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "anc_acordo_grupo",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 5,
+    "texto": "O elenco quer fechar um pacto pra reta final: horários, redes sociais, foco total. Pedem que você puxe a regra.",
+    "esquerda": {
+      "texto": "Lidera o pacto do grupo",
+      "efeitos": {
+        "moral": 10
+      },
+      "flags_partida": [
+        "lider"
+      ],
+      "flag_carreira": "lider"
+    },
+    "direita": {
+      "texto": "Acha exagero, não adere",
+      "efeitos": {
+        "moral": -5
+      },
+      "flags_partida": [
+        "boemio"
+      ]
+    }
+  },
+  {
+    "id": "anc_ritual",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 6,
+    "texto": "Um veterano supersticioso insiste que você entre em campo seguindo o ritual dele, pra não \"furar o axé\" do grupo.",
+    "esquerda": {
+      "texto": "Respeita o ritual, une o grupo",
+      "efeitos": {
+        "moral": 5,
+        "torcida": 3
+      }
+    },
+    "direita": {
+      "texto": "Zomba da superstição",
+      "efeitos": {
+        "moral": -3
+      },
+      "flags_partida": [
+        "frio"
+      ]
+    }
+  },
+  {
+    "id": "anc_clima_frio",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 6,
+    "texto": "O jogo é num estádio gelado e ventando. O preparador sugere um aquecimento dobrado pra não começar travado.",
+    "esquerda": {
+      "texto": "Aquecimento dobrado, encara o frio",
+      "efeitos": {
+        "moral": 8,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Poupa energia pro jogo",
+      "efeitos": {
+        "fisico": 5,
+        "moral": -5
+      }
+    }
+  },
+  {
+    "id": "anc_jejum_gols",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 6,
+    "texto": "Você está há jogos sem marcar e a imprensa cobra. O treinador oferece um trabalho individual de finalização.",
+    "esquerda": {
+      "texto": "Vira a noite treinando finalização",
+      "efeitos": {
+        "moral": 8,
+        "fisico": -8
+      },
+      "flags_partida": [
+        "raca"
+      ]
+    },
+    "direita": {
+      "texto": "\"Gol é consequência.\"",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "anc_final_peso",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 7,
+    "texto": "É a véspera da FINAL. O peso de um país inteiro não te deixa relaxar. O técnico te olha nos olhos e pergunta se você está pronto.",
+    "esquerda": {
+      "texto": "\"Nasci pra esse jogo, professor.\"",
+      "efeitos": {
+        "moral": 10
+      },
+      "flags_partida": [
+        "lider"
+      ],
+      "flag_carreira": "lider"
+    },
+    "direita": {
+      "texto": "Engole o medo em silêncio",
+      "efeitos": {
+        "moral": -5,
+        "fisico": 3
+      },
+      "flags_partida": [
+        "frio"
+      ]
+    }
+  },
+  {
+    "id": "anc_familia_visita",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 7,
+    "texto": "Sua família atravessou o mundo pra ver a final. Eles querem te ver na véspera; o protocolo manda concentração total.",
+    "esquerda": {
+      "texto": "Recebe a família, recarrega",
+      "efeitos": {
+        "moral": 8,
+        "torcida": 3,
+        "fisico": -3
+      }
+    },
+    "direita": {
+      "texto": "Mantém o foco, vê depois",
+      "efeitos": {
+        "moral": -3,
+        "fisico": 3
+      },
+      "flags_partida": [
+        "disciplinado",
+        "frio"
+      ]
+    }
+  },
+  {
+    "id": "anc_treino_secreto",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 7,
+    "texto": "A comissão quer um treino fechado pra ensaiar uma jogada-surpresa pra final. Cansa, mas pode decidir a taça.",
+    "esquerda": {
+      "texto": "Topa o ensaio secreto",
+      "efeitos": {
+        "moral": 8,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Prefere descansar pro grande dia",
+      "efeitos": {
+        "fisico": 8,
+        "moral": -3
+      }
     }
   }
 ]

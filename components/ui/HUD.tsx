@@ -7,6 +7,11 @@ import PhaseHeader from './PhaseHeader'
 // Minuto simbólico por cartas restantes antes da escolha (5 cartas no deck)
 const REAGIR_MINUTO: Record<number, string> = { 5: "15'", 4: "45'", 3: "60'", 2: "88'", 1: "90+'" }
 
+// Formata o seed inicial como código curto de 8 hex chars para compartilhamento
+function seedCode(seed: number): string {
+  return seed.toString(16).toUpperCase().padStart(8, '0').slice(-8)
+}
+
 export default function HUD({
   state,
   bracketEntry,
@@ -36,6 +41,13 @@ export default function HUD({
               {minuto}
             </span>
           )}
+          {/* Código da run — visível o tempo todo para compartilhamento */}
+          <span
+            className="font-headline font-bold text-[8px] tracking-[0.08em] text-white/25 select-all"
+            title={`Seed da run: ${state.initialSeed}`}
+          >
+            {seedCode(state.initialSeed)}
+          </span>
           {/* Link do jornal visível só durante reagir/entrevista — planejar usa o banner */}
           {sessionId && state.fase !== 'planejar' && (
             <Link

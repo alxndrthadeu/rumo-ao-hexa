@@ -8,14 +8,28 @@
     "texto": "Eles marcam em cima desde a saída de bola. Você recebe de costas, dois em cima.",
     "esquerda": {
       "texto": "Tenta o giro de placa",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["ousado"],
-      "risco": { "tipo": "perda_bola", "chance": 0.35, "efeitos": { "placar": -1 } }
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "perda_bola",
+        "chance": 0.35,
+        "efeitos": {
+          "placar": -1
+        }
+      }
     },
     "direita": {
       "texto": "Devolve de primeira, segura simples",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -27,13 +41,22 @@
     "texto": "O time deles toca, toca, toca. Você corre atrás da bola há cinco minutos.",
     "esquerda": {
       "texto": "Sai pra pressionar sozinho",
-      "efeitos": { "fisico": -5, "placar": 1 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "fisico": -5,
+        "placar": 1
+      },
+      "flags_partida": [
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Mantém a linha, espera o erro",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -45,14 +68,29 @@
     "texto": "Eles armam a linha de impedimento com precisão suíça. Você fica preso atrás dela.",
     "esquerda": {
       "texto": "Tenta romper na velocidade",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["ousado"],
-      "risco": { "tipo": "impedimento", "chance": 0.4, "efeitos": { "placar": -1 } }
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "impedimento",
+        "chance": 0.4,
+        "efeitos": {
+          "placar": -1
+        }
+      }
     },
     "direita": {
       "texto": "Vem de trás pra receber",
-      "efeitos": { "placar": 1, "moral": 3 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 1,
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -64,13 +102,22 @@
     "texto": "O cérebro do time deles dita o ritmo. Se você não o marcar, ele te mata.",
     "esquerda": {
       "texto": "Larga teu jogo pra marcá-lo",
-      "efeitos": { "placar": -1, "moral": 5 },
-      "flags_partida": ["coletivo"]
+      "efeitos": {
+        "placar": -1,
+        "moral": 5
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
     },
     "direita": {
       "texto": "Deixa a marcação pro volante, foca no ataque",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["ousado"]
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ]
     }
   },
   {
@@ -82,14 +129,29 @@
     "texto": "O jogo trava. Zero espaço. A torcida fica impaciente e cobra velocidade.",
     "esquerda": {
       "texto": "Força a jogada pra agradar",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["ousado"],
-      "risco": { "tipo": "contra_ataque", "chance": 0.35, "efeitos": { "placar": -2 } }
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "contra_ataque",
+        "chance": 0.35,
+        "efeitos": {
+          "placar": -2
+        }
+      }
     },
     "direita": {
       "texto": "Tem paciência, valoriza a posse",
-      "efeitos": { "placar": 0, "moral": 5 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "placar": 0,
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -101,13 +163,22 @@
     "texto": "Você perde a bola no ataque e eles saem em velocidade letal. Erro seu.",
     "esquerda": {
       "texto": "Volta correndo, desarma na raça",
-      "efeitos": { "fisico": -8, "placar": 1 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "fisico": -8,
+        "placar": 1
+      },
+      "flags_partida": [
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Reclama de falta em vez de voltar",
-      "efeitos": { "placar": -1 },
-      "flags_partida": ["covarde"]
+      "efeitos": {
+        "placar": -1
+      },
+      "flags_partida": [
+        "covarde"
+      ]
     }
   },
   {
@@ -119,18 +190,144 @@
     "texto": "Depois de muito sufoco, um espaço se abre na defesa organizada deles. Raro.",
     "esquerda": {
       "texto": "Aproveita na hora",
-      "efeitos": { "placar": "condicional" },
+      "efeitos": {
+        "placar": "condicional"
+      },
       "climax": true,
       "condicional": {
         "limiar": 0,
-        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
-        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+        "ramoA": {
+          "efeitos": {
+            "placar": 2
+          },
+          "flags_partida": [
+            "heroi"
+          ],
+          "climax": true
+        },
+        "ramoB": {
+          "efeitos": {
+            "placar": -1
+          },
+          "flags_partida": [
+            "afobado"
+          ],
+          "climax": true
+        }
       }
     },
     "direita": {
       "texto": "Recua pra construir melhor",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "tec_falsa_nove",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 1,
+    "texto": "O camisa deles recua como falso 9 e bagunça sua marcação. Ninguém sabe quem pega quem.",
+    "esquerda": {
+      "texto": "Volta e organiza a marcação",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "coletivo",
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Fica na frente, aposta no ataque",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "o falso 9 aparece livre e marca",
+        "chance": 0.4,
+        "efeitos": {
+          "placar": -1
+        }
+      }
+    }
+  },
+  {
+    "id": "tec_lateral_sobe",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 1,
+    "texto": "O lateral deles vira ponta e te obriga a recuar pra marcar. Some o seu apoio no ataque.",
+    "esquerda": {
+      "texto": "Marca o lateral o jogo todo",
+      "efeitos": {
+        "fisico": -8,
+        "moral": 5
+      },
+      "flags_partida": [
+        "raca",
+        "coletivo"
+      ]
+    },
+    "direita": {
+      "texto": "Ignora, aposta no contra-ataque",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "o lateral cruza pro gol deles",
+        "chance": 0.4,
+        "efeitos": {
+          "placar": -1
+        }
+      }
+    }
+  },
+  {
+    "id": "tec_cadencia",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 1,
+    "texto": "Eles baixam o ritmo de propósito pra te tirar do jogo. O tédio é a arma deles.",
+    "esquerda": {
+      "texto": "Acelera sozinho pra furar",
+      "efeitos": {
+        "fisico": -5,
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "perde a bola na pressa",
+        "chance": 0.35,
+        "efeitos": {
+          "placar": -1
+        }
+      }
+    },
+    "direita": {
+      "texto": "Tem paciência, espera a hora",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza",
+        "disciplinado"
+      ]
     }
   }
 ]

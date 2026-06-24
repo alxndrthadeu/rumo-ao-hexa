@@ -7,14 +7,28 @@
     "texto": "Você sofre uma falta dura na entrada da área. Dá pra bater.",
     "esquerda": {
       "texto": "Bate a falta você mesmo",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["ousado"],
-      "risco": { "tipo": "erro_falta", "chance": 0.3, "efeitos": { "torcida": -3 } }
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "erro_falta",
+        "chance": 0.3,
+        "efeitos": {
+          "torcida": -3
+        }
+      }
     },
     "direita": {
       "texto": "Deixa pro especialista",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["coletivo"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
     }
   },
   {
@@ -25,13 +39,22 @@
     "texto": "Roubada de bola, campo aberto, três contra dois. A bola chega em você.",
     "esquerda": {
       "texto": "Encara o goleiro sozinho",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["ousado"]
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ]
     },
     "direita": {
       "texto": "Serve o companheiro melhor posto",
-      "efeitos": { "placar": 1, "torcida": 3 },
-      "flags_partida": ["coletivo"]
+      "efeitos": {
+        "placar": 1,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
     }
   },
   {
@@ -43,13 +66,25 @@
     "esquerda": {
       "texto": "Reclama com fúria",
       "efeitos": {},
-      "flags_partida": ["pavio_curto"],
-      "risco": { "tipo": "amarelo", "chance": 0.4, "efeitos": { "fisico": -8 } }
+      "flags_partida": [
+        "pavio_curto"
+      ],
+      "risco": {
+        "tipo": "amarelo",
+        "chance": 0.4,
+        "efeitos": {
+          "fisico": -8
+        }
+      }
     },
     "direita": {
       "texto": "Engole e volta pra marca",
-      "efeitos": { "moral": 5 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -60,18 +95,40 @@
     "texto": "Pênalti pro Brasil! Você pega a bola e olha pro juiz. É sua a responsabilidade?",
     "esquerda": {
       "texto": "Assume a cobrança",
-      "efeitos": { "placar": "condicional" },
+      "efeitos": {
+        "placar": "condicional"
+      },
       "climax": true,
       "condicional": {
         "limiar": 1,
-        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
-        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+        "ramoA": {
+          "efeitos": {
+            "placar": 2
+          },
+          "flags_partida": [
+            "heroi"
+          ],
+          "climax": true
+        },
+        "ramoB": {
+          "efeitos": {
+            "placar": -1
+          },
+          "flags_partida": [
+            "afobado"
+          ],
+          "climax": true
+        }
       }
     },
     "direita": {
       "texto": "Passa pro batedor oficial",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["coletivo"]
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
     }
   },
   {
@@ -82,18 +139,40 @@
     "texto": "45 do segundo tempo, placar empatado. Última jogada do jogo, a bola é sua.",
     "esquerda": {
       "texto": "Arrisca o tudo ou nada",
-      "efeitos": { "placar": "condicional" },
+      "efeitos": {
+        "placar": "condicional"
+      },
       "climax": true,
       "condicional": {
         "limiar": 1,
-        "ramoA": { "efeitos": { "placar": 3 }, "flags_partida": ["heroi"], "climax": true },
-        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+        "ramoA": {
+          "efeitos": {
+            "placar": 3
+          },
+          "flags_partida": [
+            "heroi"
+          ],
+          "climax": true
+        },
+        "ramoB": {
+          "efeitos": {
+            "placar": -1
+          },
+          "flags_partida": [
+            "afobado"
+          ],
+          "climax": true
+        }
       }
     },
     "direita": {
       "texto": "Segura pra não perder",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -104,13 +183,22 @@
     "texto": "Você está marcado, mas o camisa 9 grita livre do outro lado.",
     "esquerda": {
       "texto": "Insiste no seu lance",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["ousado"]
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ]
     },
     "direita": {
       "texto": "Toca pro 9",
-      "efeitos": { "placar": 1, "moral": 3 },
-      "flags_partida": ["coletivo"]
+      "efeitos": {
+        "placar": 1,
+        "moral": 3
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
     }
   },
   {
@@ -121,14 +209,28 @@
     "texto": "Cai um temporal. O gramado vira sabão e ninguém controla a bola.",
     "esquerda": {
       "texto": "Aposta no caos, parte pra cima",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["ousado"],
-      "risco": { "tipo": "perda_bola", "chance": 0.35, "efeitos": { "placar": -1 } }
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "perda_bola",
+        "chance": 0.35,
+        "efeitos": {
+          "placar": -1
+        }
+      }
     },
     "direita": {
       "texto": "Joga seguro, segura a posse",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -139,14 +241,29 @@
     "texto": "A torcida adversária faz um barulho ensurdecedor toda vez que você pega a bola.",
     "esquerda": {
       "texto": "Pede mais, provoca de volta",
-      "efeitos": { "torcida": 5, "midia": 5 },
-      "flags_partida": ["showman"],
-      "risco": { "tipo": "erro_pressao", "chance": 0.25, "efeitos": { "torcida": -8 } }
+      "efeitos": {
+        "torcida": 5,
+        "midia": 5
+      },
+      "flags_partida": [
+        "showman"
+      ],
+      "risco": {
+        "tipo": "erro_pressao",
+        "chance": 0.25,
+        "efeitos": {
+          "torcida": -8
+        }
+      }
     },
     "direita": {
       "texto": "Ignora, cabeça baixa no jogo",
-      "efeitos": { "moral": 5 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -157,13 +274,22 @@
     "texto": "Faltam 20 minutos e suas pernas pesam. O banco pergunta se você aguenta.",
     "esquerda": {
       "texto": "Eu fico, professor.",
-      "efeitos": { "fisico": -8 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "fisico": -8
+      },
+      "flags_partida": [
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Pede a substituição",
-      "efeitos": { "fisico": 5, "torcida": -3 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "fisico": 5,
+        "torcida": -3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -175,13 +301,27 @@
     "esquerda": {
       "texto": "Revida na hora",
       "efeitos": {},
-      "flags_partida": ["pavio_curto", "vilao"],
-      "risco": { "tipo": "cartao_vermelho", "chance": 0.6, "efeitos": { "fisico": -15, "moral": -10 } }
+      "flags_partida": [
+        "pavio_curto",
+        "vilao"
+      ],
+      "risco": {
+        "tipo": "cartao_vermelho",
+        "chance": 0.6,
+        "efeitos": {
+          "fisico": -15,
+          "moral": -10
+        }
+      }
     },
     "direita": {
       "texto": "Fica caído, pede falta",
-      "efeitos": { "fisico": -5 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "fisico": -5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -193,12 +333,18 @@
     "esquerda": {
       "texto": "Cerca o monitor, pressiona",
       "efeitos": {},
-      "flags_partida": ["pavio_curto"]
+      "flags_partida": [
+        "pavio_curto"
+      ]
     },
     "direita": {
       "texto": "Espera de mãos na cintura",
-      "efeitos": { "moral": 3 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -209,13 +355,23 @@
     "texto": "Seu companheiro é expulso. Vocês jogam com um a menos por 30 minutos.",
     "esquerda": {
       "texto": "Chama a responsa, puxa o time",
-      "efeitos": { "moral": 8, "fisico": -5 },
-      "flags_partida": ["lider", "raca"]
+      "efeitos": {
+        "moral": 8,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "lider",
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Se esconde, espera passar",
-      "efeitos": { "moral": -5 },
-      "flags_partida": ["covarde"]
+      "efeitos": {
+        "moral": -5
+      },
+      "flags_partida": [
+        "covarde"
+      ]
     }
   },
   {
@@ -226,12 +382,19 @@
     "texto": "A torcida brasileira começa a cantar SEU nome no meio do jogo.",
     "esquerda": {
       "texto": "Levanta o braço, pede mais",
-      "efeitos": { "torcida": 8 },
-      "flags_partida": ["showman"]
+      "efeitos": {
+        "torcida": 8
+      },
+      "flags_partida": [
+        "showman"
+      ]
     },
     "direita": {
       "texto": "Aponta pro escudo no peito",
-      "efeitos": { "torcida": 10, "moral": 5 },
+      "efeitos": {
+        "torcida": 10,
+        "moral": 5
+      },
       "flag_carreira": "idolo"
     }
   },
@@ -243,13 +406,22 @@
     "texto": "O lateral te dá um drible feio e a galera adversária faz 'olé'. Humilhação.",
     "esquerda": {
       "texto": "Vai pra cima na bronca, recupera",
-      "efeitos": { "placar": 1, "fisico": -5 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "placar": 1,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Mantém a posição, joga frio",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -260,18 +432,40 @@
     "texto": "Sobra limpa pra você na pequena área. Só empurrar.",
     "esquerda": {
       "texto": "Finaliza de primeira",
-      "efeitos": { "placar": "condicional" },
+      "efeitos": {
+        "placar": "condicional"
+      },
       "climax": true,
       "condicional": {
         "limiar": 0,
-        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
-        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+        "ramoA": {
+          "efeitos": {
+            "placar": 2
+          },
+          "flags_partida": [
+            "heroi"
+          ],
+          "climax": true
+        },
+        "ramoB": {
+          "efeitos": {
+            "placar": -1
+          },
+          "flags_partida": [
+            "afobado"
+          ],
+          "climax": true
+        }
       }
     },
     "direita": {
       "texto": "Ajeita pra bater melhor",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -282,13 +476,22 @@
     "texto": "O capitão grita com você por ter perdido uma marcação. Na frente de todos.",
     "esquerda": {
       "texto": "Aceita a bronca, corre mais",
-      "efeitos": { "moral": 5, "fisico": -5 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "moral": 5,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     },
     "direita": {
       "texto": "Responde à altura",
-      "efeitos": { "moral": -8 },
-      "flags_partida": ["pavio_curto"],
+      "efeitos": {
+        "moral": -8
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ],
       "flag_carreira": "problematico"
     }
   },
@@ -300,13 +503,26 @@
     "texto": "Você cai na área num contato leve. O juiz hesita. Dá pra 'cavar' o pênalti.",
     "esquerda": {
       "texto": "Cava, faz drama",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["vilao"],
-      "risco": { "tipo": "var_simulacao", "chance": 0.4, "efeitos": { "torcida": -8, "midia": -8 } }
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "vilao"
+      ],
+      "risco": {
+        "tipo": "var_simulacao",
+        "chance": 0.4,
+        "efeitos": {
+          "torcida": -8,
+          "midia": -8
+        }
+      }
     },
     "direita": {
       "texto": "Levanta e segue",
-      "efeitos": { "torcida": 5 },
+      "efeitos": {
+        "torcida": 5
+      },
       "flag_carreira": "entregue"
     }
   },
@@ -319,13 +535,26 @@
     "esquerda": {
       "texto": "Parte pra cima dele",
       "efeitos": {},
-      "flags_partida": ["pavio_curto", "vilao"],
-      "risco": { "tipo": "cartao_vermelho", "chance": 0.5, "efeitos": { "fisico": -15 } }
+      "flags_partida": [
+        "pavio_curto",
+        "vilao"
+      ],
+      "risco": {
+        "tipo": "cartao_vermelho",
+        "chance": 0.5,
+        "efeitos": {
+          "fisico": -15
+        }
+      }
     },
     "direita": {
       "texto": "Sorri e dá as costas",
-      "efeitos": { "moral": 8 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "moral": 8
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -336,13 +565,22 @@
     "texto": "Do banco, um reserva veterano te dá uma dica tática no intervalo.",
     "esquerda": {
       "texto": "Ouve e aplica",
-      "efeitos": { "moral": 5, "placar": 1 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "moral": 5,
+        "placar": 1
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     },
     "direita": {
       "texto": "Eu sei o que faço.",
-      "efeitos": { "moral": -3 },
-      "flags_partida": ["arrogante"]
+      "efeitos": {
+        "moral": -3
+      },
+      "flags_partida": [
+        "arrogante"
+      ]
     }
   },
   {
@@ -353,14 +591,685 @@
     "texto": "Você sente uma fisgada ao arrancar. Pode ser nada, pode ser tudo.",
     "esquerda": {
       "texto": "Sai pra não arriscar",
-      "efeitos": { "fisico": 5, "torcida": -5 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "fisico": 5,
+        "torcida": -5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     },
     "direita": {
       "texto": "Aperta os dentes e continua",
-      "efeitos": { "fisico": -8 },
-      "flags_partida": ["raca"],
+      "efeitos": {
+        "fisico": -8
+      },
+      "flags_partida": [
+        "raca"
+      ],
       "niggle": "muscular"
+    }
+  },
+  {
+    "id": "gen_chute_de_fora",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "A defesa fecha tudo por dentro. Sobra espaço só pra arriscar de muito longe.",
+    "esquerda": {
+      "texto": "Solta a bomba de fora",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "a bola sai e eles saem em contra-ataque",
+        "chance": 0.4,
+        "efeitos": {
+          "placar": -1
+        }
+      }
+    },
+    "direita": {
+      "texto": "Tabela e busca espaço melhor",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_goleiro_adiantado",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "O goleiro deles vacila adiantado demais. Dá pra tentar encobrir lá do meio de campo.",
+    "esquerda": {
+      "texto": "Tenta a cavadinha de longe",
+      "efeitos": {
+        "placar": "condicional"
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "climax": true,
+      "condicional": {
+        "limiar": 1,
+        "ramoA": {
+          "efeitos": {
+            "placar": 2,
+            "midia": 8
+          },
+          "flags_partida": [
+            "heroi"
+          ],
+          "climax": true
+        },
+        "ramoB": {
+          "efeitos": {
+            "placar": -1
+          },
+          "flags_partida": [
+            "afobado"
+          ],
+          "climax": true
+        }
+      }
+    },
+    "direita": {
+      "texto": "Toca e constrói no simples",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "gen_marcador_gruda",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Um marcador gruda em você desde o aquecimento, xingando a cada disputa. Vai ser o jogo todo assim.",
+    "esquerda": {
+      "texto": "Provoca de volta, compra a briga",
+      "efeitos": {},
+      "flags_partida": [
+        "pavio_curto"
+      ],
+      "risco": {
+        "tipo": "cartão amarelo pela discussão",
+        "chance": 0.4,
+        "efeitos": {
+          "fisico": -8
+        }
+      }
+    },
+    "direita": {
+      "texto": "Despista, leva ele pra longe",
+      "efeitos": {
+        "moral": 5,
+        "placar": 1
+      },
+      "flags_partida": [
+        "frieza",
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_recuo_falho",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Um zagueiro deles erra o recuo pro goleiro. A sobra fica mastigada na entrada da área.",
+    "esquerda": {
+      "texto": "Rouba e finaliza de primeira",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "o goleiro fecha o ângulo e defende",
+        "chance": 0.4,
+        "efeitos": {
+          "placar": -1
+        }
+      }
+    },
+    "direita": {
+      "texto": "Pressiona alto, sufoca a saída",
+      "efeitos": {
+        "moral": 5,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "raca"
+      ]
+    }
+  },
+  {
+    "id": "gen_falta_tatica",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Você perde a bola lá na frente e eles disparam num contra-ataque mortal. Dá pra cortar com uma falta.",
+    "esquerda": {
+      "texto": "Faz a falta tática, segura o lance",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ],
+      "risco": {
+        "tipo": "cartao_vermelho",
+        "chance": 0.3,
+        "efeitos": {
+          "placar": -2
+        }
+      }
+    },
+    "direita": {
+      "texto": "Volta correndo pra desarmar limpo",
+      "efeitos": {
+        "fisico": -8
+      },
+      "flags_partida": [
+        "raca"
+      ],
+      "risco": {
+        "tipo": "não chega a tempo e eles marcam",
+        "chance": 0.4,
+        "efeitos": {
+          "placar": -1
+        }
+      }
+    }
+  },
+  {
+    "id": "gen_torcida_propria_vaia",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Você erra um passe simples e a SUA torcida vaia. O peso da camisa aperta o peito.",
+    "esquerda": {
+      "texto": "Pede a bola, assume a responsa",
+      "efeitos": {
+        "torcida": 5,
+        "fisico": -3
+      },
+      "flags_partida": [
+        "lider",
+        "raca"
+      ]
+    },
+    "direita": {
+      "texto": "Some do jogo, evita o holofote",
+      "efeitos": {
+        "moral": 3,
+        "torcida": -5
+      },
+      "flags_partida": [
+        "covarde"
+      ]
+    }
+  },
+  {
+    "id": "gen_caneta",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "O lateral vem afobado. Você tem a caneta na ponta do pé pra humilhar e passar.",
+    "esquerda": {
+      "texto": "Aplica a caneta, levanta a galera",
+      "efeitos": {
+        "torcida": 8,
+        "midia": 5
+      },
+      "flags_partida": [
+        "showman"
+      ],
+      "risco": {
+        "tipo": "perde a bola e vira olé",
+        "chance": 0.35,
+        "efeitos": {
+          "torcida": -8,
+          "moral": -5
+        }
+      }
+    },
+    "direita": {
+      "texto": "Joga simples, protege a posse",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_pisao_escondido",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Na disputa, o zagueiro pisa no seu pé escondido do juiz. Ardeu — e ninguém viu.",
+    "esquerda": {
+      "texto": "Revida escondido também",
+      "efeitos": {},
+      "flags_partida": [
+        "vilao",
+        "pavio_curto"
+      ],
+      "risco": {
+        "tipo": "o VAR flagra e te expulsa",
+        "chance": 0.3,
+        "efeitos": {
+          "torcida": -8,
+          "midia": -8,
+          "placar": -2
+        }
+      }
+    },
+    "direita": {
+      "texto": "Mostra o pé pro juiz",
+      "efeitos": {
+        "midia": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_calor_sufocante",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Calor de rachar. No segundo tempo, as pernas de todo mundo pesam o dobro.",
+    "esquerda": {
+      "texto": "Puxa o time, gasta tudo",
+      "efeitos": {
+        "fisico": -10,
+        "moral": 5
+      },
+      "flags_partida": [
+        "raca",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Economiza, escolhe os momentos",
+      "efeitos": {
+        "fisico": 5
+      },
+      "flags_partida": [
+        "disciplinado",
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "gen_companheiro_apagado",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "O craque do time está apagado, sumido do jogo. O ataque inteiro depende de você hoje.",
+    "esquerda": {
+      "texto": "Assume tudo, chama o jogo",
+      "efeitos": {
+        "placar": 1,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "ousado",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Tenta levantar o parceiro",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "gen_grama_pesada",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "O gramado está encharcado e pesado. A bola morre nas poças e ninguém troca dois passes.",
+    "esquerda": {
+      "texto": "Atropela na força física",
+      "efeitos": {
+        "placar": 1,
+        "fisico": -8
+      },
+      "flags_partida": [
+        "raca"
+      ]
+    },
+    "direita": {
+      "texto": "Adapta, joga com a bola no alto",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_torcedor_invade",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Um torcedor pula a grade e corre até você pedindo uma foto. O jogo para, a segurança demora.",
+    "esquerda": {
+      "texto": "Posa, abraça o torcedor",
+      "efeitos": {
+        "torcida": 10,
+        "midia": 5
+      },
+      "flags_partida": [
+        "idolo"
+      ],
+      "risco": {
+        "tipo": "bronca da arbitragem pela demora",
+        "chance": 0.3,
+        "efeitos": {
+          "moral": -3
+        }
+      }
+    },
+    "direita": {
+      "texto": "Chama a segurança, não se envolve",
+      "efeitos": {
+        "moral": 3,
+        "torcida": -5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_companheiro_brigado",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Dois companheiros se estranham e quase trocam socos em campo. O time racha na frente do adversário.",
+    "esquerda": {
+      "texto": "Entra no meio, apazigua e lidera",
+      "efeitos": {
+        "moral": 8,
+        "fisico": -3
+      },
+      "flags_partida": [
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Foca no seu, deixa eles resolverem",
+      "efeitos": {
+        "placar": 1,
+        "moral": -5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_arbitragem_contra",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "A arbitragem está claramente contra o Brasil — dois lances duvidosos seguidos pro outro lado.",
+    "esquerda": {
+      "texto": "Puxa o time pra cima do juiz",
+      "efeitos": {},
+      "flags_partida": [
+        "lider"
+      ],
+      "risco": {
+        "tipo": "amarelo por reclamação",
+        "chance": 0.35,
+        "efeitos": {
+          "fisico": -8
+        }
+      }
+    },
+    "direita": {
+      "texto": "Canaliza a revolta pro jogo",
+      "efeitos": {
+        "moral": 8,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "raca"
+      ]
+    }
+  },
+  {
+    "id": "gen_passe_luxo",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Você enxerga um passe de calcanhar improvável que mataria a marcação. Lindo se sair, ridículo se falhar.",
+    "esquerda": {
+      "texto": "Tenta o lance de craque",
+      "efeitos": {
+        "placar": "condicional"
+      },
+      "flags_partida": [
+        "showman"
+      ],
+      "climax": true,
+      "condicional": {
+        "limiar": 0,
+        "ramoA": {
+          "efeitos": {
+            "placar": 2,
+            "midia": 8
+          },
+          "flags_partida": [
+            "heroi"
+          ],
+          "climax": true
+        },
+        "ramoB": {
+          "efeitos": {
+            "placar": -1,
+            "torcida": -3
+          },
+          "flags_partida": [
+            "afobado"
+          ],
+          "climax": true
+        }
+      }
+    },
+    "direita": {
+      "texto": "Faz o passe certo e seguro",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_substituicao_tatica",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "O técnico estampa seu número no painel — quer te poupar pra próxima fase. Você não quer sair.",
+    "esquerda": {
+      "texto": "Implora pra ficar, ainda decide",
+      "efeitos": {
+        "placar": 1,
+        "fisico": -8
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "o desgaste vira fisgada",
+        "chance": 0.3,
+        "efeitos": {
+          "fisico": -8
+        }
+      }
+    },
+    "direita": {
+      "texto": "Aceita sair, pensa no coletivo",
+      "efeitos": {
+        "fisico": 8,
+        "torcida": -3
+      },
+      "flags_partida": [
+        "disciplinado",
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "gen_frango_goleiro",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "O goleiro deles solta uma bola fácil e a sobra fica na sua frente, mas num ângulo ruim.",
+    "esquerda": {
+      "texto": "Tenta o gol de qualquer jeito",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "manda pra fora e vira piada",
+        "chance": 0.4,
+        "efeitos": {
+          "moral": -5
+        }
+      }
+    },
+    "direita": {
+      "texto": "Ajeita pro companheiro no meio",
+      "efeitos": {
+        "placar": 1,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "gen_dois_amarelos",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "Você já levou um amarelo. Surge a chance de um carrinho decisivo pra roubar a bola — o risco de vermelho é real.",
+    "esquerda": {
+      "texto": "Vai com tudo no desarme",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "raca"
+      ],
+      "risco": {
+        "tipo": "cartao_vermelho",
+        "chance": 0.35,
+        "efeitos": {
+          "placar": -2
+        }
+      }
+    },
+    "direita": {
+      "texto": "Recua, não arrisca a expulsão",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_bola_fora_devolver",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "A bola sai depois de um adversário cair lesionado. Pelo fair play, é pra devolver a posse a eles.",
+    "esquerda": {
+      "texto": "Devolve a bola com classe",
+      "efeitos": {
+        "torcida": 5,
+        "midia": 5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Aproveita e mantém o ataque",
+      "efeitos": {
+        "placar": 1,
+        "torcida": -8
+      },
+      "flags_partida": [
+        "vilao"
+      ]
+    }
+  },
+  {
+    "id": "gen_companheiro_pede_passe",
+    "fase": "reagir",
+    "camada": "generica",
+    "partida": 1,
+    "texto": "O artilheiro do time, em jejum de gols, implora a bola numa posição pior que a sua. Ele precisa recuperar a confiança.",
+    "esquerda": {
+      "texto": "Toca pra ele, mesmo pior posto",
+      "efeitos": {
+        "placar": 1,
+        "moral": 5
+      },
+      "flags_partida": [
+        "coletivo",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Bate você, é a escolha certa",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "se errar, o clima pesa",
+        "chance": 0.3,
+        "efeitos": {
+          "moral": -5
+        }
+      }
     }
   }
 ]

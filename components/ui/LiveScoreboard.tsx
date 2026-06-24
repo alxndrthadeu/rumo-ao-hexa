@@ -3,16 +3,18 @@
 const MINUTOS: Record<number, string> = { 5: "15'", 4: "45'", 3: "60'", 2: "88'", 1: "90+'" }
 
 export default function LiveScoreboard({
-  placar,
+  golsBrasil,
+  golsAdversario,
   adversario,
   cartasRestantes,
 }: {
-  placar: number
+  golsBrasil: number
+  golsAdversario: number
   adversario: string
   cartasRestantes: number
 }) {
-  const bra = Math.max(0, placar)
-  const adv = Math.max(0, -placar)
+  const bra = golsBrasil
+  const adv = golsAdversario
   const advAbrev = adversario.slice(0, 3).toUpperCase()
   const minuto = MINUTOS[cartasRestantes] ?? "90+'"
   const is90 = cartasRestantes === 1

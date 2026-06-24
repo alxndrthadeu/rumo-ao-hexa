@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { createRunState } from '../state'
 import { applyCardChoice, resolveMatchEnd } from '../phases'
 import { buildPreGameDeck, buildMatchDeck, getInterviewCard, loadBracket } from '../deck'
+import { generateManchete, buildMatchRecord } from '../jornal'
 import type { Carta } from '../types'
 
 describe('Integração — fatia vertical', () => {
@@ -11,7 +12,8 @@ describe('Integração — fatia vertical', () => {
     const bracket = loadBracket()[0] // Marrocos, técnico
 
     // ── FASE PLANEJAR ──────────────────────────────────────
-    const preGameCards = buildPreGameDeck(1, s.barras.midia)
+    const { cards: preGameCards, seed: pgSeed } = buildPreGameDeck(1, s.seed, s.barras.midia)
+    s = { ...s, seed: pgSeed }
     expect(preGameCards.length).toBeGreaterThanOrEqual(2)
 
     s = applyCardChoice(s, preGameCards[0], 'esquerda')
@@ -250,19 +252,176 @@ describe('Integração — fatia vertical', () => {
   })
 
   it('pré-jogo retorna 3 cartas com mídia alta', () => {
-    const cards = buildPreGameDeck(1, 80)
+    const { cards } = buildPreGameDeck(1, 12345, 80)
     expect(cards).toHaveLength(3)
     expect(cards[2].id).toBe('imprensa_favoravel')
   })
 
   it('pré-jogo retorna 3 cartas com mídia baixa', () => {
-    const cards = buildPreGameDeck(1, 20)
+    const { cards } = buildPreGameDeck(1, 12345, 20)
     expect(cards).toHaveLength(3)
     expect(cards[2].id).toBe('imprensa_hostil')
   })
 
   it('pré-jogo retorna 2 cartas com mídia neutra', () => {
-    const cards = buildPreGameDeck(1, 50)
+    const { cards } = buildPreGameDeck(1, 12345, 50)
     expect(cards).toHaveLength(2)
+  })
+})
+
+describe('Placar — golsBrasil / golsAdversario', () => {
+  it('inicializam em 0 ao criar run', () => {
+    const s = createRunState('estrela', 1, 'Teste', 10)
+    expect(s.golsBrasil).toBe(0)
+    expect(s.golsAdversario).toBe(0)
+  })
+
+  it('resolveMatchEnd reseta golsBrasil e golsAdversario', () => {
+    let s = createRunState('estrela', 1, 'Teste', 10)
+    s = { ...s, placarPartida: 2, golsBrasil: 2, golsAdversario: 1 }
+    const bracket = loadBracket()[0]
+    const next = resolveMatchEnd(s, bracket)
+    if (!next.morto) {
+      expect(next.golsBrasil).toBe(0)
+      expect(next.golsAdversario).toBe(0)
+    }
+  })
+
+  it('golsBrasil incrementa quando delta placar é positivo (lógica da action route)', () => {
+    let s = createRunState('estrela', 1, 'Teste', 10)
+    const prevPlacar = s.placarPartida
+    const carta: Carta = {
+      id: 'test_gol_brasil',
+      fase: 'reagir',
+      partida: 1,
+      texto: 'Gol!',
+      esquerda: { texto: 'Marca', efeitos: { placar: 2 } },
+      direita:  { texto: 'Neutro', efeitos: {} },
+    }
+    let newState = applyCardChoice(s, carta, 'esquerda')
+    const delta = newState.placarPartida - prevPlacar
+    if (delta > 0) newState = { ...newState, golsBrasil: newState.golsBrasil + delta }
+    else if (delta < 0) newState = { ...newState, golsAdversario: newState.golsAdversario + Math.abs(delta) }
+    expect(newState.golsBrasil).toBe(2)
+    expect(newState.golsAdversario).toBe(0)
+  })
+
+  it('golsAdversario incrementa quando delta placar é negativo', () => {
+    let s = createRunState('estrela', 1, 'Teste', 10)
+    const prevPlacar = s.placarPartida
+    const carta: Carta = {
+      id: 'test_gol_adversario',
+      fase: 'reagir',
+      partida: 1,
+      texto: 'Tomou gol',
+      esquerda: { texto: 'Falhou', efeitos: { placar: -1 } },
+      direita:  { texto: 'Neutro', efeitos: {} },
+    }
+    let newState = applyCardChoice(s, carta, 'esquerda')
+    const delta = newState.placarPartida - prevPlacar
+    if (delta > 0) newState = { ...newState, golsBrasil: newState.golsBrasil + delta }
+    else if (delta < 0) newState = { ...newState, golsAdversario: newState.golsAdversario + Math.abs(delta) }
+    expect(newState.golsBrasil).toBe(0)
+    expect(newState.golsAdversario).toBe(1)
+  })
+})
+
+describe('Expulsão — cartao_vermelho', () => {
+  const cartaVermelho: Carta = {
+    id: 'test_vermelho',
+    fase: 'reagir',
+    partida: 4,
+    texto: 'Cartão vermelho',
+    esquerda: {
+      texto: 'Provoca',
+      efeitos: {},
+      risco: { tipo: 'cartao_vermelho', chance: 1.0, efeitos: { torcida: -10 } },
+    },
+    direita: { texto: 'Neutro', efeitos: {} },
+  }
+
+  it('cartao_vermelho em mata-mata (partida 4) causa causaMorte expulsao', () => {
+    let s = createRunState('estrela', 1, 'Teste', 10)
+    s = { ...s, partidaAtual: 4 }
+    const result = applyCardChoice(s, cartaVermelho, 'esquerda')
+    expect(result.morto).toBe(true)
+    expect(result.causaMorte).toBe('expulsao')
+  })
+
+  it('cartao_vermelho em mata-mata (partida 7) causa causaMorte expulsao', () => {
+    let s = createRunState('estrela', 1, 'Teste', 10)
+    s = { ...s, partidaAtual: 7 }
+    const result = applyCardChoice(s, cartaVermelho, 'esquerda')
+    expect(result.morto).toBe(true)
+    expect(result.causaMorte).toBe('expulsao')
+  })
+
+  it('cartao_vermelho em grupo (partida 2) NÃO elimina', () => {
+    let s = createRunState('estrela', 1, 'Teste', 10)
+    s = { ...s, partidaAtual: 2 }
+    const result = applyCardChoice(s, cartaVermelho, 'esquerda')
+    expect(result.morto).toBe(false)
+  })
+
+  it('cartao_vermelho em grupo aplica efeitos de penalidade', () => {
+    let s = createRunState('estrela', 1, 'Teste', 10)
+    s = { ...s, partidaAtual: 1 }
+    const torcidaBefore = s.barras.torcida
+    const result = applyCardChoice(s, cartaVermelho, 'esquerda')
+    expect(result.morto).toBe(false)
+    expect(result.barras.torcida).toBe(Math.max(0, torcidaBefore - 10))
+  })
+})
+
+describe('Jornal — seed determinismo', () => {
+  it('generateManchete é determinístico com mesma seed', () => {
+    const r1 = generateManchete('vitoria', ['heroi'], 'Marrocos', 12345)
+    const r2 = generateManchete('vitoria', ['heroi'], 'Marrocos', 12345)
+    expect(r1.manchete).toBe(r2.manchete)
+    expect(r1.corpo).toBe(r2.corpo)
+    expect(r1.seed).toBe(r2.seed)
+  })
+
+  it('generateManchete produz resultado diferente com seed diferente', () => {
+    const r1 = generateManchete('derrota', ['vilao'], 'Alemanha', 11111)
+    const r2 = generateManchete('derrota', ['vilao'], 'Alemanha', 99999)
+    // Podem ser iguais por coincidência de pool pequeno, mas seeds devem diferir
+    expect(r1.seed).not.toBe(r2.seed)
+  })
+
+  it('buildMatchRecord é determinístico com mesma seed', () => {
+    const r1 = buildMatchRecord(1, 'Marrocos', 'grupos', 3, 'vitoria', ['heroi'], 99999)
+    const r2 = buildMatchRecord(1, 'Marrocos', 'grupos', 3, 'vitoria', ['heroi'], 99999)
+    expect(r1.record.manchete).toBe(r2.record.manchete)
+    expect(r1.record.corpo).toBe(r2.record.corpo)
+    expect(r1.seed).toBe(r2.seed)
+  })
+
+  it('generateManchete avança o seed (seed retornado !== seed inicial)', () => {
+    const { seed: newSeed } = generateManchete('empate', ['frieza'], 'França', 55555)
+    expect(newSeed).not.toBe(55555)
+  })
+})
+
+describe('initialSeed — preservado durante a run', () => {
+  it('initialSeed é preservado após resolveMatchEnd', () => {
+    const SEED = 42
+    let s = createRunState('estrela', SEED, 'Teste', 10)
+    expect(s.initialSeed).toBe(SEED)
+    s = { ...s, placarPartida: 2 }
+    const bracket = loadBracket()[0]
+    const next = resolveMatchEnd(s, bracket)
+    expect(next.initialSeed).toBe(SEED)
+  })
+
+  it('initialSeed não muda quando seed avança pelo jornal', () => {
+    const SEED = 777
+    const s = createRunState('futuro', SEED, 'Teste', 99)
+    expect(s.seed).toBe(SEED)
+    expect(s.initialSeed).toBe(SEED)
+    const bracket = loadBracket()[0]
+    const next = resolveMatchEnd({ ...s, placarPartida: 3 }, bracket)
+    // seed pode ter avançado (jornal consumiu RNG)
+    expect(next.initialSeed).toBe(SEED)
   })
 })

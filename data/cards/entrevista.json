@@ -8,18 +8,60 @@
     "variantes": {
       "estrela": {
         "pergunta": "Golaço decisivo. Já se acha o dono da seleção?",
-        "esquerda": { "texto": "Vim pra isso. O Brasil é meu.", "efeitos": { "midia": 15, "torcida": -8 }, "flag_carreira": "arrogante" },
-        "direita":  { "texto": "Foi o grupo, eu só finalizei.", "efeitos": { "torcida": 12, "moral": 5 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Vim pra isso. O Brasil é meu.",
+          "efeitos": {
+            "midia": 10,
+            "torcida": -8
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Foi o grupo, eu só finalizei.",
+          "efeitos": {
+            "torcida": 12,
+            "moral": 5
+          },
+          "flag_carreira": "humilde"
+        }
       },
       "caido": {
         "pergunta": "Bonito o gol. Mas um lampejo apaga anos de decepção?",
-        "esquerda": { "texto": "Eu nunca fui embora. Sabia que voltaria.", "efeitos": { "midia": 15, "torcida": -5 }, "flag_carreira": "arrogante" },
-        "direita":  { "texto": "Tô reconstruindo, passo a passo.", "efeitos": { "torcida": 12, "moral": 8 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Eu nunca fui embora. Sabia que voltaria.",
+          "efeitos": {
+            "midia": 10,
+            "torcida": -5
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Tô reconstruindo, passo a passo.",
+          "efeitos": {
+            "torcida": 12,
+            "moral": 8
+          },
+          "flag_carreira": "humilde"
+        }
       },
       "futuro": {
         "pergunta": "Que jogo, garoto! Nasceu uma estrela hoje?",
-        "esquerda": { "texto": "Tô só começando, vocês vão ver muito mais.", "efeitos": { "midia": 15, "torcida": -3 }, "flag_carreira": "arrogante" },
-        "direita":  { "texto": "Tô realizando um sonho, fico tonto.", "efeitos": { "torcida": 15, "moral": 5 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Tô só começando, vocês vão ver muito mais.",
+          "efeitos": {
+            "midia": 10,
+            "torcida": -3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Tô realizando um sonho, fico tonto.",
+          "efeitos": {
+            "torcida": 15,
+            "moral": 5
+          },
+          "flag_carreira": "humilde"
+        }
       }
     }
   },
@@ -32,18 +74,60 @@
     "variantes": {
       "estrela": {
         "pergunta": "Você tinha o passe fácil e perdeu o gol. Pesou a responsabilidade?",
-        "esquerda": { "texto": "Eu decido em campo, não na coletiva.", "efeitos": { "midia": -10, "torcida": -5 }, "flag_carreira": "arrogante" },
-        "direita":  { "texto": "Errei feio. Era o toque. Vou crescer.", "efeitos": { "midia": -10, "torcida": 5 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Eu decido em campo, não na coletiva.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -5
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Errei feio. Era o toque. Vou crescer.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": 5
+          },
+          "flag_carreira": "humilde"
+        }
       },
       "caido": {
         "pergunta": "Mais um apagão num momento decisivo. Acabou pra você na seleção?",
-        "esquerda": { "texto": "Vão me enterrar quando eu parar.", "efeitos": { "midia": -10, "torcida": -5 }, "flag_carreira": "arrogante" },
-        "direita":  { "texto": "Entendo a cobrança. Mereço ela.", "efeitos": { "midia": -10, "torcida": 8 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Vão me enterrar quando eu parar.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -5
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Entendo a cobrança. Mereço ela.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": 8
+          },
+          "flag_carreira": "humilde"
+        }
       },
       "futuro": {
         "pergunta": "Um errinho numa noite difícil. Como você está lidando tão cedo?",
-        "esquerda": { "texto": "Não foi erro, foi azar.", "efeitos": { "midia": -10, "torcida": -3 }, "flag_carreira": "arrogante" },
-        "direita":  { "texto": "Tô aprendendo, prometo melhorar.", "efeitos": { "midia": -10, "torcida": 8 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Não foi erro, foi azar.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Tô aprendendo, prometo melhorar.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": 8
+          },
+          "flag_carreira": "humilde"
+        }
       }
     }
   },
@@ -56,18 +140,60 @@
     "variantes": {
       "estrela": {
         "pergunta": "Deu o passe do gol em vez de bater. Faltou ambição de craque?",
-        "esquerda": { "texto": "Gol é gol, não importa quem faz.", "efeitos": { "torcida": 10, "moral": 8 }, "flag_carreira": "lider" },
-        "direita":  { "texto": "Confesso, queria o meu gol também.", "efeitos": { "midia": 12, "torcida": -5 }, "flag_carreira": "arrogante" }
+        "esquerda": {
+          "texto": "Gol é gol, não importa quem faz.",
+          "efeitos": {
+            "torcida": 10,
+            "moral": 8
+          },
+          "flag_carreira": "lider"
+        },
+        "direita": {
+          "texto": "Confesso, queria o meu gol também.",
+          "efeitos": {
+            "midia": 12,
+            "torcida": -5
+          },
+          "flag_carreira": "arrogante"
+        }
       },
       "caido": {
         "pergunta": "Jogou pro time num dia que precisava aparecer. Sabedoria ou medo?",
-        "esquerda": { "texto": "Maturidade. Aprendi com o tempo.", "efeitos": { "torcida": 12, "moral": 8 }, "flag_carreira": "lider" },
-        "direita":  { "texto": "Eu ainda decido quando quero.", "efeitos": { "midia": 12, "moral": -5 }, "flag_carreira": "arrogante" }
+        "esquerda": {
+          "texto": "Maturidade. Aprendi com o tempo.",
+          "efeitos": {
+            "torcida": 12,
+            "moral": 8
+          },
+          "flag_carreira": "lider"
+        },
+        "direita": {
+          "texto": "Eu ainda decido quando quero.",
+          "efeitos": {
+            "midia": 12,
+            "moral": -5
+          },
+          "flag_carreira": "arrogante"
+        }
       },
       "futuro": {
         "pergunta": "Que generosidade pra um garoto. De onde vem essa cabeça?",
-        "esquerda": { "texto": "Me ensinaram que time vem primeiro.", "efeitos": { "torcida": 15, "moral": 5 }, "flag_carreira": "lider" },
-        "direita":  { "texto": "Quis aparecer de outro jeito — como líder.", "efeitos": { "midia": 12, "torcida": -3 }, "flag_carreira": "idolo" }
+        "esquerda": {
+          "texto": "Me ensinaram que time vem primeiro.",
+          "efeitos": {
+            "torcida": 15,
+            "moral": 5
+          },
+          "flag_carreira": "lider"
+        },
+        "direita": {
+          "texto": "Quis aparecer de outro jeito — como líder.",
+          "efeitos": {
+            "midia": 12,
+            "torcida": -3
+          },
+          "flag_carreira": "idolo"
+        }
       }
     }
   },
@@ -80,18 +206,60 @@
     "variantes": {
       "estrela": {
         "pergunta": "Sua expulsão custou o jogo. O que diz pra torcida?",
-        "esquerda": { "texto": "Acontece. Faz parte do meu jogo.", "efeitos": { "midia": -10, "torcida": -10 }, "flag_carreira": "arrogante" },
-        "direita":  { "texto": "Decepcionei o país. A culpa é minha.", "efeitos": { "midia": -10, "torcida": 5 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Acontece. Faz parte do meu jogo.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -10
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Decepcionei o país. A culpa é minha.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": 5
+          },
+          "flag_carreira": "humilde"
+        }
       },
       "caido": {
         "pergunta": "Você jogou tudo a perder de novo. É o fim da linha?",
-        "esquerda": { "texto": "Vão me julgar quando eu parar.", "efeitos": { "midia": -10, "torcida": -10 }, "flag_carreira": "arrogante" },
-        "direita":  { "texto": "Talvez. Mas vou de cabeça erguida.", "efeitos": { "midia": -10, "torcida": 5 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Vão me julgar quando eu parar.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -10
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Talvez. Mas vou de cabeça erguida.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": 5
+          },
+          "flag_carreira": "humilde"
+        }
       },
       "futuro": {
         "pergunta": "Um lance impensado de juventude. Vai aprender com isso?",
-        "esquerda": { "texto": "Não me arrependo de nada.", "efeitos": { "midia": -10, "torcida": -5 }, "flag_carreira": "arrogante" },
-        "direita":  { "texto": "Vacilei. Vou amadurecer rápido.", "efeitos": { "midia": -10, "torcida": 5 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Não me arrependo de nada.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -5
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Vacilei. Vou amadurecer rápido.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": 5
+          },
+          "flag_carreira": "humilde"
+        }
       }
     }
   },
@@ -104,18 +272,61 @@
     "variantes": {
       "estrela": {
         "pergunta": "Você quase foi expulso pelas provocações. Isso é teimosia ou impulsividade?",
-        "esquerda": { "texto": "Ninguém me desrespeita em campo. Ponto.", "efeitos": { "midia": -10, "torcida": -8 }, "flag_carreira": "problematico" },
-        "direita":  { "texto": "Errei. Preciso ser mais frio.", "efeitos": { "midia": -10, "torcida": 8, "moral": 3 }, "flag_carreira": "lider" }
+        "esquerda": {
+          "texto": "Ninguém me desrespeita em campo. Ponto.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -8
+          },
+          "flag_carreira": "problematico"
+        },
+        "direita": {
+          "texto": "Errei. Preciso ser mais frio.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": 8,
+            "moral": 3
+          },
+          "flag_carreira": "lider"
+        }
       },
       "caido": {
         "pergunta": "De novo. Você ainda cai na mesma armadilha. Por quê?",
-        "esquerda": { "texto": "Porque sou humano e eles provocam.", "efeitos": { "midia": -12, "torcida": -5 }, "flag_carreira": "problematico" },
-        "direita":  { "texto": "Estou trabalhando isso com o psicólogo.", "efeitos": { "midia": -10, "torcida": 10 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Porque sou humano e eles provocam.",
+          "efeitos": {
+            "midia": -12,
+            "torcida": -5
+          },
+          "flag_carreira": "problematico"
+        },
+        "direita": {
+          "texto": "Estou trabalhando isso com o psicólogo.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": 10
+          },
+          "flag_carreira": "humilde"
+        }
       },
       "futuro": {
         "pergunta": "Você tem futuro, mas o pavio curto vai te queimar. Concorda?",
-        "esquerda": { "texto": "Intensidade é parte de quem eu sou.", "efeitos": { "midia": -10, "moral": -5 }, "flag_carreira": "problematico" },
-        "direita":  { "texto": "Concordo. Tô aprendendo a canalizar.", "efeitos": { "midia": -10, "torcida": 10 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Intensidade é parte de quem eu sou.",
+          "efeitos": {
+            "midia": -10,
+            "moral": -5
+          },
+          "flag_carreira": "problematico"
+        },
+        "direita": {
+          "texto": "Concordo. Tô aprendendo a canalizar.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": 10
+          },
+          "flag_carreira": "humilde"
+        }
       }
     }
   },
@@ -128,18 +339,60 @@
     "variantes": {
       "estrela": {
         "pergunta": "Você jogou mais pra arquibancada que pro placar. Vaidade ou marca registrada?",
-        "esquerda": { "texto": "O espetáculo é parte do meu jogo. Sempre foi.", "efeitos": { "midia": 8, "torcida": 5, "moral": -5 }, "flag_carreira": "vitrine" },
-        "direita":  { "texto": "Resultados falam mais que driblings.", "efeitos": { "moral": 8 }, "flag_carreira": "entregue" }
+        "esquerda": {
+          "texto": "O espetáculo é parte do meu jogo. Sempre foi.",
+          "efeitos": {
+            "midia": 8,
+            "torcida": 5,
+            "moral": -5
+          },
+          "flag_carreira": "vitrine"
+        },
+        "direita": {
+          "texto": "Resultados falam mais que driblings.",
+          "efeitos": {
+            "moral": 8
+          },
+          "flag_carreira": "entregue"
+        }
       },
       "caido": {
         "pergunta": "Cadê o jogador sério que disseram que você era agora?",
-        "esquerda": { "texto": "Sério chato não, eu me divirto jogando.", "efeitos": { "torcida": 10, "moral": -5 }, "flag_carreira": "vitrine" },
-        "direita":  { "texto": "Aprendi a separar show de resultado.", "efeitos": { "moral": 8, "midia": 3 }, "flag_carreira": "entregue" }
+        "esquerda": {
+          "texto": "Sério chato não, eu me divirto jogando.",
+          "efeitos": {
+            "torcida": 10,
+            "moral": -5
+          },
+          "flag_carreira": "vitrine"
+        },
+        "direita": {
+          "texto": "Aprendi a separar show de resultado.",
+          "efeitos": {
+            "moral": 8,
+            "midia": 3
+          },
+          "flag_carreira": "entregue"
+        }
       },
       "futuro": {
         "pergunta": "Você vai ganhar muitos admiradores com esse estilo. Preocupa?",
-        "esquerda": { "texto": "Vim pro mundo inteiro ver, não só pra vencer.", "efeitos": { "midia": 8, "torcida": 8, "moral": -3 }, "flag_carreira": "vitrine" },
-        "direita":  { "texto": "O time me pediu pra canalizar. Aprendo.", "efeitos": { "moral": 8 }, "flag_carreira": "entregue" }
+        "esquerda": {
+          "texto": "Vim pro mundo inteiro ver, não só pra vencer.",
+          "efeitos": {
+            "midia": 8,
+            "torcida": 8,
+            "moral": -3
+          },
+          "flag_carreira": "vitrine"
+        },
+        "direita": {
+          "texto": "O time me pediu pra canalizar. Aprendo.",
+          "efeitos": {
+            "moral": 8
+          },
+          "flag_carreira": "entregue"
+        }
       }
     }
   },
@@ -152,18 +405,58 @@
     "variantes": {
       "estrela": {
         "pergunta": "Dizem que sua cabeça estava em casa hoje, não no jogo. Atrapalhou?",
-        "esquerda": { "texto": "Família primeiro. Sempre. Não me arrependo.", "efeitos": { "torcida": 10, "midia": -3 }, "flag_carreira": "idolo" },
-        "direita":  { "texto": "Profissional separa as coisas. Eu sei disso.", "efeitos": { "moral": 8, "midia": 3 }, "flag_carreira": "entregue" }
+        "esquerda": {
+          "texto": "Família primeiro. Sempre. Não me arrependo.",
+          "efeitos": {
+            "torcida": 10,
+            "midia": -3
+          },
+          "flag_carreira": "idolo"
+        },
+        "direita": {
+          "texto": "Profissional separa as coisas. Eu sei disso.",
+          "efeitos": {
+            "moral": 8,
+            "midia": 3
+          },
+          "flag_carreira": "entregue"
+        }
       },
       "caido": {
         "pergunta": "Num momento crítico assim, você pode se dar ao luxo da distração?",
-        "esquerda": { "texto": "Família me motiva, não me paralisa.", "efeitos": { "torcida": 10, "moral": 5 }, "flag_carreira": "idolo" },
-        "direita":  { "texto": "Não foi distração. Fui profissional.", "efeitos": { "moral": 8 }, "flag_carreira": "entregue" }
+        "esquerda": {
+          "texto": "Família me motiva, não me paralisa.",
+          "efeitos": {
+            "torcida": 10,
+            "moral": 5
+          },
+          "flag_carreira": "idolo"
+        },
+        "direita": {
+          "texto": "Não foi distração. Fui profissional.",
+          "efeitos": {
+            "moral": 8
+          },
+          "flag_carreira": "entregue"
+        }
       },
       "futuro": {
         "pergunta": "Tão novo, tanta responsabilidade em campo e em casa. Como você lida?",
-        "esquerda": { "texto": "Aprendi que sentimento humano não é fraqueza.", "efeitos": { "torcida": 12, "midia": 5 }, "flag_carreira": "idolo" },
-        "direita":  { "texto": "Treino pra isso. Separar é profissionalismo.", "efeitos": { "moral": 8 }, "flag_carreira": "entregue" }
+        "esquerda": {
+          "texto": "Aprendi que sentimento humano não é fraqueza.",
+          "efeitos": {
+            "torcida": 12,
+            "midia": 5
+          },
+          "flag_carreira": "idolo"
+        },
+        "direita": {
+          "texto": "Treino pra isso. Separar é profissionalismo.",
+          "efeitos": {
+            "moral": 8
+          },
+          "flag_carreira": "entregue"
+        }
       }
     }
   },
@@ -176,18 +469,60 @@
     "variantes": {
       "estrela": {
         "pergunta": "Sua vida pessoal virou pauta. Mais perguntam da sua namorada que do seu futebol.",
-        "esquerda": { "texto": "Minha vida pessoal é minha. Sem mais.", "efeitos": { "moral": 8, "midia": -5 }, "flag_carreira": "entregue" },
-        "direita":  { "texto": "Faz parte do pacote. Aceito.", "efeitos": { "midia": 10, "moral": -3 }, "flag_carreira": "vitrine" }
+        "esquerda": {
+          "texto": "Minha vida pessoal é minha. Sem mais.",
+          "efeitos": {
+            "moral": 8,
+            "midia": -5
+          },
+          "flag_carreira": "entregue"
+        },
+        "direita": {
+          "texto": "Faz parte do pacote. Aceito.",
+          "efeitos": {
+            "midia": 10,
+            "moral": -3
+          },
+          "flag_carreira": "vitrine"
+        }
       },
       "caido": {
         "pergunta": "Virou tema de fofoca de Copa. Isso não cansa?",
-        "esquerda": { "texto": "O que me cansa é responder isso.", "efeitos": { "moral": 5, "midia": -5 }, "flag_carreira": "entregue" },
-        "direita":  { "texto": "Vai que ajuda a minha marca, né.", "efeitos": { "midia": 10, "torcida": -3 }, "flag_carreira": "vitrine" }
+        "esquerda": {
+          "texto": "O que me cansa é responder isso.",
+          "efeitos": {
+            "moral": 5,
+            "midia": -5
+          },
+          "flag_carreira": "entregue"
+        },
+        "direita": {
+          "texto": "Vai que ajuda a minha marca, né.",
+          "efeitos": {
+            "midia": 10,
+            "torcida": -3
+          },
+          "flag_carreira": "vitrine"
+        }
       },
       "futuro": {
         "pergunta": "Garoto de 20 anos apaixonado na Copa. A imprensa adora. Você curte a atenção?",
-        "esquerda": { "texto": "Quero que falem do meu futebol, só.", "efeitos": { "moral": 8 }, "flag_carreira": "entregue" },
-        "direita":  { "texto": "Se querem historia boa, tem uma.", "efeitos": { "midia": 12, "torcida": 5, "moral": -5 }, "flag_carreira": "vitrine" }
+        "esquerda": {
+          "texto": "Quero que falem do meu futebol, só.",
+          "efeitos": {
+            "moral": 8
+          },
+          "flag_carreira": "entregue"
+        },
+        "direita": {
+          "texto": "Se querem historia boa, tem uma.",
+          "efeitos": {
+            "midia": 12,
+            "torcida": 5,
+            "moral": -5
+          },
+          "flag_carreira": "vitrine"
+        }
       }
     }
   },
@@ -200,18 +535,60 @@
     "variantes": {
       "estrela": {
         "pergunta": "Vestiário tenso. A imprensa quer saber: quem brigou com quem?",
-        "esquerda": { "texto": "Não tem briga, tem competição saudável.", "efeitos": { "moral": 8, "torcida": 5 }, "flag_carreira": "lider" },
-        "direita":  { "texto": "Não vou lavar roupa suja aqui.", "efeitos": { "moral": -8, "midia": 5 }, "flag_carreira": "problematico" }
+        "esquerda": {
+          "texto": "Não tem briga, tem competição saudável.",
+          "efeitos": {
+            "moral": 8,
+            "torcida": 5
+          },
+          "flag_carreira": "lider"
+        },
+        "direita": {
+          "texto": "Não vou lavar roupa suja aqui.",
+          "efeitos": {
+            "moral": -8,
+            "midia": 5
+          },
+          "flag_carreira": "problematico"
+        }
       },
       "caido": {
         "pergunta": "Dizem que o vestiário está dividido. Isso é real?",
-        "esquerda": { "texto": "Time unido ganha. Não dou corda pra isso.", "efeitos": { "moral": 8, "midia": -3 }, "flag_carreira": "lider" },
-        "direita":  { "texto": "Cada jogador tem seu lado. Normal.", "efeitos": { "moral": -8, "torcida": -5 }, "flag_carreira": "problematico" }
+        "esquerda": {
+          "texto": "Time unido ganha. Não dou corda pra isso.",
+          "efeitos": {
+            "moral": 8,
+            "midia": -3
+          },
+          "flag_carreira": "lider"
+        },
+        "direita": {
+          "texto": "Cada jogador tem seu lado. Normal.",
+          "efeitos": {
+            "moral": -8,
+            "torcida": -5
+          },
+          "flag_carreira": "problematico"
+        }
       },
       "futuro": {
         "pergunta": "Você, mais novo do grupo, no meio de um climão. Como se posiciona?",
-        "esquerda": { "texto": "Peço paz. Vim jogar, não pra drama.", "efeitos": { "moral": 10, "torcida": 5 }, "flag_carreira": "lider" },
-        "direita":  { "texto": "Não vou fingir que tá tudo bem.", "efeitos": { "moral": -5, "midia": 8 }, "flag_carreira": "problematico" }
+        "esquerda": {
+          "texto": "Peço paz. Vim jogar, não pra drama.",
+          "efeitos": {
+            "moral": 10,
+            "torcida": 5
+          },
+          "flag_carreira": "lider"
+        },
+        "direita": {
+          "texto": "Não vou fingir que tá tudo bem.",
+          "efeitos": {
+            "moral": -5,
+            "midia": 8
+          },
+          "flag_carreira": "problematico"
+        }
       }
     }
   },
@@ -224,18 +601,60 @@
     "variantes": {
       "estrela": {
         "pergunta": "A torcida não gostou da sua resposta sobre o episódio antigo. Recua?",
-        "esquerda": { "texto": "Falei o que pensava, mantenho.", "efeitos": { "midia": 5, "torcida": -8 }, "flag_carreira": "arrogante" },
-        "direita":  { "texto": "Me expressei mal, peço desculpas.", "efeitos": { "torcida": 8, "midia": -3 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Falei o que pensava, mantenho.",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -8
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Me expressei mal, peço desculpas.",
+          "efeitos": {
+            "torcida": 8,
+            "midia": -3
+          },
+          "flag_carreira": "humilde"
+        }
       },
       "caido": {
         "pergunta": "A torcida não gostou da sua resposta sobre o episódio antigo. Recua?",
-        "esquerda": { "texto": "Falei o que pensava, mantenho.", "efeitos": { "midia": 5, "torcida": -8 }, "flag_carreira": "arrogante" },
-        "direita":  { "texto": "Me expressei mal, peço desculpas.", "efeitos": { "torcida": 8, "midia": -3 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Falei o que pensava, mantenho.",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -8
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Me expressei mal, peço desculpas.",
+          "efeitos": {
+            "torcida": 8,
+            "midia": -3
+          },
+          "flag_carreira": "humilde"
+        }
       },
       "futuro": {
         "pergunta": "A torcida não gostou da sua resposta sobre o episódio antigo. Recua?",
-        "esquerda": { "texto": "Falei o que pensava, mantenho.", "efeitos": { "midia": 5, "torcida": -8 }, "flag_carreira": "arrogante" },
-        "direita":  { "texto": "Me expressei mal, peço desculpas.", "efeitos": { "torcida": 8, "midia": -3 }, "flag_carreira": "humilde" }
+        "esquerda": {
+          "texto": "Falei o que pensava, mantenho.",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -8
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Me expressei mal, peço desculpas.",
+          "efeitos": {
+            "torcida": 8,
+            "midia": -3
+          },
+          "flag_carreira": "humilde"
+        }
       }
     }
   },
@@ -248,19 +667,703 @@
     "variantes": {
       "estrela": {
         "pergunta": "Jogo difícil hoje. Qual sua avaliação?",
-        "esquerda": { "texto": "Faltou nosso melhor, vamos corrigir.", "efeitos": { "moral": 3 }, "flag_carreira": "lider" },
-        "direita":  { "texto": "O importante foi o resultado.", "efeitos": { "torcida": 3 }, "flag_carreira": "entregue" }
+        "esquerda": {
+          "texto": "Faltou nosso melhor, vamos corrigir.",
+          "efeitos": {
+            "moral": 3
+          },
+          "flag_carreira": "lider"
+        },
+        "direita": {
+          "texto": "O importante foi o resultado.",
+          "efeitos": {
+            "torcida": 3
+          },
+          "flag_carreira": "entregue"
+        }
       },
       "caido": {
         "pergunta": "Jogo difícil hoje. Qual sua avaliação?",
-        "esquerda": { "texto": "Faltou nosso melhor, vamos corrigir.", "efeitos": { "moral": 3 }, "flag_carreira": "lider" },
-        "direita":  { "texto": "O importante foi o resultado.", "efeitos": { "torcida": 3 }, "flag_carreira": "entregue" }
+        "esquerda": {
+          "texto": "Faltou nosso melhor, vamos corrigir.",
+          "efeitos": {
+            "moral": 3
+          },
+          "flag_carreira": "lider"
+        },
+        "direita": {
+          "texto": "O importante foi o resultado.",
+          "efeitos": {
+            "torcida": 3
+          },
+          "flag_carreira": "entregue"
+        }
       },
       "futuro": {
         "pergunta": "Jogo difícil hoje. Qual sua avaliação?",
-        "esquerda": { "texto": "Faltou nosso melhor, vamos corrigir.", "efeitos": { "moral": 3 }, "flag_carreira": "lider" },
-        "direita":  { "texto": "O importante foi o resultado.", "efeitos": { "torcida": 3 }, "flag_carreira": "entregue" }
+        "esquerda": {
+          "texto": "Faltou nosso melhor, vamos corrigir.",
+          "efeitos": {
+            "moral": 3
+          },
+          "flag_carreira": "lider"
+        },
+        "direita": {
+          "texto": "O importante foi o resultado.",
+          "efeitos": {
+            "torcida": 3
+          },
+          "flag_carreira": "entregue"
+        }
       }
     }
+  },
+  {
+    "id": "ent_ousado",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "ousado",
+    "carga": "NEUTRA",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Você arriscou jogadas que poucos tentariam. Confiança ou irresponsabilidade?",
+        "esquerda": {
+          "texto": "\"Craque arrisca. É o meu jogo.\"",
+          "efeitos": {
+            "midia": 8,
+            "torcida": -3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Calculei tudo, sempre pelo time.\"",
+          "efeitos": {
+            "moral": 5,
+            "torcida": 5
+          },
+          "flag_carreira": "lider"
+        }
+      },
+      "caido": {
+        "pergunta": "Nessa idade, ainda arrisca lances de garoto. Sensato?",
+        "esquerda": {
+          "texto": "\"Foi assim que cheguei aqui.\"",
+          "efeitos": {
+            "midia": 8,
+            "torcida": -3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Arrisco com a sabedoria de hoje.\"",
+          "efeitos": {
+            "torcida": 8
+          },
+          "flag_carreira": "humilde"
+        }
+      },
+      "futuro": {
+        "pergunta": "Que ousadia pra um estreante! De onde vem essa coragem?",
+        "esquerda": {
+          "texto": "\"Não tenho medo de ninguém.\"",
+          "efeitos": {
+            "midia": 8,
+            "torcida": 3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Coragem com humildade, sigo aprendendo.\"",
+          "efeitos": {
+            "torcida": 8,
+            "moral": 3
+          },
+          "flag_carreira": "humilde"
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_raca",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "raca",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Você se entregou até não poder mais. Cansou de ser sempre cobrado?",
+        "esquerda": {
+          "texto": "\"Dou sangue e exijo reconhecimento.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Joguei pelo escudo, não por mim.\"",
+          "efeitos": {
+            "torcida": 10,
+            "moral": 5
+          },
+          "flag_carreira": "idolo"
+        }
+      },
+      "caido": {
+        "pergunta": "Aos 33, correu como um garoto. Provando algo a quem te enterrou?",
+        "esquerda": {
+          "texto": "\"Provo todo dia que ainda sou eu.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Corri pela camisa, não por vingança.\"",
+          "efeitos": {
+            "torcida": 10
+          },
+          "flag_carreira": "humilde"
+        }
+      },
+      "futuro": {
+        "pergunta": "Quanta raça pra um moleque! Surpreendeu até você?",
+        "esquerda": {
+          "texto": "\"Vim pra ser lenda, sem atalho.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": 3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Só dei tudo pelos companheiros.\"",
+          "efeitos": {
+            "torcida": 10,
+            "moral": 5
+          },
+          "flag_carreira": "lider"
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_frieza",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "frieza",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Todo mundo se descontrolou, menos você. De onde vem esse sangue-frio?",
+        "esquerda": {
+          "texto": "\"Pressão é com os outros, não comigo.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Treino a cabeça como treino as pernas.\"",
+          "efeitos": {
+            "moral": 8,
+            "torcida": 5
+          },
+          "flag_carreira": "entregue"
+        }
+      },
+      "caido": {
+        "pergunta": "Frieza de veterano hoje. A experiência fala mais alto agora?",
+        "esquerda": {
+          "texto": "\"Já vi de tudo, nada me abala.\"",
+          "efeitos": {
+            "midia": 5
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Os anos me ensinaram a respirar.\"",
+          "efeitos": {
+            "torcida": 8,
+            "moral": 5
+          },
+          "flag_carreira": "humilde"
+        }
+      },
+      "futuro": {
+        "pergunta": "Que maturidade pra 18 anos! É natural ou ensaiado?",
+        "esquerda": {
+          "texto": "\"Nasci tranquilo, isso é dom.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": 3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Tento aprender com os mais velhos.\"",
+          "efeitos": {
+            "torcida": 8,
+            "moral": 5
+          },
+          "flag_carreira": "humilde"
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_disciplinado",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "disciplinado",
+    "carga": "NEUTRA",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Você jogou simples, sem brilho. Faltou a ousadia que esperam de você?",
+        "esquerda": {
+          "texto": "\"Ousadia sem resultado é vaidade.\"",
+          "efeitos": {
+            "moral": 5,
+            "midia": -3
+          },
+          "flag_carreira": "entregue"
+        },
+        "direita": {
+          "texto": "\"Fiz o que o time precisava.\"",
+          "efeitos": {
+            "torcida": 5,
+            "moral": 5
+          },
+          "flag_carreira": "lider"
+        }
+      },
+      "caido": {
+        "pergunta": "Jogou contido demais. Medo de errar nessa altura da carreira?",
+        "esquerda": {
+          "texto": "\"Maturidade não é medo.\"",
+          "efeitos": {
+            "moral": 5
+          },
+          "flag_carreira": "humilde"
+        },
+        "direita": {
+          "texto": "\"Joguei pro time, não pra galeria.\"",
+          "efeitos": {
+            "torcida": 5
+          },
+          "flag_carreira": "entregue"
+        }
+      },
+      "futuro": {
+        "pergunta": "Muito comportado pra um garoto. Cadê a irreverência?",
+        "esquerda": {
+          "texto": "\"Sei a hora de cada coisa.\"",
+          "efeitos": {
+            "moral": 5
+          },
+          "flag_carreira": "entregue"
+        },
+        "direita": {
+          "texto": "\"Respeito o plano do professor.\"",
+          "efeitos": {
+            "moral": 5,
+            "torcida": 3
+          },
+          "flag_carreira": "humilde"
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_lider",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "lider",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Você puxou o time nos ombros. Já se sente o capitão desta seleção?",
+        "esquerda": {
+          "texto": "\"Liderança é comigo mesmo.\"",
+          "efeitos": {
+            "midia": 5,
+            "moral": 5
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Cada um aqui lidera à sua maneira.\"",
+          "efeitos": {
+            "torcida": 8,
+            "moral": 5
+          },
+          "flag_carreira": "lider"
+        }
+      },
+      "caido": {
+        "pergunta": "Liderou como nos velhos tempos. Reencontrou seu lugar no grupo?",
+        "esquerda": {
+          "texto": "\"Sempre fui a voz desse vestiário.\"",
+          "efeitos": {
+            "midia": 5
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Devolvo o que o grupo me deu.\"",
+          "efeitos": {
+            "torcida": 8,
+            "moral": 5
+          },
+          "flag_carreira": "lider"
+        }
+      },
+      "futuro": {
+        "pergunta": "Tão novo e já lidera os veteranos. Como assim?",
+        "esquerda": {
+          "texto": "\"Liderança não tem idade. É minha.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": 3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Só tento ajudar onde posso.\"",
+          "efeitos": {
+            "torcida": 8
+          },
+          "flag_carreira": "lider"
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_covarde",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "covarde",
+    "carga": "CRITICA",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Você sumiu nos momentos decisivos. Faltou personalidade?",
+        "esquerda": {
+          "texto": "\"Não sumi, fui mal entendido.\"",
+          "efeitos": {
+            "midia": -8,
+            "torcida": -5
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Falhei com o time, vou responder.\"",
+          "efeitos": {
+            "midia": -5,
+            "torcida": 5
+          },
+          "flag_carreira": "humilde"
+        }
+      },
+      "caido": {
+        "pergunta": "Recuou quando o time mais precisava. É o fim da estrada?",
+        "esquerda": {
+          "texto": "\"Me julguem quando eu parar.\"",
+          "efeitos": {
+            "midia": -8,
+            "torcida": -5
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Devo essa ao grupo, reconheço.\"",
+          "efeitos": {
+            "midia": -5,
+            "torcida": 5
+          },
+          "flag_carreira": "humilde"
+        }
+      },
+      "futuro": {
+        "pergunta": "Pesou o momento e você apagou. Grande demais pra você?",
+        "esquerda": {
+          "texto": "\"Não foi medo, foi tática.\"",
+          "efeitos": {
+            "midia": -5,
+            "torcida": -3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Aprendi na marra, prometo crescer.\"",
+          "efeitos": {
+            "midia": -5,
+            "torcida": 5
+          },
+          "flag_carreira": "humilde"
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_idolo",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "idolo",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "A torcida te idolatra como poucos. Não tem medo de virar refém disso?",
+        "esquerda": {
+          "texto": "\"Mereço cada grito daquela arquibancada.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Esse amor é do Brasil, eu represento.\"",
+          "efeitos": {
+            "torcida": 12
+          },
+          "flag_carreira": "idolo"
+        }
+      },
+      "caido": {
+        "pergunta": "O povo te perdoou e te ama de novo. O que sente?",
+        "esquerda": {
+          "texto": "\"Nunca duvidei que voltariam.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Essa volta por cima é deles.\"",
+          "efeitos": {
+            "torcida": 12,
+            "moral": 5
+          },
+          "flag_carreira": "idolo"
+        }
+      },
+      "futuro": {
+        "pergunta": "Virou ídolo nacional numa Copa só. Não sobe à cabeça?",
+        "esquerda": {
+          "texto": "\"É só o começo do meu reinado.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": 3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Quero retribuir esse carinho em campo.\"",
+          "efeitos": {
+            "torcida": 12
+          },
+          "flag_carreira": "idolo"
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_arrogante",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "arrogante",
+    "carga": "CRITICA",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Acharam você arrogante em campo hoje. Verdade ou imagem?",
+        "esquerda": {
+          "texto": "\"Confiança incomoda os medíocres.\"",
+          "efeitos": {
+            "midia": -8,
+            "torcida": -5
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Se passei essa imagem, foi erro meu.\"",
+          "efeitos": {
+            "midia": -5,
+            "torcida": 5
+          },
+          "flag_carreira": "humilde"
+        }
+      },
+      "caido": {
+        "pergunta": "Soberba de quem já foi grande. Ainda se acha acima do time?",
+        "esquerda": {
+          "texto": "\"Eu sou maior que esse momento.\"",
+          "efeitos": {
+            "midia": -8,
+            "torcida": -8
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"O tempo me ensinou humildade. Errei.\"",
+          "efeitos": {
+            "midia": -5,
+            "torcida": 8
+          },
+          "flag_carreira": "humilde"
+        }
+      },
+      "futuro": {
+        "pergunta": "Petulância demais pra um estreante. Cadê o respeito?",
+        "esquerda": {
+          "texto": "\"Respeito se conquista vencendo.\"",
+          "efeitos": {
+            "midia": -5,
+            "torcida": -3
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Foi empolgação, vou me controlar.\"",
+          "efeitos": {
+            "midia": -5,
+            "torcida": 5
+          },
+          "flag_carreira": "humilde"
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_boemio",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "boemio",
+    "carga": "NEUTRA",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Vazaram fotos suas fora da concentração. Indisciplina ou direito ao lazer?",
+        "esquerda": {
+          "texto": "\"Sei me divertir e jogar.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -5
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Exagerei, vou me cuidar melhor.\"",
+          "efeitos": {
+            "torcida": 5,
+            "moral": 3
+          },
+          "flag_carreira": "humilde"
+        }
+      },
+      "caido": {
+        "pergunta": "De novo a vida noturna virando manchete. Não aprende?",
+        "esquerda": {
+          "texto": "\"Minha vida fora de campo é minha.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -8
+          },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "\"Já paguei caro por isso antes. Errei.\"",
+          "efeitos": {
+            "torcida": 5
+          },
+          "flag_carreira": "humilde"
+        }
+      },
+      "futuro": {
+        "pergunta": "Tão novo e já na noite? Os veteranos te deixam?",
+        "esquerda": {
+          "texto": "\"Sou jovem, vou aproveitar.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -3
+          },
+          "flag_carreira": "vitrine"
+        },
+        "direita": {
+          "texto": "\"Foco total agora, prometo.\"",
+          "efeitos": {
+            "moral": 5,
+            "torcida": 3
+          },
+          "flag_carreira": "entregue"
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_proposta_europa",
+    "fase": "entrevista",
+    "partida": 1,
+    "carga": "NEUTRA",
+    "variantes": {
+      "estrela": {
+        "pergunta": "O megaclube europeu está esperando. Vai embora depois dessa Copa?",
+        "esquerda": {
+          "texto": "\"Bom jogador não pode ficar preso.\"",
+          "efeitos": {
+            "midia": 8,
+            "torcida": -8
+          },
+          "flag_carreira": "mercenario"
+        },
+        "direita": {
+          "texto": "\"Primeiro a Copa, o resto vem depois.\"",
+          "efeitos": {
+            "torcida": 8,
+            "moral": 5
+          },
+          "flag_carreira": "entregue"
+        }
+      },
+      "caido": {
+        "pergunta": "É a última chance grande. Vai aceitar a proposta?",
+        "esquerda": {
+          "texto": "\"Mereço essa despedida em alto nível.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -5
+          },
+          "flag_carreira": "mercenario"
+        },
+        "direita": {
+          "texto": "\"Termino o trabalho aqui primeiro.\"",
+          "efeitos": {
+            "torcida": 8
+          },
+          "flag_carreira": "entregue"
+        }
+      },
+      "futuro": {
+        "pergunta": "Com essa Copa, qualquer clube do mundo vai te querer. Já tem resposta?",
+        "esquerda": {
+          "texto": "\"Estou aberto a tudo, sou jovem.\"",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -3
+          },
+          "flag_carreira": "mercenario"
+        },
+        "direita": {
+          "texto": "\"Meu foco é vencer aqui. O resto é ruído.\"",
+          "efeitos": {
+            "torcida": 8,
+            "moral": 5
+          },
+          "flag_carreira": "entregue"
+        }
+      }
+    },
+    "requer_flag": "proposta_europa"
   }
 ]

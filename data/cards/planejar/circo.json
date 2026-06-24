@@ -7,8 +7,13 @@
     "texto": "Sai uma figurinha tua com cara de bobo virando meme nacional. Todo grupo de zap tem.",
     "esquerda": {
       "texto": "Posta rindo de si mesmo",
-      "efeitos": { "torcida": 8, "midia": 5 },
-      "flags_partida": ["showman"]
+      "efeitos": {
+        "torcida": 8,
+        "midia": 5
+      },
+      "flags_partida": [
+        "showman"
+      ]
     },
     "direita": {
       "texto": "Finge que não viu",
@@ -23,13 +28,23 @@
     "texto": "Te flagram jogando videogame de madrugada num story. 'Concentração total', ironiza a imprensa.",
     "esquerda": {
       "texto": "Relaxar também é preparo",
-      "efeitos": { "torcida": 5, "midia": -5 },
-      "flags_partida": ["boemio"]
+      "efeitos": {
+        "torcida": 5,
+        "midia": -5
+      },
+      "flags_partida": [
+        "boemio"
+      ]
     },
     "direita": {
       "texto": "Apaga o story na hora",
-      "efeitos": { "moral": 3, "torcida": -3 },
-      "flags_partida": ["frio"]
+      "efeitos": {
+        "moral": 3,
+        "torcida": -3
+      },
+      "flags_partida": [
+        "frio"
+      ]
     }
   },
   {
@@ -40,12 +55,18 @@
     "texto": "Um garotinho com sua camisa te espera horas no hotel. A mídia tá filmando.",
     "esquerda": {
       "texto": "Para, conversa, dá a chuteira",
-      "efeitos": { "torcida": 10, "midia": 5 },
+      "efeitos": {
+        "torcida": 10,
+        "midia": 5
+      },
       "flag_carreira": "idolo"
     },
     "direita": {
       "texto": "Acena rápido e entra",
-      "efeitos": { "fisico": 3, "torcida": -5 }
+      "efeitos": {
+        "fisico": 3,
+        "torcida": -5
+      }
     }
   },
   {
@@ -56,12 +77,18 @@
     "texto": "Ressuscitam um tweet antigo e bobo teu. Pequena tempestade nas redes.",
     "esquerda": {
       "texto": "Pede desculpas público",
-      "efeitos": { "torcida": 5, "midia": -5 },
+      "efeitos": {
+        "torcida": 5,
+        "midia": -5
+      },
       "flag_carreira": "humilde"
     },
     "direita": {
       "texto": "Era outra época, superem",
-      "efeitos": { "midia": 5, "torcida": -5 },
+      "efeitos": {
+        "midia": 5,
+        "torcida": -5
+      },
       "flag_carreira": "arrogante",
       "gancho_entrevista": "polemica"
     }
@@ -74,13 +101,21 @@
     "texto": "Tua parceira liga chorando de alegria: o exame deu positivo, você vai ser pai. E o jogo é amanhã.",
     "esquerda": {
       "texto": "Foca no jogo, comemora depois",
-      "efeitos": { "moral": 5, "midia": -3 },
-      "flags_partida": ["frio"],
+      "efeitos": {
+        "moral": 5,
+        "midia": -3
+      },
+      "flags_partida": [
+        "frio"
+      ],
       "gancho_entrevista": "cabeca_em_casa"
     },
     "direita": {
       "texto": "Some a tarde toda pra ligar pra família",
-      "efeitos": { "torcida": 5, "fisico": -5 },
+      "efeitos": {
+        "torcida": 5,
+        "fisico": -5
+      },
       "gancho_entrevista": "cabeca_em_casa"
     }
   },
@@ -92,14 +127,23 @@
     "texto": "Um jogador rival faz uma live provocando o Brasil e cita você pelo nome. Viralizou.",
     "esquerda": {
       "texto": "Responde na mesma moeda, manda um recado",
-      "efeitos": { "midia": 8, "moral": -5 },
-      "flags_partida": ["pavio_curto"],
+      "efeitos": {
+        "midia": 8,
+        "moral": -5
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ],
       "gancho_entrevista": "polemica"
     },
     "direita": {
       "texto": "Silêncio. Resposta no campo.",
-      "efeitos": { "moral": 8 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "moral": 8
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -110,14 +154,22 @@
     "texto": "Vaza nas redes que você reatou com uma influencer famosa. Vira trending na véspera.",
     "esquerda": {
       "texto": "Assume publicamente, posta junto",
-      "efeitos": { "midia": 8, "moral": -5 },
+      "efeitos": {
+        "midia": 8,
+        "moral": -5
+      },
       "flag_carreira": "vitrine",
       "gancho_entrevista": "romance"
     },
     "direita": {
       "texto": "Ignora, minha vida é minha",
-      "efeitos": { "moral": 3, "midia": -3 },
-      "flags_partida": ["frio"]
+      "efeitos": {
+        "moral": 3,
+        "midia": -3
+      },
+      "flags_partida": [
+        "frio"
+      ]
     }
   },
   {
@@ -128,12 +180,18 @@
     "texto": "Você aparece no treino com uma tatuagem nova no pescoço. A imprensa vai de tudo: arte ou loucura?",
     "esquerda": {
       "texto": "É meu corpo, tenho orgulho",
-      "efeitos": { "midia": 8, "torcida": 5, "moral": -3 },
+      "efeitos": {
+        "midia": 8,
+        "torcida": 5,
+        "moral": -3
+      },
       "flag_carreira": "vitrine"
     },
     "direita": {
       "texto": "Fica quieto, deixa as imagens falar",
-      "efeitos": { "midia": 3 }
+      "efeitos": {
+        "midia": 3
+      }
     }
   },
   {
@@ -144,13 +202,20 @@
     "texto": "Você posta uma frase fofa: 'sempre escuto os conselhos da minha esposa'. A torcida derrete; o vestiário te paga.",
     "esquerda": {
       "texto": "Abraça a zoeira, ri junto",
-      "efeitos": { "torcida": 5, "moral": 5 },
+      "efeitos": {
+        "torcida": 5,
+        "moral": 5
+      },
       "flag_carreira": "lider"
     },
     "direita": {
       "texto": "Se irrita com a gozação",
-      "efeitos": { "moral": -5 },
-      "flags_partida": ["pavio_curto"],
+      "efeitos": {
+        "moral": -5
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ],
       "gancho_entrevista": "climao_vestiario"
     }
   },
@@ -162,12 +227,18 @@
     "texto": "Um portal vaza seu salário no clube. A cifra é absurda. A torcida reage mal: 'ganha isso e joga assim?'",
     "esquerda": {
       "texto": "Enfrenta o assunto: 'mereço cada centavo'",
-      "efeitos": { "midia": 10, "torcida": -12 },
+      "efeitos": {
+        "midia": 10,
+        "torcida": -12
+      },
       "flag_carreira": "arrogante"
     },
     "direita": {
       "texto": "Silêncio — vai mostrar em campo",
-      "efeitos": { "moral": 5, "midia": -5 }
+      "efeitos": {
+        "moral": 5,
+        "midia": -5
+      }
     }
   },
   {
@@ -178,12 +249,16 @@
     "texto": "O cabeleireiro fez um corte novo ousado pro jogo. A internet vai amar ou destruir.",
     "esquerda": {
       "texto": "Mantém o visual maluco",
-      "efeitos": { "midia": 5 },
+      "efeitos": {
+        "midia": 5
+      },
       "flag_carreira": "vitrine"
     },
     "direita": {
       "texto": "Volta pro corte normal",
-      "efeitos": { "moral": 3 }
+      "efeitos": {
+        "moral": 3
+      }
     }
   },
   {
@@ -194,12 +269,18 @@
     "texto": "Uma plataforma quer filmar um documentário sobre sua Copa. Câmeras no treino e no quarto do hotel.",
     "esquerda": {
       "texto": "Aceita — sua história merece ser contada",
-      "efeitos": { "midia": 10, "moral": -5, "fisico": -3 },
+      "efeitos": {
+        "midia": 10,
+        "moral": -5,
+        "fisico": -3
+      },
       "flag_carreira": "vitrine"
     },
     "direita": {
       "texto": "Não agora. Copa primeiro.",
-      "efeitos": { "moral": 8 },
+      "efeitos": {
+        "moral": 8
+      },
       "flag_carreira": "entregue"
     }
   },
@@ -211,12 +292,17 @@
     "texto": "Uma grife de luxo te oferece um cachê absurdo pra usar a roupa deles na chegada ao estádio.",
     "esquerda": {
       "texto": "Recusa, chega de moletom do time",
-      "efeitos": { "moral": 5 },
+      "efeitos": {
+        "moral": 5
+      },
       "flag_carreira": "entregue"
     },
     "direita": {
       "texto": "Aceita, vira editorial de moda",
-      "efeitos": { "midia": 8, "moral": -5 },
+      "efeitos": {
+        "midia": 8,
+        "moral": -5
+      },
       "flag_carreira": "vitrine"
     }
   },
@@ -228,14 +314,23 @@
     "texto": "Um jornalista escreve que você é 'o jogador mais superestimado da Copa'. A coluna viraliza.",
     "esquerda": {
       "texto": "Responde publicamente, cita o nome dele",
-      "efeitos": { "midia": 12, "moral": -8 },
-      "flags_partida": ["pavio_curto"],
+      "efeitos": {
+        "midia": 12,
+        "moral": -8
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ],
       "gancho_entrevista": "polemica"
     },
     "direita": {
       "texto": "Printa, guarda pra motivação",
-      "efeitos": { "moral": 10 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "moral": 10
+      },
+      "flags_partida": [
+        "raca"
+      ]
     }
   },
   {
@@ -247,12 +342,19 @@
     "texto": "Você recebe o prêmio de melhor jogador da fase de grupos — mas o Brasil empatou a última partida. Elogio vira alvo.",
     "esquerda": {
       "texto": "Agradece o prêmio, dedica ao time",
-      "efeitos": { "midia": 5, "torcida": 8, "moral": 3 },
+      "efeitos": {
+        "midia": 5,
+        "torcida": 8,
+        "moral": 3
+      },
       "flag_carreira": "humilde"
     },
     "direita": {
       "texto": "Exibe o troféu, está orgulhoso",
-      "efeitos": { "midia": 12, "torcida": -8 },
+      "efeitos": {
+        "midia": 12,
+        "torcida": -8
+      },
       "flag_carreira": "arrogante"
     }
   },
@@ -265,12 +367,19 @@
     "texto": "Um perfil anônimo posta um compilado de todos seus erros históricos. 'Esse é o mesmo jogador?' A torcida debate.",
     "esquerda": {
       "texto": "Compartilha o post com um recado: 'obrigado pela motivação'",
-      "efeitos": { "torcida": 10, "midia": 5, "moral": 5 },
+      "efeitos": {
+        "torcida": 10,
+        "midia": 5,
+        "moral": 5
+      },
       "flag_carreira": "humilde"
     },
     "direita": {
       "texto": "Pede pra assessoria denunciar o perfil",
-      "efeitos": { "moral": -5, "midia": -5 },
+      "efeitos": {
+        "moral": -5,
+        "midia": -5
+      },
       "flag_carreira": "problematico"
     }
   },
@@ -283,13 +392,408 @@
     "texto": "Uma revista internacional diz que você é 'o futuro do futebol'. Sua foto na capa. No dia do treino decisivo.",
     "esquerda": {
       "texto": "Ignora a capa, vai pro treino focado",
-      "efeitos": { "moral": 8, "fisico": 3 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "moral": 8,
+        "fisico": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     },
     "direita": {
       "texto": "Tira foto com a revista, posta nas redes",
-      "efeitos": { "midia": 12, "torcida": 8, "moral": -5 },
+      "efeitos": {
+        "midia": 12,
+        "torcida": 8,
+        "moral": -5
+      },
       "flag_carreira": "vitrine"
+    }
+  },
+  {
+    "id": "cir_dancinha",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 1,
+    "texto": "Você ensaia uma dancinha nova de comemoração. Metade da internet acha genial, metade acha desrespeito ao adversário.",
+    "esquerda": {
+      "texto": "Promete fazer se marcar",
+      "efeitos": {
+        "torcida": 8,
+        "midia": 5
+      },
+      "flags_partida": [
+        "showman"
+      ]
+    },
+    "direita": {
+      "texto": "Guarda a dança, foco no jogo",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "frio"
+      ]
+    }
+  },
+  {
+    "id": "cir_pet",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 2,
+    "texto": "Um vídeo do seu cachorro \"torcendo\" na sua casa viraliza. O Brasil inteiro adota o bicho como mascote.",
+    "esquerda": {
+      "texto": "Embarca na fofura, posta mais",
+      "efeitos": {
+        "torcida": 8,
+        "midia": 3
+      },
+      "flag_carreira": "idolo"
+    },
+    "direita": {
+      "texto": "Acha bobagem, ignora",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "frio"
+      ]
+    }
+  },
+  {
+    "id": "cir_irmao",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 2,
+    "texto": "Seu irmão dá uma entrevista falando demais da sua vida e cobra mais respeito da imprensa com você.",
+    "esquerda": {
+      "texto": "Banca o irmão publicamente",
+      "efeitos": {
+        "torcida": 5,
+        "midia": -5
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ],
+      "gancho_entrevista": "polemica"
+    },
+    "direita": {
+      "texto": "Pede que ele se afaste dos holofotes",
+      "efeitos": {
+        "moral": 5,
+        "torcida": -3
+      },
+      "flags_partida": [
+        "frio"
+      ]
+    }
+  },
+  {
+    "id": "cir_crianca_hospital",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 3,
+    "texto": "Um pedido viraliza: uma criança internada sonha em te conhecer antes do jogo. A imprensa toda quer filmar o momento.",
+    "esquerda": {
+      "texto": "Visita a criança no hospital",
+      "efeitos": {
+        "torcida": 10,
+        "midia": 5
+      },
+      "flag_carreira": "idolo"
+    },
+    "direita": {
+      "texto": "Manda um vídeo, mantém a rotina",
+      "efeitos": {
+        "torcida": 3,
+        "fisico": 3
+      }
+    }
+  },
+  {
+    "id": "cir_musica",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 3,
+    "texto": "Uma música com o seu nome explode nas paradas e vira hino de torcida da noite pro dia.",
+    "esquerda": {
+      "texto": "Curte a fama, grava um trecho",
+      "efeitos": {
+        "midia": 8,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "showman"
+      ],
+      "flag_carreira": "vitrine"
+    },
+    "direita": {
+      "texto": "Agradece discreto, segue humilde",
+      "efeitos": {
+        "torcida": 5
+      },
+      "flag_carreira": "humilde"
+    }
+  },
+  {
+    "id": "cir_carro_luxo",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 4,
+    "texto": "Você aparece num story dentro de um carro de luxo novo. A torcida tem opiniões fortes sobre ostentação em plena Copa.",
+    "esquerda": {
+      "texto": "Assume o estilo, é seu dinheiro",
+      "efeitos": {
+        "midia": 5,
+        "torcida": -5
+      },
+      "flag_carreira": "vitrine"
+    },
+    "direita": {
+      "texto": "Apaga e mantém a discrição",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "frio"
+      ]
+    }
+  },
+  {
+    "id": "cir_proposta_clube",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 4,
+    "texto": "Vaza que um gigante europeu dobrou a proposta no meio da Copa. Te oferecem uma vida inteira de uma vez só.",
+    "esquerda": {
+      "texto": "Confirma o interesse em público",
+      "efeitos": {
+        "midia": 8,
+        "torcida": -8,
+        "moral": -3
+      },
+      "flag_carreira": "mercenario",
+      "gancho_entrevista": "proposta_europa"
+    },
+    "direita": {
+      "texto": "\"Agora é a seleção.\"",
+      "efeitos": {
+        "torcida": 8,
+        "moral": 5
+      },
+      "flag_carreira": "entregue",
+      "gancho_entrevista": "proposta_europa"
+    }
+  },
+  {
+    "id": "cir_ex_vende",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 5,
+    "texto": "Uma ex vende uma matéria com \"segredos\" seus pra um portal. Vira o assunto da véspera, querendo você ou não.",
+    "esquerda": {
+      "texto": "Rebate em público, nega tudo",
+      "efeitos": {
+        "midia": 5,
+        "moral": -5
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ],
+      "gancho_entrevista": "romance"
+    },
+    "direita": {
+      "texto": "Ignora, \"não dou audiência\"",
+      "efeitos": {
+        "moral": 5,
+        "midia": -3
+      },
+      "flags_partida": [
+        "frio"
+      ],
+      "gancho_entrevista": "romance"
+    }
+  },
+  {
+    "id": "cir_festa_aniversario",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 5,
+    "texto": "Faz aniversário em plena Copa. O grupo quer te fazer uma festa-surpresa dentro da concentração.",
+    "esquerda": {
+      "texto": "Topa a festa, descontrai com todos",
+      "efeitos": {
+        "moral": 8,
+        "fisico": -3
+      },
+      "flags_partida": [
+        "boemio"
+      ]
+    },
+    "direita": {
+      "texto": "Comemora rápido e dorme cedo",
+      "efeitos": {
+        "fisico": 5,
+        "moral": -3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "cir_resenha_vaza",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 6,
+    "texto": "Um vídeo de resenha do vestiário vaza e te mostra zoando um companheiro. Fora de contexto, soa pesado.",
+    "esquerda": {
+      "texto": "Faz piada pública, desconversa",
+      "efeitos": {
+        "midia": 5,
+        "moral": -5
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ],
+      "gancho_entrevista": "climao_vestiario"
+    },
+    "direita": {
+      "texto": "Liga pro companheiro, resolve",
+      "efeitos": {
+        "moral": 5,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "lider"
+      ]
+    }
+  },
+  {
+    "id": "cir_caridade",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 6,
+    "texto": "Você decide doar o bônus da partida pra reconstrução de uma comunidade. A assessoria sugere divulgar o gesto.",
+    "esquerda": {
+      "texto": "Divulga a doação, inspira",
+      "efeitos": {
+        "torcida": 8,
+        "midia": 5
+      },
+      "flag_carreira": "vitrine"
+    },
+    "direita": {
+      "texto": "Doa em silêncio, sem alarde",
+      "efeitos": {
+        "torcida": 5,
+        "moral": 5
+      },
+      "flag_carreira": "humilde"
+    }
+  },
+  {
+    "id": "cir_velho_amigo",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 6,
+    "texto": "Um amigo de infância aparece na concentração pedindo ingressos e um \"corre\". Difícil dizer não pra quem te viu começar.",
+    "esquerda": {
+      "texto": "Resolve tudo pro amigo",
+      "efeitos": {
+        "moral": 5,
+        "fisico": -3
+      },
+      "flag_carreira": "idolo"
+    },
+    "direita": {
+      "texto": "Põe limite, foca na Copa",
+      "efeitos": {
+        "moral": 3,
+        "torcida": -3
+      },
+      "flags_partida": [
+        "frio"
+      ]
+    }
+  },
+  {
+    "id": "cir_lenda_elogio",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 7,
+    "texto": "Uma lenda do futebol mundial te elogia em rede nacional na véspera da final, dizendo que você é o melhor em campo hoje.",
+    "esquerda": {
+      "texto": "Retribui à altura, assume o posto",
+      "efeitos": {
+        "midia": 8,
+        "moral": 5
+      },
+      "flag_carreira": "arrogante"
+    },
+    "direita": {
+      "texto": "\"Sou só mais um, o time é tudo.\"",
+      "efeitos": {
+        "torcida": 8
+      },
+      "flag_carreira": "humilde"
+    }
+  },
+  {
+    "id": "cir_tatuagem_titulo",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 7,
+    "texto": "Você cogita tatuar a taça antes mesmo de jogar a final. A foto do desenho vaza e divide o país.",
+    "esquerda": {
+      "texto": "Banca a ousadia, tatua antes",
+      "efeitos": {
+        "midia": 8,
+        "torcida": -5
+      },
+      "flags_partida": [
+        "showman"
+      ],
+      "flag_carreira": "vitrine",
+      "risco": {
+        "tipo": "se perder a final, vira piada eterna",
+        "chance": 0.4,
+        "efeitos": {
+          "midia": -10
+        }
+      }
+    },
+    "direita": {
+      "texto": "Espera erguer a taça primeiro",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "frio"
+      ]
+    }
+  },
+  {
+    "id": "cir_torcida_mosaico",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 7,
+    "texto": "A torcida prepara um mosaico gigante com o seu rosto pra final. Pedem uma frase sua pra estampar nas arquibancadas.",
+    "esquerda": {
+      "texto": "Manda uma frase de guerra",
+      "efeitos": {
+        "torcida": 10,
+        "midia": 5
+      },
+      "flag_carreira": "idolo"
+    },
+    "direita": {
+      "texto": "Pede pra homenagear o grupo",
+      "efeitos": {
+        "torcida": 5,
+        "moral": 5
+      },
+      "flag_carreira": "humilde"
     }
   }
 ]

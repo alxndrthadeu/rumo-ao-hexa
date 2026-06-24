@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { dbGetRunState } from '@/lib/db'
-import { buildPreGameDeck, getCardById, getInterviewCard, loadBracket } from '@/engine/deck'
+import { getCardById, getInterviewCard, loadBracket } from '@/engine/deck'
 import type { RunState } from '@/engine/types'
 
 type Params = { params: Promise<{ sessionId: string }> }
@@ -21,9 +21,9 @@ export async function GET(_req: NextRequest, { params }: Params) {
   let cards = null
   if (!isGameOver) {
     if (state.fase === 'planejar') {
-      const preGameCards = buildPreGameDeck(state.partidaAtual, state.barras.midia, state.crise, state.arquetipo)
-      const ids = new Set(state.cartasRestantes.length > 0 ? state.cartasRestantes : preGameCards.map(c => c.id))
-      cards = preGameCards.filter(c => ids.has(c.id))
+      cards = state.cartasRestantes
+        .map(id => getCardById(id))
+        .filter((c): c is NonNullable<typeof c> => c !== null)
     } else if (state.fase === 'reagir') {
       cards = state.cartasRestantes
         .map(id => getCardById(id))

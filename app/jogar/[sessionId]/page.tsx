@@ -359,7 +359,8 @@ export default function GamePage() {
       {/* ── Placar ao vivo (reagir) ── */}
       {state.runState.fase === 'reagir' && (
         <LiveScoreboard
-          placar={state.runState.placarPartida}
+          golsBrasil={state.runState.golsBrasil}
+          golsAdversario={state.runState.golsAdversario}
           adversario={state.bracketEntry.adversario}
           cartasRestantes={state.runState.cartasRestantes.length}
         />

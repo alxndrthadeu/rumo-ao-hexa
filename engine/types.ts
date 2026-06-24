@@ -110,6 +110,8 @@ export interface RunState {
   barras: { torcida: number; midia: number; moral: number; fisico: number }
   pontosGrupo: number
   placarPartida: number
+  golsBrasil: number
+  golsAdversario: number
   flagsPartida: string[]
   flagsCarreira: Record<string, number>
   niggles: string[]
@@ -119,6 +121,7 @@ export interface RunState {
   causaMorte?: CausaMorte
   barraMorte?: { barra: Barra; extreme: 'min' | 'max' }
   seed: number
+  initialSeed: number
 }
 
 // ─── Resultados de API / engine ──────────────────────────────────────────────

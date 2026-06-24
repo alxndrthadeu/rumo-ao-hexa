@@ -36,7 +36,7 @@ PLANEJAR → REAGIR → ENTREVISTA → [próxima partida]
 
 | Arquétipo | torcida | midia | moral | fisico |
 |-----------|---------|-------|-------|--------|
-| estrela   | 70      | 75    | 60    | 65     |
+| estrela   | 70      | 65    | 60    | 65     |
 | caido     | 55      | 80    | 50    | 50     |
 | futuro    | 50      | 55    | 60    | 75     |
 
@@ -91,8 +91,8 @@ PLANEJAR → REAGIR → ENTREVISTA → [próxima partida]
 O jogador joga **2 a 4 cartas** sequencialmente, sem escolha de ordem.
 
 Composição do deck:
-1. **Carta âncora** (sempre): uma carta do pool `ancora`, selecionada por `(partida - 1) % total_ancoras`
-2. **Carta circo** (sempre): uma carta do pool `circo` (ou assinatura de circo, se existir para aquela partida)
+1. **Carta âncora** (sempre): uma carta do pool `ancora`, selecionada por RNG seed-based (aleatória, reproduzível)
+2. **Carta circo** (sempre): uma carta do pool `circo` (ou assinatura de circo, se existir para aquela partida — a assinatura tem prioridade e não consome RNG para circo)
 3. **Carta especial de arquétipo** (se existir para arquétipo + partida): `requer_passiva`
 4. **Carta de imprensa** (se midia extrema): `imprensa_favoravel` (midia ≥ 70) ou `imprensa_hostil` (midia ≤ 30)
 5. **Carta de crise** (se crise ativa): injetada no início, antes de tudo
@@ -155,7 +155,7 @@ Overrides a seleção normal de entrevista:
 | `cabeca_em_casa` | ent_cabeca_em_casa |
 | `romance` | ent_romance |
 | `climao_vestiario` | ent_climao_vestiario |
-| `proposta_europa` | (sem carta ainda — gancho futuro) |
+| `proposta_europa` | ent_proposta_europa |
 
 ### flag_carreira (persistem toda a run)
 Acumuladas durante toda a campanha. Influenciam o legado final.
@@ -238,7 +238,7 @@ Acumuladas durante toda a campanha. Influenciam o legado final.
 - `requer_classe`: a carta só entra se a classe do adversário bater
 - `posicao`: apenas para assinaturas de reagir — força a posição no deck
 - `climax`: sinaliza que a escolha representa o momento dramático da partida
-- `risco`: evento aleatório que pode ou não acontecer (chance 0.0-1.0). O `tipo` é só descritivo.
+- `risco`: evento aleatório que pode ou não acontecer (chance 0.0-1.0). O `tipo` é descritivo, **exceto** `"cartao_vermelho"` que tem comportamento especial: em mata-mata (partida ≥ 4) causa eliminação imediata (`causaMorte: 'expulsao'`); em grupos, aplica os efeitos normalmente sem eliminar.
 - `condicional`: só quando `efeitos.placar === "condicional"`. `limiar` é o placar mínimo para `ramoA`; senão vai `ramoB`
 - `niggle`: adiciona uma condição crônica que aumenta custo de dano físico
 - `gancho_entrevista`: força qual carta de entrevista aparece após a partida
@@ -372,7 +372,7 @@ Não é um arquivo JSON separado — é gerado por regras em `engine/jornal.ts`.
 
 ### 8.6 REAGIR — Genéricas (`camada: "generica"`)
 
-Pool de 20 cartas, 4 sorteadas aleatoriamente por partida.
+Pool de 40 cartas, 4 sorteadas aleatoriamente por partida (seed-based).
 
 | ID | Situação |
 |----|----------|
@@ -396,6 +396,26 @@ Pool de 20 cartas, 4 sorteadas aleatoriamente por partida.
 | `gen_provocacao_geral` | Adversário sussurra algo sobre sua família |
 | `gen_apoio_reserva` | Reserva veterano dá dica tática no intervalo |
 | `gen_lesao_leve` | Fisgada ao arrancar |
+| `gen_chute_de_fora` | Chute forte de fora da área — arriscar |
+| `gen_goleiro_adiantado` | Goleiro adiantado, você vê o gol vazio |
+| `gen_marcador_gruda` | Marcador cola em você durante o jogo inteiro |
+| `gen_recuo_falho` | Recuo do zagueiro mal executado, sobra |
+| `gen_falta_tatica` | Você vê o contra-ataque vindo — falta tática |
+| `gen_torcida_propria_vaia` | Sua própria torcida te vaia após recuo |
+| `gen_caneta` | Você da caneta no marcador na frente da galera |
+| `gen_pisao_escondido` | Zagueiro te pisa escondido do juiz |
+| `gen_calor_sufocante` | Calor de 40°C, árbitro oferece pausa hidratação |
+| `gen_companheiro_apagado` | Companheiro de ataque travado, depende de você |
+| `gen_grama_pesada` | Grama alta e molhada, jogo travado |
+| `gen_torcedor_invade` | Torcedor invade o campo e corre em sua direção |
+| `gen_companheiro_brigado` | Companheiro brigou com você ontem, hoje evita |
+| `gen_arbitragem_contra` | Árbitro marcou tudo contra, time no limite |
+| `gen_passe_luxo` | Chance de passe de letra espetacular |
+| `gen_substituicao_tatica` | Técnico vai te tirar — decide continuar ou reclamar |
+| `gen_frango_goleiro` | Goleiro adversário falha feio, sobra para você |
+| `gen_dois_amarelos` | Dois amarelos? Você está na iminência de sair |
+| `gen_bola_fora_devolver` | Bola fora por saúde, eles querem de volta |
+| `gen_companheiro_pede_passe` | Companheiro livre grita, mas você quer o gol |
 
 ### 8.7 REAGIR — Classe `tecnico` (Marrocos — partida 1)
 
@@ -471,6 +491,7 @@ Pool de 20 cartas, 4 sorteadas aleatoriamente por partida.
 |----|---------|---------|---------|----------|
 | `ass_estreia` | 1 | — | inicio | Estreia numa Copa, hino, peso da nação |
 | `ass_estrela_alvo` | 2 | `estrela` | — | Marcação dupla, esquema só pra você |
+| `ass_muralha_escocesa` | 3 | — | fim | 89 min de batalha física, Escócia sem dar espaço |
 | `ass_menino_responsa` | 4 | `futuro` | — | 18 anos com a braçadeira de responsabilidade |
 | `ass_lesao_decisiva` | 5 | — | — | Algo estala numa arrancada |
 | `ass_principe_redencao` | 6 | `caido` | — | 33 anos, 2 cirurgias, na semifinal |
@@ -521,7 +542,7 @@ Pool de 20 cartas, 4 sorteadas aleatoriamente por partida.
 | ID | Flag Trigger | Carga | Tema |
 |----|-------------|-------|------|
 | `ent_heroi` | `heroi` | ELOGIO | Gol decisivo — arrogante alimenta mídia, humilde ganha torcida |
-| `ent_afobado` | `afobado` | CRITICA | Erro por ansiedade — mídia cai em ambas, humble ganha torcida |
+| `ent_afobado` | `afobado` | CRITICA | Erro por ansiedade — mídia cai em ambas, humilde ganha torcida |
 | `ent_coletivo` | `coletivo` | ELOGIO | Jogo coletivo — líder ganha torcida, arrogante ganha mídia |
 | `ent_vilao` | `vilao` | CRITICA | Comportamento antidesportivo |
 | `ent_pavio_curto` | `pavio_curto` | CRITICA | Quase expulso por provocações |
@@ -531,6 +552,16 @@ Pool de 20 cartas, 4 sorteadas aleatoriamente por partida.
 | `ent_climao_vestiario` | `climao_vestiario` | NEUTRA | Boatos de briga no vestiário |
 | `ent_polemica` | `polemica` | CRITICA | Resposta antiga polêmica reaquecida |
 | `ent_fallback` | `fallback` | NEUTRA | Carta de fallback: avaliação geral do jogo |
+| `ent_ousado` | `ousado` | ELOGIO | Arriscou, valeu — ou arriscou e falhou |
+| `ent_raca` | `raca` | ELOGIO | Lutou além do limite — coragem física reconhecida |
+| `ent_frieza` | `frieza` | ELOGIO | Cabeça fria sob pressão — imprensa quer saber o segredo |
+| `ent_disciplinado` | `disciplinado` | ELOGIO | Seguiu o plano — reconhecimento pela consistência |
+| `ent_lider` | `lider` | ELOGIO | Liderança em campo — capitão em espírito |
+| `ent_covarde` | `covarde` | CRITICA | Recuou quando devia avançar — imprensa cobra |
+| `ent_idolo` | `idolo` | ELOGIO | Conexão com a torcida — ídolo do povo |
+| `ent_arrogante` | `arrogante` | CRITICA | Excesso de ego — imprensa e vestiário cobram |
+| `ent_boemio` | `boemio` | CRITICA | Flagrado fora da concentração — imprensa ataca |
+| `ent_proposta_europa` | `proposta_europa` | NEUTRA | Proposta europeia vazou — foco na seleção ou na carreira? |
 
 ---
 
@@ -544,6 +575,8 @@ Gerado automaticamente após cada partida. Regras com prioridade por `flags_part
 - Empate: `disciplinado`, `frieza`, `pavio_curto`, `raca`, `coletivo`, `heroi`
 
 Quando múltiplas regras batem, **uma é sorteada aleatoriamente**. Cada regra tem 2-3 variantes de manchete.
+
+**Determinismo:** toda seleção usa o RNG seed-based da run (`advanceSeed`/`seedToFloat`). Mesma seed = mesma manchete. O seed consumido pelo jornal é propagado para o estado e salvo, garantindo reprodutibilidade total.
 
 ---
 
@@ -565,3 +598,19 @@ Quando múltiplas regras batem, **uma é sorteada aleatoriamente**. Cada regra t
 - **Risco:** chance entre 0.25 e 0.65. Abaixo de 0.25 é irrelevante, acima de 0.65 é quase certeza.
 - **Condicional:** use quando o desfecho de uma jogada dramática deve depender do estado atual do placar — garante que momentos de desespero (placar ruim) sejam diferentes de momentos de conforto.
 - **IDs únicos:** verificar que o ID não existe antes de criar. Prefixos: `anc_`, `cir_`, `gen_`, `tec_`, `fis_`, `fav_`, `riv_`, `sac_`, `evo_`, `esp_`, `ass_`, `ent_`, `crise_`
+
+---
+
+## 11. Seed e Compartilhamento de Run
+
+Toda run tem uma **seed** numérica gerada no início (via `Date.now()`). A seed é usada para:
+- Selecionar âncora e circo de planejar (RNG)
+- Embaralhar o deck de genéricas (RNG)
+- Resolver eventos de risco (`risco.chance`)
+- Selecionar manchete do jornal (RNG)
+
+A **`initialSeed`** é a seed original da run — nunca muda, mesmo quando o seed interno avança. É exibida no HUD como código hexadecimal de 8 caracteres (ex: `A3F2B910`) e na tela de game over com botão de copiar.
+
+**Formato do código:** `seed.toString(16).toUpperCase().padStart(8,'0').slice(-8)`
+
+Com o código, qualquer jogador pode reproduzir exatamente a mesma sequência de cartas e eventos de risco.

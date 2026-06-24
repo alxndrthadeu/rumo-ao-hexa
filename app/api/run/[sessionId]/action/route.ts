@@ -38,6 +38,7 @@ export async function POST(req: NextRequest, { params }: Params) {
   // Captura flags ANTES da entrevista resetar (applyInterviewChoice chama resetMatchFlags)
   const flagsPartidaSnapshot = state.fase === 'entrevista' ? [...state.flagsPartida] : []
 
+  const prevPlacar = state.placarPartida
   let newState: RunState = applyCardChoice(state, card, escolha)
   newState = {
     ...newState,
@@ -53,6 +54,16 @@ export async function POST(req: NextRequest, { params }: Params) {
         ...newState.flagsCarreira,
         sobreviveu_crise: (newState.flagsCarreira.sobreviveu_crise ?? 0) + 1,
       },
+    }
+  }
+
+  // Track individual goals during reagir (keeps golsBrasil/golsAdversario monotonically accurate)
+  if (state.fase === 'reagir' && !newState.morto) {
+    const delta = newState.placarPartida - prevPlacar
+    if (delta > 0) {
+      newState = { ...newState, golsBrasil: newState.golsBrasil + delta }
+    } else if (delta < 0) {
+      newState = { ...newState, golsAdversario: newState.golsAdversario + Math.abs(delta) }
     }
   }
 
@@ -72,6 +83,8 @@ export async function POST(req: NextRequest, { params }: Params) {
         fase: 'reagir',
         seed: newSeed,
         placarPartida: 0,
+        golsBrasil: 0,
+        golsAdversario: 0,
         cartasRestantes: reagirCards.map(c => c.id),
       }
       nextCards = reagirCards
@@ -86,9 +99,16 @@ export async function POST(req: NextRequest, { params }: Params) {
     } else if (state.fase === 'entrevista') {
       newState = resolveMatchEnd(newState, bracketEntry, flagsPartidaSnapshot)
       if (!newState.morto) {
-        const preGameCards = buildPreGameDeck(newState.partidaAtual, newState.barras.midia, newState.crise, newState.arquetipo)
+        const { cards: preGameCards, seed: newSeed } = buildPreGameDeck(
+          newState.partidaAtual,
+          newState.seed,
+          newState.barras.midia,
+          newState.crise,
+          newState.arquetipo
+        )
         newState = {
           ...newState,
+          seed: newSeed,
           cartasRestantes: preGameCards.map(c => c.id),
         }
         nextCards = preGameCards
@@ -120,8 +140,8 @@ function findCardById(
   cardId: string,
 ): Carta | CartaEntrevista | null {
   if (state.fase === 'planejar') {
-    const cards = buildPreGameDeck(state.partidaAtual, state.barras.midia, state.crise, state.arquetipo)
-    return cards.find(c => c.id === cardId) ?? null
+    if (!state.cartasRestantes.includes(cardId)) return null
+    return getCardById(cardId)
   }
   if (state.fase === 'reagir') {
     if (!state.cartasRestantes.includes(cardId)) return null
@@ -139,8 +159,9 @@ function getRemainingCards(
   _bracket: BracketEntry[]
 ): (Carta | CartaEntrevista)[] {
   if (state.fase === 'planejar') {
-    const cards = buildPreGameDeck(state.partidaAtual, state.barras.midia, state.crise, state.arquetipo)
-    return cards.filter(c => state.cartasRestantes.includes(c.id))
+    return state.cartasRestantes
+      .map(id => getCardById(id))
+      .filter((c): c is NonNullable<typeof c> => c !== null)
   }
   if (state.fase === 'reagir') {
     return state.cartasRestantes

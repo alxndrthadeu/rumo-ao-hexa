@@ -66,10 +66,11 @@ export function loadBracket(): BracketEntry[] {
 
 export function buildPreGameDeck(
   partida: number,
+  seed: number,
   midia?: number,
   crise?: CriseState,
   arquetipo?: Arquetipo
-): Carta[] {
+): { cards: Carta[]; seed: number } {
   const ancoras = ancoraCards.filter(c => !c.requer_passiva)
   const circos  = circoCards.filter(c => !c.requer_passiva)
 
@@ -77,8 +78,16 @@ export function buildPreGameDeck(
     c => c.naipe === 'circo' && c.partida === partida
   )
 
-  const ancora = ancoras[(partida - 1) % ancoras.length]
-  const circo  = assCirco ?? circos[(partida - 1) % circos.length]
+  let s = advanceSeed(seed)
+  const ancora = ancoras[Math.floor(seedToFloat(s) * ancoras.length)]
+
+  let circo: Carta
+  if (assCirco) {
+    circo = assCirco
+  } else {
+    s = advanceSeed(s)
+    circo = circos[Math.floor(seedToFloat(s) * circos.length)]
+  }
 
   const deck: Carta[] = [ancora, circo]
 
@@ -102,7 +111,7 @@ export function buildPreGameDeck(
     if (criseCard) deck.unshift(criseCard)
   }
 
-  return deck
+  return { cards: deck, seed: s }
 }
 
 // ─── Deck de reagir ───────────────────────────────────────────────────────────

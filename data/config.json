@@ -1,7 +1,7 @@
 {
   "bars": {
     "initial": {
-      "estrela": { "torcida": 70, "midia": 75, "moral": 60, "fisico": 65 },
+      "estrela": { "torcida": 70, "midia": 65, "moral": 60, "fisico": 65 },
       "caido":   { "torcida": 55, "midia": 80, "moral": 50, "fisico": 50 },
       "futuro":  { "torcida": 50, "midia": 55, "moral": 60, "fisico": 75 }
     },

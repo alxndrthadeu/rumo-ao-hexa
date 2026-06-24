@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rumo ao Hexa
 
-## Getting Started
+Card game no estilo Reigns ambientado na Copa do Mundo 2026. Você encarna um atacante brasileiro e toma decisões deslizando cartas (esquerda/direita) em 7 partidas — da fase de grupos até a final.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router) + **TypeScript**
+- **Supabase** — sessões e persistência de estado
+- **Vitest** — testes da engine
+- **Tailwind CSS** — estilização
+- Engine de jogo em TypeScript puro (`engine/`) — sem dependências externas, 100% imutável
+
+## Como rodar
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir em `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Estrutura
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+engine/       # Engine pura — state, fases, deck, balanço de barras, jornal
+data/         # Cartas em JSON + config de balanço
+app/          # Rotas Next.js (API + páginas)
+components/   # Componentes de UI
+```
 
-## Learn More
+## Conceitos principais
 
-To learn more about Next.js, take a look at the following resources:
+**Arquétipos** (3): `estrela`, `caido`, `futuro` — cada um tem barras iniciais diferentes e cartas exclusivas.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Barras** (4): `torcida`, `midia`, `moral`, `fisico` — cada uma pode ir de 0 a 100. Atingir os extremos pela primeira vez aciona crise; pela segunda vez é morte.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Fases por partida**: `planejar → reagir → entrevista`. Planejar tem 2-4 cartas de concentração; reagir tem 5 cartas de jogo; entrevista tem 1 carta pós-jogo determinada pelas flags acumuladas.
 
-## Deploy on Vercel
+**Seed**: toda run tem uma seed (RNG LCG) que determina seleção de cartas, eventos de risco e manchetes do jornal — garantindo reprodutibilidade. O código de 8 hex chars é exibido no HUD para compartilhamento.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Testes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npx vitest run
+```
+
+## Documentação de cartas
+
+Ver `CARTAS.md` para referência completa de todos os tipos de cartas, formatos JSON, inventário e guia de criação.

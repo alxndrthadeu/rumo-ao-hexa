@@ -8,13 +8,22 @@
     "texto": "É guerra. Cada disputa de bola vira choque de corpo. Eles são mais fortes.",
     "esquerda": {
       "texto": "Revida na intensidade",
-      "efeitos": { "fisico": -8, "placar": 1 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "fisico": -8,
+        "placar": 1
+      },
+      "flags_partida": [
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Usa a técnica, evita o contato",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -26,13 +35,22 @@
     "texto": "Um carrinho atrasado te pega em cheio. Você fica caído, sentindo.",
     "esquerda": {
       "texto": "Levanta na hora, mostra raça",
-      "efeitos": { "torcida": 8, "fisico": -5 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "torcida": 8,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Fica no chão, ganha a falta e respira",
-      "efeitos": { "torcida": -3 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "torcida": -3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -45,13 +63,25 @@
     "esquerda": {
       "texto": "Encara e revida",
       "efeitos": {},
-      "flags_partida": ["pavio_curto"],
-      "risco": { "tipo": "amarelo", "chance": 0.45, "efeitos": { "fisico": -8 } }
+      "flags_partida": [
+        "pavio_curto"
+      ],
+      "risco": {
+        "tipo": "amarelo",
+        "chance": 0.45,
+        "efeitos": {
+          "fisico": -8
+        }
+      }
     },
     "direita": {
       "texto": "Joga no psicológico, sorri",
-      "efeitos": { "moral": 5 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -63,13 +93,22 @@
     "texto": "Eles bombardeiam a área com bolas altas. Disputa física pura.",
     "esquerda": {
       "texto": "Sobe pra brigar no alto",
-      "efeitos": { "fisico": -5, "placar": 1 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "fisico": -5,
+        "placar": 1
+      },
+      "flags_partida": [
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Fica recuado, marca o rebote",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -81,13 +120,21 @@
     "texto": "O ritmo de pancada está te quebrando. Faltam 25 e você está vazio.",
     "esquerda": {
       "texto": "Cava forças do orgulho",
-      "efeitos": { "fisico": -10 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "fisico": -10
+      },
+      "flags_partida": [
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Economiza, escolhe os lances",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -100,13 +147,27 @@
     "esquerda": {
       "texto": "Devolve a porrada",
       "efeitos": {},
-      "flags_partida": ["vilao", "pavio_curto"],
-      "risco": { "tipo": "cartao_vermelho", "chance": 0.65, "efeitos": { "fisico": -15, "moral": -10 } }
+      "flags_partida": [
+        "vilao",
+        "pavio_curto"
+      ],
+      "risco": {
+        "tipo": "cartao_vermelho",
+        "chance": 0.65,
+        "efeitos": {
+          "fisico": -15,
+          "moral": -10
+        }
+      }
     },
     "direita": {
       "texto": "Resiste à tentação",
-      "efeitos": { "moral": 8 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "moral": 8
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -118,14 +179,119 @@
     "texto": "Uma dividida brutal e você sente o joelho travar. Medo de verdade.",
     "esquerda": {
       "texto": "Continua mancando",
-      "efeitos": { "fisico": -12 },
-      "flags_partida": ["raca"],
-      "risco": { "tipo": "lesao_grave", "chance": 0.3, "efeitos": { "fisico": -20 } }
+      "efeitos": {
+        "fisico": -12
+      },
+      "flags_partida": [
+        "raca"
+      ],
+      "risco": {
+        "tipo": "lesao_grave",
+        "chance": 0.3,
+        "efeitos": {
+          "fisico": -20
+        }
+      }
     },
     "direita": {
       "texto": "Pede pra sair, protege a carreira",
-      "efeitos": { "fisico": 5, "torcida": -5 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "fisico": 5,
+        "torcida": -5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "fis_empurra_empurra",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "fisico",
+    "partida": 1,
+    "texto": "Toda bola parada vira luta corporal. O zagueiro te segura pela camisa sem o juiz ver.",
+    "esquerda": {
+      "texto": "Reclama e revida",
+      "efeitos": {},
+      "flags_partida": [
+        "pavio_curto"
+      ],
+      "risco": {
+        "tipo": "cartão amarelo na confusão",
+        "chance": 0.4,
+        "efeitos": {
+          "fisico": -8
+        }
+      }
+    },
+    "direita": {
+      "texto": "Se solta na malandragem, ganha a falta",
+      "efeitos": {
+        "torcida": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "fis_intimidacao",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "fisico",
+    "partida": 1,
+    "texto": "No túnel, o capitão deles avisa baixinho: \"hoje você vai sentir\". Pura intimidação.",
+    "esquerda": {
+      "texto": "Devolve o recado na cara dele",
+      "efeitos": {},
+      "flags_partida": [
+        "pavio_curto"
+      ],
+      "risco": {
+        "tipo": "começa o jogo marcado pela arbitragem",
+        "chance": 0.35,
+        "efeitos": {
+          "fisico": -5
+        }
+      }
+    },
+    "direita": {
+      "texto": "Responde calado, guarda pra dentro",
+      "efeitos": {
+        "moral": 8
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "fis_maca",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "fisico",
+    "partida": 1,
+    "texto": "Você leva uma pancada feia e a maca entra. Pode ser teatro deles pra ganhar tempo, ou pode ser sério.",
+    "esquerda": {
+      "texto": "Levanta na raça, recusa a maca",
+      "efeitos": {
+        "torcida": 8,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "raca"
+      ]
+    },
+    "direita": {
+      "texto": "Sai, avalia, volta inteiro",
+      "efeitos": {
+        "torcida": -3,
+        "fisico": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   }
 ]

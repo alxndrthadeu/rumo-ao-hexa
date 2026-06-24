@@ -19,8 +19,8 @@ export async function POST(req: NextRequest) {
 
   const seed = Date.now()
   const baseState = createRunState(arquetipo, seed, nomeJogador, camisa)
-  const [ancora, circo] = buildPreGameDeck(1)
-  const state = { ...baseState, cartasRestantes: [ancora.id, circo.id] }
+  const { cards: preGameCards, seed: newSeed } = buildPreGameDeck(1, seed, baseState.barras.midia, undefined, arquetipo)
+  const state = { ...baseState, seed: newSeed, cartasRestantes: preGameCards.map(c => c.id) }
 
   const session = await dbInsertSession(arquetipo)
   if (!session) {
@@ -38,5 +38,5 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'erro ao criar estado' }, { status: 500 })
   }
 
-  return NextResponse.json({ sessionId: session.id, state, cards: [ancora, circo] })
+  return NextResponse.json({ sessionId: session.id, state, cards: preGameCards })
 }

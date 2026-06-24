@@ -198,6 +198,25 @@
     }
   },
   {
+    "id": "ass_muralha_escocesa",
+    "fase": "reagir",
+    "camada": "assinatura",
+    "partida": 3,
+    "posicao": "fim",
+    "texto": "Oitenta e nove minutos de batalha física. A Escócia não deu um centímetro. Você está no limite — mas ainda tem tempo.",
+    "esquerda": {
+      "texto": "Vai com tudo nos segundos finais",
+      "efeitos": { "fisico": -8 },
+      "flags_partida": ["raca"],
+      "risco": { "tipo": "lesao_leve", "chance": 0.3, "efeitos": { "fisico": -10 } }
+    },
+    "direita": {
+      "texto": "Administra, preserva o físico pro mata-mata",
+      "efeitos": { "fisico": 5, "torcida": -5 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
     "id": "ass_proposta_europa",
     "fase": "planejar",
     "naipe": "circo",

@@ -8,13 +8,23 @@
     "texto": "Eles abrem o placar com naturalidade assustadora. Agora você corre atrás.",
     "esquerda": {
       "texto": "Puxa o time pra reação imediata",
-      "efeitos": { "moral": 5, "fisico": -5, "placar": 1 },
-      "flags_partida": ["lider"]
+      "efeitos": {
+        "moral": 5,
+        "fisico": -5,
+        "placar": 1
+      },
+      "flags_partida": [
+        "lider"
+      ]
     },
     "direita": {
       "texto": "Mantém a calma, joga a longo prazo",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -26,13 +36,22 @@
     "texto": "O nível deles é outro. Cada toque é perfeito. Dá um frio sentir a diferença.",
     "esquerda": {
       "texto": "Eu também sou desse nível.",
-      "efeitos": { "placar": 1, "midia": 3 },
-      "flags_partida": ["ousado"]
+      "efeitos": {
+        "placar": 1,
+        "midia": 3
+      },
+      "flags_partida": [
+        "ousado"
+      ]
     },
     "direita": {
       "texto": "Respeita demais, recua",
-      "efeitos": { "placar": -1 },
-      "flags_partida": ["covarde"]
+      "efeitos": {
+        "placar": -1
+      },
+      "flags_partida": [
+        "covarde"
+      ]
     }
   },
   {
@@ -44,14 +63,28 @@
     "texto": "Vocês precisam do gol e o tempo corre. Eles administram com cinismo.",
     "esquerda": {
       "texto": "Arrisca tudo no ataque",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["ousado"],
-      "risco": { "tipo": "contra_ataque", "chance": 0.35, "efeitos": { "placar": -2 } }
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "contra_ataque",
+        "chance": 0.35,
+        "efeitos": {
+          "placar": -2
+        }
+      }
     },
     "direita": {
       "texto": "Constrói com paciência",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -63,18 +96,40 @@
     "texto": "O craque deles faz uma jogada de outro mundo e a torcida neutra aplaude. Te ofusca.",
     "esquerda": {
       "texto": "Responde com uma jogada sua",
-      "efeitos": { "placar": "condicional" },
+      "efeitos": {
+        "placar": "condicional"
+      },
       "climax": true,
       "condicional": {
         "limiar": 1,
-        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
-        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+        "ramoA": {
+          "efeitos": {
+            "placar": 2
+          },
+          "flags_partida": [
+            "heroi"
+          ],
+          "climax": true
+        },
+        "ramoB": {
+          "efeitos": {
+            "placar": -1
+          },
+          "flags_partida": [
+            "afobado"
+          ],
+          "climax": true
+        }
       }
     },
     "direita": {
       "texto": "Foca no coletivo, sem duelo de egos",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["coletivo"]
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
     }
   },
   {
@@ -86,13 +141,22 @@
     "texto": "No túnel, o capitão lendário deles aperta tua mão: 'cuidado comigo hoje, garoto'.",
     "esquerda": {
       "texto": "O cuidado é seu.",
-      "efeitos": { "midia": 5, "moral": 3 },
-      "flags_partida": ["arrogante"]
+      "efeitos": {
+        "midia": 5,
+        "moral": 3
+      },
+      "flags_partida": [
+        "arrogante"
+      ]
     },
     "direita": {
       "texto": "Abaixa a cabeça, intimidado",
-      "efeitos": { "moral": -5 },
-      "flags_partida": ["covarde"]
+      "efeitos": {
+        "moral": -5
+      },
+      "flags_partida": [
+        "covarde"
+      ]
     }
   },
   {
@@ -104,13 +168,118 @@
     "texto": "Você diminui e o estádio acende. Dá pra buscar a virada histórica contra o favorito.",
     "esquerda": {
       "texto": "Vai pra cima sem freio",
-      "efeitos": { "placar": 1, "fisico": -5 },
-      "flags_partida": ["raca", "ousado"]
+      "efeitos": {
+        "placar": 1,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "raca",
+        "ousado"
+      ]
     },
     "direita": {
       "texto": "Garante o resultado que já tem",
-      "efeitos": { "placar": 0 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "placar": 0
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "fav_baile_risco",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 1,
+    "texto": "Eles trocam vinte passes e a torcida deles pede olé. Humilhação à vista se você vacilar.",
+    "esquerda": {
+      "texto": "Corre atrás pra cortar o baile",
+      "efeitos": {
+        "fisico": -8,
+        "moral": 5
+      },
+      "flags_partida": [
+        "raca"
+      ]
+    },
+    "direita": {
+      "texto": "Guarda energia, espera o erro",
+      "efeitos": {
+        "moral": -3
+      },
+      "flags_partida": [
+        "frieza"
+      ],
+      "risco": {
+        "tipo": "o passe vira gol antes do erro",
+        "chance": 0.35,
+        "efeitos": {
+          "placar": -1
+        }
+      }
+    }
+  },
+  {
+    "id": "fav_segundo_tempo",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 1,
+    "texto": "Você segurou o favorito no primeiro tempo. No vestiário, dá pra propor ir pra cima ou segurar o empate.",
+    "esquerda": {
+      "texto": "Propõe ir pra cima buscar a vitória",
+      "efeitos": {
+        "placar": 1,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "ousado",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Segura o empate precioso",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "fav_juiz_protege",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 1,
+    "texto": "A arbitragem parece proteger as estrelas deles. Toda dividida sua vira falta.",
+    "esquerda": {
+      "texto": "Joga no limite mesmo assim",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado"
+      ],
+      "risco": {
+        "tipo": "amarelo rigoroso da arbitragem",
+        "chance": 0.35,
+        "efeitos": {
+          "fisico": -8
+        }
+      }
+    },
+    "direita": {
+      "texto": "Adapta, evita o contato",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   }
 ]
