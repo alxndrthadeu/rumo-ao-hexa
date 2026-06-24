@@ -46,7 +46,8 @@
         "efeitos": {
           "moral": -8,
           "fisico": -5
-        }
+        },
+        "requer_token": "frieza"
       }
     },
     "direita": {

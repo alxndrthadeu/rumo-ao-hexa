@@ -253,7 +253,8 @@
         "chance": 0.25,
         "efeitos": {
           "torcida": -8
-        }
+        },
+        "requer_token": "frieza"
       }
     },
     "direita": {
@@ -311,7 +312,8 @@
         "efeitos": {
           "fisico": -15,
           "moral": -10
-        }
+        },
+        "requer_token": "raca"
       }
     },
     "direita": {
@@ -515,7 +517,8 @@
         "efeitos": {
           "torcida": -8,
           "midia": -8
-        }
+        },
+        "requer_token": "ousado"
       }
     },
     "direita": {
@@ -544,7 +547,8 @@
         "chance": 0.5,
         "efeitos": {
           "fisico": -15
-        }
+        },
+        "requer_token": "frieza"
       }
     },
     "direita": {
@@ -629,7 +633,8 @@
         "chance": 0.4,
         "efeitos": {
           "placar": -1
-        }
+        },
+        "requer_token": "ousado"
       }
     },
     "direita": {
@@ -707,7 +712,8 @@
         "chance": 0.4,
         "efeitos": {
           "fisico": -8
-        }
+        },
+        "requer_token": "frieza"
       }
     },
     "direita": {
@@ -774,7 +780,8 @@
         "chance": 0.3,
         "efeitos": {
           "placar": -2
-        }
+        },
+        "requer_token": "disciplinado"
       }
     },
     "direita": {
@@ -843,7 +850,8 @@
         "efeitos": {
           "torcida": -8,
           "moral": -5
-        }
+        },
+        "requer_token": "ousado"
       }
     },
     "direita": {
@@ -876,7 +884,8 @@
           "torcida": -8,
           "midia": -8,
           "placar": -2
-        }
+        },
+        "requer_token": "disciplinado"
       }
     },
     "direita": {
@@ -1198,7 +1207,8 @@
         "chance": 0.35,
         "efeitos": {
           "placar": -2
-        }
+        },
+        "requer_token": "frieza"
       }
     },
     "direita": {

@@ -25,6 +25,7 @@ export function createRunState(arquetipo: Arquetipo, seed: number, nomeJogador: 
     causaMorte: undefined,
     seed,
     initialSeed: seed,
+    tokens: {},
   }
 }
 

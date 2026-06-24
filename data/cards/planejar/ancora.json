@@ -12,7 +12,8 @@
       },
       "flags_partida": [
         "disciplinado"
-      ]
+      ],
+      "concede_token": "disciplinado"
     },
     "direita": {
       "texto": "Pega leve, poupa as pernas",
@@ -40,7 +41,8 @@
       "efeitos": {
         "moral": -5,
         "fisico": 3
-      }
+      },
+      "concede_token": "disciplinado"
     }
   },
   {
@@ -118,7 +120,8 @@
         "efeitos": {
           "midia": -10
         }
-      }
+      },
+      "concede_token": "frieza"
     }
   },
   {
@@ -169,7 +172,8 @@
       },
       "flags_partida": [
         "boemio"
-      ]
+      ],
+      "concede_token": "disciplinado"
     }
   },
   {
@@ -183,7 +187,8 @@
       "efeitos": {
         "moral": 10
       },
-      "flag_carreira": "lider"
+      "flag_carreira": "lider",
+      "concede_token": "lider"
     },
     "direita": {
       "texto": "Não é meu problema, cada um com o seu",
@@ -205,7 +210,8 @@
         "moral": 10,
         "torcida": 3
       },
-      "flag_carreira": "lider"
+      "flag_carreira": "lider",
+      "concede_token": "lider"
     },
     "direita": {
       "texto": "Evita o compromisso",
@@ -229,7 +235,8 @@
       },
       "flags_partida": [
         "raca"
-      ]
+      ],
+      "concede_token": "frieza"
     },
     "direita": {
       "texto": "Pede ao médico algo pra relaxar",
@@ -297,7 +304,8 @@
       "efeitos": {
         "moral": 10,
         "fisico": 3
-      }
+      },
+      "concede_token": "frieza"
     },
     "direita": {
       "texto": "Dispensa, prefere fazer mais físico",

@@ -24,41 +24,73 @@ function resolveCard(
   return { texto: c.texto, esquerda: c.esquerda, direita: c.direita }
 }
 
-const EFFECT_LABELS: Record<string, string> = {
-  torcida: 'Tor', midia: 'Míd', moral: 'Mor', fisico: 'Fís', placar: 'Plc',
+// Nomes de exibição para tokens
+const TOKEN_LABEL: Record<string, string> = {
+  ousado:      'Ousado',
+  disciplinado:'Disciplina',
+  raca:        'Raça',
+  frieza:      'Frieza',
+  lider:       'Liderança',
 }
 
-function Chip({ label, value, isFlag }: { label: string; value?: number; isFlag?: boolean }) {
-  if (isFlag) {
+function TokenBadge({
+  token,
+  mode,
+  available,
+}: {
+  token: string
+  mode: 'earn' | 'spend'
+  available?: boolean
+}) {
+  const label = TOKEN_LABEL[token] ?? token
+
+  if (mode === 'earn') {
     return (
-      <span className="font-headline font-bold text-[10px] tracking-[0.03em] px-[7px] py-[3px] bg-vermelho text-white whitespace-nowrap">
-        {label}
+      <span className="inline-flex items-center gap-[3px] font-headline font-bold text-[9px] tracking-[0.08em] uppercase px-[6px] py-[2px] bg-amarelo text-preto whitespace-nowrap">
+        <span>+</span>{label}
       </span>
     )
   }
-  if (value === undefined) return null
+
+  // spend
   return (
     <span
       className={clsx(
-        'font-headline font-bold text-[10px] tracking-[0.03em] px-[7px] py-[3px] whitespace-nowrap',
-        value > 0 ? 'bg-verde text-white' : 'bg-vermelho text-white'
+        'inline-flex items-center gap-[3px] font-headline font-bold text-[9px] tracking-[0.08em] uppercase px-[6px] py-[2px] whitespace-nowrap',
+        available
+          ? 'bg-verde text-white'
+          : 'bg-preto/20 text-preto/50'
       )}
     >
-      {EFFECT_LABELS[label] ?? label} {value > 0 ? `+${value}` : value}
+      <span>{available ? '✓' : '?'}</span>{label}
     </span>
   )
 }
 
-function EfeitosRow({ escolha }: { escolha: Escolha }) {
-  const chips: React.ReactNode[] = []
-  Object.entries(escolha.efeitos).forEach(([k, v]) => {
-    if (typeof v === 'number') chips.push(<Chip key={k} label={k} value={v} />)
-  })
-  escolha.flags_partida?.slice(0, 1).forEach(f =>
-    chips.push(<Chip key={`flag-${f}`} label={f.replace(/_/g, ' ')} isFlag />)
+function ChoiceFooter({
+  escolha,
+  tokens,
+}: {
+  escolha: Escolha
+  tokens: Record<string, number>
+}) {
+  const earnToken = escolha.concede_token
+  const spendToken = escolha.risco?.requer_token
+
+  if (!earnToken && !spendToken) return null
+
+  return (
+    <div className="flex flex-wrap gap-[4px] mt-[5px]">
+      {earnToken && <TokenBadge token={earnToken} mode="earn" />}
+      {spendToken && (
+        <TokenBadge
+          token={spendToken}
+          mode="spend"
+          available={(tokens[spendToken] ?? 0) > 0}
+        />
+      )}
+    </div>
   )
-  if (chips.length === 0) return null
-  return <div className="flex flex-wrap gap-[4px] mt-[6px]">{chips}</div>
 }
 
 const DRAG_THRESHOLD = 80
@@ -66,11 +98,13 @@ const DRAG_THRESHOLD = 80
 export default function Card({
   card,
   arquetipo,
+  tokens,
   onChoice,
   disabled = false,
 }: {
   card: AnyCard
   arquetipo: Arquetipo
+  tokens: Record<string, number>
   onChoice: (lado: 'esquerda' | 'direita') => void
   disabled?: boolean
 }) {
@@ -166,7 +200,7 @@ export default function Card({
             <span className="font-headline font-black italic text-[17px] text-vermelho leading-none mt-[1px] shrink-0">←</span>
             <div className="flex-1">
               <p className="text-[14px] leading-[1.2] font-medium text-preto">{esquerda.texto}</p>
-              <EfeitosRow escolha={esquerda} />
+              <ChoiceFooter escolha={esquerda} tokens={tokens} />
             </div>
           </div>
           {/* Direita */}
@@ -178,12 +212,16 @@ export default function Card({
           >
             <div className="flex-1 text-right">
               <p className="text-[14px] leading-[1.2] font-medium text-preto">{direita.texto}</p>
-              <div className="flex flex-wrap gap-[4px] mt-[6px] justify-end">
-                {Object.entries(direita.efeitos).map(([k, v]) =>
-                  typeof v === 'number' ? <Chip key={k} label={k} value={v} /> : null
+              <div className="flex flex-wrap gap-[4px] mt-[5px] justify-end">
+                {direita.concede_token && (
+                  <TokenBadge token={direita.concede_token} mode="earn" />
                 )}
-                {direita.flags_partida?.slice(0, 1).map(f =>
-                  <Chip key={`flag-${f}`} label={f.replace(/_/g, ' ')} isFlag />
+                {direita.risco?.requer_token && (
+                  <TokenBadge
+                    token={direita.risco.requer_token}
+                    mode="spend"
+                    available={(tokens[direita.risco.requer_token] ?? 0) > 0}
+                  />
                 )}
               </div>
             </div>

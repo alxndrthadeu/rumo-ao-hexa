@@ -8,13 +8,22 @@
     "texto": "É a estreia numa Copa do Mundo. O hino toca e você sente o peso de uma nação inteira nos ombros.",
     "esquerda": {
       "texto": "Deixa a emoção virar combustível",
-      "efeitos": { "moral": 8, "torcida": 5 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "moral": 8,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Tenta blindar a cabeça do peso",
-      "efeitos": { "moral": 5 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -25,13 +34,22 @@
     "texto": "A bola rola na final da Copa do Mundo. Papel picado no ar, 90 minutos te separam da eternidade.",
     "esquerda": {
       "texto": "Encara como o jogo da vida",
-      "efeitos": { "moral": 10, "fisico": -5 },
-      "flags_partida": ["raca"]
+      "efeitos": {
+        "moral": 10,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "raca"
+      ]
     },
     "direita": {
       "texto": "Trata como mais um jogo",
-      "efeitos": { "moral": 5 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -42,18 +60,42 @@
     "texto": "Pênalti nos últimos segundos da FINAL. A taça na ponta do seu pé direito. O mundo inteiro para.",
     "esquerda": {
       "texto": "Você bate. É o teu destino.",
-      "efeitos": { "placar": "condicional" },
+      "efeitos": {
+        "placar": "condicional"
+      },
       "climax": true,
       "condicional": {
         "limiar": 2,
-        "ramoA": { "efeitos": { "placar": 5, "midia": 20 }, "flags_partida": ["heroi"], "climax": true },
-        "ramoB": { "efeitos": { "placar": -3, "torcida": -15 }, "flags_partida": ["vilao"], "climax": true }
+        "ramoA": {
+          "efeitos": {
+            "placar": 5,
+            "midia": 20
+          },
+          "flags_partida": [
+            "heroi"
+          ],
+          "climax": true
+        },
+        "ramoB": {
+          "efeitos": {
+            "placar": -3,
+            "torcida": -15
+          },
+          "flags_partida": [
+            "vilao"
+          ],
+          "climax": true
+        }
       }
     },
     "direita": {
       "texto": "Passa a responsabilidade ao capitão",
-      "efeitos": { "midia": -8 },
-      "flags_partida": ["covarde"]
+      "efeitos": {
+        "midia": -8
+      },
+      "flags_partida": [
+        "covarde"
+      ]
     }
   },
   {
@@ -65,13 +107,24 @@
     "texto": "Trinta e três anos. Duas cirurgias. Mil manchetes dizendo que acabou. E você, aqui, na semifinal.",
     "esquerda": {
       "texto": "Era pra ser assim. Sempre foi.",
-      "efeitos": { "moral": 10, "midia": 10, "fisico": -8 },
-      "flags_partida": ["lider", "raca"]
+      "efeitos": {
+        "moral": 10,
+        "midia": 10,
+        "fisico": -8
+      },
+      "flags_partida": [
+        "lider",
+        "raca"
+      ]
     },
     "direita": {
       "texto": "O medo da despedida te paralisa",
-      "efeitos": { "moral": -8 },
-      "flags_partida": ["covarde"]
+      "efeitos": {
+        "moral": -8
+      },
+      "flags_partida": [
+        "covarde"
+      ]
     }
   },
   {
@@ -83,13 +136,23 @@
     "texto": "18 anos e a braçadeira de responsabilidade. O país inteiro depende do moleque agora.",
     "esquerda": {
       "texto": "Eu nasci pra isso.",
-      "efeitos": { "moral": 8, "midia": 10 },
-      "flags_partida": ["lider"]
+      "efeitos": {
+        "moral": 8,
+        "midia": 10
+      },
+      "flags_partida": [
+        "lider"
+      ]
     },
     "direita": {
       "texto": "O tamanho do momento te assusta",
-      "efeitos": { "moral": -5, "fisico": 3 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "moral": -5,
+        "fisico": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -101,13 +164,25 @@
     "texto": "Eles montaram um esquema só pra te parar: dois marcadores, faltas constantes, provocação. Você é A ameaça.",
     "esquerda": {
       "texto": "Aceita o desafio, é o melhor do mundo",
-      "efeitos": { "midia": 8, "placar": 1, "fisico": -5 },
-      "flags_partida": ["ousado"]
+      "efeitos": {
+        "midia": 8,
+        "placar": 1,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "ousado"
+      ]
     },
     "direita": {
       "texto": "Usa a marcação dupla pra liberar os outros",
-      "efeitos": { "placar": 1, "moral": 5 },
-      "flags_partida": ["coletivo", "lider"]
+      "efeitos": {
+        "placar": 1,
+        "moral": 5
+      },
+      "flags_partida": [
+        "coletivo",
+        "lider"
+      ]
     }
   },
   {
@@ -118,13 +193,22 @@
     "texto": "Brasil x Argentina numa semifinal de Copa. Não existe jogo maior pra um brasileiro.",
     "esquerda": {
       "texto": "Carrega o peso da nação",
-      "efeitos": { "moral": 8, "torcida": 8 },
-      "flags_partida": ["lider"]
+      "efeitos": {
+        "moral": 8,
+        "torcida": 8
+      },
+      "flags_partida": [
+        "lider"
+      ]
     },
     "direita": {
       "texto": "Foca, sem deixar o tamanho te engolir",
-      "efeitos": { "moral": 10 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "moral": 10
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -136,13 +220,22 @@
     "texto": "Os mais velhos falam dos fantasmas de finais perdidas. A nação prende a respiração.",
     "esquerda": {
       "texto": "Esse fantasma morre hoje.",
-      "efeitos": { "moral": 10 },
-      "flags_partida": ["lider", "raca"]
+      "efeitos": {
+        "moral": 10
+      },
+      "flags_partida": [
+        "lider",
+        "raca"
+      ]
     },
     "direita": {
       "texto": "A dúvida histórica pesa nos ombros",
-      "efeitos": { "moral": -5 },
-      "flags_partida": ["covarde"]
+      "efeitos": {
+        "moral": -5
+      },
+      "flags_partida": [
+        "covarde"
+      ]
     }
   },
   {
@@ -153,14 +246,30 @@
     "texto": "Você sente algo estalar numa arrancada. Pode ser o fim da sua Copa, no pior momento possível.",
     "esquerda": {
       "texto": "Esconde e continua, custe o que custar",
-      "efeitos": { "fisico": -15 },
-      "flags_partida": ["raca"],
-      "risco": { "tipo": "lesao_grave", "chance": 0.4, "efeitos": { "fisico": -20 } }
+      "efeitos": {
+        "fisico": -15
+      },
+      "flags_partida": [
+        "raca"
+      ],
+      "risco": {
+        "tipo": "lesao_grave",
+        "chance": 0.4,
+        "efeitos": {
+          "fisico": -20
+        },
+        "requer_token": "raca"
+      }
     },
     "direita": {
       "texto": "Sai chorando, protege o futuro",
-      "efeitos": { "torcida": -8, "fisico": 8 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "torcida": -8,
+        "fisico": 8
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -171,13 +280,22 @@
     "texto": "O capitão se machuca e tira a braçadeira. Ele te entrega. 'A seleção é sua agora.'",
     "esquerda": {
       "texto": "Veste a braçadeira com orgulho",
-      "efeitos": { "moral": 10, "torcida": 5 },
-      "flags_partida": ["lider"]
+      "efeitos": {
+        "moral": 10,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "lider"
+      ]
     },
     "direita": {
       "texto": "Recusa, não estou pronto",
-      "efeitos": { "moral": -5 },
-      "flags_partida": ["covarde"]
+      "efeitos": {
+        "moral": -5
+      },
+      "flags_partida": [
+        "covarde"
+      ]
     }
   },
   {
@@ -188,13 +306,19 @@
     "texto": "Faltam segundos pro título. Você vê a torcida chorando nas arquibancadas. Deu tempo de sentir.",
     "esquerda": {
       "texto": "Aponta pra eles, divide a glória",
-      "efeitos": { "torcida": 15 },
+      "efeitos": {
+        "torcida": 15
+      },
       "flag_carreira": "idolo"
     },
     "direita": {
       "texto": "Foca total, ainda não acabou",
-      "efeitos": { "moral": 5 },
-      "flags_partida": ["frieza"]
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   },
   {
@@ -206,14 +330,30 @@
     "texto": "Oitenta e nove minutos de batalha física. A Escócia não deu um centímetro. Você está no limite — mas ainda tem tempo.",
     "esquerda": {
       "texto": "Vai com tudo nos segundos finais",
-      "efeitos": { "fisico": -8 },
-      "flags_partida": ["raca"],
-      "risco": { "tipo": "lesao_leve", "chance": 0.3, "efeitos": { "fisico": -10 } }
+      "efeitos": {
+        "fisico": -8
+      },
+      "flags_partida": [
+        "raca"
+      ],
+      "risco": {
+        "tipo": "lesao_leve",
+        "chance": 0.3,
+        "efeitos": {
+          "fisico": -10
+        },
+        "requer_token": "raca"
+      }
     },
     "direita": {
       "texto": "Administra, preserva o físico pro mata-mata",
-      "efeitos": { "fisico": 5, "torcida": -5 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "fisico": 5,
+        "torcida": -5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
     }
   },
   {
@@ -225,13 +365,20 @@
     "texto": "No meio da Copa, vaza que um gigante europeu fez uma proposta recorde. Te oferecem o mundo.",
     "esquerda": {
       "texto": "Agora é a seleção. Depois a gente vê.",
-      "efeitos": { "torcida": 8, "moral": 5 },
+      "efeitos": {
+        "torcida": 8,
+        "moral": 5
+      },
       "flag_carreira": "entregue",
       "gancho_entrevista": "proposta_europa"
     },
     "direita": {
       "texto": "Confirma o interesse publicamente",
-      "efeitos": { "midia": 10, "torcida": -8, "moral": -5 },
+      "efeitos": {
+        "midia": 10,
+        "torcida": -8,
+        "moral": -5
+      },
       "flag_carreira": "mercenario",
       "gancho_entrevista": "proposta_europa"
     }

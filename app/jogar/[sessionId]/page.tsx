@@ -371,6 +371,7 @@ export default function GamePage() {
           <Card
             card={state.currentCard}
             arquetipo={state.runState.arquetipo}
+            tokens={state.runState.tokens}
             onChoice={handleChoice}
             disabled={state.isSubmitting}
           />

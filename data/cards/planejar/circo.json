@@ -17,7 +17,8 @@
     },
     "direita": {
       "texto": "Finge que não viu",
-      "efeitos": {}
+      "efeitos": {},
+      "concede_token": "frieza"
     }
   },
   {
@@ -59,7 +60,8 @@
         "torcida": 10,
         "midia": 5
       },
-      "flag_carreira": "idolo"
+      "flag_carreira": "idolo",
+      "concede_token": "lider"
     },
     "direita": {
       "texto": "Acena rápido e entra",
@@ -90,7 +92,8 @@
         "torcida": -5
       },
       "flag_carreira": "arrogante",
-      "gancho_entrevista": "polemica"
+      "gancho_entrevista": "polemica",
+      "concede_token": "disciplinado"
     }
   },
   {
@@ -143,7 +146,8 @@
       },
       "flags_partida": [
         "frieza"
-      ]
+      ],
+      "concede_token": "frieza"
     }
   },
   {
@@ -238,7 +242,8 @@
       "efeitos": {
         "moral": 5,
         "midia": -5
-      }
+      },
+      "concede_token": "disciplinado"
     }
   },
   {
@@ -274,7 +279,8 @@
         "moral": -5,
         "fisico": -3
       },
-      "flag_carreira": "vitrine"
+      "flag_carreira": "vitrine",
+      "concede_token": "lider"
     },
     "direita": {
       "texto": "Não agora. Copa primeiro.",
@@ -303,7 +309,8 @@
         "midia": 8,
         "moral": -5
       },
-      "flag_carreira": "vitrine"
+      "flag_carreira": "vitrine",
+      "concede_token": "disciplinado"
     }
   },
   {
@@ -330,7 +337,8 @@
       },
       "flags_partida": [
         "raca"
-      ]
+      ],
+      "concede_token": "frieza"
     }
   },
   {

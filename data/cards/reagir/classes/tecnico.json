@@ -140,7 +140,8 @@
         "chance": 0.35,
         "efeitos": {
           "placar": -2
-        }
+        },
+        "requer_token": "disciplinado"
       }
     },
     "direita": {

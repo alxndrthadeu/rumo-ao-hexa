@@ -42,6 +42,7 @@ export interface Risco {
   tipo: string
   chance: number
   efeitos: Efeitos
+  requer_token?: string
 }
 
 export interface Escolha {
@@ -52,6 +53,7 @@ export interface Escolha {
   climax?: boolean
   niggle?: string
   gancho_entrevista?: string
+  concede_token?: string
   risco?: Risco
   // Preenchido quando efeitos.placar === 'condicional'
   condicional?: {
@@ -122,6 +124,7 @@ export interface RunState {
   barraMorte?: { barra: Barra; extreme: 'min' | 'max' }
   seed: number
   initialSeed: number
+  tokens: Record<string, number>
 }
 
 // ─── Resultados de API / engine ──────────────────────────────────────────────

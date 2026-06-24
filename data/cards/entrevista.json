@@ -22,7 +22,8 @@
             "torcida": 12,
             "moral": 5
           },
-          "flag_carreira": "humilde"
+          "flag_carreira": "humilde",
+          "concede_token": "raca"
         }
       },
       "caido": {
@@ -41,7 +42,8 @@
             "torcida": 12,
             "moral": 8
           },
-          "flag_carreira": "humilde"
+          "flag_carreira": "humilde",
+          "concede_token": "raca"
         }
       },
       "futuro": {
@@ -60,7 +62,8 @@
             "torcida": 15,
             "moral": 5
           },
-          "flag_carreira": "humilde"
+          "flag_carreira": "humilde",
+          "concede_token": "raca"
         }
       }
     }
@@ -154,7 +157,8 @@
             "midia": 12,
             "torcida": -5
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "lider"
         }
       },
       "caido": {
@@ -173,7 +177,8 @@
             "midia": 12,
             "moral": -5
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "lider"
         }
       },
       "futuro": {
@@ -192,7 +197,8 @@
             "midia": 12,
             "torcida": -3
           },
-          "flag_carreira": "idolo"
+          "flag_carreira": "idolo",
+          "concede_token": "lider"
         }
       }
     }
@@ -733,7 +739,8 @@
             "midia": 8,
             "torcida": -3
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "ousado"
         },
         "direita": {
           "texto": "\"Calculei tudo, sempre pelo time.\"",
@@ -752,7 +759,8 @@
             "midia": 8,
             "torcida": -3
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "ousado"
         },
         "direita": {
           "texto": "\"Arrisco com a sabedoria de hoje.\"",
@@ -770,7 +778,8 @@
             "midia": 8,
             "torcida": 3
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "ousado"
         },
         "direita": {
           "texto": "\"Coragem com humildade, sigo aprendendo.\"",
@@ -798,7 +807,8 @@
             "midia": 5,
             "torcida": -3
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "raca"
         },
         "direita": {
           "texto": "\"Joguei pelo escudo, não por mim.\"",
@@ -817,7 +827,8 @@
             "midia": 5,
             "torcida": -3
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "raca"
         },
         "direita": {
           "texto": "\"Corri pela camisa, não por vingança.\"",
@@ -835,7 +846,8 @@
             "midia": 5,
             "torcida": 3
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "raca"
         },
         "direita": {
           "texto": "\"Só dei tudo pelos companheiros.\"",
@@ -871,7 +883,8 @@
             "moral": 8,
             "torcida": 5
           },
-          "flag_carreira": "entregue"
+          "flag_carreira": "entregue",
+          "concede_token": "frieza"
         }
       },
       "caido": {
@@ -889,7 +902,8 @@
             "torcida": 8,
             "moral": 5
           },
-          "flag_carreira": "humilde"
+          "flag_carreira": "humilde",
+          "concede_token": "frieza"
         }
       },
       "futuro": {
@@ -908,7 +922,8 @@
             "torcida": 8,
             "moral": 5
           },
-          "flag_carreira": "humilde"
+          "flag_carreira": "humilde",
+          "concede_token": "frieza"
         }
       }
     }
@@ -936,7 +951,8 @@
             "torcida": 5,
             "moral": 5
           },
-          "flag_carreira": "lider"
+          "flag_carreira": "lider",
+          "concede_token": "disciplinado"
         }
       },
       "caido": {
@@ -953,7 +969,8 @@
           "efeitos": {
             "torcida": 5
           },
-          "flag_carreira": "entregue"
+          "flag_carreira": "entregue",
+          "concede_token": "disciplinado"
         }
       },
       "futuro": {
@@ -971,7 +988,8 @@
             "moral": 5,
             "torcida": 3
           },
-          "flag_carreira": "humilde"
+          "flag_carreira": "humilde",
+          "concede_token": "disciplinado"
         }
       }
     }
@@ -991,7 +1009,8 @@
             "midia": 5,
             "moral": 5
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "lider"
         },
         "direita": {
           "texto": "\"Cada um aqui lidera à sua maneira.\"",
@@ -1009,7 +1028,8 @@
           "efeitos": {
             "midia": 5
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "lider"
         },
         "direita": {
           "texto": "\"Devolvo o que o grupo me deu.\"",
@@ -1028,7 +1048,8 @@
             "midia": 5,
             "torcida": 3
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "lider"
         },
         "direita": {
           "texto": "\"Só tento ajudar onde posso.\"",
@@ -1121,7 +1142,8 @@
             "midia": 5,
             "torcida": -3
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "lider"
         },
         "direita": {
           "texto": "\"Esse amor é do Brasil, eu represento.\"",
@@ -1139,7 +1161,8 @@
             "midia": 5,
             "torcida": -3
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "lider"
         },
         "direita": {
           "texto": "\"Essa volta por cima é deles.\"",
@@ -1158,7 +1181,8 @@
             "midia": 5,
             "torcida": 3
           },
-          "flag_carreira": "arrogante"
+          "flag_carreira": "arrogante",
+          "concede_token": "lider"
         },
         "direita": {
           "texto": "\"Quero retribuir esse carinho em campo.\"",
@@ -1259,7 +1283,8 @@
             "torcida": 5,
             "moral": 3
           },
-          "flag_carreira": "humilde"
+          "flag_carreira": "humilde",
+          "concede_token": "disciplinado"
         }
       },
       "caido": {
@@ -1277,7 +1302,8 @@
           "efeitos": {
             "torcida": 5
           },
-          "flag_carreira": "humilde"
+          "flag_carreira": "humilde",
+          "concede_token": "disciplinado"
         }
       },
       "futuro": {
@@ -1296,7 +1322,8 @@
             "moral": 5,
             "torcida": 3
           },
-          "flag_carreira": "entregue"
+          "flag_carreira": "entregue",
+          "concede_token": "disciplinado"
         }
       }
     }

@@ -56,19 +56,34 @@ function applyFlags(state: RunState, escolha: Escolha): RunState {
   return s
 }
 
+function grantToken(state: RunState, escolha: Escolha): RunState {
+  if (!escolha.concede_token) return state
+  const token = escolha.concede_token
+  return { ...state, tokens: { ...state.tokens, [token]: (state.tokens[token] ?? 0) + 1 } }
+}
+
 function applyRisco(state: RunState, escolha: Escolha): RunState {
   if (!escolha.risco) return state
-  const { tipo, chance, efeitos } = escolha.risco
+  const { tipo, chance, efeitos, requer_token } = escolha.risco
   const newSeed = advanceSeed(state.seed)
   const roll = seedToFloat(newSeed)
   let s = { ...state, seed: newSeed }
+
+  // Com token: consome 1 e garante sucesso (risco não dispara)
+  if (requer_token) {
+    const count = s.tokens[requer_token] ?? 0
+    if (count > 0) {
+      return { ...s, tokens: { ...s.tokens, [requer_token]: count - 1 } }
+    }
+  }
+
   if (roll < chance) {
     if (tipo === 'cartao_vermelho') {
       // Mata-mata (partida >= 4): expulsão elimina a equipe imediatamente
       if (s.partidaAtual >= 4) {
         return { ...s, morto: true, causaMorte: 'expulsao' }
       }
-      // Fase de grupos: aplica penalidade de placar mas continua a partida
+      // Fase de grupos: aplica penalidade mas continua a partida
     }
     s = applyBarDelta(s, efeitos)
     if (typeof efeitos.placar === 'number') {
@@ -133,6 +148,9 @@ export function applyCardChoice(
     }
   }
 
+  // 7. Token concedido pela escolha (após tudo — não concede se morreu)
+  s = grantToken(s, escolha)
+
   return s
 }
 
@@ -170,6 +188,9 @@ function applyInterviewChoice(
       barras: { ...s.barras, [death.barra!]: criseFloor },
     }
   }
+
+  // Token concedido pela entrevista
+  s = grantToken(s, escolha)
 
   // Reset das flags de partida ao fim da entrevista
   s = resetMatchFlags(s)

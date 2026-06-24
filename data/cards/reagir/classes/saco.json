@@ -140,7 +140,8 @@
         "chance": 0.25,
         "efeitos": {
           "moral": -5
-        }
+        },
+        "requer_token": "ousado"
       }
     },
     "direita": {

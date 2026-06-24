@@ -157,7 +157,8 @@
         "efeitos": {
           "fisico": -15,
           "moral": -10
-        }
+        },
+        "requer_token": "disciplinado"
       }
     },
     "direita": {
