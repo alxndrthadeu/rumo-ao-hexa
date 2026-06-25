@@ -205,6 +205,36 @@ export default function GamePage() {
     }
   }, [sessionId])
 
+  // Previne o Safari de interpretar swipe horizontal como navegação back/forward
+  useEffect(() => {
+    let startX = 0
+    let startY = 0
+    let isHorizontal: boolean | null = null
+
+    const onStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX
+      startY = e.touches[0].clientY
+      isHorizontal = null
+    }
+
+    const onMove = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return
+      const dx = e.touches[0].clientX - startX
+      const dy = e.touches[0].clientY - startY
+      if (isHorizontal === null && (Math.abs(dx) > 5 || Math.abs(dy) > 5)) {
+        isHorizontal = Math.abs(dx) > Math.abs(dy)
+      }
+      if (isHorizontal) e.preventDefault()
+    }
+
+    document.addEventListener('touchstart', onStart, { passive: true })
+    document.addEventListener('touchmove', onMove, { passive: false })
+    return () => {
+      document.removeEventListener('touchstart', onStart)
+      document.removeEventListener('touchmove', onMove)
+    }
+  }, [])
+
   async function handleChoice(lado: 'esquerda' | 'direita') {
     if (!state.currentCard || state.isSubmitting || !state.runState) return
 
@@ -383,23 +413,37 @@ export default function GamePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-papel">
-      <HUD state={state.runState} bracketEntry={state.bracketEntry} sessionId={sessionId} previewEfeitos={previewEfeitos} />
+      {/* ── Sticky: HUD + faixa de fase + placar ao vivo ── */}
+      <div className="sticky top-0 z-40">
+        <HUD state={state.runState} bracketEntry={state.bracketEntry} sessionId={sessionId} previewEfeitos={previewEfeitos} />
 
-      {/* Faixa de cor indicando fase atual */}
-      <div
-        className="h-[3px] w-full"
-        style={{
-          background: state.runState.fase === 'planejar'
-            ? 'var(--color-azul)'
-            : state.runState.fase === 'reagir'
-            ? 'var(--color-vermelho)'
-            : state.runState.fase === 'penaltis'
-            ? 'var(--color-amarelo)'
-            : 'var(--color-verde)',
-        }}
-      />
+        {/* Faixa de cor indicando fase atual */}
+        <div
+          className="h-[3px] w-full"
+          style={{
+            background: state.runState.fase === 'planejar'
+              ? 'var(--color-azul)'
+              : state.runState.fase === 'reagir'
+              ? 'var(--color-vermelho)'
+              : state.runState.fase === 'penaltis'
+              ? 'var(--color-amarelo)'
+              : 'var(--color-verde)',
+          }}
+        />
 
-      {/* ── Banner de pré-jogo (concentração) ── */}
+        {/* Placar ao vivo — fica no sticky durante reagir/entrevista */}
+        {(state.runState.fase === 'reagir' || state.runState.fase === 'entrevista') && (
+          <LiveScoreboard
+            golsBrasil={Math.floor(state.runState.golsBrasil / state.bracketEntry.alvoVitoria)}
+            golsAdversario={Math.floor(state.runState.golsAdversario / state.bracketEntry.alvoVitoria)}
+            adversario={state.bracketEntry.adversario}
+            cartasRestantes={state.runState.cartasRestantes.length}
+            finalizado={state.runState.fase === 'entrevista'}
+          />
+        )}
+      </div>
+
+      {/* ── Banner de pré-jogo (concentração) — não sticky ── */}
       {state.runState.fase === 'planejar' && !isCriseActive && (
         <div className="bg-papel border-b-2 border-preto/10 px-[15px] py-[14px]">
           <p className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase text-preto/40 mb-[4px]">
@@ -414,14 +458,12 @@ export default function GamePage() {
             ))}
           </div>
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-[8px]">
-              <span
-                className="font-headline font-bold text-[9px] tracking-[0.05em] uppercase text-white px-[8px] py-[3px]"
-                style={{ background: 'var(--color-azul)', transform: 'skewX(-6deg)' }}
-              >
-                {FASE_LABEL[state.bracketEntry.fase] ?? state.bracketEntry.fase}
-              </span>
-            </div>
+            <span
+              className="font-headline font-bold text-[9px] tracking-[0.05em] uppercase text-white px-[8px] py-[3px]"
+              style={{ background: 'var(--color-azul)', transform: 'skewX(-6deg)' }}
+            >
+              {FASE_LABEL[state.bracketEntry.fase] ?? state.bracketEntry.fase}
+            </span>
             <Link
               href={`/historico/${sessionId}`}
               className="font-headline font-bold text-[11px] tracking-[0.05em] uppercase text-preto/50 border-2 border-preto/20 px-[10px] py-[5px] hover:bg-preto hover:text-white transition-colors"
@@ -454,17 +496,6 @@ export default function GamePage() {
             ))}
           </div>
         </div>
-      )}
-
-      {/* ── Placar ao vivo (reagir) e resultado final (entrevista) ── */}
-      {(state.runState.fase === 'reagir' || state.runState.fase === 'entrevista') && (
-        <LiveScoreboard
-          golsBrasil={Math.floor(state.runState.golsBrasil / state.bracketEntry.alvoVitoria)}
-          golsAdversario={Math.floor(state.runState.golsAdversario / state.bracketEntry.alvoVitoria)}
-          adversario={state.bracketEntry.adversario}
-          cartasRestantes={state.runState.cartasRestantes.length}
-          finalizado={state.runState.fase === 'entrevista'}
-        />
       )}
 
       <div className="flex-1 flex flex-col pt-3">

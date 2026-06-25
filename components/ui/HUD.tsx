@@ -48,19 +48,26 @@ export default function HUD({
               </span>
             )}
             {/* Badge de tokens — clique abre painel */}
-            <button
-              onClick={() => setShowTokens(true)}
-              className={clsx(
-                'flex items-center gap-[4px] font-headline font-bold text-[10px] tracking-[0.06em] px-[7px] py-[3px] transition-colors',
-                totalTokens > 0
-                  ? 'bg-amarelo text-preto'
-                  : 'bg-white/10 text-white/40'
-              )}
-              title="Ver tokens de bônus"
-            >
-              <span>⬡</span>
-              <span>{totalTokens}</span>
-            </button>
+            {totalTokens > 0 ? (
+              <button
+                onClick={() => setShowTokens(true)}
+                className="flex items-center gap-[5px] font-headline font-bold text-[10px] tracking-[0.04em] uppercase px-[9px] py-[4px] bg-amarelo text-preto transition-colors"
+                title="Ver tokens de bônus"
+              >
+                <span className="text-[13px] leading-none font-black">⬡</span>
+                <span className="font-black text-[12px]">{totalTokens}</span>
+                <span className="text-[8px] tracking-[0.1em]">bônus</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowTokens(true)}
+                className="flex items-center gap-[4px] font-headline font-bold text-[9px] tracking-[0.05em] uppercase px-[7px] py-[3px] border border-white/15 text-white/30 transition-colors"
+                title="Ver tokens de bônus"
+              >
+                <span className="text-[11px] leading-none">⬡</span>
+                <span>bônus</span>
+              </button>
+            )}
             {/* Código da run */}
             <span
               className="font-headline font-bold text-[8px] tracking-[0.08em] text-white/25 select-all"
@@ -68,8 +75,8 @@ export default function HUD({
             >
               {seedCode(state.initialSeed)}
             </span>
-            {/* Link do jornal */}
-            {sessionId && state.fase !== 'planejar' && (
+            {/* Link do jornal — só na concentração */}
+            {sessionId && state.fase === 'planejar' && (
               <Link
                 href={`/historico/${sessionId}`}
                 className="font-headline font-bold text-[9px] tracking-[0.12em] uppercase text-white/40 border border-white/20 px-[7px] py-[3px] hover:text-white/70 hover:border-white/40 transition-colors"

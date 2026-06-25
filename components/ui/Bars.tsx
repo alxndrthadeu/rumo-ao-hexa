@@ -15,23 +15,18 @@ function MiniBar({ label, value, showDot }: { label: string; value: number; show
   const isDanger = value <= ALERT_MIN || value >= ALERT_MAX
   return (
     <div>
-      {/* Label + valor numérico */}
-      <div className="flex items-center justify-between mb-[3px]">
-        <span
-          className="font-headline font-bold text-[8px] tracking-[0.06em] uppercase"
-          style={{ color: 'rgba(255,255,255,0.6)' }}
-        >
-          {label}
-        </span>
-        <span
-          className="font-headline font-black text-[10px] tabular-nums"
-          style={{ color: isDanger ? 'var(--color-amarelo)' : 'rgba(255,255,255,0.85)' }}
-        >
-          {value}
-        </span>
+      <div className="h-[8px] flex items-center justify-center mb-[1px]">
+        {showDot && (
+          <span className="w-[5px] h-[5px] rounded-full block" style={{ background: 'rgba(255,255,255,0.7)' }} />
+        )}
       </div>
-      {/* Barra */}
-      <div className="h-[6px]" style={{ background: 'rgba(255,255,255,0.18)' }}>
+      <div
+        className="font-headline font-bold text-[8px] tracking-[0.05em] uppercase mb-[3px]"
+        style={{ color: 'rgba(255,255,255,0.7)' }}
+      >
+        {label}
+      </div>
+      <div className="h-[7px]" style={{ background: 'rgba(255,255,255,0.2)' }}>
         <div
           className={clsx(
             'h-full transition-all duration-500',
@@ -39,12 +34,6 @@ function MiniBar({ label, value, showDot }: { label: string; value: number; show
           )}
           style={{ width: `${value}%` }}
         />
-      </div>
-      {/* Preview dot */}
-      <div className="h-[5px] flex items-center justify-center mt-[1px]">
-        {showDot && (
-          <span className="w-[4px] h-[4px] rounded-full block" style={{ background: 'rgba(255,255,255,0.7)' }} />
-        )}
       </div>
     </div>
   )
