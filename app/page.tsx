@@ -4,37 +4,14 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-const REGRAS = [
-  {
-    num: '01',
-    titulo: 'A jornada',
-    corpo: '7 jogos do Grupo à Final. Você joga carta a carta — antes do apito, nos 90 minutos e na coletiva. Uma escolha ruim pode mudar tudo.',
-  },
-  {
-    num: '02',
-    titulo: 'As 4 barras',
-    corpo: 'Torcida, Mídia, Moral e Físico. Se qualquer uma chegar a 0 ou 100, a run acaba. Equilibrar é o jogo dentro do jogo.',
-  },
-  {
-    num: '03',
-    titulo: 'A coletiva',
-    corpo: 'Cada partida termina com uma pergunta da imprensa. Sua resposta afeta as barras — e define o seu legado.',
-  },
-  {
-    num: '04',
-    titulo: 'O arquétipo',
-    corpo: 'Estrela, Craque Caído ou Promessa. Cada um começa diferente, sofre pressões diferentes e tem seu próprio viés de mídia.',
-  },
-]
+const BARRAS = ['Torcida', 'Mídia', 'Moral', 'Físico']
 
 export default function Home() {
   const router = useRouter()
   const [activeSession, setActiveSession] = useState<string | null>(null)
 
   useEffect(() => {
-    // Limpa chave antiga da arquitetura anterior (se existir)
     localStorage.removeItem('rtt_session_id')
-
     try {
       const raw = localStorage.getItem('rtt_active_run')
       if (!raw) return
@@ -75,7 +52,7 @@ export default function Home() {
           className="font-headline font-bold text-[14px] mt-[10px]"
           style={{ color: 'rgba(255,255,255,0.55)' }}
         >
-          Um Reigns de futebol. 7 jogos. 1 vida só.
+          7 jogos. 1 craque. 1 vida só.
         </p>
       </div>
 
@@ -104,41 +81,37 @@ export default function Home() {
         </div>
       )}
 
-      {/* ── Como jogar ── */}
-      <div id="como-jogar" className="px-[15px] pt-[28px] pb-[10px]">
-        <div className="flex items-center gap-3 mb-[20px]">
-          <span
-            className="font-headline font-black italic text-[11px] tracking-[0.08em] uppercase text-white bg-vermelho px-[10px] py-[4px]"
-            style={{ transform: 'skewX(-8deg)' }}
-          >
-            Como jogar
-          </span>
-          <span className="font-headline font-bold text-[9px] tracking-[0.15em] uppercase text-preto/40">
-            4 regras simples
-          </span>
-        </div>
+      {/* ── Pitch editorial ── */}
+      <div className="px-[15px] pt-[28px] pb-[6px]">
+        <div
+          className="border-t-[3px] border-preto pt-[16px]"
+        >
+          <p className="font-headline font-black italic text-[22px] leading-[1.1] tracking-[-0.5px] text-preto mb-[12px]">
+            Você veste a camisa.<br />Cada escolha é sua.
+          </p>
+          <p className="text-[14px] leading-[1.55] text-preto/70">
+            Do Grupo à Final, você toma decisões antes do apito, nos 90 minutos e na coletiva pós-jogo. Cada resposta move quatro forças — e basta uma delas chegar ao limite para a Copa acabar.
+          </p>
 
-        <div className="flex flex-col gap-[10px]">
-          {REGRAS.map(r => (
-            <div key={r.num} className="flex gap-[14px] border-l-[4px] border-preto pl-[12px] py-[2px]">
-              <span className="font-headline font-black italic text-[28px] leading-none text-preto/15 shrink-0 w-8">
-                {r.num}
+          <div className="flex flex-wrap gap-[6px] mt-[16px]">
+            {BARRAS.map(b => (
+              <span
+                key={b}
+                className="font-headline font-bold text-[10px] tracking-[0.08em] uppercase px-[9px] py-[4px] border-2 border-preto/20 text-preto/55"
+              >
+                {b}
               </span>
-              <div>
-                <p className="font-headline font-black italic text-[15px] tracking-[-0.2px] text-preto leading-none mb-[5px]">
-                  {r.titulo}
-                </p>
-                <p className="text-[13px] leading-[1.4] text-preto/70">
-                  {r.corpo}
-                </p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <p className="text-[12px] leading-[1.4] text-preto/45 mt-[14px]">
+            Escolha seu arquétipo — Estrela, Craque Caído ou Promessa — e enfrente a Copa do Mundo 2026 do seu jeito.
+          </p>
         </div>
       </div>
 
-      {/* ── CTA ── */}
-      <div className="px-[15px] pt-[24px] pb-[40px]">
+      {/* ── CTAs ── */}
+      <div className="px-[15px] pt-[24px] pb-[40px] flex flex-col gap-[10px]">
         <Link
           href="/arquetipo"
           className="w-full text-center block font-headline font-black italic text-[22px] tracking-[0.5px] text-white py-[13px] bg-verde"
@@ -146,20 +119,21 @@ export default function Home() {
         >
           Escolher Arquétipo →
         </Link>
+
+        <Link
+          href="/historico"
+          className="w-full text-center block font-headline font-black italic text-[18px] tracking-[0.3px] text-amarelo py-[13px] bg-preto"
+          style={{ boxShadow: '4px 4px 0 rgba(0,0,0,0.25)' }}
+        >
+          Histórico de Runs →
+        </Link>
+
         <Link
           href="/como-jogar"
-          className="w-full text-center block font-headline font-bold text-[13px] text-preto/50 py-[14px] hover:text-preto/80 transition-colors"
+          className="w-full text-center block font-headline font-bold text-[13px] text-preto/45 py-[10px] hover:text-preto/70 transition-colors"
         >
           Primeira vez? Veja o guia →
         </Link>
-        <div className="border-t border-preto/10 pt-[14px] flex items-center justify-center">
-          <Link
-            href="/historico"
-            className="font-headline font-bold text-[11px] tracking-[0.12em] uppercase text-preto/40 border border-preto/15 px-[14px] py-[7px] hover:text-preto/70 hover:border-preto/30 transition-colors"
-          >
-            Histórico de Runs →
-          </Link>
-        </div>
       </div>
     </div>
   )
