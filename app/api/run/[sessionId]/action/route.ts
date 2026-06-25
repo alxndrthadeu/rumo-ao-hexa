@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { applyCardChoice, resolveMatchEnd, resolvePenaltyEnd } from '@/engine/phases'
 import { applyMatchDecay } from '@/engine/bars'
-import { BRACKET, buildPreGameDeck, buildMatchDeck, buildPenaltyDeck, getCardById, getInterviewCard } from '@/engine/deck'
+import { BRACKET, buildPreGameDeck, buildMatchDeck, buildPenaltyDeck, PENALTY_CARD_IDS, getCardById, getInterviewCard } from '@/engine/deck'
+import { checkMatchResult } from '@/engine/score'
 import type { BracketEntry, Carta, CartaEntrevista, ClasseInimigo, RunState } from '@/engine/types'
 import { assertUnreachable } from '@/engine/types'
 
@@ -100,13 +101,31 @@ export async function POST(req: NextRequest, { params }: Params) {
       }
       nextCards = reagirCards
     } else if (state.fase === 'reagir') {
-      const interviewCard = getInterviewCard(newState)
-      newState = {
-        ...newState,
-        fase: 'entrevista',
-        cartasRestantes: [interviewCard.id],
+      // Verifica se o resultado seria pênaltis (empate em mata-mata) antes de ir pra zona mista
+      const alvo = bracketEntry.alvoVitoria
+      const realGolsBra = Math.floor(newState.golsBrasil / alvo)
+      const realGolsAdv = Math.floor(newState.golsAdversario / alvo)
+      const resultadoRapido = checkMatchResult(realGolsBra, realGolsAdv, bracketEntry.partida)
+
+      if (resultadoRapido === 'penaltis') {
+        // Empate em mata-mata: vai direto para pênaltis, sem zona mista
+        const flagsSnapshot = [...newState.flagsPartida]
+        newState = resolveMatchEnd(newState, bracketEntry, flagsSnapshot)
+        if (!newState.morto && newState.fase === 'penaltis') {
+          const { cards: penaltyCards } = buildPenaltyDeck()
+          newState = { ...newState, cartasRestantes: PENALTY_CARD_IDS }
+          nextCards = penaltyCards
+        }
+      } else {
+        // Resultado definido: vai para zona mista (entrevista)
+        const interviewCard = getInterviewCard(newState)
+        newState = {
+          ...newState,
+          fase: 'entrevista',
+          cartasRestantes: [interviewCard.id],
+        }
+        nextCards = [interviewCard]
       }
-      nextCards = [interviewCard]
     } else if (state.fase === 'entrevista') {
       if (state.penaltisResolvidos) {
         // Pós-pênaltis: avança direto sem re-resolver a partida
@@ -134,26 +153,21 @@ export async function POST(req: NextRequest, { params }: Params) {
       } else {
         newState = resolveMatchEnd(newState, bracketEntry, flagsPartidaSnapshot)
         if (!newState.morto) {
-          if (newState.fase === 'penaltis') {
-            const { cards: penaltyCards } = buildPenaltyDeck()
-            nextCards = penaltyCards
-          } else {
-            const { cards: preGameCards, seed: newSeed, cartasVistas: vistas } = buildPreGameDeck(
-              newState.partidaAtual,
-              newState.seed,
-              newState.barras.midia,
-              newState.crise,
-              newState.arquetipo,
-              newState.cartasVistas
-            )
-            newState = {
-              ...newState,
-              seed: newSeed,
-              cartasRestantes: preGameCards.map(c => c.id),
-              cartasVistas: vistas,
-            }
-            nextCards = preGameCards
+          const { cards: preGameCards, seed: newSeed, cartasVistas: vistas } = buildPreGameDeck(
+            newState.partidaAtual,
+            newState.seed,
+            newState.barras.midia,
+            newState.crise,
+            newState.arquetipo,
+            newState.cartasVistas
+          )
+          newState = {
+            ...newState,
+            seed: newSeed,
+            cartasRestantes: preGameCards.map(c => c.id),
+            cartasVistas: vistas,
           }
+          nextCards = preGameCards
         }
       }
     } else if (state.fase === 'penaltis') {

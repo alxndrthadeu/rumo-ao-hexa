@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import clsx from 'clsx'
@@ -98,6 +98,15 @@ export default function ArquetipoPage() {
   const [camisa, setCamisa] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const formRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!selected) return
+    const t = setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }, 80)
+    return () => clearTimeout(t)
+  }, [selected])
 
   const camisaNum = parseInt(camisa, 10)
   const camisaValida = camisa !== '' && !isNaN(camisaNum) && camisaNum >= 1 && camisaNum <= 99
@@ -166,7 +175,7 @@ export default function ArquetipoPage() {
 
       {/* Form de identificação */}
       {selected && (
-        <div className="px-[15px] pt-[20px] pb-[8px]">
+        <div ref={formRef} className="px-[15px] pt-[20px] pb-[8px]">
           <div className="border-2 border-preto bg-white p-[16px]" style={{ boxShadow: '4px 4px 0 #100F0D' }}>
             <p
               className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase mb-[14px]"

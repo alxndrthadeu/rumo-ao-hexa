@@ -186,6 +186,7 @@ export default function GamePage() {
   const [state, dispatch] = useReducer(reducer, initial)
   const [goalEvent, setGoalEvent] = useState<GoalEvent | null>(null)
   const [previewEfeitos, setPreviewEfeitos] = useState<Efeitos | null>(null)
+  const [showSwipeHint, setShowSwipeHint] = useState(false)
 
   useEffect(() => {
     try {
@@ -193,6 +194,12 @@ export default function GamePage() {
       if (!active) throw new Error('Sessão não encontrada')
       if (active.sessionId !== sessionId) throw new Error('Sessão incorreta')
       dispatch({ type: 'LOADED', runState: active.state, bracketEntry: active.bracketEntry, card: active.currentCard })
+
+      // Mostra hint de swipe apenas na primeira vez que o jogador abre uma run
+      if (!localStorage.getItem('rtt_hint_seen')) {
+        setShowSwipeHint(true)
+        localStorage.setItem('rtt_hint_seen', '1')
+      }
     } catch (e) {
       dispatch({ type: 'ERROR', message: e instanceof Error ? e.message : 'Sessão não encontrada' })
     }
@@ -466,9 +473,10 @@ export default function GamePage() {
             card={state.currentCard}
             arquetipo={state.runState.arquetipo}
             tokens={state.runState.tokens}
-            onChoice={handleChoice}
+            onChoice={(lado) => { setShowSwipeHint(false); handleChoice(lado) }}
             onPreview={setPreviewEfeitos}
             disabled={state.isSubmitting}
+            showHint={showSwipeHint}
           />
         ) : (
           <div className="flex flex-col flex-1 items-center justify-center">

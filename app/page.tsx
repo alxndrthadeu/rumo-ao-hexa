@@ -152,6 +152,14 @@ export default function Home() {
         >
           Primeira vez? Veja o guia →
         </Link>
+        <div className="border-t border-preto/10 pt-[14px] flex items-center justify-center">
+          <Link
+            href="/historico"
+            className="font-headline font-bold text-[11px] tracking-[0.12em] uppercase text-preto/40 border border-preto/15 px-[14px] py-[7px] hover:text-preto/70 hover:border-preto/30 transition-colors"
+          >
+            Histórico de Runs →
+          </Link>
+        </div>
       </div>
     </div>
   )

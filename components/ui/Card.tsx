@@ -104,6 +104,7 @@ export default function Card({
   onChoice,
   onPreview,
   disabled = false,
+  showHint = false,
 }: {
   card: AnyCard
   arquetipo: Arquetipo
@@ -111,9 +112,11 @@ export default function Card({
   onChoice: (lado: 'esquerda' | 'direita') => void
   onPreview?: (efeitos: Efeitos | null) => void
   disabled?: boolean
+  showHint?: boolean
 }) {
   const [dragX, setDragX] = useState(0)
   const [confirming, setConfirming] = useState<'esquerda' | 'direita' | null>(null)
+  const [hintDone, setHintDone] = useState(false)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
@@ -139,6 +142,8 @@ export default function Card({
   const bind = useDrag(
     ({ movement: [mx], last, cancel }) => {
       if (disabled || confirming) { cancel?.(); return }
+      // Cancela o hint se o usuário começar a arrastar
+      if (showHint && !hintDone) setHintDone(true)
       if (!last) {
         setDragX(mx)
         const preview = mx < -24 ? esquerda.efeitos : mx > 24 ? direita.efeitos : null
@@ -152,6 +157,7 @@ export default function Card({
     { axis: 'x', filterTaps: true }
   )
 
+  const isHinting = showHint && !hintDone
   const isDraggingLeft  = dragX < -24
   const isDraggingRight = dragX > 24
   const tx = confirming === 'esquerda' ? -360 : confirming === 'direita' ? 360 : dragX * 0.35
@@ -165,12 +171,14 @@ export default function Card({
         {...bind()}
         className={clsx(
           'flex-1 mx-[15px] flex flex-col justify-between bg-papel cursor-grab active:cursor-grabbing',
-          isCrise ? 'border-2 border-vermelho' : 'border-2 border-preto'
+          isCrise ? 'border-2 border-vermelho' : 'border-2 border-preto',
+          isHinting && 'animate-swipe-hint'
         )}
+        onAnimationEnd={() => setHintDone(true)}
         style={{
-          touchAction: 'pan-y',
-          transform: `translateX(${tx}px) rotate(${rot}deg)`,
-          transition: Math.abs(dragX) > 0 ? 'none' : 'transform 0.26s ease, opacity 0.22s',
+          touchAction: 'none',
+          transform: isHinting ? undefined : `translateX(${tx}px) rotate(${rot}deg)`,
+          transition: isHinting || Math.abs(dragX) > 0 ? 'none' : 'transform 0.26s ease, opacity 0.22s',
           opacity: confirming ? 0 : 1,
           boxShadow: isDraggingLeft
             ? `inset 3px 0 0 var(--color-vermelho)`
