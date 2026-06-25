@@ -412,7 +412,7 @@ export default function GamePage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-papel">
+    <div className="flex flex-col h-[100dvh] overflow-hidden bg-papel">
       {/* ── Sticky: HUD + faixa de fase + placar ao vivo ── */}
       <div className="sticky top-0 z-40">
         <HUD state={state.runState} bracketEntry={state.bracketEntry} sessionId={sessionId} previewEfeitos={previewEfeitos} />
@@ -498,7 +498,7 @@ export default function GamePage() {
         </div>
       )}
 
-      <div className="flex-1 flex flex-col pt-3">
+      <div className="flex-1 flex flex-col pt-3 min-h-0 overflow-hidden">
         {state.currentCard ? (
           <Card
             card={state.currentCard}

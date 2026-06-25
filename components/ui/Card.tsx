@@ -154,7 +154,7 @@ export default function Card({
         else { setDragX(0); onPreview?.(null) }
       }
     },
-    { axis: 'x', filterTaps: true }
+    { axis: 'x', filterTaps: true, preventScroll: true }
   )
 
   const isHinting = showHint && !hintDone
@@ -165,18 +165,19 @@ export default function Card({
   const isCrise = isCriseCard(card)
 
   return (
-    <div className="flex flex-col flex-1 select-none">
+    <div className="flex flex-col flex-1 min-h-0 select-none">
       {/* Carta arrastável */}
       <div
         {...bind()}
         className={clsx(
-          'flex-1 mx-[15px] flex flex-col justify-between bg-papel cursor-grab active:cursor-grabbing',
+          'flex-1 min-h-0 mx-[15px] flex flex-col justify-between bg-papel cursor-grab active:cursor-grabbing',
           isCrise ? 'border-2 border-vermelho' : 'border-2 border-preto',
           isHinting && 'animate-swipe-hint'
         )}
         onAnimationEnd={() => setHintDone(true)}
         style={{
           touchAction: 'none',
+          transformOrigin: '50% 120%',
           transform: isHinting ? undefined : `translateX(${tx}px) rotate(${rot}deg)`,
           transition: isHinting || Math.abs(dragX) > 0 ? 'none' : 'transform 0.26s ease, opacity 0.22s',
           opacity: confirming ? 0 : 1,
