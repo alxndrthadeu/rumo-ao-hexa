@@ -55,6 +55,7 @@ const initial: GameState = {
 type GameAction =
   | { type: 'LOADED'; runState: RunState; bracketEntry: BracketEntry; card: Carta | CartaEntrevista }
   | { type: 'SUBMITTING' }
+  | { type: 'RESULT_PREVIEW'; runState: RunState; bracketEntry: BracketEntry }
   | { type: 'ACTION_DONE'; prevFase: string; prevPartida: number; prevPlacar: number; prevBracketEntry: BracketEntry; runState: RunState; bracketEntry: BracketEntry; nextCard: Carta | CartaEntrevista }
   | { type: 'GAME_OVER'; runState: RunState }
   | { type: 'DISMISS_JORNAL' }
@@ -96,6 +97,13 @@ function reducer(state: GameState, action: GameAction): GameState {
       }
     case 'SUBMITTING':
       return { ...state, isSubmitting: true, error: null }
+    case 'RESULT_PREVIEW':
+      return {
+        ...state,
+        runState: action.runState,
+        bracketEntry: action.bracketEntry,
+        currentCard: null,
+      }
     case 'ACTION_DONE': {
       const transition = detectTransition(
         action.prevFase,
@@ -282,11 +290,13 @@ export default function GamePage() {
         return
       }
 
+      const nextBracketEntry = data.bracketEntry ?? state.bracketEntry!
+
       // Persiste estado atualizado no localStorage
       saveActiveRun({
         sessionId,
         state: data.state,
-        bracketEntry: data.bracketEntry ?? state.bracketEntry!,
+        bracketEntry: nextBracketEntry,
         currentCard: nextCard,
       })
 
@@ -307,6 +317,18 @@ export default function GamePage() {
         }
       }
 
+      // Detecta se vai haver troca de fase — se sim, mostra as barras/placar atualizados
+      // por 700ms antes de mudar de tela (barras têm transition-duration 500ms)
+      const upcomingTransition = detectTransition(prevFase, prevPartida, data.state.fase, data.state.partidaAtual)
+      const needsPreview = upcomingTransition === 'match_start'
+        || upcomingTransition === 'entrevista_start'
+        || upcomingTransition === 'penaltis_start'
+
+      if (needsPreview) {
+        dispatch({ type: 'RESULT_PREVIEW', runState: data.state, bracketEntry: nextBracketEntry })
+        await new Promise<void>(resolve => setTimeout(resolve, 700))
+      }
+
       dispatch({
         type: 'ACTION_DONE',
         prevFase,
@@ -314,7 +336,7 @@ export default function GamePage() {
         prevPlacar,
         prevBracketEntry,
         runState: data.state,
-        bracketEntry: data.bracketEntry ?? state.bracketEntry!,
+        bracketEntry: nextBracketEntry,
         nextCard,
       })
     } catch (e) {

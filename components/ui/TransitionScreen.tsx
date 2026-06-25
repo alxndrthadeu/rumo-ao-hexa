@@ -152,7 +152,7 @@ export default function TransitionScreen({
     return (
       <button
         onClick={onDismiss}
-        className="flex flex-col min-h-screen w-full bg-azul items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
+        className="flex flex-col h-[100dvh] w-full bg-azul items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
       >
         <div className="absolute bg-amarelo pointer-events-none"
           style={{ top: '-10%', right: '-20%', width: '90%', height: '130%', transform: 'rotate(-12deg)', opacity: 0.08 }} />
@@ -194,7 +194,7 @@ export default function TransitionScreen({
     return (
       <button
         onClick={onDismiss}
-        className="flex flex-col min-h-screen w-full bg-preto items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
+        className="flex flex-col h-[100dvh] w-full bg-preto items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
       >
         <div className="absolute bg-vermelho pointer-events-none"
           style={{ top: '-10%', left: '-20%', width: '90%', height: '130%', transform: 'rotate(12deg)', opacity: 0.10 }} />
@@ -232,7 +232,7 @@ export default function TransitionScreen({
     return (
       <button
         onClick={onDismiss}
-        className="flex flex-col min-h-screen w-full bg-verde items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
+        className="flex flex-col h-[100dvh] w-full bg-verde items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
       >
         <div className="absolute bg-white pointer-events-none"
           style={{ top: '-10%', left: '-20%', width: '90%', height: '130%', transform: 'rotate(12deg)', opacity: 0.05 }} />
@@ -288,7 +288,7 @@ export default function TransitionScreen({
   return (
     <button
       onClick={onDismiss}
-      className="flex flex-col min-h-screen w-full bg-preto items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
+      className="flex flex-col h-[100dvh] w-full bg-preto items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
     >
       <div className="absolute bg-amarelo pointer-events-none"
         style={{ top: '-10%', right: '-20%', width: '90%', height: '130%', transform: 'rotate(-12deg)', opacity: 0.06 }} />

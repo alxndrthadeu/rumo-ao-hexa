@@ -20,7 +20,7 @@ export default function MatchLobbyScreen({
   onConfirm: () => void
 }) {
   return (
-    <div className="flex flex-col min-h-screen bg-azul relative overflow-hidden">
+    <div className="flex flex-col h-[100dvh] bg-azul relative overflow-hidden">
       <div
         className="absolute bg-amarelo pointer-events-none"
         style={{ top: '-10%', right: '-20%', width: '90%', height: '130%', transform: 'rotate(-12deg)', opacity: 0.06 }}
