@@ -13,7 +13,6 @@ import GoalToast, { type GoalEvent } from '@/components/ui/GoalToast'
 import GameOverScreen from '@/components/ui/GameOverScreen'
 import JornalScreen from '@/components/ui/JornalScreen'
 import LiveScoreboard from '@/components/ui/LiveScoreboard'
-import MatchLobbyScreen from '@/components/ui/MatchLobbyScreen'
 import { REAGIR_MINUTO_NUM } from '@/lib/match-constants'
 
 // ─── State ───────────────────────────────────────────────────────────────────
@@ -31,7 +30,6 @@ type GameState = {
   lastResult: LastResult | null
   showJornal: boolean
   jornalRecord: MatchRecord | null
-  showMatchLobby: boolean
   showGameOver: boolean
   isSubmitting: boolean
   error: string | null
@@ -46,7 +44,6 @@ const initial: GameState = {
   lastResult: null,
   showJornal: false,
   jornalRecord: null,
-  showMatchLobby: false,
   showGameOver: false,
   isSubmitting: false,
   error: null,
@@ -59,7 +56,6 @@ type GameAction =
   | { type: 'ACTION_DONE'; prevFase: string; prevPartida: number; prevPlacar: number; prevBracketEntry: BracketEntry; runState: RunState; bracketEntry: BracketEntry; nextCard: Carta | CartaEntrevista }
   | { type: 'GAME_OVER'; runState: RunState }
   | { type: 'DISMISS_JORNAL' }
-  | { type: 'CONFIRM_MATCH' }
   | { type: 'DISMISS_TRANSITION' }
   | { type: 'ERROR'; message: string }
 
@@ -90,7 +86,6 @@ function reducer(state: GameState, action: GameAction): GameState {
         lastResult: null,
         showJornal: false,
         jornalRecord: null,
-        showMatchLobby: false,
         showGameOver: false,
         isSubmitting: false,
         error: null,
@@ -139,21 +134,6 @@ function reducer(state: GameState, action: GameAction): GameState {
           lastResult,
           showJornal: true,
           jornalRecord,
-          showMatchLobby: false,
-          isSubmitting: false,
-        }
-      }
-
-      // Lobby aparece ANTES da transição match_start (pré-jogo)
-      if (transition === 'match_start') {
-        return {
-          ...state,
-          runState: action.runState,
-          bracketEntry: action.bracketEntry,
-          currentCard: action.nextCard,
-          transition: null,
-          lastResult,
-          showMatchLobby: true,
           isSubmitting: false,
         }
       }
@@ -165,7 +145,6 @@ function reducer(state: GameState, action: GameAction): GameState {
         currentCard: action.nextCard,
         transition,
         lastResult,
-        showMatchLobby: false,
         isSubmitting: false,
       }
     }
@@ -173,8 +152,6 @@ function reducer(state: GameState, action: GameAction): GameState {
       return { ...state, runState: action.runState, showGameOver: true, isSubmitting: false }
     case 'DISMISS_JORNAL':
       return { ...state, showJornal: false, jornalRecord: null, transition: 'nova_partida' }
-    case 'CONFIRM_MATCH':
-      return { ...state, showMatchLobby: false, transition: 'match_start' }
     case 'DISMISS_TRANSITION':
       return { ...state, transition: null, lastResult: null }
     case 'ERROR':
@@ -383,17 +360,6 @@ export default function GamePage() {
       <GameOverScreen
         state={state.runState}
         onDone={() => router.push(`/legado/${sessionId}`)}
-      />
-    )
-  }
-
-  // Lobby: aparece após o planejar, antes do match_start
-  if (state.showMatchLobby && state.bracketEntry && state.runState) {
-    return (
-      <MatchLobbyScreen
-        bracketEntry={state.bracketEntry}
-        runState={state.runState}
-        onConfirm={() => dispatch({ type: 'CONFIRM_MATCH' })}
       />
     )
   }
