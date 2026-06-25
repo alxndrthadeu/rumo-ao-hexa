@@ -15,7 +15,7 @@ CREATE TABLE run_states (
   updated_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
   partida_atual  SMALLINT NOT NULL DEFAULT 1,
   morto          BOOLEAN NOT NULL DEFAULT false,
-  causa_morte    TEXT CHECK (causa_morte IN ('placar', 'barra', 'vitoria')),
+  causa_morte    TEXT CHECK (causa_morte IN ('placar', 'barra', 'vitoria', 'expulsao', 'penaltis')),
   state          JSONB NOT NULL,
   CONSTRAINT run_states_session_unique UNIQUE (session_id)
 );

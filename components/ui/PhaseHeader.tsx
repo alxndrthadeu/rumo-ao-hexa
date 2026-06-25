@@ -5,6 +5,7 @@ const LABELS: Record<Fase, { titulo: string; sub: string; cor: string }> = {
   planejar:   { titulo: 'Véspera',    sub: 'Concentração', cor: 'bg-azul'    },
   reagir:     { titulo: '90 Min',     sub: '',             cor: 'bg-vermelho' },
   entrevista: { titulo: 'Zona Mista', sub: 'Coletiva',     cor: 'bg-verde'   },
+  penaltis:   { titulo: 'Pênaltis',   sub: 'Cobrança',     cor: 'bg-vermelho' },
 }
 
 export default function PhaseHeader({

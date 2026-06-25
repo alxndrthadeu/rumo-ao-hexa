@@ -17,6 +17,7 @@ const FLAG_DEFS: Record<string, { carga: Carga; climax: boolean; peso: number }>
   frio:         { carga: 'NEUTRA',  climax: false, peso: 4  },
   boemio:       { carga: 'NEUTRA',  climax: false, peso: 5  },
   lider:        { carga: 'ELOGIO',  climax: false, peso: 3  },
+  penaltis:     { carga: 'ELOGIO',  climax: true,  peso: 99 },
 }
 
 export function getFlagDef(flag: string) {

@@ -21,6 +21,7 @@ import especFavorData     from '@/data/cards/reagir/especial_favoravel.json'
 import especHostilData    from '@/data/cards/reagir/especial_hostil.json'
 import entrevistaData from '@/data/cards/entrevista.json'
 import criseData      from '@/data/cards/crise.json'
+import penaltisData   from '@/data/cards/penaltis.json'
 import bracketData    from '@/data/bracket.json'
 
 const ancoraCards     = ancoraData     as unknown as Carta[]
@@ -34,6 +35,7 @@ const especFavorCards     = especFavorData     as unknown as Carta[]
 const especHostilCards    = especHostilData    as unknown as Carta[]
 const entrevistaCards = entrevistaData as unknown as CartaEntrevista[]
 const criseCards      = criseData      as unknown as Carta[]
+const penaltisCards   = penaltisData   as unknown as Carta[]
 
 const CLASS_CARDS: Record<ClasseInimigo, Carta[]> = {
   tecnico:         tecnicoData    as unknown as Carta[],
@@ -53,8 +55,11 @@ const BONUS_FISICO_BAIXO = bonusCards.find(c => c.id === 'cansaco_extremo')!
 const IMPRENSA_FAVORAVEL = imprensaCards.find(c => c.id === 'imprensa_favoravel')!
 const IMPRENSA_HOSTIL    = imprensaCards.find(c => c.id === 'imprensa_hostil')!
 
+export const BRACKET: BracketEntry[] = bracketData as BracketEntry[]
+
+/** @deprecated Use BRACKET directly */
 export function loadBracket(): BracketEntry[] {
-  return bracketData as BracketEntry[]
+  return BRACKET
 }
 
 // ─── Pré-jogo ─────────────────────────────────────────────────────────────────
@@ -69,10 +74,17 @@ export function buildPreGameDeck(
   seed: number,
   midia?: number,
   crise?: CriseState,
-  arquetipo?: Arquetipo
-): { cards: Carta[]; seed: number } {
-  const ancoras = ancoraCards.filter(c => !c.requer_passiva)
-  const circos  = circoCards.filter(c => !c.requer_passiva)
+  arquetipo?: Arquetipo,
+  cartasVistas: string[] = []
+): { cards: Carta[]; seed: number; cartasVistas: string[] } {
+  const baseAncoras = ancoraCards.filter(c => !c.requer_passiva)
+  const baseCircos  = circoCards.filter(c => !c.requer_passiva)
+
+  // Exclui cartas já vistas nesta run; fallback para pool completo se esgotou
+  const ancoraPool = baseAncoras.filter(c => !cartasVistas.includes(c.id))
+  const circoPool  = baseCircos.filter(c => !cartasVistas.includes(c.id))
+  const ancoras = ancoraPool.length > 0 ? ancoraPool : baseAncoras
+  const circos  = circoPool.length  > 0 ? circoPool  : baseCircos
 
   const assCirco = assinaturaCards.find(
     c => c.naipe === 'circo' && c.partida === partida
@@ -111,7 +123,11 @@ export function buildPreGameDeck(
     if (criseCard) deck.unshift(criseCard)
   }
 
-  return { cards: deck, seed: s }
+  // Registra ancora e circo como vistos (assinatura e passiva não entram — são fixas por design)
+  const novasVistas = [...cartasVistas, ancora.id]
+  if (!assCirco) novasVistas.push(circo.id)
+
+  return { cards: deck, seed: s, cartasVistas: novasVistas }
 }
 
 // ─── Deck de reagir ───────────────────────────────────────────────────────────
@@ -208,8 +224,23 @@ const ALL_PLAY_CARDS: Carta[] = [
   ...especFavorCards,
   ...especHostilCards,
   ...criseCards,
+  ...penaltisCards,
   ...Object.values(CLASS_CARDS).flat(),
 ]
+
+// ─── Pênaltis ─────────────────────────────────────────────────────────────────
+
+// IDs derivados do JSON de pênaltis — usado em phases.ts para montar cartasRestantes
+// sem hardcodar strings que podem divergir do arquivo de dados.
+export const PENALTY_CARD_IDS: string[] = penaltisCards.map(c => c.id)
+
+if (PENALTY_CARD_IDS.length === 0) {
+  throw new Error('penaltis.json está vazio — nenhuma carta de pênalti disponível')
+}
+
+export function buildPenaltyDeck(): { cards: Carta[] } {
+  return { cards: penaltisCards }
+}
 
 export function getCardById(id: string): Carta | CartaEntrevista | null {
   return ALL_PLAY_CARDS.find(c => c.id === id) ?? null

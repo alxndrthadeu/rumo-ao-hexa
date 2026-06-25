@@ -5,13 +5,14 @@ import type {
   Escolha,
   RunState,
 } from './types'
-import { applyBarDelta, applyNiggleModifier, checkBarDeath } from './bars'
+import { applyBarDelta, applyMatchDecay, applyNiggleModifier, checkBarDeath } from './bars'
 import { applyScoreDelta } from './score'
 import { raiseFlag, applyCareerFlag, resetMatchFlags } from './flags'
 import { applyMediaBias } from './media'
 import { advanceSeed, seedToFloat } from './rng'
 import { checkMatchResult, matchPoints } from './score'
 import { buildMatchRecord } from './jornal'
+import { PENALTY_CARD_IDS } from './deck'
 
 // ─── Helpers internos ────────────────────────────────────────────────────────
 
@@ -207,7 +208,10 @@ export function resolveMatchEnd(
 ): RunState {
   if (state.morto) return state
 
-  const resultado = checkMatchResult(state.placarPartida, bracket.alvoVitoria, bracket.partida)
+  const alvo = bracket.alvoVitoria
+  const realGolsBra = Math.floor(state.golsBrasil / alvo)
+  const realGolsAdv = Math.floor(state.golsAdversario / alvo)
+  const resultado = checkMatchResult(realGolsBra, realGolsAdv, bracket.partida)
   const pontos = matchPoints(resultado)
 
   // Registra a partida no histórico (flags capturadas antes do reset da entrevista)
@@ -216,6 +220,8 @@ export function resolveMatchEnd(
     bracket.adversario,
     bracket.fase,
     state.placarPartida,
+    realGolsBra,
+    realGolsAdv,
     resultado,
     flagsPartidaSnapshot,
     state.seed
@@ -232,13 +238,20 @@ export function resolveMatchEnd(
     return { ...s, morto: true, causaMorte: 'vitoria' }
   }
 
-  // Mata-mata: derrota = eliminação imediata
-  if (!bracket.empateValido && resultado !== 'vitoria') {
+  // Pênaltis (mata-mata com empate exato) → delega para cartas interativas
+  if (resultado === 'penaltis') {
+    s = {
+      ...s,
+      fase: 'penaltis',
+      cartasRestantes: PENALTY_CARD_IDS,
+      placarPartida: 0,
+    }
+    return s
+  } else if (!bracket.empateValido && resultado !== 'vitoria') {
+    // Mata-mata: derrota clara = eliminação imediata
     return { ...s, morto: true, causaMorte: 'placar' }
-  }
-
-  // Grupos: acumula pontos
-  if (bracket.empateValido) {
+  } else if (bracket.empateValido) {
+    // Grupos: acumula pontos
     const novosPontos = s.pontosGrupo + pontos
 
     // J3 com pontos insuficientes = eliminação
@@ -266,5 +279,62 @@ export function resolveMatchEnd(
     bonusCrescimento,
   }
 
+  // C — decaimento natural entre partidas
+  s = applyMatchDecay(s)
+
   return s
+}
+
+// ─── Resolução dos pênaltis (após as 3 cartas interativas) ───────────────────
+
+export function resolvePenaltyEnd(state: RunState): RunState {
+  if (state.morto) return state
+
+  const moral = state.barras.moral / 100
+
+  // Sua cobrança (0 = erro, 1 = gol)
+  const yourGoal = state.placarPartida > 0 ? 1 : 0
+
+  // 4 cobranças dos companheiros: 68–78% conforme moral atual
+  const teamChance = 0.68 + moral * 0.10
+  let teamGoals = yourGoal
+  let seed = state.seed
+  for (let i = 0; i < 4; i++) {
+    seed = advanceSeed(seed)
+    if (seedToFloat(seed) < teamChance) teamGoals++
+  }
+
+  // 5 cobranças do adversário: 68% fixo
+  let opGoals = 0
+  for (let i = 0; i < 5; i++) {
+    seed = advanceSeed(seed)
+    if (seedToFloat(seed) < 0.68) opGoals++
+  }
+
+  let s = { ...state, seed }
+
+  // Morte súbita se empatou
+  let vitoria = teamGoals > opGoals
+  if (teamGoals === opGoals) {
+    seed = advanceSeed(s.seed)
+    const ourSD   = seedToFloat(seed) < (0.70 + moral * 0.10)
+    seed = advanceSeed(seed)
+    const theirSD = seedToFloat(seed) < 0.68
+    s = { ...s, seed }
+    vitoria = ourSD && !theirSD
+  }
+
+  if (!vitoria) {
+    return { ...s, morto: true, causaMorte: 'penaltis' }
+  }
+
+  // Vitória → zona mista pós-pênaltis (flag 'penaltis' seleciona ent_penaltis)
+  s = raiseFlag(s, 'penaltis')
+  return {
+    ...s,
+    penaltisResolvidos: true,
+    fase: 'entrevista',
+    placarPartida: 0,
+    cartasRestantes: [],
+  }
 }

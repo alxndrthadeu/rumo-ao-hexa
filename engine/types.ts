@@ -1,7 +1,7 @@
 // ─── Unions primitivos ───────────────────────────────────────────────────────
 
 export type Carga = 'ELOGIO' | 'CRITICA' | 'NEUTRA'
-export type Fase = 'planejar' | 'reagir' | 'entrevista'
+export type Fase = 'planejar' | 'reagir' | 'entrevista' | 'penaltis'
 export type Naipe = 'ancora' | 'circo'
 export type Camada = 'generica' | 'classe' | 'assinatura' | 'bonus' | 'especial' | 'crise'
 export type Barra = 'torcida' | 'midia' | 'moral' | 'fisico'
@@ -14,8 +14,8 @@ export type ClasseInimigo =
   | 'evolucao'
   | 'saco_pancada'
 
-export type ResultadoPartida = 'vitoria' | 'empate' | 'derrota'
-export type CausaMorte = 'placar' | 'barra' | 'vitoria' | 'expulsao'
+export type ResultadoPartida = 'vitoria' | 'empate' | 'derrota' | 'penaltis'
+export type CausaMorte = 'placar' | 'barra' | 'vitoria' | 'expulsao' | 'penaltis'
 
 export interface CriseState {
   barra: Barra
@@ -119,6 +119,8 @@ export interface RunState {
   niggles: string[]
   bonusCrescimento: number
   crise?: CriseState
+  penaltisResolvidos?: boolean
+  cartasVistas: string[]
   morto: boolean
   causaMorte?: CausaMorte
   barraMorte?: { barra: Barra; extreme: 'min' | 'max' }
@@ -157,6 +159,8 @@ export interface MatchRecord {
   adversario: string
   fase: string
   placarDelta: number
+  golsBrasil: number
+  golsAdversario: number
   resultado: ResultadoPartida
   flagsDestaque: string[]
   manchete: string
@@ -170,4 +174,10 @@ export interface Legacy {
   epitafio: string
   causa: string
   reputacao: string
+}
+
+// ─── Utilitário de exhaustiveness ────────────────────────────────────────────
+
+export function assertUnreachable(x: never): never {
+  throw new Error(`Fase não tratada: ${JSON.stringify(x)}`)
 }

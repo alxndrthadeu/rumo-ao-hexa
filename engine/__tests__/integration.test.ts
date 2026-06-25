@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { createRunState } from '../state'
-import { applyCardChoice, resolveMatchEnd } from '../phases'
+import { applyCardChoice, resolveMatchEnd, resolvePenaltyEnd } from '../phases'
 import { buildPreGameDeck, buildMatchDeck, getInterviewCard, loadBracket } from '../deck'
 import { generateManchete, buildMatchRecord } from '../jornal'
 import type { Carta } from '../types'
@@ -97,7 +97,9 @@ describe('Integração — fatia vertical', () => {
 
   it('primeiro estouro máximo (Torcida=100) dispara crise', () => {
     let s = createRunState('estrela', 1, 'Teste', 10)
-    s = { ...s, barras: { ...s.barras, torcida: 95 } }
+    // Soft cap impede cards de empurrar barras até 100 naturalmente;
+    // teste seta torcida=100 diretamente para verificar o mecanismo de crise.
+    s = { ...s, barras: { ...s.barras, torcida: 100 } }
 
     const carta: Carta = {
       id: 'test_boost_torcida',
@@ -129,24 +131,46 @@ describe('Integração — fatia vertical', () => {
     expect(JSON.stringify(s)).toBe(original)
   })
 
-  it('resolveMatchEnd avança para partida 2 após J1 com placar 0', () => {
+  it('resolveMatchEnd avança para partida 2 após J1 vitória (BRA 1-0)', () => {
     let s = createRunState('estrela', 1, 'Teste', 10)
-    s = { ...s, placarPartida: 2, pontosGrupo: 0 } // vitória (alvo=2)
+    // alvoVitoria=2: golsBrasil=2 → floor(2/2)=1 BRA goal; golsAdversario=0 → 0 ADV goals → vitória
+    s = { ...s, placarPartida: 2, golsBrasil: 2, pontosGrupo: 0 }
     const bracket = loadBracket()[0]
     const next = resolveMatchEnd(s, bracket)
     expect(next.partidaAtual).toBe(2)
     expect(next.pontosGrupo).toBe(3)
     expect(next.morto).toBe(false)
-    expect(next.placarPartida).toBe(0) // sempre começa zerado
+    expect(next.placarPartida).toBe(0)
   })
 
-  it('resolveMatchEnd elimina no mata-mata por derrota', () => {
+  it('resolveMatchEnd elimina no mata-mata por derrota (BRA 0-1)', () => {
     let s = createRunState('estrela', 1, 'Teste', 10)
-    s = { ...s, placarPartida: 0, partidaAtual: 4 }
+    // alvoVitoria=2: golsBrasil=0 → 0 BRA goals; golsAdversario=2 → floor(2/2)=1 ADV goal → derrota
+    s = { ...s, placarPartida: -1, golsAdversario: 2, partidaAtual: 4 }
     const bracket = loadBracket()[3] // oitavas, alvo=2
     const next = resolveMatchEnd(s, bracket)
     expect(next.morto).toBe(true)
     expect(next.causaMorte).toBe('placar')
+  })
+
+  it('resolveMatchEnd abre fase pênaltis no mata-mata com empate (placar 0)', () => {
+    let s = createRunState('estrela', 1, 'Teste', 10)
+    s = { ...s, placarPartida: 0, partidaAtual: 4 }
+    const bracket = loadBracket()[3] // oitavas, alvo=2
+    const mid = resolveMatchEnd(s, bracket)
+    // resolveMatchEnd apenas abre as cartas interativas, não resolve ainda
+    expect(mid.morto).toBe(false)
+    expect(mid.fase).toBe('penaltis')
+    expect(mid.cartasRestantes).toEqual(['penalti_aptidao', 'penalti_abertura', 'penalti_cobranca'])
+  })
+
+  it('resolvePenaltyEnd resolve pênaltis via seed — eliminado ou avança', () => {
+    let s = createRunState('estrela', 1, 'Teste', 10)
+    s = { ...s, placarPartida: 0, partidaAtual: 4, fase: 'penaltis' }
+    const next = resolvePenaltyEnd(s)
+    const eliminadoNasPenaltis = next.morto && next.causaMorte === 'penaltis'
+    const avancouNasPenaltis   = !next.morto && next.penaltisResolvidos === true
+    expect(eliminadoNasPenaltis || avancouNasPenaltis).toBe(true)
   })
 
   it('resolveMatchEnd elimina grupos com pontos insuficientes após J3', () => {
@@ -174,7 +198,8 @@ describe('Integração — fatia vertical', () => {
 
     const result = applyCardChoice(s, carta, 'esquerda')
     if (!result.morto) {
-      expect(result.barras.fisico).toBe(Math.max(0, fisicoBefore - 15))
+      // niggle: -10 * 1.5 = -15, mas deltaMax=7 limita a -7 → fisicoBefore - 7
+      expect(result.barras.fisico).toBe(Math.max(0, fisicoBefore - 7))
     } else {
       expect(result.causaMorte).toBe('barra')
     }
@@ -369,7 +394,8 @@ describe('Expulsão — cartao_vermelho', () => {
     const torcidaBefore = s.barras.torcida
     const result = applyCardChoice(s, cartaVermelho, 'esquerda')
     expect(result.morto).toBe(false)
-    expect(result.barras.torcida).toBe(Math.max(0, torcidaBefore - 10))
+    // deltaMax=7 limita -10 a -7
+    expect(result.barras.torcida).toBe(Math.max(0, torcidaBefore - 7))
   })
 })
 
@@ -390,8 +416,8 @@ describe('Jornal — seed determinismo', () => {
   })
 
   it('buildMatchRecord é determinístico com mesma seed', () => {
-    const r1 = buildMatchRecord(1, 'Marrocos', 'grupos', 3, 'vitoria', ['heroi'], 99999)
-    const r2 = buildMatchRecord(1, 'Marrocos', 'grupos', 3, 'vitoria', ['heroi'], 99999)
+    const r1 = buildMatchRecord(1, 'Marrocos', 'grupos', 3, 3, 0, 'vitoria', ['heroi'], 99999)
+    const r2 = buildMatchRecord(1, 'Marrocos', 'grupos', 3, 3, 0, 'vitoria', ['heroi'], 99999)
     expect(r1.record.manchete).toBe(r2.record.manchete)
     expect(r1.record.corpo).toBe(r2.record.corpo)
     expect(r1.seed).toBe(r2.seed)

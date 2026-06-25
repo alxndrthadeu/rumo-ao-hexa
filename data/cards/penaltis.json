@@ -1,0 +1,57 @@
+[
+  {
+    "id": "penalti_aptidao",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "O médico bate na porta minutos antes de caminhar até a marca. Ele precisa saber: você está apto para bater?",
+    "esquerda": {
+      "texto": "Cem por cento. Não tem dúvida.",
+      "efeitos": { "moral": 3 },
+      "flags_partida": ["pronto_penalti"]
+    },
+    "direita": {
+      "texto": "Estou no limite, mas bato se precisar.",
+      "efeitos": { "fisico": 3, "moral": -2 },
+      "flags_partida": ["limitado_penalti"]
+    }
+  },
+  {
+    "id": "penalti_abertura",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "O técnico quer você na primeira cobrança. Abrir os pênaltis é a decisão mais solitária do futebol.",
+    "esquerda": {
+      "texto": "Vou abrir. É minha responsabilidade.",
+      "efeitos": { "moral": 3 },
+      "flags_partida": ["abriu_penaltis"]
+    },
+    "direita": {
+      "texto": "Prefiro ir depois. Quero ver o goleiro primeiro.",
+      "efeitos": { "moral": -2 }
+    }
+  },
+  {
+    "id": "penalti_cobranca",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "A fila acabou. É você e o goleiro. Dezesseis metros de silêncio. Como vai cobrar?",
+    "esquerda": {
+      "texto": "No ângulo. Potência total. Sem olhar o goleiro.",
+      "efeitos": { "placar": 1, "moral": 4 },
+      "risco": {
+        "tipo": "miss_penalti",
+        "chance": 0.42,
+        "efeitos": { "placar": -1, "moral": -10 }
+      }
+    },
+    "direita": {
+      "texto": "Colocado. Centro do gol. Frieza absoluta.",
+      "efeitos": { "placar": 1, "moral": 2 },
+      "risco": {
+        "tipo": "miss_penalti",
+        "chance": 0.22,
+        "efeitos": { "placar": -1, "moral": -5 }
+      }
+    }
+  }
+]

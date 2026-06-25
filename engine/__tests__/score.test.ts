@@ -7,50 +7,79 @@ import {
 } from '../score'
 
 describe('checkMatchResult', () => {
-  // Grupo (partidas 1-3): alvo=2, empate se placar=1
-  it('partida 1, placar +2 → vitória', () => {
-    expect(checkMatchResult(2, 2, 1)).toBe('vitoria')
+  // Grupo (partidas 1-3): empate válido, resultado por gols reais
+  it('grupo, BRA 1-0 → vitória', () => {
+    expect(checkMatchResult(1, 0, 1)).toBe('vitoria')
   })
 
-  it('partida 1, placar +1 → empate', () => {
-    expect(checkMatchResult(1, 2, 1)).toBe('empate')
+  it('grupo, BRA 2-1 → vitória', () => {
+    expect(checkMatchResult(2, 1, 1)).toBe('vitoria')
   })
 
-  it('partida 1, placar 0 → derrota', () => {
-    expect(checkMatchResult(0, 2, 1)).toBe('derrota')
+  it('grupo, 0-0 → empate', () => {
+    expect(checkMatchResult(0, 0, 1)).toBe('empate')
   })
 
-  it('partida 1, placar -1 → derrota', () => {
-    expect(checkMatchResult(-1, 2, 1)).toBe('derrota')
+  it('grupo, BRA 1-1 → empate', () => {
+    expect(checkMatchResult(1, 1, 1)).toBe('empate')
   })
 
-  it('partida 3, placar +2 → vitória', () => {
-    expect(checkMatchResult(2, 2, 3)).toBe('vitoria')
+  it('grupo, BRA 0-1 → derrota', () => {
+    expect(checkMatchResult(0, 1, 1)).toBe('derrota')
   })
 
-  it('partida 3, placar +1 → empate', () => {
-    expect(checkMatchResult(1, 2, 3)).toBe('empate')
+  it('grupo partida 3, BRA 2-0 → vitória', () => {
+    expect(checkMatchResult(2, 0, 3)).toBe('vitoria')
   })
 
-  // Mata-mata (partidas 4-7): não existe empate
-  it('partida 4, placar +2 → vitória (alvo=2)', () => {
-    expect(checkMatchResult(2, 2, 4)).toBe('vitoria')
+  it('grupo partida 3, BRA 1-1 → empate', () => {
+    expect(checkMatchResult(1, 1, 3)).toBe('empate')
   })
 
-  it('partida 4, placar +1 → derrota (abaixo do alvo, mata-mata)', () => {
-    expect(checkMatchResult(1, 2, 4)).toBe('derrota')
+  // Mata-mata (partidas 4-7): empate → pênaltis
+  it('oitavas, BRA 1-0 → vitória (mata-mata)', () => {
+    expect(checkMatchResult(1, 0, 4)).toBe('vitoria')
   })
 
-  it('partida 5, placar +3 → vitória (alvo=3)', () => {
-    expect(checkMatchResult(3, 3, 5)).toBe('vitoria')
+  it('oitavas, BRA 2-1 → vitória (mata-mata)', () => {
+    expect(checkMatchResult(2, 1, 4)).toBe('vitoria')
   })
 
-  it('partida 7, placar +4 → vitória (alvo=4)', () => {
-    expect(checkMatchResult(4, 4, 7)).toBe('vitoria')
+  it('oitavas, 0-0 → pênaltis', () => {
+    expect(checkMatchResult(0, 0, 4)).toBe('penaltis')
   })
 
-  it('partida 7, placar +3 → derrota (final, abaixo do alvo)', () => {
-    expect(checkMatchResult(3, 4, 7)).toBe('derrota')
+  it('oitavas, BRA 1-1 → pênaltis', () => {
+    expect(checkMatchResult(1, 1, 4)).toBe('penaltis')
+  })
+
+  it('oitavas, BRA 0-1 → derrota', () => {
+    expect(checkMatchResult(0, 1, 4)).toBe('derrota')
+  })
+
+  // Cenário exato do bug: 2-1 na semi era contado como derrota
+  it('semi (partida 6), BRA 2-1 → vitória', () => {
+    expect(checkMatchResult(2, 1, 6)).toBe('vitoria')
+  })
+
+  it('semi, 1-1 → pênaltis', () => {
+    expect(checkMatchResult(1, 1, 6)).toBe('penaltis')
+  })
+
+  it('semi, BRA 0-1 → derrota', () => {
+    expect(checkMatchResult(0, 1, 6)).toBe('derrota')
+  })
+
+  it('final (partida 7), BRA 1-0 → vitória', () => {
+    expect(checkMatchResult(1, 0, 7)).toBe('vitoria')
+  })
+
+  it('final, BRA 0-2 → derrota', () => {
+    expect(checkMatchResult(0, 2, 7)).toBe('derrota')
+  })
+
+  it('final, 0-0 → pênaltis', () => {
+    expect(checkMatchResult(0, 0, 7)).toBe('penaltis')
   })
 })
 

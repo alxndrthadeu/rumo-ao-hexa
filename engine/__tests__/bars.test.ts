@@ -22,8 +22,8 @@ describe('checkBarDeath', () => {
     expect(checkBarDeath(stateWith({ ...mid, moral: 0 }))).toMatchObject({ dead: true, barra: 'moral', extreme: 'min' })
   })
 
-  it('barra Moral no 100 → dead: true', () => {
-    expect(checkBarDeath(stateWith({ ...mid, moral: 100 }))).toMatchObject({ dead: true, barra: 'moral', extreme: 'max' })
+  it('barra Moral no 100 → dead: false (assimetria intencional — overconfidence não mata)', () => {
+    expect(checkBarDeath(stateWith({ ...mid, moral: 100 }))).toMatchObject({ dead: false })
   })
 
   it('barra Física no 0 → dead: true', () => {
@@ -55,15 +55,17 @@ describe('applyBarDelta', () => {
   })
 
   it('delta positivo não passa de 100 (clamp)', () => {
-    const state = stateWith({ ...mid, fisico: 95 })
+    // soft cap impede alcançar 100 de 95 via carta; testa o hard clamp partindo de 100
+    const state = stateWith({ ...mid, fisico: 100 })
     const next = applyBarDelta(state, { fisico: 20 })
     expect(next.barras.fisico).toBe(100)
   })
 
-  it('aplica delta normalmente dentro dos limites', () => {
+  it('aplica delta normalmente dentro dos limites (deltaMax 7 + soft cap)', () => {
     const state = stateWith(mid)
     const next = applyBarDelta(state, { moral: 10, midia: -5 })
-    expect(next.barras.moral).toBe(60)
+    // moral 50 + min(10,7) = 57 | midia 50 - 5 = 45
+    expect(next.barras.moral).toBe(57)
     expect(next.barras.midia).toBe(45)
   })
 

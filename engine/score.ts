@@ -15,15 +15,16 @@ export function resolveCondicional(
 }
 
 export function checkMatchResult(
-  placar: number,
-  alvoVitoria: number,
+  golsBrasil: number,
+  golsAdversario: number,
   partida: number
 ): ResultadoPartida {
   const isMataeMata = partida >= 4
 
-  if (placar >= alvoVitoria) return 'vitoria'
+  if (golsBrasil > golsAdversario) return 'vitoria'
+  if (isMataeMata && golsBrasil === golsAdversario) return 'penaltis'
   if (isMataeMata) return 'derrota'
-  return placar > 0 ? 'empate' : 'derrota'
+  return golsBrasil >= golsAdversario ? 'empate' : 'derrota'
 }
 
 export function checkGroupClassification(pontosGrupo: number): boolean {
@@ -32,8 +33,9 @@ export function checkGroupClassification(pontosGrupo: number): boolean {
 
 export function matchPoints(resultado: ResultadoPartida): number {
   switch (resultado) {
-    case 'vitoria': return config.group.win
-    case 'empate':  return config.group.draw
-    case 'derrota': return config.group.loss
+    case 'vitoria':  return config.group.win
+    case 'empate':   return config.group.draw
+    case 'derrota':  return config.group.loss
+    case 'penaltis': return 0
   }
 }

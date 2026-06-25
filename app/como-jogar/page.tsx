@@ -39,7 +39,7 @@ const FASES = [
   {
     tag: 'Concentração',
     cor: 'bg-azul',
-    desc: '2 cartas de pré-jogo. Planejar, descansar, falar com a imprensa — você decide como chegar ao apito inicial.',
+    desc: 'De 2 a 4 decisões antes do apito — planejar, descansar, lidar com a imprensa. Se uma barra estiver no limite, uma Crise de Vestiário aparece primeiro e precisa ser resolvida antes de qualquer outra coisa.',
   },
   {
     tag: 'Jogo',
@@ -149,6 +149,13 @@ export default function ComoJogar() {
             <InfoRow cor="var(--color-verde)" texto="Arrastar para a direita → escolha da direita" />
             <InfoRow cor="var(--color-vermelho)" texto="Arrastar para a esquerda → escolha da esquerda" />
             <InfoRow cor="var(--color-azul)" texto="Cada escolha muda pelo menos uma barra" />
+          </div>
+
+          <div className="mt-[20px] bg-amarelo/15 border-l-[4px] border-amarelo px-[12px] py-[10px]">
+            <p className="font-headline font-black italic text-[13px] text-preto mb-[4px]">Tokens de bônus</p>
+            <p className="text-[13px] leading-[1.45] text-preto/70">
+              Certas escolhas concedem tokens — Ousado, Raça, Frieza, Liderança, Disciplina. Outros os consomem em troca de uma vantagem extra. Quando disponíveis, aparecem como badges coloridos na carta. Sem o token, a vantagem não acontece.
+            </p>
           </div>
         </div>
 

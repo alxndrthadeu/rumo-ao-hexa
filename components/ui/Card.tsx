@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDrag } from '@use-gesture/react'
 import clsx from 'clsx'
-import type { Arquetipo, Carta, CartaEntrevista, Escolha } from '@/engine/types'
+import type { Arquetipo, Carta, CartaEntrevista, Efeitos, Escolha } from '@/engine/types'
 
 function isCriseCard(card: Carta | CartaEntrevista): boolean {
   return card.fase !== 'entrevista' && (card as Carta).camada === 'crise'
@@ -70,9 +70,11 @@ function TokenBadge({
 function ChoiceFooter({
   escolha,
   tokens,
+  className,
 }: {
   escolha: Escolha
   tokens: Record<string, number>
+  className?: string
 }) {
   const earnToken = escolha.concede_token
   const spendToken = escolha.risco?.requer_token
@@ -80,7 +82,7 @@ function ChoiceFooter({
   if (!earnToken && !spendToken) return null
 
   return (
-    <div className="flex flex-wrap gap-[4px] mt-[5px]">
+    <div className={clsx('flex flex-wrap gap-[4px] mt-[5px]', className)}>
       {earnToken && <TokenBadge token={earnToken} mode="earn" />}
       {spendToken && (
         <TokenBadge
@@ -100,23 +102,34 @@ export default function Card({
   arquetipo,
   tokens,
   onChoice,
+  onPreview,
   disabled = false,
 }: {
   card: AnyCard
   arquetipo: Arquetipo
   tokens: Record<string, number>
   onChoice: (lado: 'esquerda' | 'direita') => void
+  onPreview?: (efeitos: Efeitos | null) => void
   disabled?: boolean
 }) {
   const [dragX, setDragX] = useState(0)
   const [confirming, setConfirming] = useState<'esquerda' | 'direita' | null>(null)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current !== null) clearTimeout(timeoutRef.current)
+    }
+  }, [])
 
   const { texto, esquerda, direita } = resolveCard(card, arquetipo)
 
   function choose(lado: 'esquerda' | 'direita') {
     if (disabled || confirming) return
+    onPreview?.(null)
     setConfirming(lado)
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
+      timeoutRef.current = null
       onChoice(lado)
       setDragX(0)
       setConfirming(null)
@@ -128,10 +141,12 @@ export default function Card({
       if (disabled || confirming) { cancel?.(); return }
       if (!last) {
         setDragX(mx)
+        const preview = mx < -24 ? esquerda.efeitos : mx > 24 ? direita.efeitos : null
+        onPreview?.(preview)
       } else {
         if (mx < -DRAG_THRESHOLD) choose('esquerda')
         else if (mx > DRAG_THRESHOLD) choose('direita')
-        else setDragX(0)
+        else { setDragX(0); onPreview?.(null) }
       }
     },
     { axis: 'x', filterTaps: true }
@@ -212,18 +227,7 @@ export default function Card({
           >
             <div className="flex-1 text-right">
               <p className="text-[14px] leading-[1.2] font-medium text-preto">{direita.texto}</p>
-              <div className="flex flex-wrap gap-[4px] mt-[5px] justify-end">
-                {direita.concede_token && (
-                  <TokenBadge token={direita.concede_token} mode="earn" />
-                )}
-                {direita.risco?.requer_token && (
-                  <TokenBadge
-                    token={direita.risco.requer_token}
-                    mode="spend"
-                    available={(tokens[direita.risco.requer_token] ?? 0) > 0}
-                  />
-                )}
-              </div>
+              <ChoiceFooter escolha={direita} tokens={tokens} className="justify-end" />
             </div>
             <span className="font-headline font-black italic text-[17px] text-verde leading-none mt-[1px] shrink-0">→</span>
           </div>

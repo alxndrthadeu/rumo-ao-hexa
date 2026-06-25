@@ -26,6 +26,9 @@ function buildMensagem(state: RunState): { titulo: string; subtitulo: string } {
   if (causaMorte === 'placar') {
     return { titulo: 'ELIMINADO', subtitulo: 'Placar insuficiente. A jornada termina aqui.' }
   }
+  if (causaMorte === 'penaltis') {
+    return { titulo: 'ELIMINADO', subtitulo: 'A Copa termina nas penalidades. Tão perto, tão longe.' }
+  }
   if (causaMorte === 'barra' && barraMorte) {
     const barra = BARRA_LABEL[barraMorte.barra] ?? barraMorte.barra
     const extremo = barraMorte.extreme === 'min' ? 'zerou' : 'estourou'
@@ -65,8 +68,11 @@ export default function GameOverScreen({
   }
 
   return (
-    <button
+    <div
+      role="button"
+      tabIndex={0}
       onClick={onDone}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onDone() }}
       className="fixed inset-0 z-50 flex flex-col items-center justify-center text-center px-[22px] cursor-pointer select-none"
       style={{
         background: isVitoria ? 'var(--color-amarelo)' : 'var(--color-preto)',
@@ -127,6 +133,6 @@ export default function GameOverScreen({
       >
         toque para ver seu legado
       </p>
-    </button>
+    </div>
   )
 }

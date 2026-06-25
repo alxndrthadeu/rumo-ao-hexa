@@ -3,8 +3,9 @@
 import { useCallback, useEffect, useReducer, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
-import type { BracketEntry, Carta, CartaEntrevista, MatchRecord, RunState } from '@/engine/types'
-import type { ActionResponse, RunStateResponse } from '@/lib/api-types'
+import type { BracketEntry, Carta, CartaEntrevista, Efeitos, MatchRecord, RunState } from '@/engine/types'
+import type { ActionResponse } from '@/lib/api-types'
+import { loadActiveRun, clearActiveRun, saveActiveRun, saveCompletedSession } from '@/lib/history'
 import HUD from '@/components/ui/HUD'
 import Card from '@/components/ui/Card'
 import TransitionScreen, { type TransitionType } from '@/components/ui/TransitionScreen'
@@ -12,15 +13,14 @@ import GoalToast, { type GoalEvent } from '@/components/ui/GoalToast'
 import GameOverScreen from '@/components/ui/GameOverScreen'
 import JornalScreen from '@/components/ui/JornalScreen'
 import LiveScoreboard from '@/components/ui/LiveScoreboard'
-
-// Minuto simbólico por cartas restantes antes da escolha (5 cartas no deck)
-const REAGIR_MINUTO: Record<number, number> = { 5: 15, 4: 45, 3: 60, 2: 88, 1: 90 }
+import MatchLobbyScreen from '@/components/ui/MatchLobbyScreen'
+import { REAGIR_MINUTO_NUM } from '@/lib/match-constants'
 
 // ─── State ───────────────────────────────────────────────────────────────────
 
 type GameStatus = 'loading' | 'playing' | 'error'
 
-type LastResult = { adversario: string; placarDelta: number }
+type LastResult = { adversario: string; placarDelta: number; golsBrasil?: number; golsAdversario?: number; viaPenaltis?: boolean }
 
 type GameState = {
   status: GameStatus
@@ -31,6 +31,7 @@ type GameState = {
   lastResult: LastResult | null
   showJornal: boolean
   jornalRecord: MatchRecord | null
+  showMatchLobby: boolean
   showGameOver: boolean
   isSubmitting: boolean
   error: string | null
@@ -45,6 +46,7 @@ const initial: GameState = {
   lastResult: null,
   showJornal: false,
   jornalRecord: null,
+  showMatchLobby: false,
   showGameOver: false,
   isSubmitting: false,
   error: null,
@@ -53,9 +55,10 @@ const initial: GameState = {
 type GameAction =
   | { type: 'LOADED'; runState: RunState; bracketEntry: BracketEntry; card: Carta | CartaEntrevista }
   | { type: 'SUBMITTING' }
-  | { type: 'ACTION_DONE'; prevFase: string; prevPartida: number; prevPlacar: number; prevBracketEntry: BracketEntry; runState: RunState; bracketEntry: BracketEntry; nextCard: Carta | CartaEntrevista | null }
+  | { type: 'ACTION_DONE'; prevFase: string; prevPartida: number; prevPlacar: number; prevBracketEntry: BracketEntry; runState: RunState; bracketEntry: BracketEntry; nextCard: Carta | CartaEntrevista }
   | { type: 'GAME_OVER'; runState: RunState }
   | { type: 'DISMISS_JORNAL' }
+  | { type: 'CONFIRM_MATCH' }
   | { type: 'DISMISS_TRANSITION' }
   | { type: 'ERROR'; message: string }
 
@@ -65,8 +68,10 @@ function detectTransition(
   newFase: string,
   newPartida: number
 ): TransitionType | null {
-  if (prevFase === 'planejar' && newFase === 'reagir') return 'match_start'
-  if (prevFase === 'reagir'   && newFase === 'entrevista') return 'entrevista_start'
+  if (prevFase === 'planejar'   && newFase === 'reagir')      return 'match_start'
+  if (prevFase === 'reagir'     && newFase === 'entrevista')  return 'entrevista_start'
+  if (prevFase === 'reagir'     && newFase === 'penaltis')    return 'penaltis_start'
+  if (prevFase === 'penaltis'   && newFase === 'entrevista')  return 'entrevista_start'
   if (prevFase === 'entrevista' && newFase === 'planejar' && newPartida !== prevPartida) return 'nova_partida'
   return null
 }
@@ -84,6 +89,7 @@ function reducer(state: GameState, action: GameAction): GameState {
         lastResult: null,
         showJornal: false,
         jornalRecord: null,
+        showMatchLobby: false,
         showGameOver: false,
         isSubmitting: false,
         error: null,
@@ -98,12 +104,18 @@ function reducer(state: GameState, action: GameAction): GameState {
         action.runState.partidaAtual
       )
 
-      // lastResult: reagir→entrevista usa placar final do reagir; entrevista→planejar usa prevPlacar
+      // lastResult: depende da transição de fase
       const lastResult: LastResult | null =
         action.prevFase === 'entrevista' && action.runState.fase === 'planejar'
-          ? { adversario: action.prevBracketEntry.adversario, placarDelta: action.prevPlacar }
+          ? (() => {
+              const hist = action.runState.historicoPartidas
+              const lastRecord = hist[hist.length - 1]
+              return { adversario: action.prevBracketEntry.adversario, placarDelta: action.prevPlacar, viaPenaltis: lastRecord?.resultado === 'penaltis' }
+            })()
         : action.prevFase === 'reagir' && action.runState.fase === 'entrevista'
-          ? { adversario: action.prevBracketEntry.adversario, placarDelta: action.runState.placarPartida }
+          ? { adversario: action.prevBracketEntry.adversario, placarDelta: action.runState.placarPartida, golsBrasil: action.runState.golsBrasil, golsAdversario: action.runState.golsAdversario }
+        : action.prevFase === 'penaltis' && action.runState.fase === 'entrevista'
+          ? { adversario: action.prevBracketEntry.adversario, placarDelta: 0, viaPenaltis: true }
         : state.lastResult
 
       // JornalScreen aparece ANTES da transição nova_partida
@@ -119,6 +131,21 @@ function reducer(state: GameState, action: GameAction): GameState {
           lastResult,
           showJornal: true,
           jornalRecord,
+          showMatchLobby: false,
+          isSubmitting: false,
+        }
+      }
+
+      // Lobby aparece ANTES da transição match_start (pré-jogo)
+      if (transition === 'match_start') {
+        return {
+          ...state,
+          runState: action.runState,
+          bracketEntry: action.bracketEntry,
+          currentCard: action.nextCard,
+          transition: null,
+          lastResult,
+          showMatchLobby: true,
           isSubmitting: false,
         }
       }
@@ -130,6 +157,7 @@ function reducer(state: GameState, action: GameAction): GameState {
         currentCard: action.nextCard,
         transition,
         lastResult,
+        showMatchLobby: false,
         isSubmitting: false,
       }
     }
@@ -137,6 +165,8 @@ function reducer(state: GameState, action: GameAction): GameState {
       return { ...state, runState: action.runState, showGameOver: true, isSubmitting: false }
     case 'DISMISS_JORNAL':
       return { ...state, showJornal: false, jornalRecord: null, transition: 'nova_partida' }
+    case 'CONFIRM_MATCH':
+      return { ...state, showMatchLobby: false, transition: 'match_start' }
     case 'DISMISS_TRANSITION':
       return { ...state, transition: null, lastResult: null }
     case 'ERROR':
@@ -155,40 +185,29 @@ export default function GamePage() {
 
   const [state, dispatch] = useReducer(reducer, initial)
   const [goalEvent, setGoalEvent] = useState<GoalEvent | null>(null)
+  const [previewEfeitos, setPreviewEfeitos] = useState<Efeitos | null>(null)
 
   useEffect(() => {
-    async function load() {
-      try {
-        const res = await fetch(`/api/run/${sessionId}`)
-        if (!res.ok) throw new Error('Sessão não encontrada')
-
-        const data: RunStateResponse = await res.json()
-
-        if (data.isGameOver) {
-          router.replace(`/legado/${sessionId}`)
-          return
-        }
-
-        const card = data.cards?.[0] ?? null
-        if (!card) throw new Error('Sem cartas disponíveis')
-
-        dispatch({ type: 'LOADED', runState: data.state, bracketEntry: data.bracketEntry, card })
-      } catch (e) {
-        dispatch({ type: 'ERROR', message: e instanceof Error ? e.message : 'Erro ao carregar' })
-      }
+    try {
+      const active = loadActiveRun()
+      if (!active) throw new Error('Sessão não encontrada')
+      if (active.sessionId !== sessionId) throw new Error('Sessão incorreta')
+      dispatch({ type: 'LOADED', runState: active.state, bracketEntry: active.bracketEntry, card: active.currentCard })
+    } catch (e) {
+      dispatch({ type: 'ERROR', message: e instanceof Error ? e.message : 'Sessão não encontrada' })
     }
-
-    load()
-  }, [sessionId, router])
+  }, [sessionId])
 
   async function handleChoice(lado: 'esquerda' | 'direita') {
     if (!state.currentCard || state.isSubmitting || !state.runState) return
 
-    const prevFase        = state.runState.fase
-    const prevPartida     = state.runState.partidaAtual
-    const prevPlacar      = state.runState.placarPartida
-    const prevCartasLen   = state.runState.cartasRestantes.length
-    const prevBracketEntry = state.bracketEntry!
+    const prevFase           = state.runState.fase
+    const prevPartida        = state.runState.partidaAtual
+    const prevPlacar         = state.runState.placarPartida
+    const prevCartasLen      = state.runState.cartasRestantes.length
+    const prevBracketEntry   = state.bracketEntry!
+    const prevGolsBrasil     = state.runState.golsBrasil
+    const prevGolsAdversario = state.runState.golsAdversario
 
     dispatch({ type: 'SUBMITTING' })
 
@@ -196,7 +215,7 @@ export default function GamePage() {
       const res = await fetch(`/api/run/${sessionId}/action`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cardId: state.currentCard.id, escolha: lado }),
+        body: JSON.stringify({ state: state.runState, cardId: state.currentCard.id, escolha: lado }),
       })
 
       if (!res.ok) throw new Error('Erro ao enviar escolha')
@@ -204,21 +223,53 @@ export default function GamePage() {
       const data: ActionResponse = await res.json()
 
       if (data.isGameOver) {
+        // Persiste no localStorage e no DB antes de mostrar o game over screen
+        clearActiveRun()
+        saveCompletedSession(sessionId)
+        try {
+          await fetch('/api/runs/complete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionId, state: data.state }),
+          })
+        } catch {
+          // Ignora falha — legado redireciona para / se não encontrar no DB
+        }
         dispatch({ type: 'GAME_OVER', runState: data.state })
         return
       }
 
-      // Toast de gol/gol sofrido quando estávamos na fase reagir
-      if (prevFase === 'reagir' && data.state.placarPartida !== prevPlacar) {
-        const minuto = REAGIR_MINUTO[prevCartasLen] ?? 88
-        setGoalEvent({
-          scored: data.state.placarPartida > prevPlacar,
-          minuto,
-          nome: state.runState.nomeJogador,
-        })
+      const nextCard = data.nextCards?.[0] ?? null
+      if (!nextCard) {
+        dispatch({ type: 'ERROR', message: 'Servidor não retornou próxima carta — recarregue a página' })
+        return
       }
 
-      const nextCard = data.nextCards?.[0] ?? null
+      // Persiste estado atualizado no localStorage
+      saveActiveRun({
+        sessionId,
+        state: data.state,
+        bracketEntry: data.bracketEntry ?? state.bracketEntry!,
+        currentCard: nextCard,
+      })
+
+      // Toast de gol quando um gol real é marcado (threshold de alvoVitoria cruzado)
+      if (prevFase === 'reagir') {
+        const alvo = prevBracketEntry.alvoVitoria
+        const prevBra = Math.floor(prevGolsBrasil / alvo)
+        const prevAdv = Math.floor(prevGolsAdversario / alvo)
+        const newBra  = Math.floor(data.state.golsBrasil / alvo)
+        const newAdv  = Math.floor(data.state.golsAdversario / alvo)
+        if (newBra > prevBra || newAdv > prevAdv) {
+          const minuto = REAGIR_MINUTO_NUM[prevCartasLen] ?? 88
+          setGoalEvent({
+            scored: newBra > prevBra,
+            minuto,
+            nome: state.runState.nomeJogador,
+          })
+        }
+      }
+
       dispatch({
         type: 'ACTION_DONE',
         prevFase,
@@ -277,6 +328,17 @@ export default function GamePage() {
     )
   }
 
+  // Lobby: aparece após o planejar, antes do match_start
+  if (state.showMatchLobby && state.bracketEntry && state.runState) {
+    return (
+      <MatchLobbyScreen
+        bracketEntry={state.bracketEntry}
+        runState={state.runState}
+        onConfirm={() => dispatch({ type: 'CONFIRM_MATCH' })}
+      />
+    )
+  }
+
   // Jornal: aparece após cada partida, antes da transição nova_partida
   if (state.showJornal && state.jornalRecord && state.runState) {
     return (
@@ -314,7 +376,7 @@ export default function GamePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-papel">
-      <HUD state={state.runState} bracketEntry={state.bracketEntry} sessionId={sessionId} />
+      <HUD state={state.runState} bracketEntry={state.bracketEntry} sessionId={sessionId} previewEfeitos={previewEfeitos} />
 
       {/* Faixa de cor indicando fase atual */}
       <div
@@ -324,6 +386,8 @@ export default function GamePage() {
             ? 'var(--color-azul)'
             : state.runState.fase === 'reagir'
             ? 'var(--color-vermelho)'
+            : state.runState.fase === 'penaltis'
+            ? 'var(--color-amarelo)'
             : 'var(--color-verde)',
         }}
       />
@@ -337,7 +401,12 @@ export default function GamePage() {
           <h2 className="font-headline font-black italic text-[28px] leading-[0.9] tracking-[-1px] text-preto">
             vs {state.bracketEntry.adversario}
           </h2>
-          <div className="flex items-center justify-between mt-[8px]">
+          <div className="flex items-center gap-[5px] mt-[8px] mb-[6px]">
+            {Array.from({ length: state.runState.cartasRestantes.length }).map((_, i) => (
+              <span key={i} className="w-[6px] h-[6px] rounded-full bg-preto/25" />
+            ))}
+          </div>
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-[8px]">
               <span
                 className="font-headline font-bold text-[9px] tracking-[0.05em] uppercase text-white px-[8px] py-[3px]"
@@ -356,13 +425,38 @@ export default function GamePage() {
         </div>
       )}
 
-      {/* ── Placar ao vivo (reagir) ── */}
-      {state.runState.fase === 'reagir' && (
+      {/* ── Banner de pênaltis ── */}
+      {state.runState.fase === 'penaltis' && (
+        <div className="bg-preto border-b-2 border-amarelo/30 px-[15px] py-[14px]">
+          <p className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase text-white/40 mb-[4px]">
+            Pênaltis · {state.bracketEntry.adversario}
+          </p>
+          <h2 className="font-headline font-black italic text-[28px] leading-[0.9] tracking-[-1px] text-amarelo">
+            COBRANÇA
+          </h2>
+          <div className="flex items-center gap-[5px] mt-[8px]">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <span
+                key={i}
+                className={`w-[6px] h-[6px] rounded-full ${
+                  i < 3 - state.runState!.cartasRestantes.length
+                    ? 'bg-amarelo'
+                    : 'bg-white/20'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── Placar ao vivo (reagir) e resultado final (entrevista) ── */}
+      {(state.runState.fase === 'reagir' || state.runState.fase === 'entrevista') && (
         <LiveScoreboard
-          golsBrasil={state.runState.golsBrasil}
-          golsAdversario={state.runState.golsAdversario}
+          golsBrasil={Math.floor(state.runState.golsBrasil / state.bracketEntry.alvoVitoria)}
+          golsAdversario={Math.floor(state.runState.golsAdversario / state.bracketEntry.alvoVitoria)}
           adversario={state.bracketEntry.adversario}
           cartasRestantes={state.runState.cartasRestantes.length}
+          finalizado={state.runState.fase === 'entrevista'}
         />
       )}
 
@@ -373,6 +467,7 @@ export default function GamePage() {
             arquetipo={state.runState.arquetipo}
             tokens={state.runState.tokens}
             onChoice={handleChoice}
+            onPreview={setPreviewEfeitos}
             disabled={state.isSubmitting}
           />
         ) : (

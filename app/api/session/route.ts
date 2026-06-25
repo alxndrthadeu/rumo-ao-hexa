@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { dbInsertSession, dbInsertRunState } from '@/lib/db'
 import { createRunState } from '@/engine/state'
 import { buildPreGameDeck } from '@/engine/deck'
 import type { Arquetipo } from '@/engine/types'
@@ -18,25 +17,17 @@ export async function POST(req: NextRequest) {
   }
 
   const seed = Date.now()
+  const sessionId = crypto.randomUUID()
   const baseState = createRunState(arquetipo, seed, nomeJogador, camisa)
-  const { cards: preGameCards, seed: newSeed } = buildPreGameDeck(1, seed, baseState.barras.midia, undefined, arquetipo)
-  const state = { ...baseState, seed: newSeed, cartasRestantes: preGameCards.map(c => c.id) }
-
-  const session = await dbInsertSession(arquetipo)
-  if (!session) {
-    return NextResponse.json({ error: 'erro ao criar sessão' }, { status: 500 })
+  const { cards: preGameCards, seed: newSeed, cartasVistas } = buildPreGameDeck(
+    1, seed, baseState.barras.midia, undefined, arquetipo
+  )
+  const state = {
+    ...baseState,
+    seed: newSeed,
+    cartasRestantes: preGameCards.map(c => c.id),
+    cartasVistas,
   }
 
-  const ok = await dbInsertRunState({
-    session_id: session.id,
-    partida_atual: state.partidaAtual,
-    morto: false,
-    state,
-  })
-
-  if (!ok) {
-    return NextResponse.json({ error: 'erro ao criar estado' }, { status: 500 })
-  }
-
-  return NextResponse.json({ sessionId: session.id, state, cards: preGameCards })
+  return NextResponse.json({ sessionId, state, cards: preGameCards })
 }

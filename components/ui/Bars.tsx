@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import type { RunState } from '@/engine/types'
+import type { Efeitos, RunState } from '@/engine/types'
 
 const BARS = [
   { key: 'torcida' as const, label: 'Tor' },
@@ -11,10 +11,15 @@ const BARS = [
 const ALERT_MIN = 15
 const ALERT_MAX = 85
 
-function MiniBar({ label, value }: { label: string; value: number }) {
+function MiniBar({ label, value, showDot }: { label: string; value: number; showDot: boolean }) {
   const isDanger = value <= ALERT_MIN || value >= ALERT_MAX
   return (
     <div>
+      <div className="h-[8px] flex items-center justify-center mb-[1px]">
+        {showDot && (
+          <span className="w-[5px] h-[5px] rounded-full block" style={{ background: 'rgba(255,255,255,0.7)' }} />
+        )}
+      </div>
       <div
         className="font-headline font-bold text-[8px] tracking-[0.05em] uppercase mb-[3px]"
         style={{ color: 'rgba(255,255,255,0.7)' }}
@@ -34,11 +39,16 @@ function MiniBar({ label, value }: { label: string; value: number }) {
   )
 }
 
-export default function Bars({ barras }: { barras: RunState['barras'] }) {
+export default function Bars({ barras, preview }: { barras: RunState['barras']; preview?: Efeitos | null }) {
   return (
     <div className="grid grid-cols-4 gap-[7px]">
       {BARS.map(({ key, label }) => (
-        <MiniBar key={key} label={label} value={barras[key]} />
+        <MiniBar
+          key={key}
+          label={label}
+          value={barras[key]}
+          showDot={!!preview && typeof preview[key] === 'number' && (preview[key] as number) !== 0}
+        />
       ))}
     </div>
   )

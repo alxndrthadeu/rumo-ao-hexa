@@ -3,13 +3,11 @@
 import { useState } from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import type { BracketEntry, RunState } from '@/engine/types'
+import type { BracketEntry, Efeitos, RunState } from '@/engine/types'
 import Bars from './Bars'
 import PhaseHeader from './PhaseHeader'
 import TokenPanel from './TokenPanel'
-
-// Minuto simbólico por cartas restantes antes da escolha (5 cartas no deck)
-const REAGIR_MINUTO: Record<number, string> = { 5: "15'", 4: "45'", 3: "60'", 2: "88'", 1: "90+'" }
+import { REAGIR_MINUTO_LABEL } from '@/lib/match-constants'
 
 function seedCode(seed: number): string {
   return seed.toString(16).toUpperCase().padStart(8, '0').slice(-8)
@@ -19,15 +17,16 @@ export default function HUD({
   state,
   bracketEntry,
   sessionId,
+  previewEfeitos,
 }: {
   state: RunState
   bracketEntry: BracketEntry
   sessionId?: string
+  previewEfeitos?: Efeitos | null
 }) {
   const [showTokens, setShowTokens] = useState(false)
-  const placar = state.placarPartida
   const minuto = state.fase === 'reagir'
-    ? (REAGIR_MINUTO[state.cartasRestantes.length] ?? "90'")
+    ? (REAGIR_MINUTO_LABEL[state.cartasRestantes.length] ?? "90'")
     : null
 
   const totalTokens = Object.values(state.tokens).reduce((s, n) => s + n, 0)
@@ -89,20 +88,10 @@ export default function HUD({
           <span className="font-headline font-black italic text-[22px] tracking-[-0.5px] leading-none truncate">
             {state.nomeJogador.toUpperCase()}
           </span>
-          {state.fase === 'reagir' && (
-            <span
-              className={clsx(
-                'font-headline font-black italic text-[15px] ml-auto shrink-0',
-                placar > 0 ? 'text-amarelo' : placar < 0 ? 'text-vermelho' : 'text-white/50'
-              )}
-            >
-              {placar > 0 ? `+${placar}` : placar}
-            </span>
-          )}
         </div>
 
         {/* 4 mini-barras horizontais */}
-        <Bars barras={state.barras} />
+        <Bars barras={state.barras} preview={previewEfeitos} />
       </div>
 
       {showTokens && (

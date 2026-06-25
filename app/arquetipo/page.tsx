@@ -1,10 +1,12 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import clsx from 'clsx'
 import type { Arquetipo } from '@/engine/types'
+import { BRACKET } from '@/engine/deck'
+import { saveActiveRun } from '@/lib/history'
 import archetypesData from '@/data/archetypes.json'
 
 type ArchetypeKey = Arquetipo
@@ -94,7 +96,7 @@ export default function ArquetipoPage() {
   const [selected, setSelected] = useState<ArchetypeKey | null>(null)
   const [nome, setNome] = useState('')
   const [camisa, setCamisa] = useState('')
-  const [isPending, startTransition] = useTransition()
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const camisaNum = parseInt(camisa, 10)
@@ -108,23 +110,28 @@ export default function ArquetipoPage() {
   }
 
   async function startRun() {
-    if (!pronto || isPending) return
+    if (!pronto || isLoading) return
     setError(null)
-    startTransition(async () => {
-      try {
-        const res = await fetch('/api/session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ arquetipo: selected, nome: nome.trim(), camisa: camisaNum }),
-        })
-        if (!res.ok) throw new Error()
-        const data = await res.json()
-        localStorage.setItem('rtt_session_id', data.sessionId)
-        router.push(`/jogar/${data.sessionId}`)
-      } catch {
-        setError('Não foi possível iniciar. Tente novamente.')
-      }
-    })
+    setIsLoading(true)
+    try {
+      const res = await fetch('/api/session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ arquetipo: selected, nome: nome.trim(), camisa: camisaNum }),
+      })
+      if (!res.ok) throw new Error()
+      const data = await res.json()
+      saveActiveRun({
+        sessionId: data.sessionId,
+        state: data.state,
+        bracketEntry: BRACKET[0],
+        currentCard: data.cards[0],
+      })
+      router.push(`/jogar/${data.sessionId}`)
+    } catch {
+      setError('Não foi possível iniciar. Tente novamente.')
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -228,14 +235,14 @@ export default function ArquetipoPage() {
         )}
         <button
           onClick={startRun}
-          disabled={!pronto || isPending}
+          disabled={!pronto || isLoading}
           className={clsx(
             'w-full font-headline font-black italic text-[22px] tracking-[0.5px] text-white py-[13px] transition-opacity',
-            pronto && !isPending ? 'bg-verde' : 'bg-preto/20 cursor-not-allowed'
+            pronto && !isLoading ? 'bg-verde' : 'bg-preto/20 cursor-not-allowed'
           )}
-          style={pronto && !isPending ? { boxShadow: '4px 4px 0 #100F0D' } : undefined}
+          style={pronto && !isLoading ? { boxShadow: '4px 4px 0 #100F0D' } : undefined}
         >
-          {isPending ? 'Entrando em campo…' : 'Entrar em campo →'}
+          {isLoading ? 'Entrando em campo…' : 'Entrar em campo →'}
         </button>
       </div>
     </div>

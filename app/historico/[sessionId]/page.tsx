@@ -3,17 +3,20 @@
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import type { MatchRecord, RunState } from '@/engine/types'
+import { loadActiveRun } from '@/lib/history'
 
 const RESULTADO_LABEL: Record<string, string> = {
-  vitoria: 'Vitória',
-  empate:  'Empate',
-  derrota: 'Derrota',
+  vitoria:  'Vitória',
+  empate:   'Empate',
+  derrota:  'Derrota',
+  penaltis: 'Pênaltis',
 }
 
 const RESULTADO_COR: Record<string, string> = {
-  vitoria: 'var(--color-verde)',
-  empate:  'var(--color-azul)',
-  derrota: 'var(--color-vermelho)',
+  vitoria:  'var(--color-verde)',
+  empate:   'var(--color-azul)',
+  derrota:  'var(--color-vermelho)',
+  penaltis: 'var(--color-verde)',
 }
 
 const FASE_LABEL: Record<string, string> = {
@@ -24,10 +27,8 @@ const FASE_LABEL: Record<string, string> = {
   final:   'Final',
 }
 
-function formatPlacar(delta: number, adversario: string): string {
-  const bra = Math.max(0, delta)
-  const adv = Math.max(0, -delta)
-  return `BRA ${bra} × ${adv} ${adversario.slice(0, 3).toUpperCase()}`
+function formatPlacar(record: MatchRecord): string {
+  return `BRA ${record.golsBrasil} × ${record.golsAdversario} ${record.adversario.slice(0, 3).toUpperCase()}`
 }
 
 function EditionCard({ record }: { record: MatchRecord }) {
@@ -68,7 +69,7 @@ function EditionCard({ record }: { record: MatchRecord }) {
         className="font-sans text-[11px] mb-[8px]"
         style={{ color: 'var(--color-preto)', opacity: 0.5 }}
       >
-        {formatPlacar(record.placarDelta, record.adversario)} · {FASE_LABEL[record.fase] ?? record.fase}
+        {formatPlacar(record)} · {FASE_LABEL[record.fase] ?? record.fase}
       </p>
 
       {/* Corpo */}
@@ -110,6 +111,17 @@ export default function HistoricoPage() {
   useEffect(() => {
     async function load() {
       try {
+        // Run ativa no browser tem prioridade (sessionId coincide com a run em andamento)
+        const active = loadActiveRun()
+        if (active?.sessionId === sessionId) {
+          const state = active.state as RunState
+          setHistorico(state.historicoPartidas ?? [])
+          setNomeJogador(state.nomeJogador)
+          setLoading(false)
+          return
+        }
+
+        // Run encerrada — busca no DB
         const res = await fetch(`/api/run/${sessionId}`)
         if (!res.ok) throw new Error('Sessão não encontrada')
         const data = await res.json()

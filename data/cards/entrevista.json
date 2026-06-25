@@ -1392,5 +1392,53 @@
       }
     },
     "requer_flag": "proposta_europa"
+  },
+  {
+    "id": "ent_penaltis",
+    "fase": "entrevista",
+    "partida": 0,
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "A cobrança que classificou o Brasil. O que passou na cabeça na caminhada até a bola?",
+        "esquerda": {
+          "texto": "O estádio desapareceu. Só eu, a bola e o gol.",
+          "efeitos": { "midia": 5, "torcida": 8 },
+          "flag_carreira": "frieza"
+        },
+        "direita": {
+          "texto": "Pensei na torcida. Não podia decepcionar quem veio até aqui.",
+          "efeitos": { "torcida": 12, "moral": 3 },
+          "flag_carreira": "idolo"
+        }
+      },
+      "caido": {
+        "pergunta": "Muita gente te deixou de lado. Aí você decide nos pênaltis. Que recado é esse?",
+        "esquerda": {
+          "texto": "Que ninguém escreve minha história além de mim.",
+          "efeitos": { "midia": 8, "torcida": 5 },
+          "flag_carreira": "raca"
+        },
+        "direita": {
+          "texto": "Fiz o que o time precisava. Nada mais.",
+          "efeitos": { "moral": 5, "midia": 3 },
+          "flag_carreira": "disciplinado"
+        }
+      },
+      "futuro": {
+        "pergunta": "Primeira decisão de pênaltis numa Copa. Como foi sentir esse peso todo?",
+        "esquerda": {
+          "texto": "Pesado. Mas é exatamente disso que vim buscar.",
+          "efeitos": { "torcida": 10, "moral": 3 },
+          "flag_carreira": "raca"
+        },
+        "direita": {
+          "texto": "Aprendi mais em 16 metros do que em anos de treino.",
+          "efeitos": { "midia": 8, "moral": 4 },
+          "flag_carreira": "frieza"
+        }
+      }
+    },
+    "requer_flag": "penaltis"
   }
 ]

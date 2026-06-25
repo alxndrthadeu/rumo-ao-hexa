@@ -1,14 +1,26 @@
 {
   "bars": {
     "initial": {
-      "estrela": { "torcida": 70, "midia": 65, "moral": 60, "fisico": 65 },
-      "caido":   { "torcida": 55, "midia": 80, "moral": 50, "fisico": 50 },
-      "futuro":  { "torcida": 50, "midia": 55, "moral": 60, "fisico": 75 }
+      "estrela": { "torcida": 50, "midia": 45, "moral": 50, "fisico": 50 },
+      "caido":   { "torcida": 40, "midia": 65, "moral": 40, "fisico": 40 },
+      "futuro":  { "torcida": 35, "midia": 40, "moral": 50, "fisico": 60 }
     },
     "deathMin": 0,
     "deathMax": 100,
     "alertThresholdMin": 15,
-    "alertThresholdMax": 85
+    "alertThresholdMax": 85,
+    "deathAtMaxExclude": ["moral"],
+    "deltaMax": 7
+  },
+  "softCap": {
+    "threshold1": 80,
+    "multiplier1": 0.5,
+    "threshold2": 90,
+    "multiplier2": 0.25
+  },
+  "decay": {
+    "threshold": 75,
+    "amount": 3
   },
   "deckBonus": {
     "highThreshold": 70,

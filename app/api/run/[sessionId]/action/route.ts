@@ -1,36 +1,47 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { dbGetRunState, dbUpdateRunState } from '@/lib/db'
-import { applyCardChoice, resolveMatchEnd } from '@/engine/phases'
-import { buildPreGameDeck, buildMatchDeck, getCardById, getInterviewCard, loadBracket } from '@/engine/deck'
+import { applyCardChoice, resolveMatchEnd, resolvePenaltyEnd } from '@/engine/phases'
+import { applyMatchDecay } from '@/engine/bars'
+import { BRACKET, buildPreGameDeck, buildMatchDeck, buildPenaltyDeck, getCardById, getInterviewCard } from '@/engine/deck'
 import type { BracketEntry, Carta, CartaEntrevista, ClasseInimigo, RunState } from '@/engine/types'
+import { assertUnreachable } from '@/engine/types'
 
 type Params = { params: Promise<{ sessionId: string }> }
 
 export async function POST(req: NextRequest, { params }: Params) {
-  const { sessionId } = await params
+  const { sessionId: _sessionId } = await params
   const body = await req.json()
-  const { cardId, escolha } = body as { cardId: string; escolha: 'esquerda' | 'direita' }
+  const { state: rawState, cardId, escolha } = body as {
+    state: RunState
+    cardId: string
+    escolha: 'esquerda' | 'direita'
+  }
 
-  if (!cardId || !['esquerda', 'direita'].includes(escolha)) {
+  if (!rawState || !cardId || !['esquerda', 'direita'].includes(escolha)) {
     return NextResponse.json({ error: 'parâmetros inválidos' }, { status: 400 })
   }
 
-  const row = await dbGetRunState(sessionId)
-  if (!row) {
-    return NextResponse.json({ error: 'sessão não encontrada' }, { status: 404 })
-  }
-
-  const state = row.state as RunState
+  const state = rawState as RunState
   if (state.morto) {
     return NextResponse.json({ error: 'run já encerrada' }, { status: 400 })
   }
 
-  const bracket = loadBracket()
+  const bracket = BRACKET
   const bracketEntry = bracket[state.partidaAtual - 1]
 
   const card = findCardById(state, cardId)
   if (!card) {
-    return NextResponse.json({ error: 'carta não encontrada' }, { status: 400 })
+    // Carta não está em cartasRestantes — pode ser retry de rede de ação já processada.
+    // Se o cardId existe no catálogo, retorna o estado atual idempotentemente.
+    const cardExists = getCardById(cardId) !== null
+    if (cardExists) {
+      return NextResponse.json({
+        state,
+        nextCards: getRemainingCards(state),
+        bracketEntry,
+        isGameOver: state.morto,
+      })
+    }
+    return NextResponse.json({ error: 'carta inválida' }, { status: 400 })
   }
 
   const isCriseCard = card.fase !== 'entrevista' && (card as import('@/engine/types').Carta).camada === 'crise'
@@ -57,7 +68,7 @@ export async function POST(req: NextRequest, { params }: Params) {
     }
   }
 
-  // Track individual goals during reagir (keeps golsBrasil/golsAdversario monotonically accurate)
+  // Track individual goals during reagir
   if (state.fase === 'reagir' && !newState.morto) {
     const delta = newState.placarPartida - prevPlacar
     if (delta > 0) {
@@ -97,33 +108,67 @@ export async function POST(req: NextRequest, { params }: Params) {
       }
       nextCards = [interviewCard]
     } else if (state.fase === 'entrevista') {
-      newState = resolveMatchEnd(newState, bracketEntry, flagsPartidaSnapshot)
-      if (!newState.morto) {
-        const { cards: preGameCards, seed: newSeed } = buildPreGameDeck(
+      if (state.penaltisResolvidos) {
+        // Pós-pênaltis: avança direto sem re-resolver a partida
+        newState = {
+          ...newState,
+          penaltisResolvidos: false,
+          partidaAtual: newState.partidaAtual + 1,
+          fase: 'planejar',
+          placarPartida: 0,
+          golsBrasil: 0,
+          golsAdversario: 0,
+          flagsPartida: [],
+        }
+        newState = applyMatchDecay(newState)
+        const { cards: preGameCards, seed: newSeed, cartasVistas: vistas } = buildPreGameDeck(
           newState.partidaAtual,
           newState.seed,
           newState.barras.midia,
           newState.crise,
-          newState.arquetipo
+          newState.arquetipo,
+          newState.cartasVistas
         )
-        newState = {
-          ...newState,
-          seed: newSeed,
-          cartasRestantes: preGameCards.map(c => c.id),
-        }
+        newState = { ...newState, seed: newSeed, cartasRestantes: preGameCards.map(c => c.id), cartasVistas: vistas }
         nextCards = preGameCards
+      } else {
+        newState = resolveMatchEnd(newState, bracketEntry, flagsPartidaSnapshot)
+        if (!newState.morto) {
+          if (newState.fase === 'penaltis') {
+            const { cards: penaltyCards } = buildPenaltyDeck()
+            nextCards = penaltyCards
+          } else {
+            const { cards: preGameCards, seed: newSeed, cartasVistas: vistas } = buildPreGameDeck(
+              newState.partidaAtual,
+              newState.seed,
+              newState.barras.midia,
+              newState.crise,
+              newState.arquetipo,
+              newState.cartasVistas
+            )
+            newState = {
+              ...newState,
+              seed: newSeed,
+              cartasRestantes: preGameCards.map(c => c.id),
+              cartasVistas: vistas,
+            }
+            nextCards = preGameCards
+          }
+        }
       }
+    } else if (state.fase === 'penaltis') {
+      newState = resolvePenaltyEnd(newState)
+      if (!newState.morto) {
+        const interviewCard = getInterviewCard(newState)
+        newState = { ...newState, cartasRestantes: [interviewCard.id] }
+        nextCards = [interviewCard]
+      }
+    } else {
+      assertUnreachable(state.fase)
     }
   } else if (!newState.morto) {
-    nextCards = getRemainingCards(newState, bracket) as Carta[] | CartaEntrevista[]
+    nextCards = getRemainingCards(newState) as Carta[] | CartaEntrevista[]
   }
-
-  await dbUpdateRunState(sessionId, {
-    state: newState,
-    partida_atual: newState.partidaAtual,
-    morto: newState.morto,
-    causa_morte: newState.causaMorte ?? null,
-  })
 
   const newBracketEntry = bracket[newState.partidaAtual - 1] ?? bracketEntry
 
@@ -139,11 +184,7 @@ function findCardById(
   state: RunState,
   cardId: string,
 ): Carta | CartaEntrevista | null {
-  if (state.fase === 'planejar') {
-    if (!state.cartasRestantes.includes(cardId)) return null
-    return getCardById(cardId)
-  }
-  if (state.fase === 'reagir') {
+  if (state.fase === 'planejar' || state.fase === 'reagir' || state.fase === 'penaltis') {
     if (!state.cartasRestantes.includes(cardId)) return null
     return getCardById(cardId)
   }
@@ -156,14 +197,8 @@ function findCardById(
 
 function getRemainingCards(
   state: RunState,
-  _bracket: BracketEntry[]
 ): (Carta | CartaEntrevista)[] {
-  if (state.fase === 'planejar') {
-    return state.cartasRestantes
-      .map(id => getCardById(id))
-      .filter((c): c is NonNullable<typeof c> => c !== null)
-  }
-  if (state.fase === 'reagir') {
+  if (state.fase === 'planejar' || state.fase === 'reagir' || state.fase === 'penaltis') {
     return state.cartasRestantes
       .map(id => getCardById(id))
       .filter((c): c is NonNullable<typeof c> => c !== null)

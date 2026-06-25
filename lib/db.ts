@@ -2,62 +2,49 @@ import type { RunState } from '@/engine/types'
 import { IS_MEM, memStore } from './mem-store'
 import { createServerClient } from './supabase/server'
 
-export async function dbInsertSession(arquetipo: string): Promise<{ id: string } | null> {
+export async function dbSaveCompletedRun(sessionId: string, state: RunState): Promise<boolean> {
   if (IS_MEM) {
-    const { data } = memStore.sessions.insert({ arquetipo })
-    return data
-  }
-  const sb = createServerClient()
-  const { data, error } = await sb.from('sessions').insert({ arquetipo }).select('id').single()
-  if (error || !data) return null
-  return data as { id: string }
-}
-
-export async function dbInsertRunState(row: {
-  session_id: string
-  partida_atual: number
-  morto: boolean
-  state: RunState
-}): Promise<boolean> {
-  if (IS_MEM) {
-    memStore.runStates.insert(row)
+    memStore.completedRuns.save(sessionId, state)
     return true
   }
   const sb = createServerClient()
-  const { error } = await sb.from('run_states').insert(row)
+  const { error } = await sb.from('completed_runs').insert({ session_id: sessionId, state })
   return !error
 }
 
-export async function dbGetRunState(sessionId: string): Promise<{ state: RunState; morto: boolean } | null> {
+export async function dbGetCompletedRun(
+  sessionId: string
+): Promise<{ state: RunState; createdAt: string } | null> {
   if (IS_MEM) {
-    const { data } = memStore.runStates.findBySession(sessionId)
-    if (!data) return null
-    return { state: data.state, morto: data.morto }
+    const row = memStore.completedRuns.findById(sessionId)
+    if (!row) return null
+    return { state: row.state, createdAt: row.createdAt }
   }
   const sb = createServerClient()
   const { data, error } = await sb
-    .from('run_states')
-    .select('state, morto')
+    .from('completed_runs')
+    .select('state, created_at')
     .eq('session_id', sessionId)
     .single()
   if (error || !data) return null
-  return data as { state: RunState; morto: boolean }
+  return { state: data.state as RunState, createdAt: data.created_at as string }
 }
 
-export async function dbUpdateRunState(
-  sessionId: string,
-  patch: { state: RunState; partida_atual: number; morto: boolean; causa_morte?: string | null }
-): Promise<void> {
+export async function dbGetCompletedRuns(
+  sessionIds: string[]
+): Promise<{ sessionId: string; state: RunState; createdAt: string }[]> {
   if (IS_MEM) {
-    memStore.runStates.update(sessionId, patch)
-    return
+    return memStore.completedRuns.findMany(sessionIds)
   }
   const sb = createServerClient()
-  await sb.from('run_states').update(patch).eq('session_id', sessionId)
-}
-
-export async function dbCompleteSession(sessionId: string): Promise<void> {
-  if (IS_MEM) return
-  const sb = createServerClient()
-  await sb.from('sessions').update({ status: 'completed' }).eq('id', sessionId)
+  const { data, error } = await sb
+    .from('completed_runs')
+    .select('session_id, state, created_at')
+    .in('session_id', sessionIds)
+  if (error || !data) return []
+  return (data as { session_id: string; state: RunState; created_at: string }[]).map(row => ({
+    sessionId: row.session_id,
+    state: row.state,
+    createdAt: row.created_at,
+  }))
 }

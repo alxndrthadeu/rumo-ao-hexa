@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import type { BracketEntry } from '@/engine/types'
 
-export type TransitionType = 'match_start' | 'entrevista_start' | 'nova_partida'
+export type TransitionType = 'match_start' | 'entrevista_start' | 'nova_partida' | 'penaltis_start'
 
 const FASE_LABEL: Record<string, string> = {
   grupo:   'Fase de Grupos',
@@ -17,9 +17,10 @@ const AUTO_DISMISS_MS: Record<TransitionType, number> = {
   match_start:      3800,
   entrevista_start: 3200,
   nova_partida:     3600,
+  penaltis_start:   3200,
 }
 
-type LastResult = { adversario: string; placarDelta: number }
+type LastResult = { adversario: string; placarDelta: number; golsBrasil?: number; golsAdversario?: number; viaPenaltis?: boolean }
 
 type Props = {
   type: TransitionType
@@ -35,63 +36,68 @@ type Props = {
 // ─── Componente de resultado ─────────────────────────────────────────────────
 
 function BadgeResultado({
-  placarDelta,
   adversario,
   alvoVitoria,
   empateValido,
+  golsBrasil,
+  golsAdversario,
 }: {
-  placarDelta: number
   adversario: string
   alvoVitoria: number
   empateValido: boolean
+  golsBrasil?: number
+  golsAdversario?: number
 }) {
-  const isVitoria = placarDelta >= alvoVitoria
-  const isEmpate  = !isVitoria && placarDelta > 0 && empateValido
+  const bra = Math.floor((golsBrasil ?? 0) / alvoVitoria)
+  const adv = Math.floor((golsAdversario ?? 0) / alvoVitoria)
+  const isVitoria = bra > adv
+  const isEmpate  = !isVitoria && bra === adv && empateValido
+  const advAbrev = adversario.slice(0, 3).toUpperCase()
+
+  const scoreLine = (
+    <span className="font-headline font-black italic text-[28px] leading-none tracking-[-1px] text-white/80">
+      BRA {bra} — {adv} {advAbrev}
+    </span>
+  )
 
   if (isVitoria) {
     const label = empateValido ? 'Vitória' : 'Classificado'
     return (
-      <div className="flex flex-col items-center gap-[6px] mb-[28px]">
+      <div className="flex flex-col items-center gap-[8px] mb-[28px]">
         <span
           className="font-headline font-black italic text-[11px] tracking-[0.15em] uppercase text-preto bg-amarelo px-[12px] py-[4px]"
           style={{ transform: 'skewX(-8deg)' }}
         >
           {label}
         </span>
-        <span className="font-headline font-bold text-[14px] text-white/60">
-          Brasil +{placarDelta} · {adversario}
-        </span>
+        {scoreLine}
       </div>
     )
   }
 
   if (isEmpate) {
     return (
-      <div className="flex flex-col items-center gap-[6px] mb-[28px]">
+      <div className="flex flex-col items-center gap-[8px] mb-[28px]">
         <span
           className="font-headline font-black italic text-[11px] tracking-[0.15em] uppercase text-white/70 border-2 border-white/30 px-[12px] py-[4px]"
           style={{ transform: 'skewX(-8deg)' }}
         >
           Empate
         </span>
-        <span className="font-headline font-bold text-[14px] text-white/50">
-          Brasil +{placarDelta} · {adversario}
-        </span>
+        {scoreLine}
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col items-center gap-[6px] mb-[28px]">
+    <div className="flex flex-col items-center gap-[8px] mb-[28px]">
       <span
         className="font-headline font-black italic text-[11px] tracking-[0.15em] uppercase text-white bg-vermelho px-[12px] py-[4px]"
         style={{ transform: 'skewX(-8deg)' }}
       >
         Derrota
       </span>
-      <span className="font-headline font-bold text-[14px] text-white/50">
-        Brasil {placarDelta > 0 ? `+${placarDelta}` : placarDelta} · {adversario}
-      </span>
+      {scoreLine}
     </div>
   )
 }
@@ -170,9 +176,6 @@ export default function TransitionScreen({
           <span className="font-headline font-bold text-[11px] tracking-[0.1em] uppercase px-[10px] py-[4px] border-2 border-white/30 text-white/70">
             {FASE_LABEL[bracketEntry.fase] ?? bracketEntry.fase}
           </span>
-          <span className="font-headline font-bold text-[11px] tracking-[0.1em] uppercase text-amarelo">
-            Alvo +{bracketEntry.alvoVitoria}
-          </span>
         </div>
 
         <PlacarInicial placar={0} adversario={bracketEntry.adversario} />
@@ -185,9 +188,47 @@ export default function TransitionScreen({
     )
   }
 
+  // ── penaltis_start ─────────────────────────────────────────────────────────
+
+  if (type === 'penaltis_start') {
+    return (
+      <button
+        onClick={onDismiss}
+        className="flex flex-col min-h-screen w-full bg-preto items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
+      >
+        <div className="absolute bg-vermelho pointer-events-none"
+          style={{ top: '-10%', left: '-20%', width: '90%', height: '130%', transform: 'rotate(12deg)', opacity: 0.10 }} />
+
+        <span
+          className="font-headline font-black italic text-[10px] tracking-[0.2em] uppercase text-preto bg-amarelo px-[10px] py-[4px] mb-[28px]"
+          style={{ transform: 'skewX(-8deg)' }}
+        >
+          Mata-mata
+        </span>
+
+        <h2 className="font-headline font-black italic text-[72px] leading-[0.82] tracking-[-3px] text-amarelo mb-[18px]">
+          PÊN<br />ALTIS
+        </h2>
+
+        <p className="font-headline font-bold text-[13px] text-white/50 mb-[4px]">
+          {bracketEntry.adversario}
+        </p>
+        <p className="font-headline font-bold text-[11px] text-white/35">
+          A decisão é sua.
+        </p>
+
+        <p className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase mt-[52px]"
+          style={{ color: 'rgba(255,255,255,0.25)' }}>
+          toque para cobrar
+        </p>
+      </button>
+    )
+  }
+
   // ── entrevista_start ───────────────────────────────────────────────────────
 
   if (type === 'entrevista_start') {
+    const viaPenaltis = lastResult?.viaPenaltis
     return (
       <button
         onClick={onDismiss}
@@ -196,21 +237,31 @@ export default function TransitionScreen({
         <div className="absolute bg-white pointer-events-none"
           style={{ top: '-10%', left: '-20%', width: '90%', height: '130%', transform: 'rotate(12deg)', opacity: 0.05 }} />
 
-        {/* Resultado da partida */}
-        {lastResult && (
+        {/* Resultado da partida — oculto quando classificado via pênaltis */}
+        {lastResult && !viaPenaltis && (
           <BadgeResultado
-            placarDelta={lastResult.placarDelta}
             adversario={lastResult.adversario}
             alvoVitoria={bracketEntry.alvoVitoria}
             empateValido={bracketEntry.empateValido}
+            golsBrasil={lastResult.golsBrasil}
+            golsAdversario={lastResult.golsAdversario}
           />
+        )}
+
+        {viaPenaltis && (
+          <span
+            className="font-headline font-black italic text-[11px] tracking-[0.15em] uppercase text-preto bg-amarelo px-[12px] py-[4px] mb-[28px]"
+            style={{ transform: 'skewX(-8deg)' }}
+          >
+            Classificado nas Penalidades
+          </span>
         )}
 
         <span
           className="font-headline font-black italic text-[10px] tracking-[0.2em] uppercase text-white bg-preto px-[10px] py-[4px] mb-[20px]"
           style={{ transform: 'skewX(-8deg)' }}
         >
-          Fim dos 90 Minutos
+          {viaPenaltis ? 'Fim dos Pênaltis' : 'Fim dos 90 Minutos'}
         </span>
 
         <h2 className="font-headline font-black italic text-[52px] leading-[0.85] tracking-[-2px] text-white mb-[14px]">
@@ -249,6 +300,15 @@ export default function TransitionScreen({
         Próxima Partida
       </span>
 
+      {lastResult?.viaPenaltis && (
+        <span
+          className="font-headline font-black italic text-[10px] tracking-[0.15em] uppercase text-preto bg-amarelo px-[10px] py-[3px] mb-[12px]"
+          style={{ transform: 'skewX(-8deg)' }}
+        >
+          Classificado nas Penalidades
+        </span>
+      )}
+
       <p className="font-headline font-bold text-[11px] tracking-[0.2em] uppercase mb-[4px]"
         style={{ color: 'rgba(255,255,255,0.4)' }}>
         {FASE_LABEL[bracketEntry.fase] ?? bracketEntry.fase}
@@ -261,9 +321,6 @@ export default function TransitionScreen({
       <div className="flex items-center gap-[8px] mb-[36px]">
         <span className="font-headline font-bold text-[12px] tracking-[0.1em] uppercase text-white/60 border-2 border-white/20 px-[10px] py-[4px]">
           Concentração P{partida}
-        </span>
-        <span className="font-headline font-bold text-[12px] text-amarelo">
-          Alvo +{bracketEntry.alvoVitoria}
         </span>
       </div>
 

@@ -32,8 +32,15 @@ export default function Home() {
   const [activeSession, setActiveSession] = useState<string | null>(null)
 
   useEffect(() => {
-    const id = localStorage.getItem('rtt_session_id')
-    if (id) setActiveSession(id)
+    // Limpa chave antiga da arquitetura anterior (se existir)
+    localStorage.removeItem('rtt_session_id')
+
+    try {
+      const raw = localStorage.getItem('rtt_active_run')
+      if (!raw) return
+      const active = JSON.parse(raw)
+      if (active?.sessionId) setActiveSession(active.sessionId)
+    } catch {}
   }, [])
 
   return (
@@ -88,7 +95,7 @@ export default function Home() {
               Continuar
             </button>
             <button
-              onClick={() => { localStorage.removeItem('rtt_session_id'); setActiveSession(null) }}
+              onClick={() => { localStorage.removeItem('rtt_active_run'); setActiveSession(null) }}
               className="px-[10px] py-[7px] border-2 border-preto/30 text-preto/50 font-headline font-bold text-[11px]"
             >
               Abandonar

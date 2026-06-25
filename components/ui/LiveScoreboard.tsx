@@ -7,17 +7,19 @@ export default function LiveScoreboard({
   golsAdversario,
   adversario,
   cartasRestantes,
+  finalizado = false,
 }: {
   golsBrasil: number
   golsAdversario: number
   adversario: string
   cartasRestantes: number
+  finalizado?: boolean
 }) {
   const bra = golsBrasil
   const adv = golsAdversario
   const advAbrev = adversario.slice(0, 3).toUpperCase()
-  const minuto = MINUTOS[cartasRestantes] ?? "90+'"
-  const is90 = cartasRestantes === 1
+  const minuto = finalizado ? 'FIM' : (MINUTOS[cartasRestantes] ?? "90+'")
+  const is90 = !finalizado && cartasRestantes === 1
 
   return (
     <div className="bg-preto px-[18px] py-[14px] flex items-center justify-between gap-[12px]">
@@ -36,13 +38,15 @@ export default function LiveScoreboard({
           {bra} — {adv}
         </div>
         <div className="flex items-center justify-center gap-[6px] mt-[5px]">
-          <span
-            className="w-[6px] h-[6px] rounded-full bg-vermelho"
-            style={{ animation: 'pulse 1.4s ease-in-out infinite' }}
-          />
+          {!finalizado && (
+            <span
+              className="w-[6px] h-[6px] rounded-full bg-vermelho"
+              style={{ animation: 'pulse 1.4s ease-in-out infinite' }}
+            />
+          )}
           <span
             className="font-headline font-black italic text-[14px] tracking-[0.02em]"
-            style={{ color: is90 ? 'var(--color-vermelho)' : 'var(--color-amarelo)' }}
+            style={{ color: finalizado ? 'rgba(255,255,255,0.4)' : is90 ? 'var(--color-vermelho)' : 'var(--color-amarelo)' }}
           >
             {minuto}
           </span>
