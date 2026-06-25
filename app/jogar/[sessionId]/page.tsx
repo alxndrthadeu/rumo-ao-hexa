@@ -52,7 +52,7 @@ const initial: GameState = {
 type GameAction =
   | { type: 'LOADED'; runState: RunState; bracketEntry: BracketEntry; card: Carta | CartaEntrevista }
   | { type: 'SUBMITTING' }
-  | { type: 'RESULT_PREVIEW'; runState: RunState; bracketEntry: BracketEntry }
+  | { type: 'RESULT_PREVIEW'; runState: RunState }
   | { type: 'ACTION_DONE'; prevFase: string; prevPartida: number; prevPlacar: number; prevBracketEntry: BracketEntry; runState: RunState; bracketEntry: BracketEntry; nextCard: Carta | CartaEntrevista }
   | { type: 'GAME_OVER'; runState: RunState }
   | { type: 'DISMISS_JORNAL' }
@@ -95,8 +95,14 @@ function reducer(state: GameState, action: GameAction): GameState {
     case 'RESULT_PREVIEW':
       return {
         ...state,
-        runState: action.runState,
-        bracketEntry: action.bracketEntry,
+        runState: {
+          ...state.runState!,
+          barras: action.runState.barras,
+          tokens: action.runState.tokens,
+          golsBrasil: action.runState.golsBrasil,
+          golsAdversario: action.runState.golsAdversario,
+          placarPartida: action.runState.placarPartida,
+        },
         currentCard: null,
       }
     case 'ACTION_DONE': {
@@ -302,7 +308,7 @@ export default function GamePage() {
         || upcomingTransition === 'penaltis_start'
 
       if (needsPreview) {
-        dispatch({ type: 'RESULT_PREVIEW', runState: data.state, bracketEntry: nextBracketEntry })
+        dispatch({ type: 'RESULT_PREVIEW', runState: data.state })
         await new Promise<void>(resolve => setTimeout(resolve, 700))
       }
 
