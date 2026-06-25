@@ -170,7 +170,7 @@ export default function Card({
       <div
         {...bind()}
         className={clsx(
-          'flex-1 min-h-0 mx-[15px] flex flex-col justify-between bg-papel cursor-grab active:cursor-grabbing',
+          'flex-1 min-h-0 mx-[15px] flex flex-col justify-center bg-papel cursor-grab active:cursor-grabbing',
           isCrise ? 'border-2 border-vermelho' : 'border-2 border-preto',
           isHinting && 'animate-swipe-hint'
         )}
@@ -212,35 +212,6 @@ export default function Card({
           </p>
         </div>
 
-        {/* Escolhas */}
-        <div>
-          {/* Esquerda */}
-          <div
-            className={clsx(
-              'border-t-2 border-preto px-[12px] py-[11px] flex items-start gap-[10px]',
-              isDraggingLeft ? 'bg-vermelho/10' : 'bg-white'
-            )}
-          >
-            <span className="font-headline font-black italic text-[17px] text-vermelho leading-none mt-[1px] shrink-0">←</span>
-            <div className="flex-1">
-              <p className="text-[14px] leading-[1.2] font-medium text-preto">{esquerda.texto}</p>
-              <ChoiceFooter escolha={esquerda} tokens={tokens} />
-            </div>
-          </div>
-          {/* Direita */}
-          <div
-            className={clsx(
-              'border-t-2 border-preto px-[12px] py-[11px] flex items-start gap-[10px]',
-              isDraggingRight ? 'bg-verde/10' : 'bg-white'
-            )}
-          >
-            <div className="flex-1 text-right">
-              <p className="text-[14px] leading-[1.2] font-medium text-preto">{direita.texto}</p>
-              <ChoiceFooter escolha={direita} tokens={tokens} className="justify-end" />
-            </div>
-            <span className="font-headline font-black italic text-[17px] text-verde leading-none mt-[1px] shrink-0">→</span>
-          </div>
-        </div>
       </div>
 
       {/* Hint swipe */}
@@ -249,23 +220,31 @@ export default function Card({
         ← arrasta para escolher →
       </p>
 
-      {/* Botões fallback acessíveis */}
+      {/* Botões de escolha */}
       <div className="flex gap-[9px] px-[15px] pb-[20px] pt-[6px]">
         <button
           onClick={() => choose('esquerda')}
           disabled={disabled || !!confirming}
-          className="flex-1 min-h-[44px] border-2 border-preto bg-white font-headline font-bold italic text-[13px] text-vermelho tracking-[0.3px] hover:bg-vermelho hover:text-white transition-colors disabled:opacity-40"
+          className={clsx(
+            'flex-1 flex flex-col items-start gap-[5px] border-2 border-preto bg-white px-[12px] py-[10px] font-headline font-bold italic text-[13px] text-vermelho tracking-[0.3px] hover:bg-vermelho hover:text-white transition-colors disabled:opacity-40',
+            isDraggingLeft && 'bg-vermelho/10'
+          )}
           style={{ boxShadow: '3px 3px 0 #100F0D' }}
         >
-          ← {esquerda.texto}
+          <span>← {esquerda.texto}</span>
+          <ChoiceFooter escolha={esquerda} tokens={tokens} />
         </button>
         <button
           onClick={() => choose('direita')}
           disabled={disabled || !!confirming}
-          className="flex-1 min-h-[44px] border-2 border-preto bg-white font-headline font-bold italic text-[13px] text-verde tracking-[0.3px] hover:bg-verde hover:text-white transition-colors disabled:opacity-40"
+          className={clsx(
+            'flex-1 flex flex-col items-end gap-[5px] border-2 border-preto bg-white px-[12px] py-[10px] font-headline font-bold italic text-[13px] text-verde tracking-[0.3px] hover:bg-verde hover:text-white transition-colors disabled:opacity-40',
+            isDraggingRight && 'bg-verde/10'
+          )}
           style={{ boxShadow: '3px 3px 0 #100F0D' }}
         >
-          {direita.texto} →
+          <span>{direita.texto} →</span>
+          <ChoiceFooter escolha={direita} tokens={tokens} />
         </button>
       </div>
     </div>
