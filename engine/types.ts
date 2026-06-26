@@ -15,7 +15,7 @@ export type ClasseInimigo =
   | 'saco_pancada'
 
 export type ResultadoPartida = 'vitoria' | 'empate' | 'derrota' | 'penaltis'
-export type CausaMorte = 'placar' | 'barra' | 'vitoria' | 'expulsao' | 'penaltis'
+export type CausaMorte = 'placar' | 'barra' | 'vitoria' | 'penaltis'
 
 export interface CriseState {
   barra: Barra
@@ -38,11 +38,20 @@ export interface CondicionalRamo {
   climax?: boolean
 }
 
+export interface RiscoSucesso {
+  efeitos?: Efeitos
+  flags_partida?: string[]
+  eco?: Carta | string
+}
+
 export interface Risco {
-  tipo: string
+  tipo?: string
   chance: number
-  efeitos: Efeitos
   requer_token?: string
+  efeitos?: Efeitos
+  flags_partida?: string[]
+  niggle?: string
+  sucesso?: RiscoSucesso
 }
 
 export interface Escolha {
@@ -55,6 +64,7 @@ export interface Escolha {
   gancho_entrevista?: string
   concede_token?: string
   risco?: Risco
+  eco?: Carta | string
   // Preenchido quando efeitos.placar === 'condicional'
   condicional?: {
     limiar: number
@@ -75,6 +85,8 @@ export interface Carta {
   requer_classe?: ClasseInimigo
   requer_passiva?: Arquetipo
   posicao?: 'inicio' | 'fim'
+  quando?: 'agora' | 'proximo_slot' | 'fim_partida'
+  chance?: number
 }
 
 export interface CartaEntrevista {
@@ -97,6 +109,14 @@ export interface BracketEntry {
   classe: ClasseInimigo
   alvoVitoria: number
   empateValido: boolean
+}
+
+// ─── Eco diferido ────────────────────────────────────────────────────────────
+
+export interface EcoDiferido {
+  cartaId: string
+  quando: 'proximo_slot' | 'fim_partida'
+  chance?: number
 }
 
 // ─── Estado da run ───────────────────────────────────────────────────────────
@@ -127,6 +147,9 @@ export interface RunState {
   seed: number
   initialSeed: number
   tokens: Record<string, number>
+  ecoPendente?: string
+  ecoCadeia?: string[]
+  ecosDiferidos?: EcoDiferido[]
 }
 
 // ─── Resultados de API / engine ──────────────────────────────────────────────

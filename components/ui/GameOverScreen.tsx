@@ -20,9 +20,7 @@ function buildMensagem(state: RunState): { titulo: string; subtitulo: string } {
   if (causaMorte === 'vitoria') {
     return { titulo: 'HEXA!', subtitulo: 'Campeão do Mundo.' }
   }
-  if (causaMorte === 'expulsao') {
-    return { titulo: 'EXPULSO', subtitulo: 'Cartão vermelho. A Copa acabou aqui.' }
-  }
+
   if (causaMorte === 'placar') {
     return { titulo: 'ELIMINADO', subtitulo: 'Placar insuficiente. A jornada termina aqui.' }
   }

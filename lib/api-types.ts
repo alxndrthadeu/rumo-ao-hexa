@@ -13,11 +13,17 @@ export interface RunStateResponse {
   isGameOver: boolean
 }
 
+export interface EcoToast {
+  texto: string
+  tipo: 'gol_sofrido' | 'neutro'
+}
+
 export interface ActionResponse {
   state: RunState
   nextCards: Carta[] | CartaEntrevista[] | null
   bracketEntry: BracketEntry
   isGameOver: boolean
+  ecoToasts?: EcoToast[]
 }
 
 export interface LegacyResponse {

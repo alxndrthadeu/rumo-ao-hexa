@@ -6,13 +6,22 @@
     "texto": "O médico bate na porta minutos antes de caminhar até a marca. Ele precisa saber: você está apto para bater?",
     "esquerda": {
       "texto": "Cem por cento. Não tem dúvida.",
-      "efeitos": { "moral": 3 },
-      "flags_partida": ["pronto_penalti"]
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "pronto_penalti"
+      ]
     },
     "direita": {
       "texto": "Estou no limite, mas bato se precisar.",
-      "efeitos": { "fisico": 3, "moral": -2 },
-      "flags_partida": ["limitado_penalti"]
+      "efeitos": {
+        "fisico": 3,
+        "moral": -2
+      },
+      "flags_partida": [
+        "limitado_penalti"
+      ]
     }
   },
   {
@@ -22,12 +31,18 @@
     "texto": "O técnico quer você na primeira cobrança. Abrir os pênaltis é a decisão mais solitária do futebol.",
     "esquerda": {
       "texto": "Vou abrir. É minha responsabilidade.",
-      "efeitos": { "moral": 3 },
-      "flags_partida": ["abriu_penaltis"]
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "abriu_penaltis"
+      ]
     },
     "direita": {
       "texto": "Prefiro ir depois. Quero ver o goleiro primeiro.",
-      "efeitos": { "moral": -2 }
+      "efeitos": {
+        "moral": -2
+      }
     }
   },
   {
@@ -37,21 +52,114 @@
     "texto": "A fila acabou. É você e o goleiro. Dezesseis metros de silêncio. Como vai cobrar?",
     "esquerda": {
       "texto": "No ângulo. Potência total. Sem olhar o goleiro.",
-      "efeitos": { "placar": 1, "moral": 4 },
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
       "risco": {
         "tipo": "miss_penalti",
         "chance": 0.42,
-        "efeitos": { "placar": -1, "moral": -10 }
+        "efeitos": {
+          "placar": -1,
+          "moral": -10
+        }
       }
     },
     "direita": {
       "texto": "Colocado. Centro do gol. Frieza absoluta.",
-      "efeitos": { "placar": 1, "moral": 2 },
+      "efeitos": {
+        "placar": 1,
+        "moral": 2
+      },
       "risco": {
         "tipo": "miss_penalti",
         "chance": 0.22,
-        "efeitos": { "placar": -1, "moral": -5 }
+        "efeitos": {
+          "placar": -1,
+          "moral": -5
+        }
       }
+    }
+  },
+  {
+    "id": "penalti_pressao_torcida",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "Caminhando pra marca do pênalti, a torcida adversária faz um barulho ensurdecedor pra te desconcentrar. Como você blinda a cabeça?",
+    "esquerda": {
+      "texto": "Respira fundo, isola o som",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Encara a torcida, usa a raiva",
+      "efeitos": {
+        "placar": 1,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "ousado",
+        "raca"
+      ]
+    }
+  },
+  {
+    "id": "penalti_goleiro_provoca",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "O goleiro deles tenta o jogo mental: aponta o canto, fala no seu ouvido, dança na linha. Você cai no jogo dele ou ignora?",
+    "esquerda": {
+      "texto": "Ignora totalmente, foco na bola",
+      "efeitos": {
+        "placar": 1,
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza",
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Devolve a provocação, intimida de volta",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado",
+        "pavio_curto"
+      ]
+    }
+  },
+  {
+    "id": "penalti_companheiro_falha",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "Um companheiro acabou de perder a cobrança e desabou no gramado, destruído. Você é o próximo. Levanta o cara ou foca só em você?",
+    "esquerda": {
+      "texto": "Levanta o companheiro antes de bater",
+      "efeitos": {
+        "moral": 6
+      },
+      "flags_partida": [
+        "lider",
+        "coletivo"
+      ],
+      "concede_token": "lider"
+    },
+    "direita": {
+      "texto": "Foca só na sua cobrança, frio",
+      "efeitos": {
+        "placar": 1,
+        "moral": 3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
     }
   }
 ]

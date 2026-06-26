@@ -281,5 +281,312 @@
         "disciplinado"
       ]
     }
+  },
+  {
+    "id": "riv_hino_provoca",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 0,
+    "texto": "Eles cantam o hino provocando a história das suas derrotas. A torcida deles esfrega o passado na sua cara. Resposta?",
+    "esquerda": {
+      "texto": "Cala todos com um lance decisivo",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "efeitos": {
+          "moral": -4
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 10
+          },
+          "flags_partida": [
+            "heroi",
+            "raca"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Guarda a raiva pro momento certo",
+      "efeitos": {
+        "moral": 5,
+        "placar": 1
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "riv_velho_inimigo",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 0,
+    "texto": "O camisa 10 deles é seu velho rival de outras batalhas. Ele te procura no início pra medir forças. Você responde como?",
+    "esquerda": {
+      "texto": "Encara olho no olho, sem piscar",
+      "efeitos": {
+        "moral": 5,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "raca",
+        "ousado"
+      ]
+    },
+    "direita": {
+      "texto": "Sorri e responde no placar",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "riv_torcida_invade_cabeca",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 0,
+    "texto": "A pressão da torcida rival é tão grande que parece que o estádio inteiro joga contra você. O clássico pesa diferente.",
+    "esquerda": {
+      "texto": "Transforma a pressão em energia",
+      "efeitos": {
+        "moral": 6,
+        "fisico": -4
+      },
+      "flags_partida": [
+        "raca",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "A pressão trava, joga apagado",
+      "efeitos": {
+        "moral": -5,
+        "placar": -1
+      },
+      "flags_partida": [
+        "covarde"
+      ]
+    }
+  },
+  {
+    "id": "riv_gol_relampago",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 0,
+    "texto": "O rival marca nos primeiros minutos e a torcida deles delira, humilhando o Brasil. O clássico pode virar pesadelo. Reação?",
+    "esquerda": {
+      "texto": "Acalma o time, longa caminhada",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "lider",
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Parte pra cima imediatamente, afobado",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.55,
+        "efeitos": {
+          "placar": -1,
+          "moral": -4
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 1,
+            "torcida": 6
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "riv_provoca_gol",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 0,
+    "texto": "Você marcou no clássico! A chance de comemorar na cara da torcida rival é tentadora — mas pode incendiar o jogo.",
+    "esquerda": {
+      "texto": "Comemora provocando, sem medo",
+      "efeitos": {
+        "torcida": 6,
+        "midia": -4
+      },
+      "flags_partida": [
+        "showman",
+        "ousado"
+      ],
+      "eco": "eco_cartao_juiz"
+    },
+    "direita": {
+      "texto": "Comemora contido, aponta pro escudo",
+      "efeitos": {
+        "torcida": 6,
+        "midia": 5
+      },
+      "flags_partida": [
+        "idolo",
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "riv_jogo_pegado",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 0,
+    "texto": "O clássico ferve, faltas dos dois lados, ninguém recua. O jogo está no fio da navalha. Você lidera a guerra ou o futebol?",
+    "esquerda": {
+      "texto": "Lidera a guerra, vai pra cima",
+      "efeitos": {
+        "moral": 5,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "raca"
+      ],
+      "eco": "eco_cartao_juiz"
+    },
+    "direita": {
+      "texto": "Lidera o futebol, eleva o nível",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "lider",
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "riv_imortalidade",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 0,
+    "texto": "Um gol agora neste clássico te torna eterno na história da rivalidade. A chance está na sua frente. O peso do imortal.",
+    "esquerda": {
+      "texto": "Busca a eternidade, arrisca tudo",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.55,
+        "efeitos": {
+          "moral": -5
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 3,
+            "torcida": 12,
+            "midia": 8
+          },
+          "flags_partida": [
+            "heroi",
+            "idolo"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Joga pro time, a glória é coletiva",
+      "efeitos": {
+        "placar": 1,
+        "moral": 5
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "riv_ex_companheiro",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 0,
+    "texto": "Um ex-companheiro de clube agora joga pelo rival e vem te marcar. Ele conhece todos os seus truques. Briga ou amizade?",
+    "esquerda": {
+      "texto": "Amizade fora, guerra dentro",
+      "efeitos": {
+        "moral": 4,
+        "placar": 1
+      },
+      "flags_partida": [
+        "frieza",
+        "raca"
+      ]
+    },
+    "direita": {
+      "texto": "Tenta o velho truque que ele não espera",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 6
+          },
+          "flags_partida": [
+            "heroi"
+          ]
+        },
+        "efeitos": {
+          "moral": -3
+        }
+      }
+    }
+  },
+  {
+    "id": "riv_arbitragem_pressionada",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "rival_historico",
+    "partida": 0,
+    "texto": "O juiz, pressionado pela torcida rival, começa a apitar tudo contra o Brasil. Dois lances seguidos roubados. Você explode ou usa isso?",
+    "esquerda": {
+      "texto": "Usa a injustiça pra unir o time",
+      "efeitos": {
+        "moral": 6,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "lider",
+        "raca"
+      ]
+    },
+    "direita": {
+      "texto": "Vai pra cima do juiz reclamar",
+      "efeitos": {
+        "torcida": 3
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ],
+      "eco": "eco_cartao_juiz"
+    }
   }
 ]

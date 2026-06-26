@@ -266,5 +266,281 @@
         "disciplinado"
       ]
     }
+  },
+  {
+    "id": "sac_humilhar_ou_nao",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 0,
+    "texto": "Goleada encaminhada. Dá pra fazer um lance de humilhação que viraliza — ou respeitar o adversário e jogar normal.",
+    "esquerda": {
+      "texto": "Faz o lance de humilhação, viraliza",
+      "efeitos": {
+        "midia": 6,
+        "torcida": 4,
+        "moral": -5
+      },
+      "flags_partida": [
+        "showman",
+        "arrogante"
+      ]
+    },
+    "direita": {
+      "texto": "Respeita o adversário, joga sério",
+      "efeitos": {
+        "midia": 4,
+        "moral": 5
+      },
+      "flags_partida": [
+        "idolo",
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "sac_zagueiro_amador",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 0,
+    "texto": "O zagueiro deles é claramente amador e treme com a bola nos pés. Dá pra pressionar e roubar fácil, ou facilitar pra ele.",
+    "esquerda": {
+      "texto": "Pressiona e rouba, sem dó",
+      "efeitos": {
+        "placar": 1,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "frieza"
+      ],
+      "eco": "eco_rouba_e_sai"
+    },
+    "direita": {
+      "texto": "Dá uma folga, joga limpo",
+      "efeitos": {
+        "midia": 4
+      },
+      "flags_partida": [
+        "idolo"
+      ]
+    }
+  },
+  {
+    "id": "sac_jejum_pessoal",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 0,
+    "texto": "Você está há jogos sem marcar e este é o adversário perfeito pra furar o jejum. A obsessão por gol pode te cegar pro coletivo.",
+    "esquerda": {
+      "texto": "Busca o gol a todo custo",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "efeitos": {
+          "moral": -5,
+          "torcida": -3
+        },
+        "flags_partida": [
+          "afobado",
+          "arrogante"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "moral": 6
+          },
+          "flags_partida": [
+            "heroi"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Joga pro time, o gol vem natural",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "sac_torcida_pede_mais",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 0,
+    "texto": "Já está 3 a 0, mas a torcida quer goleada histórica de placar elástico e aponta pra você. A pressão por números é real.",
+    "esquerda": {
+      "texto": "Embarca, vai buscar mais gols",
+      "efeitos": {
+        "fisico": -6,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "showman"
+      ]
+    },
+    "direita": {
+      "texto": "Poupa as pernas, pensa na próxima",
+      "efeitos": {
+        "fisico": 6,
+        "torcida": -3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "sac_homenagem",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 0,
+    "texto": "Um jogador deles, herói nacional do país pequeno, pede sua camisa no meio do jogo, emocionado. Atende na hora ou depois?",
+    "esquerda": {
+      "texto": "Para o lance e abraça o cara",
+      "efeitos": {
+        "midia": 6,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Promete pro fim, foca no jogo",
+      "efeitos": {
+        "placar": 1,
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "sac_relaxa_demais",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 0,
+    "texto": "O time relaxou tanto com a vantagem fácil que o adversário fraco quase descontou num contra-ataque. Você cobra o grupo?",
+    "esquerda": {
+      "texto": "Cobra concentração, levanta a marcação",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "lider",
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Deixa rolar, o jogo está ganho",
+      "efeitos": {
+        "moral": -4,
+        "fisico": 3
+      },
+      "flags_partida": [
+        "arrogante"
+      ]
+    }
+  },
+  {
+    "id": "sac_chance_hat_trick",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 0,
+    "texto": "Você já fez dois e a chance do hat-trick aparece. Mas um companheiro em jejum está livre ao seu lado pedindo a bola.",
+    "esquerda": {
+      "texto": "Busca o seu hat-trick",
+      "efeitos": {
+        "placar": 1,
+        "torcida": 5,
+        "moral": -3
+      },
+      "flags_partida": [
+        "arrogante",
+        "showman"
+      ]
+    },
+    "direita": {
+      "texto": "Serve o companheiro em jejum",
+      "efeitos": {
+        "placar": 1,
+        "moral": 6
+      },
+      "flags_partida": [
+        "coletivo",
+        "idolo"
+      ]
+    }
+  },
+  {
+    "id": "sac_lesao_boba",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 0,
+    "texto": "Jogo ganho, mas o gramado ruim do estádio pequeno oferece risco de lesão boba. Vale forçar ou administrar com cuidado?",
+    "esquerda": {
+      "texto": "Administra, evita risco bobo",
+      "efeitos": {
+        "fisico": 5,
+        "moral": 2
+      },
+      "flags_partida": [
+        "frieza",
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Joga normal, sem frescura",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.3,
+        "efeitos": {
+          "fisico": -10
+        },
+        "niggle": "divida_lesao"
+      }
+    }
+  },
+  {
+    "id": "sac_provocacao_fraco",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "saco_pancada",
+    "partida": 0,
+    "texto": "Mesmo perdendo feio, um jogador deles te provoca tentando aparecer na transmissão. A internet vai amar a sua resposta.",
+    "esquerda": {
+      "texto": "Responde com classe, ignora a provocação",
+      "efeitos": {
+        "midia": 5,
+        "moral": 4
+      },
+      "flags_partida": [
+        "frieza",
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Devolve a provocação com juros",
+      "efeitos": {
+        "torcida": 4,
+        "midia": -3
+      },
+      "flags_partida": [
+        "pavio_curto",
+        "showman"
+      ]
+    }
   }
 ]

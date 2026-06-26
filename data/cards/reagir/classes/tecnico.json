@@ -330,5 +330,358 @@
         "disciplinado"
       ]
     }
+  },
+  {
+    "id": "tec_troca_passes",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 0,
+    "texto": "Eles tocam, tocam, tocam pra te cansar. Vinte passes sem você tocar na bola. A paciência ou o bote?",
+    "esquerda": {
+      "texto": "Mantém a posição, espera o erro",
+      "efeitos": {
+        "moral": 4,
+        "fisico": 2
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Sai na pressão, tenta o bote",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "efeitos": {
+          "fisico": -5,
+          "moral": -3
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 1
+          },
+          "flags_partida": [
+            "raca"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "tec_linha_alta",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 0,
+    "texto": "A linha de defesa deles é altíssima, te deixando no impedimento sempre. Dá pra explorar o tempo da bola.",
+    "esquerda": {
+      "texto": "Cronometra a arrancada no detalhe",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "requer_token": "frieza",
+        "efeitos": {
+          "moral": -3
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2
+          },
+          "flags_partida": [
+            "heroi",
+            "frieza"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Joga de frente, sem arriscar o offside",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "tec_meia_armador",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 0,
+    "texto": "O cérebro deles dita o jogo do meio. Marcar ele por conta própria desorganiza sua função, mas seca a fonte.",
+    "esquerda": {
+      "texto": "Marca o armador, seca o jogo deles",
+      "efeitos": {
+        "moral": 5,
+        "fisico": -6
+      },
+      "flags_partida": [
+        "disciplinado",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Deixa pra zaga, foca em atacar",
+      "efeitos": {
+        "placar": 1,
+        "moral": -3
+      },
+      "flags_partida": [
+        "arrogante"
+      ]
+    }
+  },
+  {
+    "id": "tec_posse_esteril",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 0,
+    "texto": "Eles têm a posse mas não criam. Dá pra recuar todo mundo e apostar no contra-ataque mortal.",
+    "esquerda": {
+      "texto": "Recua e espera o contragolpe",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado",
+        "frieza"
+      ],
+      "eco": "eco_rouba_e_sai"
+    },
+    "direita": {
+      "texto": "Sobe pra disputar a posse",
+      "efeitos": {
+        "fisico": -6
+      },
+      "risco": {
+        "chance": 0.4,
+        "efeitos": {
+          "placar": -1
+        },
+        "sucesso": {
+          "efeitos": {
+            "torcida": 5
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "tec_pressao_psicologica",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 0,
+    "texto": "O time deles é frio, cirúrgico, sem emoção. Esse silêncio mexe com a cabeça do grupo. Você quebra o gelo como?",
+    "esquerda": {
+      "texto": "Levanta a galera no grito",
+      "efeitos": {
+        "moral": 6,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Combate frieza com frieza",
+      "efeitos": {
+        "moral": 4,
+        "placar": 1
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "tec_falso_lento",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 0,
+    "texto": "Eles cadenciam pra te induzir ao erro. No primeiro toque mais lento deles, dá pra acelerar e surpreender.",
+    "esquerda": {
+      "texto": "Acelera no tempo certo",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "efeitos": {
+          "fisico": -4
+        },
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 6
+          },
+          "flags_partida": [
+            "heroi",
+            "ousado"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Mantém a cadência, não cai na isca",
+      "efeitos": {
+        "moral": 3,
+        "fisico": 2
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "tec_lateral_inverte",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 0,
+    "texto": "O lateral deles inverte o jogo o tempo todo pra te puxar pra fora de posição. Você acompanha ou mantém o miolo fechado?",
+    "esquerda": {
+      "texto": "Acompanha o lateral, fecha o lado",
+      "efeitos": {
+        "fisico": -6,
+        "moral": 4
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Mantém o miolo, aposta no risco",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.4,
+        "efeitos": {
+          "placar": -1
+        },
+        "flags_partida": [
+          "covarde"
+        ]
+      }
+    }
+  },
+  {
+    "id": "tec_goleiro_linha",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 0,
+    "texto": "O goleiro deles joga como linha, sai pra fora da área pra ter homem a mais. Dá pra tentar o chute do meio de campo.",
+    "esquerda": {
+      "texto": "Tenta a bomba do meio, ele está longe",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.6,
+        "requer_token": "ousado",
+        "efeitos": {
+          "midia": -3
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 3,
+            "torcida": 12,
+            "midia": 8
+          },
+          "flags_partida": [
+            "heroi",
+            "showman"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Constrói a jogada com paciência",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "tec_armadilha_offside",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 0,
+    "texto": "A defesa deles sobe junto numa armadilha de impedimento ensaiada. Você percebe meio segundo antes. Avisa ou aproveita?",
+    "esquerda": {
+      "texto": "Avisa o time, organiza a jogada",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "lider",
+        "coletivo"
+      ]
+    },
+    "direita": {
+      "texto": "Aproveita sozinho, vaza a linha",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "sucesso": {
+          "efeitos": {
+            "placar": 2
+          },
+          "flags_partida": [
+            "heroi"
+          ]
+        },
+        "efeitos": {
+          "moral": -3
+        }
+      }
+    }
+  },
+  {
+    "id": "tec_estuda_voce",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "tecnico",
+    "partida": 0,
+    "texto": "Ficou claro que eles estudaram seus movimentos: antecipam tudo que você faz. Hora de mudar o repertório no meio do jogo.",
+    "esquerda": {
+      "texto": "Inverte o jogo, faz o inesperado",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "ousado",
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Insiste no que treinou",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "efeitos": {
+          "placar": -1,
+          "moral": -4
+        },
+        "flags_partida": [
+          "afobado"
+        ]
+      }
+    }
   }
 ]

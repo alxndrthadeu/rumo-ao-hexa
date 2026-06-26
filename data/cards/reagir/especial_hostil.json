@@ -7,17 +7,40 @@
     "texto": "As vaias são ensurdecedoras. Cada toque seu é recebido com hostilidade. Acréscimos.",
     "esquerda": {
       "texto": "Transforma raiva em energia",
-      "efeitos": { "placar": "condicional" },
+      "efeitos": {
+        "placar": "condicional"
+      },
       "condicional": {
         "limiar": 0,
-        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["raca"], "climax": true },
-        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["pavio_curto"] }
+        "ramoA": {
+          "efeitos": {
+            "placar": 2
+          },
+          "flags_partida": [
+            "raca"
+          ],
+          "climax": true
+        },
+        "ramoB": {
+          "efeitos": {
+            "placar": -1
+          },
+          "flags_partida": [
+            "pavio_curto"
+          ]
+        }
       }
     },
     "direita": {
       "texto": "Joga frio, ignora o barulho",
-      "efeitos": { "placar": 1, "moral": 5 },
-      "flags_partida": ["frieza", "disciplinado"]
+      "efeitos": {
+        "placar": 1,
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza",
+        "disciplinado"
+      ]
     }
   },
   {
@@ -28,14 +51,98 @@
     "texto": "Hostilidade total. O adversário sabe que a torcida está contra você. É agora ou nunca.",
     "esquerda": {
       "texto": "Cala todos com um gol",
-      "efeitos": { "placar": 2 },
-      "flags_partida": ["heroi"],
-      "risco": { "tipo": "pressao_maxima", "chance": 0.35, "efeitos": { "placar": -1, "moral": -8 } }
+      "efeitos": {
+        "placar": 2
+      },
+      "flags_partida": [
+        "heroi"
+      ],
+      "risco": {
+        "tipo": "pressao_maxima",
+        "chance": 0.35,
+        "efeitos": {
+          "placar": -1,
+          "moral": -8
+        }
+      }
     },
     "direita": {
       "texto": "Segura o resultado, não dá espaço",
-      "efeitos": { "moral": 5 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "esp_xingado_no_nome",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "O estádio inteiro xinga você pelo nome em coro, em rede nacional. Cada toque seu é vaiado. A hostilidade é pessoal.",
+    "esquerda": {
+      "texto": "Pede mais, provoca a torcida deles",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "efeitos": {
+          "midia": -5,
+          "moral": -4
+        },
+        "flags_partida": [
+          "arrogante"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 1,
+            "torcida": 8
+          },
+          "flags_partida": [
+            "heroi",
+            "ousado"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Cabeça baixa, deixa o jogo falar",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "esp_laser_torcida",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Apontam laser no seu rosto a cada lance decisivo. A arbitragem ignora. A provocação é covarde e funciona.",
+    "esquerda": {
+      "texto": "Apela ao juiz, exige providência",
+      "efeitos": {
+        "midia": 4,
+        "moral": -3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Ignora o laser, joga no automático",
+      "efeitos": {
+        "placar": 1,
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza",
+        "raca"
+      ]
     }
   }
 ]

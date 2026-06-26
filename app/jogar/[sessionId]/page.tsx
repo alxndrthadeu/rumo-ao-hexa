@@ -297,6 +297,16 @@ export default function GamePage() {
             minuto,
             nome: state.runState.nomeJogador,
           })
+        } else {
+          // Gol sofrido por eco diferido (proximo_slot)
+          const golSofrido = data.ecoToasts?.find(t => t.tipo === 'gol_sofrido')
+          if (golSofrido) {
+            setGoalEvent({
+              scored: false,
+              minuto: REAGIR_MINUTO_NUM[prevCartasLen] ?? 88,
+              nome: state.runState.nomeJogador,
+            })
+          }
         }
       }
 

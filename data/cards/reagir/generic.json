@@ -1281,5 +1281,1175 @@
         }
       }
     }
+  },
+  {
+    "id": "gen_escanteio_ensaiado",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Escanteio. O time tem uma jogada ensaiada que passa por você no primeiro pau. Cumpre o script ou improvisa pra surpreender?",
+    "esquerda": {
+      "texto": "Cumpre o ensaiado, dá certo no coletivo",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "disciplinado",
+        "coletivo"
+      ]
+    },
+    "direita": {
+      "texto": "Improvisa, vai pro segundo pau sozinho",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "efeitos": {
+          "moral": -5
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 6
+          },
+          "flags_partida": [
+            "heroi",
+            "showman"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "gen_falta_frontal",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Falta frontal, na entrada da área, distância perfeita pra você. A barreira se monta. Bate ou rola pro companheiro de canhota?",
+    "esquerda": {
+      "texto": "Pega pra bater, é minha",
+      "efeitos": {},
+      "flags_partida": [
+        "ousado"
+      ],
+      "eco": "eco_barreira_pula"
+    },
+    "direita": {
+      "texto": "Rola curto, dá a chance ao canhoto",
+      "efeitos": {
+        "placar": 1,
+        "moral": 3
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "gen_pressao_saida",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "O goleiro deles recebe e demora. Dá pra pressionar a saída de bola sozinho, mas se ele te driblar, sobra espaço atrás.",
+    "esquerda": {
+      "texto": "Pressiona forte, força o erro",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "efeitos": {
+          "placar": -1
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 1,
+            "torcida": 5
+          },
+          "flags_partida": [
+            "raca"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Segura a linha, marca posicionado",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_lancamento_costas",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Você lê o lançamento nas costas da zaga antes de todo mundo. Arranca no tempo da bola — mas o bandeira tem o dedo no impedimento.",
+    "esquerda": {
+      "texto": "Arranca no susto, aposta no tempo",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "efeitos": {
+          "moral": -3
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2
+          },
+          "flags_partida": [
+            "heroi",
+            "frieza"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Segura meio passo, garante o onside",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_corpo_protege",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "De costas pro gol, marcador colado, bola no seu pé. Protege e espera o apoio ou gira em cima dele?",
+    "esquerda": {
+      "texto": "Protege e espera o apoio chegar",
+      "efeitos": {
+        "placar": 1,
+        "fisico": -3
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    },
+    "direita": {
+      "texto": "Gira em cima, encara o mano a mano",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.55,
+        "requer_token": "ousado",
+        "efeitos": {
+          "fisico": -5
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 1,
+            "torcida": 6
+          },
+          "flags_partida": [
+            "showman"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "gen_corta_cruzamento",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Cruzamento perigoso na sua área. Você é o único perto. Sobe firme de cabeça pra cortar — risco de bater de mau jeito.",
+    "esquerda": {
+      "texto": "Sobe firme, corta o perigo",
+      "efeitos": {
+        "moral": 5
+      },
+      "risco": {
+        "chance": 0.3,
+        "efeitos": {
+          "fisico": -8
+        },
+        "niggle": "divida_lesao"
+      }
+    },
+    "direita": {
+      "texto": "Recua e fecha o ângulo, deixa o goleiro",
+      "efeitos": {
+        "placar": -1,
+        "moral": 2
+      },
+      "flags_partida": [
+        "covarde"
+      ]
+    }
+  },
+  {
+    "id": "gen_tabela_lateral",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "O lateral apoia em velocidade pedindo a tabela. Devolve de primeira e arranca pra dentro?",
+    "esquerda": {
+      "texto": "Tabela perfeita, parte pra área",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "coletivo"
+      ],
+      "eco": "eco_devolucao_lateral"
+    },
+    "direita": {
+      "texto": "Segura a bola, controla o ritmo",
+      "efeitos": {
+        "fisico": 3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "gen_marca_craque",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "O técnico te pede pra anular o camisa 10 deles na próxima jogada. Marcar o craque rouba seu fôlego de ataque.",
+    "esquerda": {
+      "texto": "Aceita a função, anula o cara",
+      "efeitos": {
+        "moral": 6,
+        "fisico": -6
+      },
+      "flags_partida": [
+        "disciplinado",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Fica no ataque, deixa a marcação pra outro",
+      "efeitos": {
+        "fisico": 3,
+        "moral": -4
+      },
+      "flags_partida": [
+        "arrogante"
+      ]
+    }
+  },
+  {
+    "id": "gen_espaco_contra_ordem",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "O técnico grita pra recuar e segurar — mas você vê um corredor aberto pra contra-atacar. Obedece ou aposta no instinto?",
+    "esquerda": {
+      "texto": "Obedece, recua e fecha",
+      "efeitos": {
+        "moral": 4
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Ignora a ordem, dispara no espaço",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "efeitos": {
+          "moral": -8
+        },
+        "flags_partida": [
+          "arrogante"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 8
+          },
+          "flags_partida": [
+            "heroi",
+            "ousado"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "gen_torcida_pede_ginga",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "A torcida pede ginga, drible, espetáculo. O time pede objetividade. Você atende quem?",
+    "esquerda": {
+      "texto": "Dá o show que a torcida quer",
+      "efeitos": {
+        "torcida": 8,
+        "fisico": -4
+      },
+      "flags_partida": [
+        "showman"
+      ]
+    },
+    "direita": {
+      "texto": "Joga objetivo, mata o jogo",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "frieza",
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "gen_companheiro_perde_gol",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Você serviu o gol pronto e o companheiro isolou pra arquibancada. Ele abaixa a cabeça. Como reage?",
+    "esquerda": {
+      "texto": "Levanta o cara, bate palma de incentivo",
+      "efeitos": {
+        "moral": 6,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "lider",
+        "coletivo"
+      ]
+    },
+    "direita": {
+      "texto": "Esfrega na cara que era pra ter passado de volta",
+      "efeitos": {
+        "moral": -8
+      },
+      "flags_partida": [
+        "pavio_curto",
+        "arrogante"
+      ]
+    }
+  },
+  {
+    "id": "gen_camera_fecha",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Você errou um passe bobo e a câmera fecha no seu rosto pra transmissão nacional. Milhões te olham. O que o rosto entrega?",
+    "esquerda": {
+      "texto": "Cara fechada, foco total no próximo lance",
+      "efeitos": {
+        "moral": 4,
+        "midia": 3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Esquenta, reclama com o companheiro",
+      "efeitos": {
+        "midia": -5,
+        "moral": -4
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ]
+    }
+  },
+  {
+    "id": "gen_cera_resultado",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Vitória magra, últimos minutos. Dá pra fazer cera na bola parada e queimar o relógio — a torcida adversária ferve.",
+    "esquerda": {
+      "texto": "Faz a cera, segura o resultado",
+      "efeitos": {
+        "placar": 1,
+        "torcida": -4,
+        "midia": -3
+      },
+      "flags_partida": [
+        "frieza",
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Joga limpo, não apela",
+      "efeitos": {
+        "torcida": 4
+      },
+      "risco": {
+        "chance": 0.35,
+        "efeitos": {
+          "placar": -1
+        },
+        "flags_partida": [
+          "covarde"
+        ]
+      }
+    }
+  },
+  {
+    "id": "gen_encara_batedor",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Pênalti pro adversário. Você não bate, mas dá pra encarar o batedor e tentar mexer com a cabeça dele antes da cobrança.",
+    "esquerda": {
+      "texto": "Encara firme, joga o psicológico",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "efeitos": {
+          "midia": -3
+        },
+        "flags_partida": [
+          "arrogante"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 1,
+            "torcida": 6
+          },
+          "flags_partida": [
+            "frieza"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Respeita, deixa o goleiro trabalhar",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_divide_goleiro",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Bola dividida com o goleiro deles saindo nos seus pés. Dá pra ir inteiro e chegar antes — ou tirar o corpo e evitar a pancada.",
+    "esquerda": {
+      "texto": "Vai inteiro, chega antes dele",
+      "efeitos": {},
+      "eco": "eco_cartao_juiz",
+      "risco": {
+        "chance": 0.4,
+        "efeitos": {
+          "fisico": -8
+        },
+        "niggle": "divida_lesao"
+      }
+    },
+    "direita": {
+      "texto": "Tira o corpo, evita a dividida feia",
+      "efeitos": {
+        "fisico": 3,
+        "moral": -3
+      },
+      "flags_partida": [
+        "covarde"
+      ]
+    }
+  },
+  {
+    "id": "gen_ataca_primeiro_pau",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Cruzamento rasteiro na medida. Você ataca o primeiro pau de carrinho — ou espera a bola e cabeceia no segundo?",
+    "esquerda": {
+      "texto": "Carrinho no primeiro pau, no susto",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "efeitos": {
+          "fisico": -5
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2
+          },
+          "flags_partida": [
+            "heroi",
+            "raca"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Segura e cabeceia no segundo pau",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "gen_apoia_lateral",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Seu lateral está afogado na marcação. Voltar pra dar a opção de passe custa pernas que você queria guardar pro ataque.",
+    "esquerda": {
+      "texto": "Volta e dá a saída pro lateral",
+      "efeitos": {
+        "fisico": -6,
+        "moral": 5
+      },
+      "flags_partida": [
+        "coletivo",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Fica no ataque, guarda o fôlego",
+      "efeitos": {
+        "fisico": 3
+      },
+      "flags_partida": [
+        "showman"
+      ],
+      "eco": "eco_gol_sofrido"
+    }
+  },
+  {
+    "id": "gen_briga_companheiro_juiz",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Um companheiro parte com tudo pra cima do juiz reclamando. Vai dar amarelo nele. Você segura o cara ou apoia a revolta?",
+    "esquerda": {
+      "texto": "Segura o companheiro, acalma",
+      "efeitos": {
+        "moral": 5,
+        "midia": 3
+      },
+      "flags_partida": [
+        "lider",
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Apoia, vai junto pra cima do juiz",
+      "efeitos": {
+        "torcida": 4
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ],
+      "eco": "eco_cartao_juiz"
+    }
+  },
+  {
+    "id": "gen_estadio_silencia",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Momento decisivo, o estádio inteiro silencia esperando seu lance. O peso é físico. Você abraça o silêncio ou ele te engole?",
+    "esquerda": {
+      "texto": "Abraça o momento, respira fundo",
+      "efeitos": {
+        "moral": 6,
+        "placar": 1
+      },
+      "flags_partida": [
+        "frieza",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "O peso te trava, joga apressado",
+      "efeitos": {
+        "placar": -1,
+        "moral": -4
+      },
+      "flags_partida": [
+        "afobado"
+      ]
+    }
+  },
+  {
+    "id": "gen_frente_goleiro",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Cara a cara com o goleiro, só você e ele. O tempo congela. Como resolve?",
+    "esquerda": {
+      "texto": "Toca no canto, com frieza",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "requer_token": "frieza",
+        "efeitos": {
+          "placar": -1
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "moral": 6
+          },
+          "flags_partida": [
+            "frieza",
+            "heroi"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Tenta o drible pra humilhar",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.6,
+        "requer_token": "ousado",
+        "efeitos": {
+          "placar": -1,
+          "midia": -4
+        },
+        "flags_partida": [
+          "afobado",
+          "arrogante"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 10
+          },
+          "flags_partida": [
+            "showman",
+            "heroi"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "gen_zagueiro_subiu",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "O zagueiro deles subiu pro ataque e deixou um corredor gigante nas costas. A bola pode sobrar pra você lá.",
+    "esquerda": {
+      "texto": "Se posiciona no espaço, pede a bola",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "frieza"
+      ],
+      "eco": "eco_lancamento_espaco"
+    },
+    "direita": {
+      "texto": "Volta ajudar, o time está exposto",
+      "efeitos": {
+        "fisico": -5,
+        "moral": 4
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "gen_torcida_propria_cobra",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Sua própria torcida começa a cobrar mais empenho, gritando seu nome em tom de bronca. Como responde?",
+    "esquerda": {
+      "texto": "Bate no peito, promete entrega",
+      "efeitos": {
+        "torcida": 6,
+        "fisico": -4
+      },
+      "flags_partida": [
+        "raca",
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Ignora, joga no seu ritmo",
+      "efeitos": {
+        "torcida": -5,
+        "moral": 3
+      },
+      "flags_partida": [
+        "frieza",
+        "arrogante"
+      ]
+    }
+  },
+  {
+    "id": "gen_ultima_bola",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Última bola da partida, tudo empatado. Ela sobra na sua área de ataque. É agora ou nunca.",
+    "esquerda": {
+      "texto": "Arrisca o impossível",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.6,
+        "efeitos": {
+          "placar": -1
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 3,
+            "torcida": 12
+          },
+          "flags_partida": [
+            "heroi",
+            "ousado"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Segura e busca o companheiro melhor posicionado",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "coletivo",
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "gen_companheiro_nao_passa",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Um companheiro está claramente segurando a bola demais, não te passa nem quando você está livre. No intervalo do lance, cobra?",
+    "esquerda": {
+      "texto": "Cobra na cara, exige o passe",
+      "efeitos": {
+        "moral": -4,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "pavio_curto",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Engole, busca o jogo por fora",
+      "efeitos": {
+        "fisico": -4,
+        "moral": 2
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "gen_recuo_cabeca",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Você precisa fazer um recuo de cabeça pro goleiro sob pressão. Se errar a força, é gol contra na certa.",
+    "esquerda": {
+      "texto": "Recuo seguro, com calma",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "frieza",
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Tenta o recuo difícil de primeira",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.4,
+        "efeitos": {
+          "placar": -1,
+          "moral": -6
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "torcida": 4
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "gen_pressao_alta_rouba",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Dá pra subir a marcação e pressionar alto pra roubar no campo deles — mas se a bola passar, você fica longe da própria área.",
+    "esquerda": {
+      "texto": "Sobe e pressiona, força o erro",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "efeitos": {
+          "fisico": -5
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 1,
+            "torcida": 5
+          },
+          "flags_partida": [
+            "raca"
+          ],
+          "eco": "eco_rouba_e_sai"
+        }
+      }
+    },
+    "direita": {
+      "texto": "Espera no bloco, marca posicionado",
+      "efeitos": {
+        "moral": 3,
+        "fisico": 2
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_sinal_bola_parada",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Bola parada lateral. O batedor faz o sinal combinado pra você — jogada de risco que ninguém espera. Topa?",
+    "esquerda": {
+      "texto": "Topa o sinal, executa o ensaio",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "efeitos": {
+          "moral": -4
+        },
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "moral": 6
+          },
+          "flags_partida": [
+            "heroi",
+            "coletivo"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Pede o feijão com arroz, jogada simples",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_dois_marcadores",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Dois marcadores fecham você no meio. Dá pra encarar os dois no drible — ou tabelar e sair fácil.",
+    "esquerda": {
+      "texto": "Encara os dois, tenta passar",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.6,
+        "requer_token": "ousado",
+        "efeitos": {
+          "placar": -1,
+          "fisico": -4
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 1,
+            "torcida": 8
+          },
+          "flags_partida": [
+            "showman",
+            "ousado"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Tabela e sai limpo",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "coletivo",
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "gen_gandula_demora",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "O gandula deles enrola pra devolver a bola e quebra seu ritmo de propósito. Você cobra ou ignora?",
+    "esquerda": {
+      "texto": "Cobra o gandula, esquenta a cabeça",
+      "efeitos": {
+        "torcida": 3
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ]
+    },
+    "direita": {
+      "texto": "Pega a bola reserva, mantém o ritmo",
+      "efeitos": {
+        "moral": 3,
+        "placar": 1
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "gen_companheiro_caido",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Um companheiro fica caído com dor enquanto o jogo segue e você tem a bola em vantagem. Joga a bola fora ou aproveita o lance?",
+    "esquerda": {
+      "texto": "Joga a bola fora, respeita o caído",
+      "efeitos": {
+        "midia": 5,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "idolo",
+        "coletivo"
+      ]
+    },
+    "direita": {
+      "texto": "Aproveita a vantagem, ataca",
+      "efeitos": {
+        "placar": 1,
+        "midia": -4
+      },
+      "flags_partida": [
+        "frieza",
+        "vilao"
+      ]
+    }
+  },
+  {
+    "id": "gen_objeto_campo",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Um objeto cai da arquibancada perto de você. A torcida adversária provoca. Você apela ao juiz ou ignora e segue?",
+    "esquerda": {
+      "texto": "Mostra ao juiz, pede providência",
+      "efeitos": {
+        "midia": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Chuta pra longe e segue o jogo",
+      "efeitos": {
+        "torcida": 5,
+        "moral": 3
+      },
+      "flags_partida": [
+        "raca",
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "gen_lidera_exemplo",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "O time está caindo de produção. Dá pra puxar a responsabilidade gritando e cobrando — ou liderar calado, dando o exemplo na corrida.",
+    "esquerda": {
+      "texto": "Cobra alto, levanta o grupo na voz",
+      "efeitos": {
+        "moral": 6,
+        "fisico": -3
+      },
+      "flags_partida": [
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Lidera no exemplo, corre por dois",
+      "efeitos": {
+        "fisico": -8,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "raca",
+        "lider"
+      ]
+    }
+  },
+  {
+    "id": "gen_drible_humilhante",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Você tem a chance de aplicar uma caneta humilhante no marcador que vem te provocando o jogo todo. A torcida pede. Vale o risco de irritar o jogo?",
+    "esquerda": {
+      "texto": "Aplica a caneta, cala o provocador",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "requer_token": "ousado",
+        "efeitos": {
+          "fisico": -5,
+          "moral": -3
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "torcida": 10,
+            "placar": 1
+          },
+          "flags_partida": [
+            "showman",
+            "idolo"
+          ],
+          "eco": "eco_revanche_marcador"
+        }
+      }
+    },
+    "direita": {
+      "texto": "Joga simples, não dá munição",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "frieza",
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "gen_falta_ataque",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Contra-ataque deles em formação. Dá pra cortar com uma falta tática lá na frente, levando amarelo, ou correr 60 metros pra tentar alcançar.",
+    "esquerda": {
+      "texto": "Falta tática, corta o perigo",
+      "efeitos": {
+        "moral": 4
+      },
+      "flags_partida": [
+        "amarelo",
+        "disciplinado",
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Corre atrás, tenta alcançar limpo",
+      "efeitos": {
+        "fisico": -8
+      },
+      "risco": {
+        "chance": 0.4,
+        "efeitos": {
+          "placar": -1
+        },
+        "sucesso": {
+          "efeitos": {
+            "moral": 5
+          },
+          "flags_partida": [
+            "raca"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "gen_provocacao_individual",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Um adversário cola no seu ouvido e provoca sobre algo pessoal pra te tirar do sério. O sangue sobe. O que faz?",
+    "esquerda": {
+      "texto": "Responde no jogo, no próximo lance",
+      "efeitos": {
+        "moral": 5,
+        "placar": 1
+      },
+      "flags_partida": [
+        "frieza",
+        "raca"
+      ]
+    },
+    "direita": {
+      "texto": "Revida na hora, encara o cara",
+      "efeitos": {
+        "torcida": 3
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ],
+      "eco": "eco_cartao_juiz"
+    }
+  },
+  {
+    "id": "gen_chance_de_ouro",
+    "fase": "reagir",
+    "partida": 0,
+    "texto": "Sobra limpa, gol aberto, goleiro batido. Só empurrar — mas o ângulo é apertado e o zagueiro vem voando pra travar.",
+    "esquerda": {
+      "texto": "Bate de primeira, sem pensar",
+      "efeitos": {
+        "placar": 2,
+        "torcida": 8
+      },
+      "flags_partida": [
+        "heroi"
+      ]
+    },
+    "direita": {
+      "texto": "Ajeita pro pé bom e bate colocado",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.4,
+        "efeitos": {
+          "placar": -1
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "moral": 5
+          },
+          "flags_partida": [
+            "frieza",
+            "heroi"
+          ]
+        }
+      }
+    }
   }
 ]

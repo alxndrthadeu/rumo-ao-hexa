@@ -22,6 +22,7 @@ import especHostilData    from '@/data/cards/reagir/especial_hostil.json'
 import entrevistaData from '@/data/cards/entrevista.json'
 import criseData      from '@/data/cards/crise.json'
 import penaltisData   from '@/data/cards/penaltis.json'
+import ecosData       from '@/data/cards/reagir/ecos.json'
 import bracketData    from '@/data/bracket.json'
 
 const ancoraCards     = ancoraData     as unknown as Carta[]
@@ -36,6 +37,7 @@ const especHostilCards    = especHostilData    as unknown as Carta[]
 const entrevistaCards = entrevistaData as unknown as CartaEntrevista[]
 const criseCards      = criseData      as unknown as Carta[]
 const penaltisCards   = penaltisData   as unknown as Carta[]
+const ecosCards       = ecosData       as unknown as Carta[]
 
 const CLASS_CARDS: Record<ClasseInimigo, Carta[]> = {
   tecnico:         tecnicoData    as unknown as Carta[],
@@ -225,6 +227,7 @@ const ALL_PLAY_CARDS: Carta[] = [
   ...especHostilCards,
   ...criseCards,
   ...penaltisCards,
+  ...ecosCards,
   ...Object.values(CLASS_CARDS).flat(),
 ]
 
@@ -252,7 +255,8 @@ export function getInterviewCard(
   state: Parameters<typeof resolveInterviewFlag>[0]
 ): CartaEntrevista {
   const flag = resolveInterviewFlag(state)
-  const card = entrevistaCards.find(c => c.requer_flag === flag)
-  if (card) return card
-  return entrevistaCards.find(c => c.requer_flag === 'fallback')!
+  const candidatas = entrevistaCards.filter(c => c.requer_flag === flag)
+  if (candidatas.length === 0) return entrevistaCards.find(c => c.requer_flag === 'fallback')!
+  const idx = Math.floor(seedToFloat(advanceSeed(state.seed)) * candidatas.length)
+  return candidatas[idx] ?? entrevistaCards.find(c => c.requer_flag === 'fallback')!
 }

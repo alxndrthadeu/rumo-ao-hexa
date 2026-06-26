@@ -2,6 +2,7 @@ import type {
   BracketEntry,
   Carta,
   CartaEntrevista,
+  EcoDiferido,
   Escolha,
   RunState,
 } from './types'
@@ -12,14 +13,15 @@ import { applyMediaBias } from './media'
 import { advanceSeed, seedToFloat } from './rng'
 import { checkMatchResult, matchPoints } from './score'
 import { buildMatchRecord } from './jornal'
-import { PENALTY_CARD_IDS } from './deck'
+import { PENALTY_CARD_IDS, getCardById } from './deck'
+
+const ECO_CHAIN_CAP = 4
 
 // ─── Helpers internos ────────────────────────────────────────────────────────
 
 function applyEfeitos(state: RunState, escolha: Escolha): RunState {
   let s = state
 
-  // Barras (não-placar) — niggle aumenta custo de Físico negativo para divida_lesao
   const rawBarEfeitos = {
     torcida: escolha.efeitos.torcida,
     midia:   escolha.efeitos.midia,
@@ -29,11 +31,9 @@ function applyEfeitos(state: RunState, escolha: Escolha): RunState {
   const barEfeitos = applyNiggleModifier(s.niggles, rawBarEfeitos)
   s = applyBarDelta(s, barEfeitos)
 
-  // Placar — resolve condicional se necessário
   if (escolha.efeitos.placar !== undefined) {
     if (escolha.efeitos.placar === 'condicional') {
       const cond = escolha.condicional!
-      // Futuro soma bonusCrescimento ao placar antes de checar o limiar
       const placarEfetivo = s.placarPartida + (s.arquetipo === 'futuro' ? s.bonusCrescimento : 0)
       const ramo = placarEfetivo >= cond.limiar ? cond.ramoA : cond.ramoB
       s = applyBarDelta(s, { ...ramo.efeitos, placar: undefined })
@@ -63,35 +63,91 @@ function grantToken(state: RunState, escolha: Escolha): RunState {
   return { ...state, tokens: { ...state.tokens, [token]: (state.tokens[token] ?? 0) + 1 } }
 }
 
-function applyRisco(state: RunState, escolha: Escolha): RunState {
-  if (!escolha.risco) return state
-  const { tipo, chance, efeitos, requer_token } = escolha.risco
+// Enfileira um eco no estado; respeita guard-rails para 'agora', empilha diferidos para os demais.
+function queueEco(state: RunState, ecoRef: Carta | string): RunState {
+  let ecoId: string
+  let quando: 'agora' | 'proximo_slot' | 'fim_partida'
+  let chance: number | undefined
+
+  if (typeof ecoRef === 'string') {
+    ecoId = ecoRef
+    // Resolve quando/chance a partir do catálogo — necessário para refs por id.
+    const resolved = getCardById(ecoId)
+    if (!resolved || resolved.fase === 'entrevista') return state
+    const carta = resolved as Carta
+    quando = carta.quando ?? 'agora'
+    chance = carta.chance
+  } else {
+    ecoId = ecoRef.id
+    quando = ecoRef.quando ?? 'agora'
+    chance = ecoRef.chance
+  }
+
+  if (quando === 'proximo_slot' || quando === 'fim_partida') {
+    const diferido: EcoDiferido = { cartaId: ecoId, quando, chance }
+    return { ...state, ecosDiferidos: [...(state.ecosDiferidos ?? []), diferido] }
+  }
+
+  // quando === 'agora': guard-rails de cadeia
+  const cadeia = state.ecoCadeia ?? []
+  if (cadeia.length >= ECO_CHAIN_CAP) return state
+  if (cadeia.includes(ecoId)) return state
+
+  return { ...state, ecoPendente: ecoId, ecoCadeia: [...cadeia, ecoId] }
+}
+
+// Aplica risco e retorna estado + flag de sucesso (para decidir se ativa sucesso.eco).
+function applyRisco(
+  state: RunState,
+  escolha: Escolha
+): { state: RunState; riscoFired: boolean } {
+  if (!escolha.risco) return { state, riscoFired: false }
+
+  const { chance, efeitos, requer_token, flags_partida: riscoFlags, niggle: riscoNiggle, sucesso } = escolha.risco
   const newSeed = advanceSeed(state.seed)
   const roll = seedToFloat(newSeed)
   let s = { ...state, seed: newSeed }
 
-  // Com token: consome 1 e garante sucesso (risco não dispara)
+  // Token suprime o risco → aplica ramo de sucesso
   if (requer_token) {
     const count = s.tokens[requer_token] ?? 0
     if (count > 0) {
-      return { ...s, tokens: { ...s.tokens, [requer_token]: count - 1 } }
+      s = { ...s, tokens: { ...s.tokens, [requer_token]: count - 1 } }
+      if (sucesso?.efeitos) {
+        s = applyBarDelta(s, sucesso.efeitos)
+        if (typeof sucesso.efeitos.placar === 'number') {
+          s = { ...s, placarPartida: applyScoreDelta(s.placarPartida, sucesso.efeitos.placar) }
+        }
+      }
+      for (const f of sucesso?.flags_partida ?? []) s = raiseFlag(s, f, {})
+      return { state: s, riscoFired: false }
     }
   }
 
   if (roll < chance) {
-    if (tipo === 'cartao_vermelho') {
-      // Mata-mata (partida >= 4): expulsão elimina a equipe imediatamente
-      if (s.partidaAtual >= 4) {
-        return { ...s, morto: true, causaMorte: 'expulsao' }
+    // Risco dispara (falha)
+    if (efeitos) {
+      s = applyBarDelta(s, efeitos)
+      if (typeof efeitos.placar === 'number') {
+        s = { ...s, placarPartida: applyScoreDelta(s.placarPartida, efeitos.placar) }
       }
-      // Fase de grupos: aplica penalidade mas continua a partida
     }
-    s = applyBarDelta(s, efeitos)
-    if (typeof efeitos.placar === 'number') {
-      s = { ...s, placarPartida: applyScoreDelta(s.placarPartida, efeitos.placar) }
+    for (const f of riscoFlags ?? []) s = raiseFlag(s, f, {})
+    if (riscoNiggle && !s.niggles.includes(riscoNiggle)) {
+      s = { ...s, niggles: [...s.niggles, riscoNiggle] }
+    }
+    return { state: s, riscoFired: true }
+  }
+
+  // Rolagem segura → sucesso
+  if (sucesso?.efeitos) {
+    s = applyBarDelta(s, sucesso.efeitos)
+    if (typeof sucesso.efeitos.placar === 'number') {
+      s = { ...s, placarPartida: applyScoreDelta(s.placarPartida, sucesso.efeitos.placar) }
     }
   }
-  return s
+  for (const f of sucesso?.flags_partida ?? []) s = raiseFlag(s, f, {})
+  return { state: s, riscoFired: false }
 }
 
 function applyNiggle(state: RunState, escolha: Escolha): RunState {
@@ -118,24 +174,25 @@ export function applyCardChoice(
   const carta = card as Carta
   const escolha = carta[lado]
 
-  // 1. Efeitos de barras + placar (incluindo condicional)
+  // 1. Efeitos de barras + placar
   let s = applyEfeitos(state, escolha)
 
-  // 2. Flags de partida (do conteúdo direto da escolha — condicional já levantou as suas)
+  // 2. Flags de partida
   if (escolha.efeitos.placar !== 'condicional') {
     s = applyFlags(s, escolha)
   }
 
-  // 3. Flag de carreira (só âncora/circo podem ter)
+  // 3. Flag de carreira
   if (escolha.flag_carreira) s = applyCareerFlag(s, escolha.flag_carreira)
 
-  // 4. Niggle
+  // 4. Niggle da escolha
   s = applyNiggle(s, escolha)
 
   // 5. Risco
-  s = applyRisco(s, escolha)
+  const { state: afterRisco, riscoFired } = applyRisco(s, escolha)
+  s = afterRisco
 
-  // 6. Barra no limite — primeira vez dispara crise; segunda vez é morte real
+  // 6. Barra no limite
   const death = checkBarDeath(s)
   if (death.dead) {
     if (s.crise) {
@@ -149,8 +206,17 @@ export function applyCardChoice(
     }
   }
 
-  // 7. Token concedido pela escolha (após tudo — não concede se morreu)
+  // 7. Token concedido
   s = grantToken(s, escolha)
+
+  // 8. Eco: escolha.eco (sempre) e risco.sucesso.eco (só no sucesso)
+  if (escolha.eco) s = queueEco(s, escolha.eco)
+  if (!riscoFired && escolha.risco?.sucesso?.eco) s = queueEco(s, escolha.risco.sucesso.eco)
+
+  // 9. Reset da cadeia se nenhum eco 'agora' foi enfileirado neste passo
+  if (!s.ecoPendente || s.ecoPendente === state.ecoPendente) {
+    s = { ...s, ecoCadeia: [] }
+  }
 
   return s
 }
@@ -163,7 +229,6 @@ function applyInterviewChoice(
   const variante = card.variantes[state.arquetipo]
   const escolha = variante[lado]
 
-  // Efeitos: midia recebe viés do arquétipo + nível atual de mídia
   const rawMidia = escolha.efeitos.midia ?? 0
   const biasedMidia = rawMidia !== 0
     ? applyMediaBias(rawMidia, card.carga, state.arquetipo, state.barras.midia)
@@ -173,10 +238,8 @@ function applyInterviewChoice(
 
   let s = applyBarDelta(state, efeitos)
 
-  // Flag de carreira
   if (escolha.flag_carreira) s = applyCareerFlag(s, escolha.flag_carreira)
 
-  // Morte de barra — mesma lógica de crise
   const death = checkBarDeath(s)
   if (death.dead) {
     if (s.crise) {
@@ -190,13 +253,63 @@ function applyInterviewChoice(
     }
   }
 
-  // Token concedido pela entrevista
   s = grantToken(s, escolha)
-
-  // Reset das flags de partida ao fim da entrevista
   s = resetMatchFlags(s)
 
   return s
+}
+
+// ─── Resolução de ecosDiferidos ──────────────────────────────────────────────
+
+export type EcoToastItem = { texto: string; tipo: 'gol_sofrido' | 'neutro' }
+
+export function resolveEcosDiferidos(
+  state: RunState,
+  quando: 'proximo_slot' | 'fim_partida'
+): { state: RunState; toasts: EcoToastItem[] } {
+  const fila = state.ecosDiferidos ?? []
+  const restantes: import('./types').EcoDiferido[] = []
+  const toasts: EcoToastItem[] = []
+  let s = state
+
+  for (const dif of fila) {
+    if (dif.quando !== quando) {
+      restantes.push(dif)
+      continue
+    }
+
+    if (dif.chance !== undefined) {
+      const newSeed = advanceSeed(s.seed)
+      const roll = seedToFloat(newSeed)
+      s = { ...s, seed: newSeed }
+      if (roll >= dif.chance) continue
+    }
+
+    const ecoCard = getCardById(dif.cartaId) as Carta | null
+    if (!ecoCard) continue
+
+    const ef = ecoCard.esquerda.efeitos
+    const rawBarEfeitos = {
+      torcida: ef.torcida,
+      midia:   ef.midia,
+      moral:   ef.moral,
+      fisico:  ef.fisico,
+    }
+    s = applyBarDelta(s, rawBarEfeitos)
+
+    if (typeof ef.placar === 'number') {
+      s = { ...s, placarPartida: applyScoreDelta(s.placarPartida, ef.placar) }
+      if (ef.placar < 0) {
+        s = { ...s, golsAdversario: s.golsAdversario + Math.abs(ef.placar) }
+        toasts.push({ texto: ecoCard.texto, tipo: 'gol_sofrido' })
+      }
+    }
+    for (const f of ecoCard.esquerda.flags_partida ?? []) {
+      s = raiseFlag(s, f, {})
+    }
+  }
+
+  return { state: { ...s, ecosDiferidos: restantes }, toasts }
 }
 
 // ─── Resolução de fim de partida ─────────────────────────────────────────────
@@ -214,7 +327,6 @@ export function resolveMatchEnd(
   const resultado = checkMatchResult(realGolsBra, realGolsAdv, bracket.partida)
   const pontos = matchPoints(resultado)
 
-  // Registra a partida no histórico (flags capturadas antes do reset da entrevista)
   const { record, seed: seedAfterJornal } = buildMatchRecord(
     state.partidaAtual,
     bracket.adversario,
@@ -233,12 +345,10 @@ export function resolveMatchEnd(
     historicoPartidas: [...state.historicoPartidas, record],
   }
 
-  // Vitória na final = hexa
   if (bracket.partida === 7 && resultado === 'vitoria') {
     return { ...s, morto: true, causaMorte: 'vitoria' }
   }
 
-  // Pênaltis (mata-mata com empate exato) → delega para cartas interativas
   if (resultado === 'penaltis') {
     s = {
       ...s,
@@ -248,13 +358,10 @@ export function resolveMatchEnd(
     }
     return s
   } else if (!bracket.empateValido && resultado !== 'vitoria') {
-    // Mata-mata: derrota clara = eliminação imediata
     return { ...s, morto: true, causaMorte: 'placar' }
   } else if (bracket.empateValido) {
-    // Grupos: acumula pontos
     const novosPontos = s.pontosGrupo + pontos
 
-    // J3 com pontos insuficientes = eliminação
     if (bracket.partida === 3 && novosPontos < 5) {
       return { ...s, pontosGrupo: novosPontos, morto: true, causaMorte: 'placar' }
     }
@@ -262,7 +369,6 @@ export function resolveMatchEnd(
     s = { ...s, pontosGrupo: novosPontos }
   }
 
-  // Avança para próxima partida
   const nextPartida = s.partidaAtual + 1
   const bonusCrescimento = resultado === 'vitoria' && s.arquetipo === 'futuro'
     ? Math.min(s.bonusCrescimento + 1, 3)
@@ -279,23 +385,20 @@ export function resolveMatchEnd(
     bonusCrescimento,
   }
 
-  // C — decaimento natural entre partidas
   s = applyMatchDecay(s)
 
   return s
 }
 
-// ─── Resolução dos pênaltis (após as 3 cartas interativas) ───────────────────
+// ─── Resolução dos pênaltis ───────────────────────────────────────────────────
 
 export function resolvePenaltyEnd(state: RunState): RunState {
   if (state.morto) return state
 
   const moral = state.barras.moral / 100
 
-  // Sua cobrança (0 = erro, 1 = gol)
   const yourGoal = state.placarPartida > 0 ? 1 : 0
 
-  // 4 cobranças dos companheiros: 68–78% conforme moral atual
   const teamChance = 0.68 + moral * 0.10
   let teamGoals = yourGoal
   let seed = state.seed
@@ -304,7 +407,6 @@ export function resolvePenaltyEnd(state: RunState): RunState {
     if (seedToFloat(seed) < teamChance) teamGoals++
   }
 
-  // 5 cobranças do adversário: 68% fixo
   let opGoals = 0
   for (let i = 0; i < 5; i++) {
     seed = advanceSeed(seed)
@@ -313,7 +415,6 @@ export function resolvePenaltyEnd(state: RunState): RunState {
 
   let s = { ...state, seed }
 
-  // Morte súbita se empatou
   let vitoria = teamGoals > opGoals
   if (teamGoals === opGoals) {
     seed = advanceSeed(s.seed)
@@ -328,7 +429,6 @@ export function resolvePenaltyEnd(state: RunState): RunState {
     return { ...s, morto: true, causaMorte: 'penaltis' }
   }
 
-  // Vitória → zona mista pós-pênaltis (flag 'penaltis' seleciona ent_penaltis)
   s = raiseFlag(s, 'penaltis')
   return {
     ...s,

@@ -7,18 +7,40 @@
     "texto": "Pênalti pro Brasil nos acréscimos. O estádio para. A bola é sua.",
     "esquerda": {
       "texto": "Assume a cobrança",
-      "efeitos": { "placar": "condicional" },
+      "efeitos": {
+        "placar": "condicional"
+      },
       "climax": true,
       "condicional": {
         "limiar": 1,
-        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
-        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+        "ramoA": {
+          "efeitos": {
+            "placar": 2
+          },
+          "flags_partida": [
+            "heroi"
+          ],
+          "climax": true
+        },
+        "ramoB": {
+          "efeitos": {
+            "placar": -1
+          },
+          "flags_partida": [
+            "afobado"
+          ],
+          "climax": true
+        }
       }
     },
     "direita": {
       "texto": "Passa pro batedor oficial",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["coletivo"]
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
     }
   },
   {
@@ -29,13 +51,23 @@
     "texto": "Acréscimos. Você rouba a bola no meio-campo e só tem o goleiro na frente.",
     "esquerda": {
       "texto": "Vai pro gol sem olhar pra trás",
-      "efeitos": { "placar": 2 },
-      "flags_partida": ["heroi", "ousado"]
+      "efeitos": {
+        "placar": 2
+      },
+      "flags_partida": [
+        "heroi",
+        "ousado"
+      ]
     },
     "direita": {
       "texto": "Espera o apoio antes de finalizar",
-      "efeitos": { "placar": 1, "torcida": 5 },
-      "flags_partida": ["coletivo"]
+      "efeitos": {
+        "placar": 1,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
     }
   },
   {
@@ -46,18 +78,142 @@
     "texto": "Escanteio nos acréscimos. Você sobe mais alto que todo mundo na área.",
     "esquerda": {
       "texto": "Cabeceia com toda força",
-      "efeitos": { "placar": "condicional" },
+      "efeitos": {
+        "placar": "condicional"
+      },
       "climax": true,
       "condicional": {
         "limiar": 0,
-        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
-        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
+        "ramoA": {
+          "efeitos": {
+            "placar": 2
+          },
+          "flags_partida": [
+            "heroi"
+          ],
+          "climax": true
+        },
+        "ramoB": {
+          "efeitos": {
+            "placar": -1
+          },
+          "flags_partida": [
+            "afobado"
+          ],
+          "climax": true
+        }
       }
     },
     "direita": {
       "texto": "Desvia de cabeça pro companheiro melhor posicionado",
-      "efeitos": { "placar": 1 },
-      "flags_partida": ["disciplinado"]
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "esp_bola_dividida_final",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Bola dividida no finalzinho que define quem ataca por último. Ninguém quer ceder. Você entra de sola ou protege a perna?",
+    "esquerda": {
+      "texto": "Entra inteiro, a bola é nossa",
+      "efeitos": {
+        "torcida": 5
+      },
+      "risco": {
+        "chance": 0.4,
+        "efeitos": {
+          "fisico": -8
+        },
+        "niggle": "divida_lesao",
+        "flags_partida": [
+          "amarelo"
+        ]
+      }
+    },
+    "direita": {
+      "texto": "Protege a perna, cede o lance",
+      "efeitos": {
+        "fisico": 3,
+        "placar": -1
+      },
+      "flags_partida": [
+        "covarde"
+      ]
+    }
+  },
+  {
+    "id": "esp_minuto_decisivo",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Placar empatado, relógio correndo. O jogo está numa gangorra e o próximo lance pode pesar pra qualquer lado. Você assume a responsabilidade?",
+    "esquerda": {
+      "texto": "Chama a responsabilidade pra si",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "efeitos": {
+          "moral": -5
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 6
+          },
+          "flags_partida": [
+            "heroi",
+            "lider"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Joga no coletivo, divide o peso",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "esp_clima_vira",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "O clima do jogo vira: começa o empurra-empurra geral entre os times. Dá pra ser o pacificador ou entrar na confusão.",
+    "esquerda": {
+      "texto": "Separa a briga, acalma os ânimos",
+      "efeitos": {
+        "midia": 5,
+        "moral": 4
+      },
+      "flags_partida": [
+        "lider",
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Entra na confusão, defende o grupo",
+      "efeitos": {
+        "moral": 5,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "raca"
+      ],
+      "eco": "eco_cartao_juiz"
     }
   }
 ]

@@ -281,5 +281,324 @@
         "disciplinado"
       ]
     }
+  },
+  {
+    "id": "fav_eles_relaxam",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 0,
+    "texto": "Favoritos, eles relaxam com a vantagem e começam a brincar. Dá pra punir a arrogância deles agora.",
+    "esquerda": {
+      "texto": "Pune o relaxamento na hora",
+      "efeitos": {
+        "placar": 1,
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza",
+        "raca"
+      ],
+      "eco": "eco_rouba_e_sai"
+    },
+    "direita": {
+      "texto": "Espera, eles vão cansar",
+      "efeitos": {
+        "fisico": 2
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "fav_imprensa_zomba",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 0,
+    "texto": "A transmissão já te trata como coadjuvante, narra como se a derrota fosse certa. Você ouve isso no estádio. Combustível ou peso?",
+    "esquerda": {
+      "texto": "Usa como combustível, prova o contrário",
+      "efeitos": {
+        "moral": 6,
+        "placar": 1
+      },
+      "flags_partida": [
+        "raca"
+      ]
+    },
+    "direita": {
+      "texto": "O peso atrapalha, joga acuado",
+      "efeitos": {
+        "moral": -5
+      },
+      "flags_partida": [
+        "covarde"
+      ]
+    }
+  },
+  {
+    "id": "fav_craque_individual",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 0,
+    "texto": "O craque deles, melhor do mundo, encara você no mano a mano. Toda a galera quer ver esse duelo. Você aceita o desafio?",
+    "esquerda": {
+      "texto": "Aceita o duelo, segura o craque",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "requer_token": "disciplinado",
+        "efeitos": {
+          "moral": -5,
+          "torcida": -4
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "torcida": 10,
+            "moral": 6
+          },
+          "flags_partida": [
+            "heroi",
+            "idolo"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Pede dobra de marcação, joga seguro",
+      "efeitos": {
+        "moral": 3,
+        "placar": -1
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "fav_placar_aberto",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 0,
+    "texto": "Eles abrem o placar cedo, como todo mundo previa. O grupo balança. Você assume a missão de reagir ou espera a reação coletiva?",
+    "esquerda": {
+      "texto": "Puxa a reação sozinho, no peito",
+      "efeitos": {
+        "moral": 6,
+        "fisico": -6
+      },
+      "flags_partida": [
+        "lider",
+        "raca"
+      ]
+    },
+    "direita": {
+      "texto": "Organiza o time, reação coletiva",
+      "efeitos": {
+        "moral": 4,
+        "placar": 1
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "fav_respeitam_demais",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 0,
+    "texto": "Por respeito ao tamanho deles, seu time se acovardou e recuou demais. Você precisa quebrar esse medo. Como?",
+    "esquerda": {
+      "texto": "Avança sozinho, mostra que dá pra jogar",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "efeitos": {
+          "placar": -1
+        },
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "moral": 6
+          },
+          "flags_partida": [
+            "heroi",
+            "ousado"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Conversa, reorganiza a postura",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "lider"
+      ]
+    }
+  },
+  {
+    "id": "fav_zaga_fria",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 0,
+    "texto": "A zaga deles é experiente e fria, não cai em nenhum drible. A única forma de furar é com algo que eles nunca viram.",
+    "esquerda": {
+      "texto": "Tenta a jogada de gênio, inédita",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.55,
+        "requer_token": "ousado",
+        "efeitos": {
+          "moral": -4
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 10,
+            "midia": 6
+          },
+          "flags_partida": [
+            "heroi",
+            "showman"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Insiste na jogada trabalhada",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "fav_segura_empate",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 0,
+    "texto": "Está dando certo segurar o empate contra o favorito. Mas dá pra arriscar tudo e buscar a vitória histórica. Vale o risco?",
+    "esquerda": {
+      "texto": "Arrisca, busca a zebra histórica",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.55,
+        "efeitos": {
+          "placar": -1,
+          "moral": -5
+        },
+        "flags_partida": [
+          "afobado"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 12
+          },
+          "flags_partida": [
+            "heroi",
+            "ousado"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Segura o empate valioso",
+      "efeitos": {
+        "placar": 1,
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado",
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "fav_torcida_neutra_vira",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 0,
+    "texto": "A torcida neutra começa a torcer por você, o azarão. O estádio vira a seu favor. Você abraça o papel de zebra querida?",
+    "esquerda": {
+      "texto": "Abraça, joga pra galera",
+      "efeitos": {
+        "torcida": 8,
+        "moral": 5
+      },
+      "flags_partida": [
+        "idolo",
+        "showman"
+      ]
+    },
+    "direita": {
+      "texto": "Ignora o barulho, foca no jogo",
+      "efeitos": {
+        "placar": 1,
+        "moral": 3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "fav_cansaco_deles",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "favorito",
+    "partida": 0,
+    "texto": "No fim do jogo, o favorito cansa de tanto atacar. Agora é a sua vez de ter as pernas. Aposta tudo no ataque?",
+    "esquerda": {
+      "texto": "Aposta tudo, parte pra cima",
+      "efeitos": {
+        "fisico": -8
+      },
+      "risco": {
+        "chance": 0.4,
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 8
+          },
+          "flags_partida": [
+            "heroi",
+            "raca"
+          ]
+        },
+        "efeitos": {
+          "moral": -3
+        }
+      }
+    },
+    "direita": {
+      "texto": "Administra o resultado atual",
+      "efeitos": {
+        "placar": 1,
+        "fisico": 2
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
   }
 ]

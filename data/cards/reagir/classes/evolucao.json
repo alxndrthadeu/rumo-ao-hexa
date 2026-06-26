@@ -226,5 +226,263 @@
         "afobado"
       ]
     }
+  },
+  {
+    "id": "evo_pressao_ingenua",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "evolucao",
+    "partida": 0,
+    "texto": "O time jovem deles pressiona com energia mas sem leitura tática. Dá pra explorar os espaços que a afobação deles abre.",
+    "esquerda": {
+      "texto": "Explora os espaços com paciência",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "frieza",
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Entra no ritmo frenético deles",
+      "efeitos": {
+        "fisico": -6
+      },
+      "risco": {
+        "chance": 0.4,
+        "efeitos": {
+          "placar": -1
+        },
+        "flags_partida": [
+          "afobado"
+        ]
+      }
+    }
+  },
+  {
+    "id": "evo_joia_deles",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "evolucao",
+    "partida": 0,
+    "texto": "A joia de 18 anos deles é a sensação do torneio e quer te driblar pra construir a própria fama em cima de você. Você o segura?",
+    "esquerda": {
+      "texto": "Dá uma lição de experiência no menino",
+      "efeitos": {
+        "moral": 5,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "frieza",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Subestima e leva o drible",
+      "efeitos": {
+        "moral": -6,
+        "midia": -4
+      },
+      "flags_partida": [
+        "arrogante"
+      ]
+    }
+  },
+  {
+    "id": "evo_energia_total",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "evolucao",
+    "partida": 0,
+    "texto": "Eles correm o tempo todo, energia infinita de time jovem. No segundo tempo isso vai cobrar. Você segura o ritmo agora ou aposta no cansaço deles?",
+    "esquerda": {
+      "texto": "Segura o jogo, espera eles cansarem",
+      "efeitos": {
+        "fisico": 4,
+        "moral": 3
+      },
+      "flags_partida": [
+        "frieza",
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Aceita o duelo de intensidade",
+      "efeitos": {
+        "fisico": -8,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "raca"
+      ]
+    }
+  },
+  {
+    "id": "evo_sem_medo",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "evolucao",
+    "partida": 0,
+    "texto": "Eles não respeitam a camisa do Brasil, jogam sem medo e sem amarras. Essa ousadia juvenil incomoda. Como impõe respeito?",
+    "esquerda": {
+      "texto": "Impõe respeito com futebol",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Impõe respeito na intensidade",
+      "efeitos": {
+        "moral": 5,
+        "fisico": -5
+      },
+      "flags_partida": [
+        "raca",
+        "lider"
+      ]
+    }
+  },
+  {
+    "id": "evo_erro_infantil",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "evolucao",
+    "partida": 0,
+    "texto": "A defesa jovem deles comete um erro infantil de saída de bola. A chance está aberta pra você punir na hora.",
+    "esquerda": {
+      "texto": "Pune na hora, sem perdão",
+      "efeitos": {
+        "placar": 2,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "frieza",
+        "heroi"
+      ]
+    },
+    "direita": {
+      "texto": "Hesita, dá tempo deles arrumarem",
+      "efeitos": {
+        "moral": -3
+      },
+      "flags_partida": [
+        "covarde"
+      ]
+    }
+  },
+  {
+    "id": "evo_inconstancia",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "evolucao",
+    "partida": 0,
+    "texto": "O time deles oscila: ora joga lindo, ora se perde. Difícil prever. Você joga no seu padrão ou se adapta ao caos deles?",
+    "esquerda": {
+      "texto": "Mantém seu padrão, impõe ordem",
+      "efeitos": {
+        "moral": 4,
+        "placar": 1
+      },
+      "flags_partida": [
+        "disciplinado",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Entra no caos, troca golpes",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "efeitos": {
+          "placar": -1
+        },
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 6
+          },
+          "flags_partida": [
+            "ousado"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "evo_torcida_jovem",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "evolucao",
+    "partida": 0,
+    "texto": "A torcida jovem deles faz uma festa contagiante na arquibancada, sem hostilidade, só alegria. Isso desarma um pouco a rivalidade. Você se contagia?",
+    "esquerda": {
+      "texto": "Foca, não se deixa contagiar",
+      "efeitos": {
+        "moral": 3,
+        "placar": 1
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Curte o clima, joga leve e solto",
+      "efeitos": {
+        "torcida": 5,
+        "moral": 4
+      },
+      "flags_partida": [
+        "showman"
+      ]
+    }
+  },
+  {
+    "id": "evo_promessa_provoca",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "evolucao",
+    "partida": 0,
+    "texto": "A promessa deles te provoca dizendo que é o 'novo você', que veio te aposentar. A imprensa adora a narrativa. Resposta?",
+    "esquerda": {
+      "texto": "Mostra quem ainda manda em campo",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "efeitos": {
+          "moral": -4
+        },
+        "flags_partida": [
+          "arrogante"
+        ],
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 8,
+            "midia": 5
+          },
+          "flags_partida": [
+            "heroi",
+            "idolo"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Elogia o menino, joga sem rancor",
+      "efeitos": {
+        "midia": 5,
+        "moral": 3
+      },
+      "flags_partida": [
+        "idolo",
+        "frieza"
+      ]
+    }
   }
 ]

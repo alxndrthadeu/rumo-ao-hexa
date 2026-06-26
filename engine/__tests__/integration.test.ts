@@ -161,7 +161,7 @@ describe('Integração — fatia vertical', () => {
     // resolveMatchEnd apenas abre as cartas interativas, não resolve ainda
     expect(mid.morto).toBe(false)
     expect(mid.fase).toBe('penaltis')
-    expect(mid.cartasRestantes).toEqual(['penalti_aptidao', 'penalti_abertura', 'penalti_cobranca'])
+    expect(mid.cartasRestantes).toEqual(['penalti_aptidao', 'penalti_abertura', 'penalti_cobranca', 'penalti_pressao_torcida', 'penalti_goleiro_provoca', 'penalti_companheiro_falha'])
   })
 
   it('resolvePenaltyEnd resolve pênaltis via seed — eliminado ou avança', () => {
@@ -351,53 +351,6 @@ describe('Placar — golsBrasil / golsAdversario', () => {
   })
 })
 
-describe('Expulsão — cartao_vermelho', () => {
-  const cartaVermelho: Carta = {
-    id: 'test_vermelho',
-    fase: 'reagir',
-    partida: 4,
-    texto: 'Cartão vermelho',
-    esquerda: {
-      texto: 'Provoca',
-      efeitos: {},
-      risco: { tipo: 'cartao_vermelho', chance: 1.0, efeitos: { torcida: -10 } },
-    },
-    direita: { texto: 'Neutro', efeitos: {} },
-  }
-
-  it('cartao_vermelho em mata-mata (partida 4) causa causaMorte expulsao', () => {
-    let s = createRunState('estrela', 1, 'Teste', 10)
-    s = { ...s, partidaAtual: 4 }
-    const result = applyCardChoice(s, cartaVermelho, 'esquerda')
-    expect(result.morto).toBe(true)
-    expect(result.causaMorte).toBe('expulsao')
-  })
-
-  it('cartao_vermelho em mata-mata (partida 7) causa causaMorte expulsao', () => {
-    let s = createRunState('estrela', 1, 'Teste', 10)
-    s = { ...s, partidaAtual: 7 }
-    const result = applyCardChoice(s, cartaVermelho, 'esquerda')
-    expect(result.morto).toBe(true)
-    expect(result.causaMorte).toBe('expulsao')
-  })
-
-  it('cartao_vermelho em grupo (partida 2) NÃO elimina', () => {
-    let s = createRunState('estrela', 1, 'Teste', 10)
-    s = { ...s, partidaAtual: 2 }
-    const result = applyCardChoice(s, cartaVermelho, 'esquerda')
-    expect(result.morto).toBe(false)
-  })
-
-  it('cartao_vermelho em grupo aplica efeitos de penalidade', () => {
-    let s = createRunState('estrela', 1, 'Teste', 10)
-    s = { ...s, partidaAtual: 1 }
-    const torcidaBefore = s.barras.torcida
-    const result = applyCardChoice(s, cartaVermelho, 'esquerda')
-    expect(result.morto).toBe(false)
-    // deltaMax=7 limita -10 a -7
-    expect(result.barras.torcida).toBe(Math.max(0, torcidaBefore - 7))
-  })
-})
 
 describe('Jornal — seed determinismo', () => {
   it('generateManchete é determinístico com mesma seed', () => {

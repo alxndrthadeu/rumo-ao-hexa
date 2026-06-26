@@ -759,5 +759,734 @@
         "moral": -3
       }
     }
+  },
+  {
+    "id": "anc_reuniao_tatica",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "O técnico abre a reunião tática pra sugestões. Você tem uma ideia que muda o esquema — mas expor pode passar por cima do auxiliar.",
+    "esquerda": {
+      "texto": "Propõe a ideia na frente de todos",
+      "efeitos": {
+        "moral": 6,
+        "midia": 3
+      },
+      "flags_partida": [
+        "lider"
+      ],
+      "concede_token": "lider"
+    },
+    "direita": {
+      "texto": "Fala em particular depois",
+      "efeitos": {
+        "moral": 4
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "anc_jovem_pede_ajuda",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "Um garoto da base, nervoso na primeira convocação, te procura pedindo conselho. Investir tempo nele rouba seu descanso.",
+    "esquerda": {
+      "texto": "Senta e orienta o menino",
+      "efeitos": {
+        "moral": 6,
+        "fisico": -3
+      },
+      "flags_partida": [
+        "lider"
+      ],
+      "concede_token": "lider"
+    },
+    "direita": {
+      "texto": "Dá uma palavra rápida e descansa",
+      "efeitos": {
+        "fisico": 4
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "anc_extra_finalizacao",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "Você sente que a pontaria não está calibrada. Ficar batendo no contraturno custa caro nas pernas, mas chega afiado.",
+    "esquerda": {
+      "texto": "Treina finalização até suar",
+      "efeitos": {
+        "fisico": -6,
+        "moral": 4
+      },
+      "concede_token": "disciplinado"
+    },
+    "direita": {
+      "texto": "Confia no faro, preserva",
+      "efeitos": {
+        "fisico": 4
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "anc_palestra_motivacional",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "O grupo está apático na véspera. Ninguém puxa a corrente. Você pode fazer um discurso ou deixar o clima leve por conta própria.",
+    "esquerda": {
+      "texto": "Faz o discurso, acende o grupo",
+      "efeitos": {
+        "moral": 8
+      },
+      "flags_partida": [
+        "lider"
+      ],
+      "concede_token": "lider"
+    },
+    "direita": {
+      "texto": "Deixa leve, não força a barra",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "anc_fisioterapia_intensa",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "O departamento médico oferece um protocolo pesado de recuperação que rouba uma noite de sono mas zera o desgaste.",
+    "esquerda": {
+      "texto": "Topa o protocolo pesado",
+      "efeitos": {
+        "fisico": 8,
+        "moral": -3
+      },
+      "concede_token": "disciplinado"
+    },
+    "direita": {
+      "texto": "Recusa, prioriza dormir bem",
+      "efeitos": {
+        "fisico": 4,
+        "moral": 2
+      }
+    }
+  },
+  {
+    "id": "anc_bronca_tecnico",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "O técnico te dá uma bronca pública no treino por um erro do último jogo. O grupo observa sua reação. Como responde?",
+    "esquerda": {
+      "texto": "Aceita a bronca, mostra humildade",
+      "efeitos": {
+        "moral": 4,
+        "midia": 3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ],
+      "concede_token": "disciplinado"
+    },
+    "direita": {
+      "texto": "Rebate, defende sua escolha",
+      "efeitos": {
+        "moral": -3,
+        "midia": 4
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ]
+    }
+  },
+  {
+    "id": "anc_desafio_resistencia",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "O preparador propõe um teste de resistência brutal. Quem topar prova que está pronto pra 90 minutos no talo. Você encara?",
+    "esquerda": {
+      "texto": "Encara o teste até o fim",
+      "efeitos": {
+        "fisico": -8,
+        "moral": 6
+      },
+      "concede_token": "raca"
+    },
+    "direita": {
+      "texto": "Faz o básico, guarda energia",
+      "efeitos": {
+        "fisico": 3
+      }
+    }
+  },
+  {
+    "id": "anc_conversa_goleiro",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "O goleiro titular está inseguro depois de uma falha. Como líder ofensivo, você pode passar confiança pra ele antes do jogo.",
+    "esquerda": {
+      "texto": "Conversa, devolve a confiança dele",
+      "efeitos": {
+        "moral": 6
+      },
+      "flags_partida": [
+        "lider",
+        "coletivo"
+      ],
+      "concede_token": "lider"
+    },
+    "direita": {
+      "texto": "Deixa o psicólogo cuidar disso",
+      "efeitos": {
+        "fisico": 2
+      }
+    }
+  },
+  {
+    "id": "anc_dorme_mal",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "Você acorda às 4h e não consegue voltar a dormir, a ansiedade tomando conta. Levanta pra trabalhar ou força o descanso?",
+    "esquerda": {
+      "texto": "Levanta e revisa lances do adversário",
+      "efeitos": {
+        "fisico": -4,
+        "moral": 4
+      },
+      "concede_token": "disciplinado"
+    },
+    "direita": {
+      "texto": "Fica na cama, força relaxar",
+      "efeitos": {
+        "fisico": 3,
+        "moral": -3
+      }
+    }
+  },
+  {
+    "id": "anc_gesto_capitao",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "O capitão te oferece a braçadeira por uma partida, reconhecendo sua liderança. Aceitar é peso e honra ao mesmo tempo.",
+    "esquerda": {
+      "texto": "Aceita a braçadeira com orgulho",
+      "efeitos": {
+        "moral": 6,
+        "midia": 4,
+        "fisico": -2
+      },
+      "flags_partida": [
+        "lider"
+      ],
+      "concede_token": "lider"
+    },
+    "direita": {
+      "texto": "Recusa, respeita a hierarquia",
+      "efeitos": {
+        "moral": 4
+      },
+      "flags_partida": [
+        "humilde"
+      ]
+    }
+  },
+  {
+    "id": "anc_treino_chuva",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "Treino sob temporal. Metade do grupo quer entrar. Você puxa todo mundo pra treinar na chuva como vai ser no jogo?",
+    "esquerda": {
+      "texto": "Puxa o grupo, treina na chuva",
+      "efeitos": {
+        "fisico": -5,
+        "moral": 6
+      },
+      "flags_partida": [
+        "lider",
+        "raca"
+      ],
+      "concede_token": "raca"
+    },
+    "direita": {
+      "texto": "Concorda em recolher o treino",
+      "efeitos": {
+        "fisico": 3
+      }
+    }
+  },
+  {
+    "id": "anc_pressao_familia",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "Sua família avisa que vai viajar pra te assistir, e a pressão de não decepcioná-los pesa. Você liga pra alinhar ou foca total no jogo?",
+    "esquerda": {
+      "texto": "Liga, transforma o amor em força",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    },
+    "direita": {
+      "texto": "Foca total, liga depois do jogo",
+      "efeitos": {
+        "moral": 3,
+        "fisico": 2
+      },
+      "flags_partida": [
+        "frieza"
+      ],
+      "concede_token": "frieza"
+    }
+  },
+  {
+    "id": "anc_dossie_arbitro",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "O analista trouxe o perfil do árbitro: apita muito, cartão fácil. Estudar como se portar com ele pode evitar amarelos bobos.",
+    "esquerda": {
+      "texto": "Estuda o árbitro a fundo",
+      "efeitos": {
+        "moral": 3
+      },
+      "concede_token": "disciplinado"
+    },
+    "direita": {
+      "texto": "Joga do seu jeito, sem se preocupar",
+      "efeitos": {
+        "moral": 2
+      },
+      "flags_partida": [
+        "ousado"
+      ]
+    }
+  },
+  {
+    "id": "anc_recusa_folga",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "O técnico libera folga pro grupo relaxar, mas você sente que precisa de mais um treino. Vai contra a recomendação?",
+    "esquerda": {
+      "texto": "Treina sozinho na folga",
+      "efeitos": {
+        "fisico": -6,
+        "moral": 5
+      },
+      "concede_token": "disciplinado"
+    },
+    "direita": {
+      "texto": "Aceita a folga, recarrega",
+      "efeitos": {
+        "fisico": 6,
+        "moral": 3
+      }
+    }
+  },
+  {
+    "id": "anc_mentor_veterano",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "Um veterano lendário do elenco te chama pra um papo reservado sobre o peso de vestir essa camisa. A conversa pode te centrar.",
+    "esquerda": {
+      "texto": "Ouve o veterano com atenção",
+      "efeitos": {
+        "moral": 6
+      },
+      "flags_partida": [
+        "humilde"
+      ],
+      "concede_token": "frieza"
+    },
+    "direita": {
+      "texto": "Agradece mas confia no seu caminho",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "ousado"
+      ]
+    }
+  },
+  {
+    "id": "anc_lideranca_crise",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "O grupo está rachado depois de um vazamento interno. Alguém precisa costurar a paz antes do jogo. Você assume essa missão?",
+    "esquerda": {
+      "texto": "Assume, reúne o grupo pra resolver",
+      "efeitos": {
+        "moral": 7,
+        "fisico": -3
+      },
+      "flags_partida": [
+        "lider"
+      ],
+      "concede_token": "lider"
+    },
+    "direita": {
+      "texto": "Não se mete, foca em si",
+      "efeitos": {
+        "moral": -2,
+        "fisico": 3
+      }
+    }
+  },
+  {
+    "id": "anc_dieta_rigida",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "A nutricionista impõe um cardápio rígido pra reta final. Seguir à risca é sacrifício, mas otimiza o rendimento.",
+    "esquerda": {
+      "texto": "Segue à risca, profissional total",
+      "efeitos": {
+        "fisico": 6,
+        "moral": -2
+      },
+      "concede_token": "disciplinado"
+    },
+    "direita": {
+      "texto": "Faz um furo na dieta, come o que gosta",
+      "efeitos": {
+        "moral": 4,
+        "fisico": -2
+      },
+      "flags_partida": [
+        "boemio"
+      ]
+    }
+  },
+  {
+    "id": "anc_video_proprio",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "O analista montou um vídeo só dos seus erros recentes. Assistir dói no ego mas corrige. Encara o espelho?",
+    "esquerda": {
+      "texto": "Assiste tudo, anota e corrige",
+      "efeitos": {
+        "moral": 4
+      },
+      "flags_partida": [
+        "humilde"
+      ],
+      "concede_token": "disciplinado"
+    },
+    "direita": {
+      "texto": "Pula, prefere focar nos acertos",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "arrogante"
+      ]
+    }
+  },
+  {
+    "id": "anc_promessa_torcedor",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "Um torcedor doente mandou uma carta dizendo que sua partida é a alegria da semana dele. O peso emociona. Você responde?",
+    "esquerda": {
+      "texto": "Grava um vídeo pessoal pra ele",
+      "efeitos": {
+        "moral": 5,
+        "midia": 4
+      },
+      "flags_partida": [
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Guarda a carta como motivação silenciosa",
+      "efeitos": {
+        "moral": 5
+      },
+      "concede_token": "raca"
+    }
+  },
+  {
+    "id": "anc_aposta_pessoal",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "Você faz uma promessa íntima: se jogar mal, muda algo na sua rotina. Esse peso pessoal pode te dar foco ou te travar.",
+    "esquerda": {
+      "texto": "Abraça a promessa como combustível",
+      "efeitos": {
+        "moral": 5
+      },
+      "concede_token": "raca"
+    },
+    "direita": {
+      "texto": "Tira a pressão, joga leve",
+      "efeitos": {
+        "moral": 3,
+        "fisico": 2
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "anc_reserva_motiva",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "Um reserva desanimado pensa em pedir pra sair da seleção. Como referência, você pode reacender a chama dele.",
+    "esquerda": {
+      "texto": "Conversa e reacende o cara",
+      "efeitos": {
+        "moral": 6
+      },
+      "flags_partida": [
+        "lider",
+        "coletivo"
+      ],
+      "concede_token": "lider"
+    },
+    "direita": {
+      "texto": "Deixa a comissão resolver",
+      "efeitos": {
+        "fisico": 2
+      }
+    }
+  },
+  {
+    "id": "anc_treino_penalti",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "Pode vir mata-mata e disputa de pênaltis. Treinar cobranças exaustivamente custa pernas, mas te deixa frio na hora H.",
+    "esquerda": {
+      "texto": "Treina pênaltis até automatizar",
+      "efeitos": {
+        "fisico": -5,
+        "moral": 4
+      },
+      "concede_token": "frieza"
+    },
+    "direita": {
+      "texto": "Confia no instinto na hora",
+      "efeitos": {
+        "fisico": 3
+      },
+      "flags_partida": [
+        "ousado"
+      ]
+    }
+  },
+  {
+    "id": "anc_silencio_imprensa",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "A assessoria sugere silêncio total com a imprensa na véspera pra evitar polêmica. Mas tem jornalista te provocando pra falar.",
+    "esquerda": {
+      "texto": "Mantém o silêncio profissional",
+      "efeitos": {
+        "midia": 3,
+        "moral": 3
+      },
+      "concede_token": "disciplinado"
+    },
+    "direita": {
+      "texto": "Solta uma resposta afiada",
+      "efeitos": {
+        "midia": 5,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "ousado"
+      ]
+    }
+  },
+  {
+    "id": "anc_ritual_grupo",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "O elenco quer criar um ritual de união na véspera, e olham pra você pra liderar o momento. Topa puxar?",
+    "esquerda": {
+      "texto": "Puxa o ritual, une o grupo",
+      "efeitos": {
+        "moral": 7
+      },
+      "flags_partida": [
+        "lider",
+        "coletivo"
+      ],
+      "concede_token": "lider"
+    },
+    "direita": {
+      "texto": "Participa mas não lidera",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "humilde"
+      ]
+    }
+  },
+  {
+    "id": "anc_lesao_companheiro",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "Um companheiro importante se lesiona no treino e o grupo desaba. Você precisa segurar a barra emocional do elenco.",
+    "esquerda": {
+      "texto": "Levanta o grupo, foca na superação",
+      "efeitos": {
+        "moral": 6
+      },
+      "flags_partida": [
+        "lider"
+      ],
+      "concede_token": "lider"
+    },
+    "direita": {
+      "texto": "Lamenta junto, divide a dor",
+      "efeitos": {
+        "moral": 2
+      },
+      "flags_partida": [
+        "coletivo"
+      ]
+    }
+  },
+  {
+    "id": "anc_oferta_descanso",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "Você está pendurado fisicamente. O médico sugere poupar no treino. Mas faltar pode passar imagem de moleza pro grupo.",
+    "esquerda": {
+      "texto": "Poupa, escuta o corpo",
+      "efeitos": {
+        "fisico": 7,
+        "moral": -3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Treina junto, dá o exemplo",
+      "efeitos": {
+        "fisico": -5,
+        "moral": 5
+      },
+      "flags_partida": [
+        "raca",
+        "lider"
+      ],
+      "concede_token": "raca"
+    }
+  },
+  {
+    "id": "anc_estuda_sozinho",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "De madrugada, você fica revisando os pontos fracos do marcador que vai te pegar. Sacrifica o sono por uma vantagem mental.",
+    "esquerda": {
+      "texto": "Vira a madrugada estudando o marcador",
+      "efeitos": {
+        "fisico": -5,
+        "moral": 4
+      },
+      "concede_token": "disciplinado"
+    },
+    "direita": {
+      "texto": "Dorme, resolve no improviso",
+      "efeitos": {
+        "fisico": 4
+      },
+      "flags_partida": [
+        "ousado"
+      ]
+    }
+  },
+  {
+    "id": "anc_provocacao_adversario",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "Um adversário soltou na coletiva que você 'não aguenta jogo grande'. A frase ecoa. Você responde com palavras ou guarda?",
+    "esquerda": {
+      "texto": "Responde firme na coletiva",
+      "efeitos": {
+        "midia": 6,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "ousado"
+      ]
+    },
+    "direita": {
+      "texto": "Guarda a raiva pro campo",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza"
+      ],
+      "concede_token": "frieza"
+    }
+  },
+  {
+    "id": "anc_compromisso_grupo",
+    "fase": "planejar",
+    "naipe": "ancora",
+    "partida": 0,
+    "texto": "O elenco quer firmar um pacto: ninguém sai da concentração, foco total até o fim da Copa. Você assina e cobra dos outros?",
+    "esquerda": {
+      "texto": "Assina e cobra o grupo inteiro",
+      "efeitos": {
+        "moral": 6
+      },
+      "flags_partida": [
+        "lider",
+        "disciplinado"
+      ],
+      "concede_token": "lider"
+    },
+    "direita": {
+      "texto": "Assina mas não vira fiscal",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "humilde"
+      ]
+    }
   }
 ]

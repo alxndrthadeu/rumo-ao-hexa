@@ -294,5 +294,339 @@
         "disciplinado"
       ]
     }
+  },
+  {
+    "id": "fis_sola_alta",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "fisico",
+    "partida": 0,
+    "texto": "Sola alta na sua canela, lance feio. O juiz só deu amarelo. Você sente o talo. Revida ou usa a torcida a seu favor?",
+    "esquerda": {
+      "texto": "Mostra a marca pro juiz e à câmera",
+      "efeitos": {
+        "midia": 4,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Levanta e devolve a dureza",
+      "efeitos": {
+        "moral": -12,
+        "torcida": 4
+      },
+      "eco": "eco_cartao_juiz"
+    }
+  },
+  {
+    "id": "fis_muralha_humana",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "fisico",
+    "partida": 0,
+    "texto": "A zaga deles é uma muralha de gigantes. No alto não tem espaço. Dá pra puxar o jogo pro chão e pela velocidade.",
+    "esquerda": {
+      "texto": "Joga no chão, explora a velocidade",
+      "efeitos": {
+        "placar": 1,
+        "fisico": -4
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Disputa no alto mesmo, na raça",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "efeitos": {
+          "fisico": -8
+        },
+        "niggle": "divida_lesao",
+        "sucesso": {
+          "efeitos": {
+            "placar": 1,
+            "torcida": 6
+          },
+          "flags_partida": [
+            "raca",
+            "heroi"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "fis_intimida_inicio",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "fisico",
+    "partida": 0,
+    "texto": "Logo no começo eles dão o recado: três entradas duras seguidas pra te intimidar. Você abaixa a cabeça ou responde no jogo?",
+    "esquerda": {
+      "texto": "Responde no jogo, sem medo",
+      "efeitos": {
+        "moral": 6,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "raca",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Recua o jogo, evita o contato",
+      "efeitos": {
+        "fisico": 3,
+        "moral": -5,
+        "torcida": -4
+      },
+      "flags_partida": [
+        "covarde"
+      ]
+    }
+  },
+  {
+    "id": "fis_empurra_escanteio",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "fisico",
+    "partida": 0,
+    "texto": "No escanteio, o zagueiro te agarra e empurra fora do alcance da câmera principal. Você simula pra ganhar a falta ou disputa limpo?",
+    "esquerda": {
+      "texto": "Simula, cai e pede a falta",
+      "efeitos": {
+        "midia": -4
+      },
+      "risco": {
+        "chance": 0.45,
+        "sucesso": {
+          "efeitos": {
+            "placar": 1
+          }
+        },
+        "efeitos": {
+          "torcida": -4
+        },
+        "flags_partida": [
+          "vilao"
+        ]
+      }
+    },
+    "direita": {
+      "texto": "Disputa limpo, força o lugar",
+      "efeitos": {
+        "fisico": -5,
+        "moral": 4
+      },
+      "flags_partida": [
+        "raca",
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "fis_carrinho_atras",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "fisico",
+    "partida": 0,
+    "texto": "Carrinho por trás te derruba em velocidade. Dói pra caramba. Você fica caído pedindo cartão ou levanta na hora pra mostrar força?",
+    "esquerda": {
+      "texto": "Levanta na hora, mostra que aguenta",
+      "efeitos": {
+        "moral": 5,
+        "torcida": 6,
+        "fisico": -4
+      },
+      "flags_partida": [
+        "raca"
+      ]
+    },
+    "direita": {
+      "texto": "Fica caído, força o cartão",
+      "efeitos": {
+        "midia": -3
+      },
+      "risco": {
+        "chance": 0.4,
+        "sucesso": {
+          "efeitos": {
+            "torcida": 4
+          }
+        },
+        "efeitos": {
+          "torcida": -3
+        }
+      }
+    }
+  },
+  {
+    "id": "fis_jogo_travado",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "fisico",
+    "partida": 0,
+    "texto": "O jogo virou pancadaria, ninguém consegue jogar futebol. Dá pra impor o seu jogo no meio da guerra ou se proteger até melhorar.",
+    "esquerda": {
+      "texto": "Impõe seu futebol no caos",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.5,
+        "efeitos": {
+          "fisico": -6
+        },
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 8
+          },
+          "flags_partida": [
+            "heroi",
+            "ousado"
+          ]
+        }
+      }
+    },
+    "direita": {
+      "texto": "Se protege, evita lesão",
+      "efeitos": {
+        "fisico": 4,
+        "placar": -1
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "fis_cotovelada",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "fisico",
+    "partida": 0,
+    "texto": "Cotovelada escondida do juiz na disputa aérea. Sangra o supercílio. O lance passou batido. Como reage?",
+    "esquerda": {
+      "texto": "Pede atendimento, expõe a covardia",
+      "efeitos": {
+        "midia": 5,
+        "fisico": -4
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Limpa o sangue e segue jogando",
+      "efeitos": {
+        "moral": 6,
+        "torcida": 7
+      },
+      "flags_partida": [
+        "raca",
+        "idolo"
+      ]
+    }
+  },
+  {
+    "id": "fis_provoca_lesao",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "fisico",
+    "partida": 0,
+    "texto": "Eles descobriram seu histórico de lesão e batem de propósito naquele lugar. Provocação suja. Você protege a região ou ignora?",
+    "esquerda": {
+      "texto": "Protege a região, joga cauteloso",
+      "efeitos": {
+        "fisico": 4,
+        "placar": -1
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Ignora a dor, não dá esse gosto",
+      "efeitos": {
+        "moral": 6
+      },
+      "risco": {
+        "chance": 0.35,
+        "efeitos": {
+          "fisico": -8
+        },
+        "niggle": "divida_lesao",
+        "sucesso": {
+          "efeitos": {
+            "torcida": 6
+          },
+          "flags_partida": [
+            "raca"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "fis_zagueiro_cera",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "fisico",
+    "partida": 0,
+    "texto": "Vencendo, eles partem pra catimba total: cera, faltas, rola no chão. Te tira do sério de propósito. Mantém a calma?",
+    "esquerda": {
+      "texto": "Mantém a calma, acelera as cobranças",
+      "efeitos": {
+        "moral": 4,
+        "placar": 1
+      },
+      "flags_partida": [
+        "frieza",
+        "lider"
+      ]
+    },
+    "direita": {
+      "texto": "Compra a briga, cobra a catimba",
+      "efeitos": {
+        "torcida": 3
+      },
+      "flags_partida": [
+        "pavio_curto"
+      ],
+      "eco": "eco_cartao_juiz"
+    }
+  },
+  {
+    "id": "fis_ultimato_capitao",
+    "fase": "reagir",
+    "camada": "classe",
+    "requer_classe": "fisico",
+    "partida": 0,
+    "texto": "O capitão deles, brutamontes, cola em você e avisa: 'se passar de mim de novo, você não anda'. Ameaça na cara.",
+    "esquerda": {
+      "texto": "Encara e promete passar de novo",
+      "efeitos": {
+        "moral": 5,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "raca",
+        "ousado"
+      ]
+    },
+    "direita": {
+      "texto": "Engole, escolhe outro lado pra atacar",
+      "efeitos": {
+        "moral": -3
+      },
+      "flags_partida": [
+        "frieza",
+        "covarde"
+      ]
+    }
   }
 ]

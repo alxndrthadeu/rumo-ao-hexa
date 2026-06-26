@@ -1,0 +1,182 @@
+[
+  {
+    "id": "eco_cartao_juiz",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "quando": "agora",
+    "texto": "O juiz corre até você, mão no bolso. O VAR demora. Você…",
+    "esquerda": {
+      "texto": "Pede desculpa na lata, abaixa a bola",
+      "efeitos": { "moral": 4 },
+      "flags_partida": ["amarelo", "disciplinado"]
+    },
+    "direita": {
+      "texto": "Reclama que foi disputa normal",
+      "efeitos": { "torcida": 4 },
+      "risco": {
+        "chance": 0.5,
+        "efeitos": { "moral": -8 },
+        "flags_partida": ["amarelo", "pavio_curto"]
+      }
+    }
+  },
+  {
+    "id": "eco_penalti_sofrido",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "quando": "agora",
+    "texto": "O zagueiro chega atrasado e te derruba. Pênalti! Quem assume a cobrança?",
+    "esquerda": {
+      "texto": "A bola é minha. Eu bato.",
+      "efeitos": { "placar": 1, "torcida": 6 },
+      "flags_partida": ["ousado", "heroi"]
+    },
+    "direita": {
+      "texto": "Deixo o batedor oficial cobrar",
+      "efeitos": { "placar": 1, "moral": 4 },
+      "flags_partida": ["coletivo"]
+    }
+  },
+  {
+    "id": "eco_gol_sofrido",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "quando": "proximo_slot",
+    "chance": 0.45,
+    "texto": "Contra-ataque pela linha que você deixou. Empate no marcador.",
+    "esquerda": { "texto": "—", "efeitos": { "placar": -1 }, "flags_partida": ["linha_exposta"] },
+    "direita": { "texto": "—", "efeitos": { "placar": -1 }, "flags_partida": ["linha_exposta"] }
+  },
+  {
+    "id": "eco_barreira_pula",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "quando": "agora",
+    "texto": "A barreira pula. Você lê o movimento. Onde manda a bola?",
+    "esquerda": {
+      "texto": "Por baixo, no canto que a barreira abriu",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "efeitos": { "moral": -3 },
+        "sucesso": { "efeitos": { "placar": 2, "torcida": 8 }, "flags_partida": ["heroi", "frieza"] }
+      }
+    },
+    "direita": {
+      "texto": "Força total no ângulo",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.55,
+        "requer_token": "ousado",
+        "efeitos": { "placar": -1 },
+        "flags_partida": ["afobado"],
+        "sucesso": { "efeitos": { "placar": 2, "torcida": 10 }, "flags_partida": ["heroi", "ousado"] }
+      }
+    }
+  },
+  {
+    "id": "eco_devolucao_lateral",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "quando": "agora",
+    "texto": "A tabela volta no seu pé dentro da área, com o gol à frente. Finaliza ou rola pra quem chega?",
+    "esquerda": {
+      "texto": "Finaliza você mesmo",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["ousado"]
+    },
+    "direita": {
+      "texto": "Rola pra quem chega livre",
+      "efeitos": { "placar": 1, "moral": 4 },
+      "flags_partida": ["coletivo", "idolo"]
+    }
+  },
+  {
+    "id": "eco_lancamento_espaco",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "quando": "agora",
+    "texto": "A bola sobra no espaço que o zagueiro deixou. Você arranca livre. Como define na saída do goleiro?",
+    "esquerda": {
+      "texto": "Toca por cobertura, com categoria",
+      "efeitos": {},
+      "risco": {
+        "chance": 0.45,
+        "requer_token": "frieza",
+        "efeitos": { "placar": -1 },
+        "flags_partida": ["afobado"],
+        "sucesso": { "efeitos": { "placar": 2, "torcida": 8 }, "flags_partida": ["showman", "heroi"] }
+      }
+    },
+    "direita": {
+      "texto": "Bate forte, no seguro",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "eco_rouba_e_sai",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "quando": "agora",
+    "texto": "Você roubou alto e o gol está aberto à frente, com a defesa deles desarrumada. Decide sozinho ou serve o companheiro?",
+    "esquerda": {
+      "texto": "Finaliza você, é seu momento",
+      "efeitos": { "placar": 1, "torcida": 5 },
+      "flags_partida": ["ousado", "heroi"]
+    },
+    "direita": {
+      "texto": "Serve o companheiro melhor posto",
+      "efeitos": { "placar": 2, "moral": 5 },
+      "flags_partida": ["coletivo"]
+    }
+  },
+  {
+    "id": "eco_revanche_marcador",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "quando": "proximo_slot",
+    "chance": 0.5,
+    "texto": "O marcador humilhado volta pra cima de você com tudo, querendo revanche.",
+    "esquerda": { "texto": "—", "efeitos": { "fisico": -6, "moral": -3 }, "flags_partida": ["pendurado"] },
+    "direita": { "texto": "—", "efeitos": { "fisico": -6, "moral": -3 }, "flags_partida": ["pendurado"] }
+  },
+  {
+    "id": "eco_pos_gol_provoca",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "quando": "agora",
+    "texto": "Você marcou. A comemoração é sua. Provoca a torcida adversária que te xingou ou corre pro seu canto?",
+    "esquerda": {
+      "texto": "Provoca, manda calar o estádio",
+      "efeitos": { "torcida": 5, "midia": -4 },
+      "flags_partida": ["showman", "arrogante"],
+      "eco": "eco_cartao_juiz"
+    },
+    "direita": {
+      "texto": "Comemora contido, aponta pro escudo",
+      "efeitos": { "torcida": 6, "midia": 4 },
+      "flags_partida": ["idolo"]
+    }
+  },
+  {
+    "id": "eco_assume_pressao",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "quando": "fim_partida",
+    "chance": 0.4,
+    "texto": "A escolha de chamar tudo pra si cobrou seu preço físico no apito final.",
+    "esquerda": { "texto": "—", "efeitos": { "fisico": -6 }, "flags_partida": [] },
+    "direita": { "texto": "—", "efeitos": { "fisico": -6 }, "flags_partida": [] }
+  }
+]

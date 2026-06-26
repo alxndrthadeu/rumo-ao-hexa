@@ -803,5 +803,763 @@
       },
       "flag_carreira": "humilde"
     }
+  },
+  {
+    "id": "cir_dancinha_viral",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Você inventou uma dancinha de comemoração e ela explodiu nas redes antes mesmo de você marcar. Cobra a expectativa ou aproveita o hype?",
+    "esquerda": {
+      "texto": "Promete fazer no próximo gol",
+      "efeitos": {
+        "midia": 6,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "showman"
+      ]
+    },
+    "direita": {
+      "texto": "Despista, diz que foi brincadeira",
+      "efeitos": {
+        "midia": 3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "cir_crush_celebridade",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Uma celebridade postou que torce por você e a internet shippa o casal. Os boatos te seguem na concentração. Alimenta ou nega?",
+    "esquerda": {
+      "texto": "Brinca com a situação, alimenta o meme",
+      "efeitos": {
+        "midia": 6,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "romance",
+        "showman"
+      ]
+    },
+    "direita": {
+      "texto": "Nega, pede foco na Copa",
+      "efeitos": {
+        "midia": 3,
+        "moral": 2
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "cir_meme_proprio",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Uma cara engraçada sua no banco virou o meme nacional da semana. Todo mundo usa seu rosto em figurinha. Você curte a fama?",
+    "esquerda": {
+      "texto": "Reposta os memes, ri de si mesmo",
+      "efeitos": {
+        "midia": 5,
+        "torcida": 6
+      },
+      "flags_partida": [
+        "showman",
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Ignora, não quer ser palhaço",
+      "efeitos": {
+        "moral": 3,
+        "midia": -2
+      },
+      "flags_partida": [
+        "arrogante"
+      ]
+    }
+  },
+  {
+    "id": "cir_patrocinio_polemico",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Uma marca polêmica oferece um contrato gordo pra você usar o produto deles. Dinheiro alto, mas pode pegar mal com a torcida.",
+    "esquerda": {
+      "texto": "Aceita o dinheiro, foca na carreira",
+      "efeitos": {
+        "midia": 5,
+        "torcida": -5
+      },
+      "flags_partida": [
+        "vitrine"
+      ]
+    },
+    "direita": {
+      "texto": "Recusa, protege a imagem",
+      "efeitos": {
+        "torcida": 5,
+        "midia": -2
+      },
+      "flags_partida": [
+        "idolo"
+      ]
+    }
+  },
+  {
+    "id": "cir_festa_vazada",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Vazou um vídeo seu numa festa antes da convocação. Não é nada demais, mas a imprensa explora como 'falta de foco'. Como reage?",
+    "esquerda": {
+      "texto": "Assume com naturalidade, era folga",
+      "efeitos": {
+        "midia": 4
+      },
+      "flags_partida": [
+        "boemio"
+      ]
+    },
+    "direita": {
+      "texto": "Pede desculpa pública, mostra seriedade",
+      "efeitos": {
+        "midia": 3,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "humilde"
+      ]
+    }
+  },
+  {
+    "id": "cir_filho_nasce",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Sua parceira liga: o bebê pode nascer durante a Copa. A emoção é gigante, mas a cabeça fica dividida. Como você lida?",
+    "esquerda": {
+      "texto": "Transforma em motivação, joga pelo filho",
+      "efeitos": {
+        "moral": 6,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "cabeca_em_casa",
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Blinda a cabeça, separa as coisas",
+      "efeitos": {
+        "moral": 4
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "cir_rival_provoca_live",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Um adversário fez uma live te zoando ao vivo pra milhões. A internet espera seu revide. Você entra no jogo ou ignora?",
+    "esquerda": {
+      "texto": "Faz uma live respondendo à altura",
+      "efeitos": {
+        "midia": 6,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "ousado",
+        "pavio_curto"
+      ]
+    },
+    "direita": {
+      "texto": "Ignora, responde só em campo",
+      "efeitos": {
+        "moral": 4
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "cir_documentario_proposta",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Uma plataforma quer gravar um documentário seu durante a Copa, com câmeras te seguindo. Exposição máxima ou invasão da bolha?",
+    "esquerda": {
+      "texto": "Aceita, abre as portas pras câmeras",
+      "efeitos": {
+        "midia": 7,
+        "moral": -3
+      },
+      "flags_partida": [
+        "vitrine",
+        "showman"
+      ]
+    },
+    "direita": {
+      "texto": "Recusa, protege a concentração",
+      "efeitos": {
+        "moral": 4,
+        "midia": -2
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "cir_camisa_garoto",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Um garotinho com sua camisa esperou horas no portão do hotel só pra te ver. A segurança quer tocar o cronograma. Você para?",
+    "esquerda": {
+      "texto": "Para, tira foto e dá a chuteira",
+      "efeitos": {
+        "torcida": 7,
+        "midia": 4
+      },
+      "flags_partida": [
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Acena rápido, segue o cronograma",
+      "efeitos": {
+        "moral": 2
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "cir_tatuagem_nova",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Você fez uma tatuagem nova com um significado pessoal e a internet se dividiu interpretando. Explica o sentido ou deixa o mistério?",
+    "esquerda": {
+      "texto": "Explica o significado num post",
+      "efeitos": {
+        "midia": 4,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Deixa o mistério, não deve satisfação",
+      "efeitos": {
+        "midia": 5
+      },
+      "flags_partida": [
+        "arrogante"
+      ]
+    }
+  },
+  {
+    "id": "cir_irmao_entrevista",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Seu irmão deu uma entrevista falando demais sobre sua vida pessoal e gerou ruído. Você corta ele publicamente ou resolve em família?",
+    "esquerda": {
+      "texto": "Resolve em família, na surdina",
+      "efeitos": {
+        "moral": 4,
+        "midia": 2
+      },
+      "flags_partida": [
+        "cabeca_em_casa"
+      ]
+    },
+    "direita": {
+      "texto": "Pede publicamente pra deixarem a família fora",
+      "efeitos": {
+        "midia": 5,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "lider"
+      ]
+    }
+  },
+  {
+    "id": "cir_grife_internacional",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Uma grife internacional te convida pra ser garoto-propaganda global. Sessão de fotos rouba um dia de concentração. Vale o glamour?",
+    "esquerda": {
+      "texto": "Aceita o contrato global",
+      "efeitos": {
+        "midia": 7,
+        "moral": -3
+      },
+      "flags_partida": [
+        "vitrine"
+      ]
+    },
+    "direita": {
+      "texto": "Adia tudo pro fim da Copa",
+      "efeitos": {
+        "moral": 4
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "cir_pet_viral",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Um vídeo do seu cachorro 'assistindo' seus jogos viralizou e derreteu o país. A torcida ama seu lado humano. Você surfa nisso?",
+    "esquerda": {
+      "texto": "Posta mais do pet, derrete geral",
+      "efeitos": {
+        "torcida": 6,
+        "midia": 4
+      },
+      "flags_partida": [
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Mantém o privado privado",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "cir_musica_homenagem",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Um artista famoso lançou uma música com seu nome no refrão e ela bombou. Você aparece no clipe ou mantém distância?",
+    "esquerda": {
+      "texto": "Aparece no clipe, abraça a homenagem",
+      "efeitos": {
+        "midia": 6,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "showman",
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Agradece de longe, foca na Copa",
+      "efeitos": {
+        "moral": 3,
+        "midia": 2
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "cir_ex_vende_historia",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Um ex-relacionamento vendeu uma matéria com 'bastidores' da sua vida. Metade é mentira. Você processa ou ignora?",
+    "esquerda": {
+      "texto": "Ignora soberano, não dá palco",
+      "efeitos": {
+        "midia": 3,
+        "moral": 4
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Vem a público desmentir ponto a ponto",
+      "efeitos": {
+        "midia": 5,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "pavio_curto",
+        "cabeca_em_casa"
+      ]
+    }
+  },
+  {
+    "id": "cir_caridade_anonima",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Você quer doar o bônus da partida pra uma causa. A assessoria diz pra divulgar (gera imagem), mas você pensou em fazer anônimo.",
+    "esquerda": {
+      "texto": "Doa em silêncio, sem holofote",
+      "efeitos": {
+        "moral": 6
+      },
+      "flags_partida": [
+        "humilde",
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Divulga, inspira outros a doar",
+      "efeitos": {
+        "midia": 5,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "vitrine"
+      ]
+    }
+  },
+  {
+    "id": "cir_corte_cabelo",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Você apareceu com um corte de cabelo ousado e a internet pegou fogo, metade amando, metade detonando. Mantém ou recua?",
+    "esquerda": {
+      "texto": "Mantém, abraça a ousadia",
+      "efeitos": {
+        "midia": 5,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "ousado",
+        "showman"
+      ]
+    },
+    "direita": {
+      "texto": "Volta ao clássico, sem distração",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "cir_jornalista_implica",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Um jornalista influente te chama de 'o mais superestimado da seleção' em rede nacional. A provocação dói. Você responde como?",
+    "esquerda": {
+      "texto": "Responde com ironia afiada",
+      "efeitos": {
+        "midia": 6,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "ousado",
+        "pavio_curto"
+      ]
+    },
+    "direita": {
+      "texto": "Convida ele a esperar o jogo",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "cir_velho_amigo_corre",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Um amigo de infância aparece pedindo um 'corre', ingressos, exposição, dinheiro. A amizade pesa, mas o timing é péssimo. Como lida?",
+    "esquerda": {
+      "texto": "Ajuda dentro do possível, mantém o vínculo",
+      "efeitos": {
+        "moral": 4,
+        "midia": -2
+      },
+      "flags_partida": [
+        "cabeca_em_casa"
+      ]
+    },
+    "direita": {
+      "texto": "Põe limite, foco total na Copa",
+      "efeitos": {
+        "moral": 3,
+        "fisico": 2
+      },
+      "flags_partida": [
+        "frieza",
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "cir_lenda_compara",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Uma lenda do futebol te comparou aos grandes craques da história em entrevista. O elogio é peso e honra. Você se cobra mais?",
+    "esquerda": {
+      "texto": "Abraça a responsabilidade do elogio",
+      "efeitos": {
+        "moral": 5,
+        "midia": 4
+      },
+      "flags_partida": [
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Pede calma, ainda tem muito a provar",
+      "efeitos": {
+        "moral": 4,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "humilde"
+      ]
+    }
+  },
+  {
+    "id": "cir_polemica_antiga_volta",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Um post antigo seu, fora de contexto, ressurge e vira polêmica nas redes. A turba pede retratação. Você se explica ou aguenta?",
+    "esquerda": {
+      "texto": "Explica o contexto com calma",
+      "efeitos": {
+        "midia": 4,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "humilde",
+        "polemica"
+      ]
+    },
+    "direita": {
+      "texto": "Diz que era outra época, segue em frente",
+      "efeitos": {
+        "midia": 3
+      },
+      "flags_partida": [
+        "arrogante",
+        "polemica"
+      ]
+    }
+  },
+  {
+    "id": "cir_treino_aberto",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "A torcida lota o treino aberto só pra te ver. Eles pedem um showzinho de embaixadinhas e dribles. Você dá o espetáculo?",
+    "esquerda": {
+      "texto": "Dá o show, faz a festa da torcida",
+      "efeitos": {
+        "torcida": 7,
+        "fisico": -3
+      },
+      "flags_partida": [
+        "showman",
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Treina sério, agradece com aceno",
+      "efeitos": {
+        "moral": 4
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "cir_apelido_torcida",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "A torcida criou um apelido carinhoso pra você e ele pegou no país inteiro. Você abraça a alcunha ou prefere o nome?",
+    "esquerda": {
+      "texto": "Abraça o apelido, vira marca",
+      "efeitos": {
+        "midia": 5,
+        "torcida": 5
+      },
+      "flags_partida": [
+        "idolo",
+        "showman"
+      ]
+    },
+    "direita": {
+      "texto": "Agradece mas prefere o nome de batismo",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "humilde"
+      ]
+    }
+  },
+  {
+    "id": "cir_proposta_clube_nova",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Vaza que um gigante europeu monitora cada jogo seu na Copa pra fechar contrato. A pressão de se vender bem aparece. Como joga com isso?",
+    "esquerda": {
+      "texto": "Usa a vitrine, joga pra impressionar",
+      "efeitos": {
+        "midia": 6,
+        "moral": -3
+      },
+      "flags_partida": [
+        "vitrine",
+        "proposta_europa"
+      ]
+    },
+    "direita": {
+      "texto": "Esquece o mercado, joga pelo Brasil",
+      "efeitos": {
+        "torcida": 5,
+        "moral": 4
+      },
+      "flags_partida": [
+        "idolo"
+      ]
+    }
+  },
+  {
+    "id": "cir_influencer_desafio",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Um influenciador gigante te desafia pra um trend que daria milhões de views. Participar é exposição, mas pode parecer falta de foco.",
+    "esquerda": {
+      "texto": "Topa o trend, viraliza",
+      "efeitos": {
+        "midia": 6,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "showman",
+        "vitrine"
+      ]
+    },
+    "direita": {
+      "texto": "Recusa educadamente, foco na Copa",
+      "efeitos": {
+        "moral": 4
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "cir_biografia_proposta",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Uma editora quer lançar sua biografia ainda durante a Copa, surfando no hype. Expor sua história agora é oportuno ou precipitado?",
+    "esquerda": {
+      "texto": "Aceita, sua história inspira",
+      "efeitos": {
+        "midia": 5,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "vitrine",
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Adia, história ainda está sendo escrita",
+      "efeitos": {
+        "moral": 4
+      },
+      "flags_partida": [
+        "humilde"
+      ]
+    }
+  },
+  {
+    "id": "cir_torcida_rival_respeita",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Até a torcida de um rival histórico postou que te respeita como jogador. Esse reconhecimento raro emociona. Você retribui o gesto?",
+    "esquerda": {
+      "texto": "Retribui o respeito publicamente",
+      "efeitos": {
+        "midia": 5,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "idolo",
+        "humilde"
+      ]
+    },
+    "direita": {
+      "texto": "Agradece mas mantém a rivalidade viva",
+      "efeitos": {
+        "torcida": 5
+      },
+      "flags_partida": [
+        "ousado"
+      ]
+    }
+  },
+  {
+    "id": "cir_supersticao",
+    "fase": "planejar",
+    "naipe": "circo",
+    "partida": 0,
+    "texto": "Um veterano supersticioso insiste que você precisa repetir um ritual bizarro que 'deu sorte' no último jogo. Você embarca na zoeira?",
+    "esquerda": {
+      "texto": "Embarca no ritual, une o grupo na risada",
+      "efeitos": {
+        "moral": 5,
+        "torcida": 3
+      },
+      "flags_partida": [
+        "coletivo",
+        "boemio"
+      ]
+    },
+    "direita": {
+      "texto": "Recusa com bom humor, não é de superstição",
+      "efeitos": {
+        "moral": 3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
   }
 ]

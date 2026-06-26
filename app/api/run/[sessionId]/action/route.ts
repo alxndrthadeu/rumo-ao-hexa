@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { applyCardChoice, resolveMatchEnd, resolvePenaltyEnd } from '@/engine/phases'
+import { applyCardChoice, resolveMatchEnd, resolvePenaltyEnd, resolveEcosDiferidos } from '@/engine/phases'
 import { applyMatchDecay } from '@/engine/bars'
 import { BRACKET, buildPreGameDeck, buildMatchDeck, buildPenaltyDeck, PENALTY_CARD_IDS, getCardById, getInterviewCard } from '@/engine/deck'
 import { checkMatchResult } from '@/engine/score'
-import type { BracketEntry, Carta, CartaEntrevista, ClasseInimigo, RunState } from '@/engine/types'
+import type { Carta, CartaEntrevista, RunState } from '@/engine/types'
 import { assertUnreachable } from '@/engine/types'
 
 type Params = { params: Promise<{ sessionId: string }> }
+
+export type EcoToast = { texto: string; tipo: 'gol_sofrido' | 'neutro' }
 
 export async function POST(req: NextRequest, { params }: Params) {
   const { sessionId: _sessionId } = await params
@@ -29,10 +31,16 @@ export async function POST(req: NextRequest, { params }: Params) {
   const bracket = BRACKET
   const bracketEntry = bracket[state.partidaAtual - 1]
 
-  const card = findCardById(state, cardId)
+  // ── Validação: eco pendente, carta normal, ou idempotência ──────────────────
+
+  const isEcoPendente = !!state.ecoPendente && cardId === state.ecoPendente
+
+  const card = isEcoPendente
+    ? (getCardById(cardId) as Carta | null)
+    : findCardById(state, cardId)
+
   if (!card) {
-    // Carta não está em cartasRestantes — pode ser retry de rede de ação já processada.
-    // Se o cardId existe no catálogo, retorna o estado atual idempotentemente.
+    // Idempotência: cardId existe no catálogo mas já foi processado
     const cardExists = getCardById(cardId) !== null
     if (cardExists) {
       return NextResponse.json({
@@ -40,21 +48,28 @@ export async function POST(req: NextRequest, { params }: Params) {
         nextCards: getRemainingCards(state),
         bracketEntry,
         isGameOver: state.morto,
+        ecoToasts: [],
       })
     }
     return NextResponse.json({ error: 'carta inválida' }, { status: 400 })
   }
 
-  const isCriseCard = card.fase !== 'entrevista' && (card as import('@/engine/types').Carta).camada === 'crise'
-
-  // Captura flags ANTES da entrevista resetar (applyInterviewChoice chama resetMatchFlags)
+  const isCriseCard = card.fase !== 'entrevista' && (card as Carta).camada === 'crise'
   const flagsPartidaSnapshot = state.fase === 'entrevista' ? [...state.flagsPartida] : []
 
   const prevPlacar = state.placarPartida
   let newState: RunState = applyCardChoice(state, card, escolha)
-  newState = {
-    ...newState,
-    cartasRestantes: newState.cartasRestantes.filter(id => id !== cardId),
+
+  // ── Remoção de cartasRestantes: eco não consome slot ────────────────────────
+
+  if (isEcoPendente) {
+    // Limpa ecoPendente; cartasRestantes intacto
+    newState = { ...newState, ecoPendente: undefined }
+  } else {
+    newState = {
+      ...newState,
+      cartasRestantes: newState.cartasRestantes.filter(id => id !== cardId),
+    }
   }
 
   // Sobreviveu à carta de crise — limpa crise e marca flag de carreira
@@ -69,14 +84,42 @@ export async function POST(req: NextRequest, { params }: Params) {
     }
   }
 
-  // Track individual goals during reagir
-  if (state.fase === 'reagir' && !newState.morto) {
+  // ── Prioridade 1: novo eco 'agora' → serve eco, minuto congela ──────────────
+
+  if (!newState.morto && newState.ecoPendente) {
+    const ecoCard = getCardById(newState.ecoPendente) as Carta | null
+    if (ecoCard) {
+      // Persiste currentCard = eco para resume-after-refresh
+      const newBracketEntry = bracket[newState.partidaAtual - 1] ?? bracketEntry
+      return NextResponse.json({
+        state: newState,
+        nextCards: [ecoCard],
+        bracketEntry: newBracketEntry,
+        isGameOver: false,
+        ecoToasts: [],
+      })
+    }
+  }
+
+  // ── Tracking de gols (placar delta da carta normal + risco) ─────────────────
+
+  if ((state.fase === 'reagir' || isEcoPendente) && !newState.morto) {
     const delta = newState.placarPartida - prevPlacar
     if (delta > 0) {
       newState = { ...newState, golsBrasil: newState.golsBrasil + delta }
     } else if (delta < 0) {
       newState = { ...newState, golsAdversario: newState.golsAdversario + Math.abs(delta) }
     }
+  }
+
+  // ── Prioridade 2: resolver ecosDiferidos 'proximo_slot' ─────────────────────
+
+  const ecoToasts: EcoToast[] = []
+
+  if (!newState.morto && !isEcoPendente && state.fase === 'reagir') {
+    const { state: afterDif, toasts } = resolveEcosDiferidos(newState, 'proximo_slot')
+    newState = afterDif
+    ecoToasts.push(...toasts)
   }
 
   let nextCards: Carta[] | CartaEntrevista[] | null = null
@@ -101,14 +144,19 @@ export async function POST(req: NextRequest, { params }: Params) {
       }
       nextCards = reagirCards
     } else if (state.fase === 'reagir') {
-      // Verifica se o resultado seria pênaltis (empate em mata-mata) antes de ir pra zona mista
+      // Prioridade 3: resolver ecosDiferidos 'fim_partida' antes de checkMatchResult
+      if (!newState.morto) {
+        const { state: afterFim, toasts } = resolveEcosDiferidos(newState, 'fim_partida')
+        newState = afterFim
+        ecoToasts.push(...toasts)
+      }
+
       const alvo = bracketEntry.alvoVitoria
       const realGolsBra = Math.floor(newState.golsBrasil / alvo)
       const realGolsAdv = Math.floor(newState.golsAdversario / alvo)
       const resultadoRapido = checkMatchResult(realGolsBra, realGolsAdv, bracketEntry.partida)
 
       if (resultadoRapido === 'penaltis') {
-        // Empate em mata-mata: vai direto para pênaltis, sem zona mista
         const flagsSnapshot = [...newState.flagsPartida]
         newState = resolveMatchEnd(newState, bracketEntry, flagsSnapshot)
         if (!newState.morto && newState.fase === 'penaltis') {
@@ -117,7 +165,6 @@ export async function POST(req: NextRequest, { params }: Params) {
           nextCards = penaltyCards
         }
       } else {
-        // Resultado definido: vai para zona mista (entrevista)
         const interviewCard = getInterviewCard(newState)
         newState = {
           ...newState,
@@ -128,7 +175,6 @@ export async function POST(req: NextRequest, { params }: Params) {
       }
     } else if (state.fase === 'entrevista') {
       if (state.penaltisResolvidos) {
-        // Pós-pênaltis: avança direto sem re-resolver a partida
         newState = {
           ...newState,
           penaltisResolvidos: false,
@@ -191,8 +237,11 @@ export async function POST(req: NextRequest, { params }: Params) {
     nextCards,
     bracketEntry: newBracketEntry,
     isGameOver: newState.morto,
+    ecoToasts,
   })
 }
+
+// ─── Helpers de busca ────────────────────────────────────────────────────────
 
 function findCardById(
   state: RunState,
