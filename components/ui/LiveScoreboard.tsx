@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
+
 const MINUTOS: Record<number, string> = { 5: "15'", 4: "45'", 3: "60'", 2: "88'", 1: "90+'" }
 
 export default function LiveScoreboard({
@@ -21,6 +23,18 @@ export default function LiveScoreboard({
   const minuto = finalizado ? 'FIM' : (MINUTOS[cartasRestantes] ?? "90+'")
   const is90 = !finalizado && cartasRestantes === 1
 
+  const prevBra = useRef(bra)
+  const prevAdv = useRef(adv)
+  const [pulseKey, setPulseKey] = useState(0)
+
+  useEffect(() => {
+    if (bra !== prevBra.current || adv !== prevAdv.current) {
+      prevBra.current = bra
+      prevAdv.current = adv
+      setPulseKey(k => k + 1)
+    }
+  }, [bra, adv])
+
   return (
     <div className="bg-preto px-[18px] py-[14px] flex items-center justify-between gap-[12px]">
       {/* Brasil */}
@@ -32,7 +46,8 @@ export default function LiveScoreboard({
       {/* Placar + minuto */}
       <div className="flex-1 text-center">
         <div
-          className="font-headline font-black italic text-[48px] leading-none tracking-[-3px] text-white"
+          key={pulseKey}
+          className="font-headline font-black italic text-[48px] leading-none tracking-[-3px] text-white animate-score-pulse"
           style={{ textShadow: '0 2px 0 rgba(0,0,0,0.5)' }}
         >
           {bra} — {adv}

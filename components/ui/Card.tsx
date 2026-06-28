@@ -178,66 +178,82 @@ export default function Card({
 
   return (
     <div className="flex flex-col flex-1 min-h-0 select-none">
-      {/* Carta arrastável */}
-      <div
-        {...bind()}
-        className={clsx(
-          'flex-1 min-h-0 mx-[15px] flex flex-col justify-center bg-papel cursor-grab active:cursor-grabbing',
-          isCrise ? 'border-2 border-vermelho' : isEco ? 'border-2 border-azul' : 'border-2 border-preto',
-          isHinting && 'animate-swipe-hint'
-        )}
-        onAnimationEnd={() => setHintDone(true)}
-        style={{
-          touchAction: 'none',
-          transformOrigin: '50% 120%',
-          transform: isHinting ? undefined : `translateX(${tx}px) rotate(${rot}deg)`,
-          transition: isHinting || Math.abs(dragX) > 0 ? 'none' : 'transform 0.26s ease, opacity 0.22s',
-          opacity: confirming ? 0 : 1,
-          boxShadow: isDraggingLeft
-            ? `inset 3px 0 0 var(--color-vermelho)`
-            : isDraggingRight
-            ? `inset -3px 0 0 var(--color-verde)`
-            : isCrise
-            ? '4px 4px 0 var(--color-vermelho)'
-            : isEco
-            ? '4px 4px 0 var(--color-azul)'
-            : undefined,
-        }}
-      >
-        {/* Cabeçalho de crise */}
-        {isCrise && (
-          <div className="bg-vermelho px-[15px] py-[9px] flex items-center gap-[8px]">
-            <span className="font-headline font-black italic text-[11px] tracking-[0.2em] uppercase text-white">
-              Crise de Vestiario
-            </span>
-            <span className="font-headline font-bold text-[10px] text-white/60 ml-auto">
-              Segunda chance
-            </span>
-          </div>
-        )}
 
-        {/* Cabeçalho de eco */}
-        {isEco && !isCrise && (
-          <div className="bg-azul px-[15px] py-[9px] flex items-center gap-[8px]">
-            <span className="font-headline font-black italic text-[11px] tracking-[0.2em] uppercase text-white">
-              ⚡ Reação
-            </span>
-            <span className="font-headline font-bold text-[10px] text-white/60 ml-auto">
-              Sem custo
-            </span>
-          </div>
-        )}
+      {/* Wrapper de animação de entrada — separado do drag para os transforms não conflitarem */}
+      <div className={clsx(
+        'flex-1 min-h-0 relative',
+        isEco ? 'animate-card-deal-eco' : 'animate-card-deal'
+      )}>
+        {/* Cartas fantasma do deck (stack visual) */}
+        <div
+          className="absolute inset-0 mx-[15px] bg-papel border-2 border-preto/20 pointer-events-none"
+          style={{ transform: 'rotate(2.4deg)', transformOrigin: '50% 110%' }}
+        />
+        <div
+          className="absolute inset-0 mx-[15px] bg-papel border-2 border-preto/12 pointer-events-none"
+          style={{ transform: 'rotate(-1.6deg) translateY(3px)', transformOrigin: '50% 110%' }}
+        />
 
-        {/* Texto da carta */}
-        <div className="px-[15px] pt-[18px] pb-[14px]">
-          <p className={clsx(
-            'font-headline font-bold italic leading-[1.25] tracking-[-0.3px] text-preto text-center',
-            isCrise ? 'text-[17px]' : 'text-[19px]'
-          )}>
-            {texto}
-          </p>
+        {/* Carta arrastável */}
+        <div
+          {...bind()}
+          className={clsx(
+            'absolute inset-0 mx-[15px] flex flex-col justify-center bg-papel cursor-grab active:cursor-grabbing',
+            isCrise ? 'border-2 border-vermelho' : isEco ? 'border-2 border-azul' : 'border-2 border-preto',
+            isHinting && 'animate-swipe-hint'
+          )}
+          onAnimationEnd={() => setHintDone(true)}
+          style={{
+            touchAction: 'none',
+            transformOrigin: '50% 120%',
+            transform: isHinting ? undefined : `translateX(${tx}px) rotate(${rot}deg)`,
+            transition: isHinting || Math.abs(dragX) > 0 ? 'none' : 'transform 0.26s ease, opacity 0.22s',
+            opacity: confirming ? 0 : 1,
+            boxShadow: isDraggingLeft
+              ? `inset 3px 0 0 var(--color-vermelho)`
+              : isDraggingRight
+              ? `inset -3px 0 0 var(--color-verde)`
+              : isCrise
+              ? '4px 4px 0 var(--color-vermelho)'
+              : isEco
+              ? '4px 4px 0 var(--color-azul)'
+              : undefined,
+          }}
+        >
+          {/* Cabeçalho de crise */}
+          {isCrise && (
+            <div className="bg-vermelho px-[15px] py-[9px] flex items-center gap-[8px]">
+              <span className="font-headline font-black italic text-[11px] tracking-[0.2em] uppercase text-white">
+                Crise de Vestiario
+              </span>
+              <span className="font-headline font-bold text-[10px] text-white/60 ml-auto">
+                Segunda chance
+              </span>
+            </div>
+          )}
+
+          {/* Cabeçalho de eco */}
+          {isEco && !isCrise && (
+            <div className="bg-azul px-[15px] py-[9px] flex items-center gap-[8px]">
+              <span className="font-headline font-black italic text-[11px] tracking-[0.2em] uppercase text-white">
+                ⚡ Reação
+              </span>
+              <span className="font-headline font-bold text-[10px] text-white/60 ml-auto">
+                Sem custo
+              </span>
+            </div>
+          )}
+
+          {/* Texto da carta */}
+          <div className="px-[15px] pt-[18px] pb-[14px]">
+            <p className={clsx(
+              'font-headline font-bold italic leading-[1.25] tracking-[-0.3px] text-preto text-center',
+              isCrise ? 'text-[17px]' : 'text-[19px]'
+            )}>
+              {texto}
+            </p>
+          </div>
         </div>
-
       </div>
 
       {/* Hint swipe */}

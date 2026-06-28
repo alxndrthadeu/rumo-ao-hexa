@@ -508,6 +508,7 @@ export default function GamePage() {
       <div className="flex-1 flex flex-col pt-3 min-h-0 overflow-hidden">
         {state.currentCard ? (
           <Card
+            key={state.currentCard.id}
             card={state.currentCard}
             arquetipo={state.runState.arquetipo}
             tokens={state.runState.tokens}

@@ -158,29 +158,31 @@ export default function TransitionScreen({
           style={{ top: '-10%', right: '-20%', width: '90%', height: '130%', transform: 'rotate(-12deg)', opacity: 0.08 }} />
 
         <span
-          className="font-headline font-black italic text-[10px] tracking-[0.2em] uppercase text-white bg-vermelho px-[10px] py-[4px] mb-[28px]"
+          className="animate-fade-up-1 font-headline font-black italic text-[10px] tracking-[0.2em] uppercase text-white bg-vermelho px-[10px] py-[4px] mb-[28px]"
           style={{ transform: 'skewX(-8deg)' }}
         >
           Apita o Árbitro
         </span>
 
-        <p className="font-headline font-bold text-[11px] tracking-[0.2em] uppercase mb-[6px]"
+        <p className="animate-fade-up-2 font-headline font-bold text-[11px] tracking-[0.2em] uppercase mb-[6px]"
           style={{ color: 'rgba(255,255,255,0.5)' }}>
           Brasil vs
         </p>
-        <h2 className="font-headline font-black italic text-[46px] leading-[0.85] tracking-[-2px] text-white mb-[18px] uppercase">
+        <h2 className="animate-fade-up-3 font-headline font-black italic text-[46px] leading-[0.85] tracking-[-2px] text-white mb-[18px] uppercase">
           {bracketEntry.adversario}
         </h2>
 
-        <div className="flex items-center gap-[10px] mb-[32px]">
+        <div className="animate-fade-up-3 flex items-center gap-[10px] mb-[32px]">
           <span className="font-headline font-bold text-[11px] tracking-[0.1em] uppercase px-[10px] py-[4px] border-2 border-white/30 text-white/70">
             {FASE_LABEL[bracketEntry.fase] ?? bracketEntry.fase}
           </span>
         </div>
 
-        <PlacarInicial placar={0} adversario={bracketEntry.adversario} />
+        <div className="animate-fade-up-4">
+          <PlacarInicial placar={0} adversario={bracketEntry.adversario} />
+        </div>
 
-        <p className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase mt-[44px]"
+        <p className="animate-fade-up-4 font-headline font-bold text-[9px] tracking-[0.2em] uppercase mt-[44px]"
           style={{ color: 'rgba(255,255,255,0.3)' }}>
           toque para jogar
         </p>
