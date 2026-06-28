@@ -254,7 +254,13 @@
         "efeitos": {
           "torcida": -8
         },
-        "requer_token": "frieza"
+        "requer_token": "frieza",
+        "sucesso": {
+          "efeitos": {
+            "torcida": 8,
+            "moral": 3
+          }
+        }
       }
     },
     "direita": {
@@ -313,7 +319,13 @@
           "fisico": -15,
           "moral": -10
         },
-        "requer_token": "raca"
+        "requer_token": "raca",
+        "sucesso": {
+          "efeitos": {
+            "fisico": 5,
+            "moral": 8
+          }
+        }
       }
     },
     "direita": {
@@ -518,7 +530,14 @@
           "torcida": -8,
           "midia": -8
         },
-        "requer_token": "ousado"
+        "requer_token": "ousado",
+        "sucesso": {
+          "efeitos": {
+            "torcida": 6,
+            "midia": 5,
+            "placar": 1
+          }
+        }
       }
     },
     "direita": {
@@ -548,7 +567,13 @@
         "efeitos": {
           "fisico": -15
         },
-        "requer_token": "frieza"
+        "requer_token": "frieza",
+        "sucesso": {
+          "efeitos": {
+            "fisico": 5,
+            "torcida": 8
+          }
+        }
       }
     },
     "direita": {
@@ -634,7 +659,13 @@
         "efeitos": {
           "placar": -1
         },
-        "requer_token": "ousado"
+        "requer_token": "ousado",
+        "sucesso": {
+          "efeitos": {
+            "placar": 2,
+            "torcida": 10
+          }
+        }
       }
     },
     "direita": {
@@ -713,7 +744,13 @@
         "efeitos": {
           "fisico": -8
         },
-        "requer_token": "frieza"
+        "requer_token": "frieza",
+        "sucesso": {
+          "efeitos": {
+            "fisico": 5,
+            "moral": 5
+          }
+        }
       }
     },
     "direita": {
@@ -781,7 +818,13 @@
         "efeitos": {
           "placar": -2
         },
-        "requer_token": "disciplinado"
+        "requer_token": "disciplinado",
+        "sucesso": {
+          "efeitos": {
+            "placar": 1,
+            "torcida": 5
+          }
+        }
       }
     },
     "direita": {
@@ -851,7 +894,13 @@
           "torcida": -8,
           "moral": -5
         },
-        "requer_token": "ousado"
+        "requer_token": "ousado",
+        "sucesso": {
+          "efeitos": {
+            "placar": 1,
+            "torcida": 12
+          }
+        }
       }
     },
     "direita": {
@@ -885,7 +934,14 @@
           "midia": -8,
           "placar": -2
         },
-        "requer_token": "disciplinado"
+        "requer_token": "disciplinado",
+        "sucesso": {
+          "efeitos": {
+            "placar": 1,
+            "torcida": 8,
+            "midia": 5
+          }
+        }
       }
     },
     "direita": {
@@ -1208,7 +1264,13 @@
         "efeitos": {
           "placar": -2
         },
-        "requer_token": "frieza"
+        "requer_token": "frieza",
+        "sucesso": {
+          "efeitos": {
+            "placar": 1,
+            "moral": 5
+          }
+        }
       }
     },
     "direita": {

@@ -67,6 +67,14 @@ function TokenBadge({
   )
 }
 
+function EcoBadge() {
+  return (
+    <span className="inline-flex items-center gap-[3px] font-headline font-bold text-[9px] tracking-[0.08em] uppercase px-[6px] py-[2px] bg-azul text-white whitespace-nowrap">
+      ⚡ Reação
+    </span>
+  )
+}
+
 function ChoiceFooter({
   escolha,
   tokens,
@@ -78,11 +86,13 @@ function ChoiceFooter({
 }) {
   const earnToken = escolha.concede_token
   const spendToken = escolha.risco?.requer_token
+  const hasEco = !!(escolha.eco || escolha.risco?.sucesso?.eco)
 
-  if (!earnToken && !spendToken) return null
+  if (!earnToken && !spendToken && !hasEco) return null
 
   return (
     <div className={clsx('flex flex-wrap gap-[4px] mt-[5px]', className)}>
+      {hasEco && <EcoBadge />}
       {earnToken && <TokenBadge token={earnToken} mode="earn" />}
       {spendToken && (
         <TokenBadge

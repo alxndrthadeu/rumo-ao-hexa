@@ -1488,5 +1488,119 @@
         "humilde"
       ]
     }
+  },
+  {
+    "id": "anc_crioterapia",
+    "fase": "planejar",
+    "texto": "O fisio preparou banheira de gelo. Isso vai doer.",
+    "esquerda": {
+      "texto": "Entra logo, para de enrolar",
+      "efeitos": {
+        "fisico": 12,
+        "moral": -5
+      }
+    },
+    "direita": {
+      "texto": "Quinze minutinhos não vão mudar nada",
+      "efeitos": {
+        "fisico": -3,
+        "moral": 5
+      }
+    }
+  },
+  {
+    "id": "anc_recovery_completo",
+    "fase": "planejar",
+    "texto": "Técnico libera o dia: recuperação total. Zero treino.",
+    "esquerda": {
+      "texto": "Relaxa, descansa, dorme duas horas",
+      "efeitos": {
+        "fisico": 10,
+        "moral": 3
+      }
+    },
+    "direita": {
+      "texto": "Vai lá treinar finalizações mesmo assim",
+      "efeitos": {
+        "fisico": -5,
+        "moral": 8
+      }
+    }
+  },
+  {
+    "id": "anc_fisio_express",
+    "fase": "planejar",
+    "texto": "Fisioterapeuta oferece sessão extra noturna.",
+    "esquerda": {
+      "texto": "Aceita — duas horas de massagem e ultrassom",
+      "efeitos": {
+        "fisico": 12,
+        "moral": -3
+      }
+    },
+    "direita": {
+      "texto": "Agradece mas recusa — precisa dormir cedo",
+      "efeitos": {
+        "fisico": 4,
+        "moral": 5
+      }
+    }
+  },
+  {
+    "id": "anc_descanso_ativo",
+    "fase": "planejar",
+    "texto": "Caminhada leve no campo vazio antes do treino oficial.",
+    "esquerda": {
+      "texto": "Caminha, alonga, ouve música — só isso",
+      "efeitos": {
+        "fisico": 8,
+        "moral": 3
+      }
+    },
+    "direita": {
+      "texto": "Aproveita e trabalha a finalização sozinho",
+      "efeitos": {
+        "fisico": -4,
+        "moral": 7
+      }
+    }
+  },
+  {
+    "id": "anc_suplementacao",
+    "fase": "planejar",
+    "texto": "Staff oferece protocolo de suplementação pré-jogo.",
+    "esquerda": {
+      "texto": "Segue o protocolo completo",
+      "efeitos": {
+        "fisico": 10,
+        "moral": -3
+      }
+    },
+    "direita": {
+      "texto": "Toma só o básico — não gosta de muita coisa",
+      "efeitos": {
+        "fisico": 4,
+        "moral": 3
+      }
+    }
+  },
+  {
+    "id": "anc_perna_elevada",
+    "fase": "planejar",
+    "texto": "Médico recomenda: duas horas com a perna elevada antes do aquecimento.",
+    "esquerda": {
+      "texto": "Respeita — para, sobe a perna, fica no quarto",
+      "efeitos": {
+        "fisico": 12,
+        "moral": -3
+      }
+    },
+    "direita": {
+      "texto": "Não tem paciência. Vai pro vestiário adiantado.",
+      "efeitos": {
+        "fisico": -5,
+        "moral": 6
+      }
+    }
   }
 ]

@@ -2961,5 +2961,305 @@
         }
       }
     }
+  },
+  {
+    "id": "ent_heroi_4",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "heroi",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Você não tem medo de que esse protagonismo vire pressão insustentável?",
+        "esquerda": {
+          "texto": "Pressão? Eu vivo de pressão. Alimenta.",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -8
+          }
+        },
+        "direita": {
+          "texto": "Tenho, sim. Mas não posso parar agora.",
+          "efeitos": {
+            "midia": -5,
+            "torcida": -5
+          }
+        }
+      },
+      "caido": {
+        "pergunta": "Um bom jogo não apaga o histórico ruim. Você concorda?",
+        "esquerda": {
+          "texto": "Não concordo. Hoje foi real. Amanhã também.",
+          "efeitos": {
+            "midia": 4,
+            "torcida": -8
+          }
+        },
+        "direita": {
+          "texto": "Concordo. Mas estou reconstruindo tijolo por tijolo.",
+          "efeitos": {
+            "midia": -5,
+            "torcida": -5
+          }
+        }
+      },
+      "futuro": {
+        "pergunta": "Tão jovem e já carregando o Brasil nas costas. Não é pesado demais?",
+        "esquerda": {
+          "texto": "Não. Nasci pra isso.",
+          "efeitos": {
+            "midia": 5,
+            "torcida": -8
+          }
+        },
+        "direita": {
+          "texto": "É pesado sim. Mas não estou sozinho.",
+          "efeitos": {
+            "midia": -5,
+            "torcida": -5
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_vilao_4",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "vilao",
+    "carga": "CRITICA",
+    "variantes": {
+      "estrela": {
+        "pergunta": "É a terceira vez nessa Copa. Você admite que tem um problema comportamental?",
+        "esquerda": {
+          "texto": "Não admito. São situações isoladas e fora de contexto.",
+          "efeitos": {
+            "midia": -12,
+            "torcida": -8
+          }
+        },
+        "direita": {
+          "texto": "Pode ser. Estou trabalhando nisso com o staff.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": -6
+          }
+        }
+      },
+      "caido": {
+        "pergunta": "Voltou pra seleção com crédito zero e já cometeu mais um erro. Vai ter próxima vez?",
+        "esquerda": {
+          "texto": "Vai ter. Quem me cortar vai errar.",
+          "efeitos": {
+            "midia": -12,
+            "torcida": -8
+          }
+        },
+        "direita": {
+          "texto": "Não sei. Mas vou fazer de tudo para merecer.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": -6
+          }
+        }
+      },
+      "futuro": {
+        "pergunta": "Talento não falta, mas o comportamento preocupa. A federação errou em te convocar?",
+        "esquerda": {
+          "texto": "Não errou. Meu futebol fala por mim.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -6
+          }
+        },
+        "direita": {
+          "texto": "Entendo a pergunta. Vou provar que foi certo.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": -5
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_afobado_4",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "afobado",
+    "carga": "CRITICA",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Você é impulsivo ou simplesmente não tem estrutura emocional pra essa camisa?",
+        "esquerda": {
+          "texto": "Sou intenso. Não confunda intensidade com despreparo.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": -5
+          }
+        },
+        "direita": {
+          "texto": "É uma crítica justa. Estou trabalhando.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -5
+          }
+        }
+      },
+      "caido": {
+        "pergunta": "Seu retorno estava condicionado à maturidade. Hoje ela apareceu?",
+        "esquerda": {
+          "texto": "Maturidade não se prova numa entrevista.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": -6
+          }
+        },
+        "direita": {
+          "texto": "Não apareceu hoje. Mas é um processo.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -4
+          }
+        }
+      },
+      "futuro": {
+        "pergunta": "Muito jovem e muito impaciente. Quem te deu a receita pra isso parar?",
+        "esquerda": {
+          "texto": "Ninguém. Tô descobrindo sozinho.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": -5
+          }
+        },
+        "direita": {
+          "texto": "Meu pai. Mas é mais fácil ouvir do que aplicar.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -3
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_coletivo_4",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "coletivo",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Você desaparece individualmente quando o time vai bem. É falta de ambição ou excesso de ego disfarçado?",
+        "esquerda": {
+          "texto": "Falta de ambição? Minha ambição é a taça.",
+          "efeitos": {
+            "midia": -5,
+            "torcida": -6
+          }
+        },
+        "direita": {
+          "texto": "Pergunta inteligente. Não sei responder ainda.",
+          "efeitos": {
+            "midia": -3,
+            "torcida": -8
+          }
+        }
+      },
+      "caido": {
+        "pergunta": "Você joga pro time mas some nos momentos que precisavam de você. Qual é o limite?",
+        "esquerda": {
+          "texto": "O limite é o que o técnico pede. Segui o plano.",
+          "efeitos": {
+            "midia": -5,
+            "torcida": -8
+          }
+        },
+        "direita": {
+          "texto": "Boa pergunta. Não tenho certeza onde eu termino e o time começa.",
+          "efeitos": {
+            "midia": -3,
+            "torcida": -6
+          }
+        }
+      },
+      "futuro": {
+        "pergunta": "Você prefere passar batido e ganhar do que brilhar e perder?",
+        "esquerda": {
+          "texto": "Prefiro ganhar. Sem dúvida.",
+          "efeitos": {
+            "midia": -4,
+            "torcida": -6
+          }
+        },
+        "direita": {
+          "texto": "Honestamente? Ainda não sei. Sou novo demais.",
+          "efeitos": {
+            "midia": -3,
+            "torcida": -8
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_pavio_curto_4",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "pavio_curto",
+    "carga": "CRITICA",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Você virou o jogador que adversários exploram propositalmente. Isso não te diminui?",
+        "esquerda": {
+          "texto": "Quem explora fica sabendo na hora.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -8
+          }
+        },
+        "direita": {
+          "texto": "Me diminui, sim. É um problema real que estou enfrentando.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": -6
+          }
+        }
+      },
+      "caido": {
+        "pergunta": "Você perdeu o controle de novo. Quem paga a conta é o time. Não é egoísmo?",
+        "esquerda": {
+          "texto": "Não é egoísmo. É reação humana.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -8
+          }
+        },
+        "direita": {
+          "texto": "É egoísmo sim. Errei e machuquei o time. Peço desculpas.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": -5
+          }
+        }
+      },
+      "futuro": {
+        "pergunta": "Com esse histórico você pode ser cortado antes da sua melhor Copa. Isso não te assusta?",
+        "esquerda": {
+          "texto": "Me assusta. Mas não mudo quem sou por medo.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": -6
+          }
+        },
+        "direita": {
+          "texto": "Me assusta muito. Por isso estou buscando ajuda.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -4
+          }
+        }
+      }
+    }
   }
 ]
