@@ -1,22 +1,122 @@
 @import "tailwindcss";
 
+/* ── Tema: Revista / Placar–Lance (padrão) ───────────────────────────────── */
+/*
+   @theme define as CSS vars que o Tailwind usa para gerar utilitários
+   (bg-papel, bg-azul, etc.). O [data-theme="pixel16"] abaixo SOBREPÕE
+   essas vars para todos os elementos filhos — CSS cascade normal.
+*/
 @theme {
-  --color-amarelo: #FFCB05;
-  --color-amarelo-2: #E9B400;
-  --color-verde: #009C3B;
-  --color-verde-2: #057A30;
-  --color-azul: #0A2A66;
-  --color-azul-2: #071C45;
-  --color-vermelho: #E2231A;
+  /* Paleta base (mantida para backward-compat com components existentes) */
+  --color-papel:      #F4F2EC;
+  --color-preto:      #100F0D;
+  --color-azul:       #0A2A66;
+  --color-azul-2:     #071C45;
+  --color-verde:      #009C3B;
+  --color-verde-2:    #057A30;
+  --color-vermelho:   #E2231A;
   --color-vermelho-2: #B81810;
-  --color-preto: #100F0D;
-  --color-papel: #F4F2EC;
+  --color-amarelo:    #FFCB05;
+  --color-amarelo-2:  #E9B400;
 
-  --font-sans: var(--font-inter);
+  /* Tokens semânticos (novos — usados nos componentes refatorados) */
+  --color-surface:    #FBFAF6;
+  --color-ink:        #100F0D;
+  --color-ink-soft:   #6f6a60;
+  --color-hud:        #0A2A66;
+  --color-hud-ink:    #F4F2EC;
+  --color-accent:     #FFCB05;
+  --color-accent-ink: #100F0D;
+  --color-line:       #100F0D;
+
+  /* Fontes */
+  --font-sans:     var(--font-inter);
   --font-headline: var(--font-saira);
-  --font-display: var(--font-archivo);
+  --font-display:  var(--font-archivo);
+  --font-pixel:    var(--font-press), monospace;
 }
 
+/* Tokens não-Tailwind (sombras, bordas, fx, tipografia) — defaults do tema Revista */
+:root {
+  --border-w:        2.5px;
+  --radius:          2px;
+  --card-shadow:     7px 7px 0 var(--color-line);
+  --btn-shadow:      4px 4px 0 var(--color-line);
+  --bar-track:       rgba(16,15,13,.13);
+
+  --fx-paper: block;
+  --fx-scan:  none;
+
+  /* Tipografia semântica — usada nos componentes para responder ao tema */
+  --font-head:       var(--font-saira);
+  --font-body:       var(--font-inter);
+  --head-style:      italic;
+  --head-weight:     900;
+  --head-transform:  uppercase;
+  --head-track:      -0.02em;
+
+  --fs-title:   30px;
+  --fs-kicker:  10px;
+  --fs-body:    16.5px;
+  --fs-label:   10px;
+  --fs-btn:     16px;
+  --body-lh:    1.34;
+}
+
+/* ── Tema: Pixel 16-bit (ISS / console) ──────────────────────────────────── */
+[data-theme="pixel16"] {
+  /* Paleta base sobreposta */
+  --color-papel:      #0e1c3a;
+  --color-preto:      #02060f;
+  --color-azul:       #3f8cff;   /* azul brilhante (eco, barra físico) */
+  --color-azul-2:     #2c6fd4;
+  --color-verde:      #37d24a;
+  --color-verde-2:    #2aad3b;
+  --color-vermelho:   #ff4d57;
+  --color-vermelho-2: #d93840;
+  --color-amarelo:    #ffd23f;
+  --color-amarelo-2:  #e6b800;
+
+  /* Tokens semânticos sobrespostos */
+  --color-surface:    #15264f;
+  --color-ink:        #eaf1ff;
+  --color-ink-soft:   #92a8d6;
+  --color-hud:        #081026;
+  --color-hud-ink:    #eaf1ff;
+  --color-accent:     #ffd23f;
+  --color-accent-ink: #0e1c3a;
+  --color-line:       #02060f;
+
+  /* Layout */
+  --border-w:    4px;
+  --radius:      0px;
+  --card-shadow: 0 7px 0 #02060f;
+  --btn-shadow:  0 5px 0 #02060f;
+  --bar-track:   rgba(0,0,0,.5);
+
+  /* FX */
+  --fx-paper: none;
+  --fx-scan:  block;
+
+  /* Tipografia pixel — Press Start 2P em tudo */
+  --font-headline:  var(--font-press), monospace;
+  --font-head:      var(--font-press), monospace;
+  --font-body:      var(--font-press), monospace;
+  --head-style:     normal;
+  --head-weight:    400;
+  --head-track:     0;
+
+  --fs-title:  13px;
+  --fs-kicker:  7px;
+  --fs-body:   9.5px;
+  --fs-label:   7px;
+  --fs-btn:     9px;
+  --body-lh:    1.8;
+
+  image-rendering: pixelated;
+}
+
+/* ── Reset base ───────────────────────────────────────────────────────────── */
 html {
   overscroll-behavior: none;
 }
@@ -30,6 +130,29 @@ body {
   overscroll-behavior: none;
 }
 
+/* ── Overlays globais (papel + scanlines) ─────────────────────────────────── */
+.fx-paper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  display: var(--fx-paper);
+  mix-blend-mode: multiply;
+  opacity: .5;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><circle cx='1' cy='1' r='.5' fill='%23000' opacity='.18'/></svg>");
+}
+
+.fx-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 7;
+  display: var(--fx-scan);
+  opacity: .32;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.5) 0 1px, transparent 1px 3px);
+}
+
+/* ── Animações ────────────────────────────────────────────────────────────── */
 @keyframes swipe-hint {
   0%    { transform: translateX(0px) rotate(0deg); }
   30%   { transform: translateX(-42px) rotate(-4deg); }
@@ -50,7 +173,7 @@ body {
   100% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
 }
 
-/* Eco deal-in — vem da lateral direita (é uma reação, não do deck) */
+/* Eco deal-in — vem da lateral direita (reação, não do deck) */
 @keyframes card-deal-eco {
   0%   { opacity: 0; transform: translateX(48px) rotate(3deg) scale(0.96); }
   65%  { opacity: 1; transform: translateX(-4px) rotate(-0.4deg) scale(1.004); }
@@ -85,6 +208,15 @@ body {
 
 .animate-score-pulse {
   animation: score-pulse 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Blink — indicador AO VIVO no LiveScoreboard */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+.animate-blink {
+  animation: blink 1.4s ease-in-out infinite;
 }
 
 .touch-none {

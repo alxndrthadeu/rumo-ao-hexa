@@ -419,24 +419,14 @@ export default function GamePage() {
   }
 
   return (
-    <div className="flex flex-col h-[100dvh] overflow-hidden bg-papel">
+    <div className="flex flex-col h-[100dvh] overflow-hidden bg-papel relative">
+      {/* Overlays de tema: textura de papel (Revista) e scanlines (Pixel) */}
+      <div className="fx-paper" />
+      <div className="fx-scan" />
+
       {/* ── Sticky: HUD + faixa de fase + placar ao vivo ── */}
       <div className="sticky top-0 z-40">
         <HUD state={state.runState} bracketEntry={state.bracketEntry} sessionId={sessionId} previewEfeitos={previewEfeitos} />
-
-        {/* Faixa de cor indicando fase atual */}
-        <div
-          className="h-[3px] w-full"
-          style={{
-            background: state.runState.fase === 'planejar'
-              ? 'var(--color-azul)'
-              : state.runState.fase === 'reagir'
-              ? 'var(--color-vermelho)'
-              : state.runState.fase === 'penaltis'
-              ? 'var(--color-amarelo)'
-              : 'var(--color-verde)',
-          }}
-        />
 
         {/* Placar ao vivo — fica no sticky durante reagir/entrevista */}
         {(state.runState.fase === 'reagir' || state.runState.fase === 'entrevista') && (

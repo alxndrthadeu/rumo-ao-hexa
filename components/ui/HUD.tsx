@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import clsx from 'clsx'
 import Link from 'next/link'
 import type { BracketEntry, Efeitos, RunState } from '@/engine/types'
 import Bars from './Bars'
@@ -33,53 +32,79 @@ export default function HUD({
 
   return (
     <>
-      <div className="bg-azul text-white px-[14px] pt-[11px] pb-[12px]">
-        {/* Linha superior: fase + partida/adversário + minuto + histórico */}
-        <div className="flex items-center justify-between mb-[3px]">
+      <div
+        className="px-[14px] pt-[11px] pb-[12px]"
+        style={{ background: 'var(--color-hud)', color: 'var(--color-hud-ink)' }}
+      >
+        {/* Linha 1: badge de fase + direita (minuto, tokens, seed, edições) */}
+        <div className="flex items-start justify-between gap-[8px] mb-[6px]">
           <PhaseHeader
             fase={state.fase}
             adversario={bracketEntry.adversario}
             partida={state.partidaAtual}
           />
-          <div className="flex items-center gap-[10px]">
+
+          <div className="flex items-center gap-[8px] shrink-0">
+            {/* Minuto (só em reagir) */}
             {minuto && (
-              <span className="font-headline font-black italic text-[15px] leading-none text-amarelo">
+              <span
+                className="font-headline font-black text-[14px] leading-none"
+                style={{ color: 'var(--color-accent)' }}
+              >
                 {minuto}
               </span>
             )}
-            {/* Badge de tokens — clique abre painel */}
+
+            {/* Badge de tokens */}
             {totalTokens > 0 ? (
               <button
                 onClick={() => setShowTokens(true)}
-                className="flex items-center gap-[5px] font-headline font-bold text-[10px] tracking-[0.04em] uppercase px-[9px] py-[4px] bg-amarelo text-preto transition-colors"
+                className="flex items-center gap-[4px] font-headline font-bold text-[10px] tracking-[0.06em] uppercase px-[8px] py-[3px]"
+                style={{
+                  background: 'var(--color-accent)',
+                  color: 'var(--color-accent-ink)',
+                  border: 'var(--border-w) solid var(--color-accent)',
+                }}
                 title="Ver tokens de bônus"
               >
-                <span className="text-[13px] leading-none font-black">⬡</span>
-                <span className="font-black text-[12px]">{totalTokens}</span>
-                <span className="text-[8px] tracking-[0.1em]">bônus</span>
+                <span className="font-black text-[12px] leading-none">◆</span>
+                <span>{totalTokens}</span>
               </button>
             ) : (
               <button
                 onClick={() => setShowTokens(true)}
-                className="flex items-center gap-[4px] font-headline font-bold text-[9px] tracking-[0.05em] uppercase px-[7px] py-[3px] border border-white/15 text-white/30 transition-colors"
+                className="flex items-center gap-[4px] font-headline font-bold text-[9px] tracking-[0.06em] uppercase px-[7px] py-[3px] transition-colors"
+                style={{
+                  border: 'var(--border-w) solid var(--color-hud-ink)',
+                  color: 'var(--color-hud-ink)',
+                  opacity: 0.3,
+                }}
                 title="Ver tokens de bônus"
               >
-                <span className="text-[11px] leading-none">⬡</span>
-                <span>bônus</span>
+                <span className="text-[10px] leading-none">◆</span>
+                <span>0</span>
               </button>
             )}
-            {/* Código da run */}
+
+            {/* Seed */}
             <span
-              className="font-headline font-bold text-[8px] tracking-[0.08em] text-white/25 select-all"
+              className="font-headline font-bold text-[8px] tracking-[0.08em] select-all"
+              style={{ color: 'var(--color-hud-ink)', opacity: 0.25 }}
               title={`Seed da run: ${state.initialSeed}`}
             >
               {seedCode(state.initialSeed)}
             </span>
-            {/* Link do jornal — só na concentração */}
+
+            {/* Link do jornal */}
             {sessionId && state.fase === 'planejar' && (
               <Link
                 href={`/historico/${sessionId}`}
-                className="font-headline font-bold text-[9px] tracking-[0.12em] uppercase text-white/40 border border-white/20 px-[7px] py-[3px] hover:text-white/70 hover:border-white/40 transition-colors"
+                className="font-headline font-bold text-[9px] tracking-[0.12em] uppercase px-[7px] py-[3px] transition-colors hover:opacity-70"
+                style={{
+                  color: 'var(--color-hud-ink)',
+                  border: 'var(--border-w) solid var(--color-hud-ink)',
+                  opacity: 0.4,
+                }}
               >
                 Edições
               </Link>
@@ -87,19 +112,27 @@ export default function HUD({
           </div>
         </div>
 
-        {/* Linha do jogador + placar */}
-        <div className="flex items-center gap-[8px] mb-[11px]">
-          <span className="font-headline font-black italic text-[22px] leading-none text-white/40 shrink-0">
-            #{state.camisa}
-          </span>
-          <span className="font-headline font-black italic text-[22px] tracking-[-0.5px] leading-none truncate">
-            {state.nomeJogador.toUpperCase()}
+        {/* Linha 2: confronto Brasil × Adversário + camisa/nome do jogador */}
+        <div className="flex items-baseline justify-between gap-[8px] mb-[11px]">
+          <div className="font-headline font-black text-[18px] leading-none truncate" style={{ letterSpacing: '-0.3px' }}>
+            Brasil{' '}
+            <span style={{ opacity: 0.4 }}>×</span>{' '}
+            <span style={{ color: 'var(--color-accent)' }}>{bracketEntry.adversario}</span>
+          </div>
+          <span
+            className="font-headline font-bold text-[10px] tracking-[0.06em] shrink-0"
+            style={{ color: 'var(--color-hud-ink)', opacity: 0.45 }}
+          >
+            #{state.camisa} {state.nomeJogador.toUpperCase()}
           </span>
         </div>
 
-        {/* 4 mini-barras horizontais */}
+        {/* Barras */}
         <Bars barras={state.barras} preview={previewEfeitos} />
       </div>
+
+      {/* Régua de acento (3px) — separa HUD do conteúdo */}
+      <div className="h-[3px] w-full" style={{ background: 'var(--color-accent)' }} />
 
       {showTokens && (
         <TokenPanel

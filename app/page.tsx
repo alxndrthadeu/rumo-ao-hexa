@@ -3,12 +3,14 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { useTheme } from '@/lib/useTheme'
 
 const BARRAS = ['Torcida', 'Mídia', 'Moral', 'Físico']
 
 export default function Home() {
   const router = useRouter()
   const [activeSession, setActiveSession] = useState<string | null>(null)
+  const { theme, toggle } = useTheme()
 
   useEffect(() => {
     localStorage.removeItem('rtt_session_id')
@@ -20,6 +22,8 @@ export default function Home() {
     } catch {}
   }, [])
 
+  const isPixel = theme === 'pixel16'
+
   return (
     <div className="min-h-screen bg-papel flex flex-col">
       {/* ── Cover ── */}
@@ -28,6 +32,27 @@ export default function Home() {
           className="absolute bg-amarelo pointer-events-none"
           style={{ top: '-10%', right: '-12%', width: '80%', height: '130%', transform: 'rotate(-12deg)', opacity: 0.12 }}
         />
+
+        {/* Botão de tema — canto superior direito */}
+        <button
+          onClick={toggle}
+          title={isPixel ? 'Mudar para Revista' : 'Mudar para Pixel 16-bit'}
+          className="absolute top-[14px] right-[14px] z-10 flex items-center gap-[6px] px-[10px] py-[6px] border-2 border-white/25 text-white/70 hover:border-white/50 hover:text-white transition-colors"
+          style={{ fontSize: '10px', letterSpacing: '0.1em', fontWeight: 700 }}
+        >
+          {isPixel ? (
+            <>
+              <span style={{ fontSize: '13px' }}>📰</span>
+              <span className="font-headline uppercase">Revista</span>
+            </>
+          ) : (
+            <>
+              <span style={{ fontSize: '13px' }}>👾</span>
+              <span className="font-headline uppercase">Pixel</span>
+            </>
+          )}
+        </button>
+
         <p
           className="font-headline font-black italic text-[10px] tracking-[0.2em] uppercase mb-[10px]"
           style={{ color: 'rgba(255,255,255,0.5)' }}
@@ -83,9 +108,7 @@ export default function Home() {
 
       {/* ── Pitch editorial ── */}
       <div className="px-[15px] pt-[28px] pb-[6px]">
-        <div
-          className="border-t-[3px] border-preto pt-[16px]"
-        >
+        <div className="border-t-[3px] border-preto pt-[16px]">
           <p className="font-headline font-black italic text-[22px] leading-[1.1] tracking-[-0.5px] text-preto mb-[12px]">
             Você veste a camisa.<br />Cada escolha é sua.
           </p>
@@ -134,6 +157,13 @@ export default function Home() {
         >
           Primeira vez? Veja o guia →
         </Link>
+      </div>
+
+      {/* ── Crédito de tema ── */}
+      <div className="px-[15px] pb-[20px] text-center">
+        <p className="text-[10px] tracking-[0.12em] uppercase text-preto/30">
+          {isPixel ? '👾 Pixel 16-bit' : '📰 Tema Revista'}
+        </p>
       </div>
     </div>
   )

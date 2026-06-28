@@ -20,21 +20,91 @@ const AUTO_DISMISS_MS: Record<TransitionType, number> = {
   penaltis_start:   3200,
 }
 
-type LastResult = { adversario: string; placarDelta: number; golsBrasil?: number; golsAdversario?: number; viaPenaltis?: boolean }
+type LastResult = {
+  adversario: string
+  placarDelta: number
+  golsBrasil?: number
+  golsAdversario?: number
+  viaPenaltis?: boolean
+}
 
 type Props = {
   type: TransitionType
   bracketEntry: BracketEntry
   partida: number
-  // match_start: placar inicial real (initMatchScore)
   initialPlacar?: number
-  // entrevista_start + nova_partida: resultado da partida
   lastResult?: LastResult | null
   onDismiss: () => void
 }
 
-// ─── Componente de resultado ─────────────────────────────────────────────────
+// Overlay de gramado listrado — visível apenas no tema Pixel 16-bit via --fx-scan
+function GramadoOverlay() {
+  return (
+    <div
+      className="absolute inset-0 pointer-events-none"
+      style={{
+        background: 'repeating-linear-gradient(0deg, transparent 0 30px, rgba(255,255,255,.04) 30px 60px)',
+        display: 'var(--fx-scan)',
+      }}
+    />
+  )
+}
 
+// Shell compartilhado: fundo --color-hud, fullscreen, centralizado
+function HudScreen({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
+  return (
+    <button
+      onClick={onClick}
+      className="flex flex-col h-[100dvh] w-full items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
+      style={{ background: 'var(--color-hud)' }}
+    >
+      <GramadoOverlay />
+      {children}
+    </button>
+  )
+}
+
+// Badge skewed — accent (default) ou custom bg/ink
+function SkewBadge({
+  label,
+  bg = 'var(--color-accent)',
+  ink = 'var(--color-accent-ink)',
+  className = '',
+}: {
+  label: string
+  bg?: string
+  ink?: string
+  className?: string
+}) {
+  return (
+    <span
+      className={`font-headline font-black italic text-[10px] tracking-[0.2em] uppercase px-[10px] py-[4px] ${className}`}
+      style={{ background: bg, color: ink, transform: 'skewX(-8deg)', display: 'inline-block' }}
+    >
+      {label}
+    </span>
+  )
+}
+
+// Placar minimalista BRA n — n ADV (match_start usa 0—0 fixo)
+function PlacarLine({ bra, adv, adversario }: { bra: number; adv: number; adversario: string }) {
+  const advAbrev = adversario.slice(0, 3).toUpperCase()
+  return (
+    <div className="flex items-baseline gap-[6px]">
+      <span className="font-headline font-black italic text-[14px]" style={{ color: 'var(--color-hud-ink)', opacity: 0.55 }}>BRA</span>
+      <span className="font-headline font-black italic text-[44px] leading-none tracking-[-2px]" style={{ color: 'var(--color-accent)' }}>
+        {bra}
+      </span>
+      <span className="font-headline font-black italic text-[24px]" style={{ color: 'var(--color-hud-ink)', opacity: 0.3 }}>—</span>
+      <span className="font-headline font-black italic text-[44px] leading-none tracking-[-2px]" style={{ color: 'var(--color-accent)' }}>
+        {adv}
+      </span>
+      <span className="font-headline font-black italic text-[14px]" style={{ color: 'var(--color-hud-ink)', opacity: 0.4 }}>{advAbrev}</span>
+    </div>
+  )
+}
+
+// Resultado da partida anterior (entrevista_start / nova_partida)
 function BadgeResultado({
   adversario,
   alvoVitoria,
@@ -55,21 +125,18 @@ function BadgeResultado({
   const advAbrev = adversario.slice(0, 3).toUpperCase()
 
   const scoreLine = (
-    <span className="font-headline font-black italic text-[28px] leading-none tracking-[-1px] text-white/80">
+    <span
+      className="font-headline font-black italic text-[28px] leading-none tracking-[-1px]"
+      style={{ color: 'var(--color-hud-ink)', opacity: 0.8 }}
+    >
       BRA {bra} — {adv} {advAbrev}
     </span>
   )
 
   if (isVitoria) {
-    const label = empateValido ? 'Vitória' : 'Classificado'
     return (
       <div className="flex flex-col items-center gap-[8px] mb-[28px]">
-        <span
-          className="font-headline font-black italic text-[11px] tracking-[0.15em] uppercase text-preto bg-amarelo px-[12px] py-[4px]"
-          style={{ transform: 'skewX(-8deg)' }}
-        >
-          {label}
-        </span>
+        <SkewBadge label={empateValido ? 'Vitória' : 'Classificado'} />
         {scoreLine}
       </div>
     )
@@ -79,8 +146,8 @@ function BadgeResultado({
     return (
       <div className="flex flex-col items-center gap-[8px] mb-[28px]">
         <span
-          className="font-headline font-black italic text-[11px] tracking-[0.15em] uppercase text-white/70 border-2 border-white/30 px-[12px] py-[4px]"
-          style={{ transform: 'skewX(-8deg)' }}
+          className="font-headline font-black italic text-[11px] tracking-[0.15em] uppercase px-[12px] py-[4px]"
+          style={{ color: 'var(--color-hud-ink)', opacity: 0.7, border: 'var(--border-w) solid', transform: 'skewX(-8deg)', display: 'inline-block' }}
         >
           Empate
         </span>
@@ -91,42 +158,8 @@ function BadgeResultado({
 
   return (
     <div className="flex flex-col items-center gap-[8px] mb-[28px]">
-      <span
-        className="font-headline font-black italic text-[11px] tracking-[0.15em] uppercase text-white bg-vermelho px-[12px] py-[4px]"
-        style={{ transform: 'skewX(-8deg)' }}
-      >
-        Derrota
-      </span>
+      <SkewBadge label="Derrota" bg="var(--color-vermelho)" ink="#fff" />
       {scoreLine}
-    </div>
-  )
-}
-
-// ─── Placar inicial (initMatchScore) ─────────────────────────────────────────
-
-function PlacarInicial({
-  placar,
-  adversario,
-}: {
-  placar: number
-  adversario: string
-}) {
-  const bra = placar > 0 ? placar : 0
-  const adv = placar < 0 ? Math.abs(placar) : 0
-  const advAbrev = adversario.slice(0, 3).toUpperCase()
-
-  return (
-    <div className="flex items-center gap-[20px]">
-      <span className="font-headline font-black italic text-[28px] text-white">BRA</span>
-      <span
-        className="font-headline font-black italic text-[40px] leading-none text-white bg-vermelho px-[16px] py-[4px]"
-        style={{ boxShadow: '4px 4px 0 #100F0D' }}
-      >
-        {bra} – {adv}
-      </span>
-      <span className="font-headline font-black italic text-[28px] text-white/60">
-        {advAbrev}
-      </span>
     </div>
   )
 }
@@ -137,7 +170,6 @@ export default function TransitionScreen({
   type,
   bracketEntry,
   partida,
-  initialPlacar = 0,
   lastResult,
   onDismiss,
 }: Props) {
@@ -150,43 +182,52 @@ export default function TransitionScreen({
 
   if (type === 'match_start') {
     return (
-      <button
-        onClick={onDismiss}
-        className="flex flex-col h-[100dvh] w-full bg-azul items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
-      >
-        <div className="absolute bg-amarelo pointer-events-none"
-          style={{ top: '-10%', right: '-20%', width: '90%', height: '130%', transform: 'rotate(-12deg)', opacity: 0.08 }} />
+      <HudScreen onClick={onDismiss}>
+        {/* Badge da fase */}
+        <div className="animate-fade-up-1 mb-[28px]">
+          <SkewBadge label={FASE_LABEL[bracketEntry.fase] ?? bracketEntry.fase} />
+        </div>
 
-        <span
-          className="animate-fade-up-1 font-headline font-black italic text-[10px] tracking-[0.2em] uppercase text-white bg-vermelho px-[10px] py-[4px] mb-[28px]"
-          style={{ transform: 'skewX(-8deg)' }}
+        {/* Brasil */}
+        <p
+          className="animate-fade-up-2 font-headline font-black italic text-[18px] tracking-[0.25em] uppercase mb-[6px]"
+          style={{ color: 'var(--color-hud-ink)', opacity: 0.75 }}
         >
-          Apita o Árbitro
-        </span>
-
-        <p className="animate-fade-up-2 font-headline font-bold text-[11px] tracking-[0.2em] uppercase mb-[6px]"
-          style={{ color: 'rgba(255,255,255,0.5)' }}>
-          Brasil vs
+          Brasil
         </p>
-        <h2 className="animate-fade-up-3 font-headline font-black italic text-[46px] leading-[0.85] tracking-[-2px] text-white mb-[18px] uppercase">
+
+        {/* VERSUS */}
+        <p
+          className="animate-fade-up-2 font-headline font-bold text-[11px] tracking-[0.3em] uppercase mb-[8px]"
+          style={{ color: 'var(--color-hud-ink)', opacity: 0.35 }}
+        >
+          versus
+        </p>
+
+        {/* Adversário */}
+        <h2
+          className="animate-fade-up-3 font-headline font-black italic text-[46px] leading-[0.85] tracking-[-2px] uppercase mb-[28px]"
+          style={{ color: 'var(--color-accent)' }}
+        >
           {bracketEntry.adversario}
         </h2>
 
-        <div className="animate-fade-up-3 flex items-center gap-[10px] mb-[32px]">
-          <span className="font-headline font-bold text-[11px] tracking-[0.1em] uppercase px-[10px] py-[4px] border-2 border-white/30 text-white/70">
-            {FASE_LABEL[bracketEntry.fase] ?? bracketEntry.fase}
-          </span>
+        {/* Placar inicial 0—0 */}
+        <div className="animate-fade-up-3">
+          <PlacarLine bra={0} adv={0} adversario={bracketEntry.adversario} />
         </div>
 
-        <div className="animate-fade-up-4">
-          <PlacarInicial placar={0} adversario={bracketEntry.adversario} />
+        {/* Filete + hint */}
+        <div className="animate-fade-up-4 flex flex-col items-center gap-[16px] mt-[36px]">
+          <div className="h-[2px] w-[64px]" style={{ background: 'var(--color-hud-ink)', opacity: 0.2 }} />
+          <p
+            className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase"
+            style={{ color: 'var(--color-hud-ink)', opacity: 0.3 }}
+          >
+            Apita o Árbitro · Toque para jogar
+          </p>
         </div>
-
-        <p className="animate-fade-up-4 font-headline font-bold text-[9px] tracking-[0.2em] uppercase mt-[44px]"
-          style={{ color: 'rgba(255,255,255,0.3)' }}>
-          toque para jogar
-        </p>
-      </button>
+      </HudScreen>
     )
   }
 
@@ -194,36 +235,32 @@ export default function TransitionScreen({
 
   if (type === 'penaltis_start') {
     return (
-      <button
-        onClick={onDismiss}
-        className="flex flex-col h-[100dvh] w-full bg-preto items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
-      >
-        <div className="absolute bg-vermelho pointer-events-none"
-          style={{ top: '-10%', left: '-20%', width: '90%', height: '130%', transform: 'rotate(12deg)', opacity: 0.10 }} />
+      <HudScreen onClick={onDismiss}>
+        <div className="mb-[28px]">
+          <SkewBadge label="Mata-mata" bg="var(--color-accent)" ink="var(--color-accent-ink)" />
+        </div>
 
-        <span
-          className="font-headline font-black italic text-[10px] tracking-[0.2em] uppercase text-preto bg-amarelo px-[10px] py-[4px] mb-[28px]"
-          style={{ transform: 'skewX(-8deg)' }}
+        <h2
+          className="font-headline font-black italic text-[72px] leading-[0.82] tracking-[-3px] mb-[18px]"
+          style={{ color: 'var(--color-accent)' }}
         >
-          Mata-mata
-        </span>
-
-        <h2 className="font-headline font-black italic text-[72px] leading-[0.82] tracking-[-3px] text-amarelo mb-[18px]">
           PÊN<br />ALTIS
         </h2>
 
-        <p className="font-headline font-bold text-[13px] text-white/50 mb-[4px]">
+        <p className="font-headline font-bold text-[13px] mb-[4px]" style={{ color: 'var(--color-hud-ink)', opacity: 0.5 }}>
           {bracketEntry.adversario}
         </p>
-        <p className="font-headline font-bold text-[11px] text-white/35">
+        <p className="font-headline font-bold text-[11px]" style={{ color: 'var(--color-hud-ink)', opacity: 0.35 }}>
           A decisão é sua.
         </p>
 
-        <p className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase mt-[52px]"
-          style={{ color: 'rgba(255,255,255,0.25)' }}>
+        <p
+          className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase mt-[52px]"
+          style={{ color: 'var(--color-hud-ink)', opacity: 0.25 }}
+        >
           toque para cobrar
         </p>
-      </button>
+      </HudScreen>
     )
   }
 
@@ -232,14 +269,7 @@ export default function TransitionScreen({
   if (type === 'entrevista_start') {
     const viaPenaltis = lastResult?.viaPenaltis
     return (
-      <button
-        onClick={onDismiss}
-        className="flex flex-col h-[100dvh] w-full bg-verde items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
-      >
-        <div className="absolute bg-white pointer-events-none"
-          style={{ top: '-10%', left: '-20%', width: '90%', height: '130%', transform: 'rotate(12deg)', opacity: 0.05 }} />
-
-        {/* Resultado da partida — oculto quando classificado via pênaltis */}
+      <HudScreen onClick={onDismiss}>
         {lastResult && !viaPenaltis && (
           <BadgeResultado
             adversario={lastResult.adversario}
@@ -251,85 +281,85 @@ export default function TransitionScreen({
         )}
 
         {viaPenaltis && (
-          <span
-            className="font-headline font-black italic text-[11px] tracking-[0.15em] uppercase text-preto bg-amarelo px-[12px] py-[4px] mb-[28px]"
-            style={{ transform: 'skewX(-8deg)' }}
-          >
-            Classificado nas Penalidades
-          </span>
+          <div className="mb-[28px]">
+            <SkewBadge label="Classificado nas Penalidades" />
+          </div>
         )}
 
-        <span
-          className="font-headline font-black italic text-[10px] tracking-[0.2em] uppercase text-white bg-preto px-[10px] py-[4px] mb-[20px]"
-          style={{ transform: 'skewX(-8deg)' }}
-        >
-          {viaPenaltis ? 'Fim dos Pênaltis' : 'Fim dos 90 Minutos'}
-        </span>
+        <div className="mb-[20px]">
+          <SkewBadge
+            label={viaPenaltis ? 'Fim dos Pênaltis' : 'Fim dos 90 Minutos'}
+            bg="var(--color-line)"
+            ink="var(--color-surface)"
+          />
+        </div>
 
-        <h2 className="font-headline font-black italic text-[52px] leading-[0.85] tracking-[-2px] text-white mb-[14px]">
+        <h2
+          className="font-headline font-black italic text-[52px] leading-[0.85] tracking-[-2px] mb-[14px]"
+          style={{ color: 'var(--color-hud-ink)' }}
+        >
           Zona<br />Mista
         </h2>
 
-        <p className="font-headline font-bold text-[15px] text-white/70 mb-[6px]">
+        <p className="font-headline font-bold text-[15px] mb-[6px]" style={{ color: 'var(--color-hud-ink)', opacity: 0.7 }}>
           A imprensa te espera.
         </p>
-        <p className="font-headline font-bold text-[13px] text-white/50">
+        <p className="font-headline font-bold text-[13px]" style={{ color: 'var(--color-hud-ink)', opacity: 0.5 }}>
           Uma pergunta. Pense antes de responder.
         </p>
 
-        <p className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase mt-[52px]"
-          style={{ color: 'rgba(255,255,255,0.35)' }}>
+        <p
+          className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase mt-[52px]"
+          style={{ color: 'var(--color-hud-ink)', opacity: 0.35 }}
+        >
           toque para continuar
         </p>
-      </button>
+      </HudScreen>
     )
   }
 
   // ── nova_partida ───────────────────────────────────────────────────────────
 
   return (
-    <button
-      onClick={onDismiss}
-      className="flex flex-col h-[100dvh] w-full bg-preto items-center justify-center px-[22px] text-center cursor-pointer select-none overflow-hidden relative"
-    >
-      <div className="absolute bg-amarelo pointer-events-none"
-        style={{ top: '-10%', right: '-20%', width: '90%', height: '130%', transform: 'rotate(-12deg)', opacity: 0.06 }} />
-
-      <span
-        className="font-headline font-black italic text-[10px] tracking-[0.2em] uppercase text-white bg-azul px-[10px] py-[4px] mb-[16px]"
-        style={{ transform: 'skewX(-8deg)' }}
-      >
-        Próxima Partida
-      </span>
+    <HudScreen onClick={onDismiss}>
+      <div className="mb-[16px]">
+        <SkewBadge label="Próxima Partida" />
+      </div>
 
       {lastResult?.viaPenaltis && (
-        <span
-          className="font-headline font-black italic text-[10px] tracking-[0.15em] uppercase text-preto bg-amarelo px-[10px] py-[3px] mb-[12px]"
-          style={{ transform: 'skewX(-8deg)' }}
-        >
-          Classificado nas Penalidades
-        </span>
+        <div className="mb-[12px]">
+          <SkewBadge label="Classificado nas Penalidades" bg="var(--color-line)" ink="var(--color-surface)" />
+        </div>
       )}
 
-      <p className="font-headline font-bold text-[11px] tracking-[0.2em] uppercase mb-[4px]"
-        style={{ color: 'rgba(255,255,255,0.4)' }}>
+      <p
+        className="font-headline font-bold text-[11px] tracking-[0.2em] uppercase mb-[4px]"
+        style={{ color: 'var(--color-hud-ink)', opacity: 0.4 }}
+      >
         {FASE_LABEL[bracketEntry.fase] ?? bracketEntry.fase}
       </p>
 
-      <h2 className="font-headline font-black italic text-[40px] leading-[0.88] tracking-[-1.5px] text-white mb-[24px] uppercase">
+      <h2
+        className="font-headline font-black italic text-[40px] leading-[0.88] tracking-[-1.5px] uppercase mb-[24px]"
+        style={{ color: 'var(--color-hud-ink)' }}
+      >
         vs {bracketEntry.adversario}
       </h2>
 
-      <div className="flex items-center gap-[8px] mb-[36px]">
-        <span className="font-headline font-bold text-[12px] tracking-[0.1em] uppercase text-white/60 border-2 border-white/20 px-[10px] py-[4px]">
-          Concentração P{partida}
-        </span>
-      </div>
+      <span
+        className="font-headline font-bold text-[12px] tracking-[0.1em] uppercase px-[10px] py-[4px] mb-[36px]"
+        style={{ color: 'var(--color-hud-ink)', opacity: 0.6, border: 'var(--border-w) solid', borderColor: 'var(--color-hud-ink)', display: 'inline-block' }}
+        // opacity on the element affects the border too; use rgba alternative if needed
+      >
+        Concentração P{partida}
+      </span>
 
-      <p className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase"
-        style={{ color: 'rgba(255,255,255,0.25)' }}>
+      <p
+        className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase"
+        style={{ color: 'var(--color-hud-ink)', opacity: 0.25 }}
+      >
         toque para começar
       </p>
-    </button>
+    </HudScreen>
   )
 }
