@@ -187,11 +187,11 @@ export default function Card({
     if (disabled || confirming) return
     onPreview?.(null)
     setConfirming(lado)
+    setDragX(0) // reativa transition para a carta animar a saída (x→360/-360)
     timeoutRef.current = setTimeout(() => {
       timeoutRef.current = null
       onChoice(lado)
-      setDragX(0)
-      setConfirming(null)
+      // sem reset de estado — o remount via key={card.id} no parent limpa tudo
     }, 260)
   }
 
