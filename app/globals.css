@@ -53,8 +53,8 @@
   /* Paleta base sobreposta */
   --color-papel:      #0e1c3a;
   --color-preto:      #02060f;
-  --color-azul:       #081026;
-  --color-azul-2:     #040b18;
+  --color-azul:       #3f8cff;   /* azul brilhante (eco, barra físico) */
+  --color-azul-2:     #2c6fd4;
   --color-verde:      #37d24a;
   --color-verde-2:    #2aad3b;
   --color-vermelho:   #ff4d57;

@@ -428,20 +428,6 @@ export default function GamePage() {
       <div className="sticky top-0 z-40">
         <HUD state={state.runState} bracketEntry={state.bracketEntry} sessionId={sessionId} previewEfeitos={previewEfeitos} />
 
-        {/* Faixa de cor indicando fase atual */}
-        <div
-          className="h-[3px] w-full"
-          style={{
-            background: state.runState.fase === 'planejar'
-              ? 'var(--color-azul)'
-              : state.runState.fase === 'reagir'
-              ? 'var(--color-vermelho)'
-              : state.runState.fase === 'penaltis'
-              ? 'var(--color-amarelo)'
-              : 'var(--color-verde)',
-          }}
-        />
-
         {/* Placar ao vivo — fica no sticky durante reagir/entrevista */}
         {(state.runState.fase === 'reagir' || state.runState.fase === 'entrevista') && (
           <LiveScoreboard
