@@ -65,34 +65,34 @@
 
 /* ── Tema: Pixel 16-bit (ISS / console) ──────────────────────────────────── */
 [data-theme="pixel16"] {
-  /* Paleta base sobreposta */
-  --color-papel:      #0e1c3a;
-  --color-preto:      #02060f;
-  --color-azul:       #3f8cff;   /* azul brilhante (eco, barra físico) */
-  --color-azul-2:     #2c6fd4;
-  --color-verde:      #37d24a;
-  --color-verde-2:    #2aad3b;
+  /* Paleta base — direção "Arcade": maior contraste entre camadas */
+  --color-papel:      #05101f;   /* fundo de página: quase-preto azul */
+  --color-preto:      #020b18;
+  --color-azul:       #4a9eff;   /* azul elétrico (eco, barra físico) */
+  --color-azul-2:     #3380e0;
+  --color-verde:      #2edb52;
+  --color-verde-2:    #22b840;
   --color-vermelho:   #ff4d57;
   --color-vermelho-2: #d93840;
   --color-amarelo:    #ffd23f;
   --color-amarelo-2:  #e6b800;
 
-  /* Tokens semânticos sobrespostos */
-  --color-surface:    #15264f;
-  --color-ink:        #eaf1ff;
-  --color-ink-soft:   #92a8d6;
-  --color-hud:        #081026;
-  --color-hud-ink:    #eaf1ff;
-  --color-accent:     #ffd23f;
-  --color-accent-ink: #0e1c3a;
-  --color-line:       #02060f;
+  /* Tokens semânticos — superfície muito mais clara que o fundo */
+  --color-surface:    #1e3568;   /* card / painéis: azul médio */
+  --color-ink:        #dff0ff;   /* texto principal: branco-azul */
+  --color-ink-soft:   #8ab4d8;   /* texto secundário */
+  --color-hud:        #020c1a;   /* barra HUD: ultra-escuro */
+  --color-hud-ink:    #dff0ff;
+  --color-accent:     #ffd23f;   /* amarelo console */
+  --color-accent-ink: #05101f;
+  --color-line:       #0c1e42;   /* bordas: azul escuro visível */
 
   /* Layout */
   --border-w:    4px;
   --radius:      0px;
-  --card-shadow: 0 7px 0 #02060f;
-  --btn-shadow:  0 5px 0 #02060f;
-  --bar-track:   rgba(0,0,0,.5);
+  --card-shadow: 0 7px 0 #0c1e42;
+  --btn-shadow:  0 5px 0 #0c1e42;
+  --bar-track:   rgba(0,0,0,.40);
 
   /* FX */
   --fx-paper: none;
@@ -148,8 +148,8 @@ body {
   pointer-events: none;
   z-index: 7;
   display: var(--fx-scan);
-  opacity: .32;
-  background: repeating-linear-gradient(0deg, rgba(0,0,0,.5) 0 1px, transparent 1px 3px);
+  opacity: .18;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.6) 0 1px, transparent 1px 3px);
 }
 
 /* ── Animações ────────────────────────────────────────────────────────────── */

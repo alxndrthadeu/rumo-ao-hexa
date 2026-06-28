@@ -37,21 +37,6 @@ function resolveCard(
   return { texto: c.texto, esquerda: c.esquerda, direita: c.direita }
 }
 
-// Resumo textual dos efeitos: "Físico −8 · Placar +1"
-function formatEfeitos(efeitos: Efeitos): string {
-  const MAP: [keyof Efeitos, string][] = [
-    ['torcida', 'Torcida'], ['midia', 'Mídia'],
-    ['moral', 'Moral'], ['fisico', 'Físico'], ['placar', 'Placar'],
-  ]
-  const parts: string[] = []
-  for (const [k, label] of MAP) {
-    const v = efeitos[k]
-    if (typeof v === 'number' && v !== 0) parts.push(`${label} ${v > 0 ? '+' : ''}${v}`)
-    else if (v === 'condicional') parts.push('Placar ±')
-  }
-  return parts.join(' · ')
-}
-
 // Nomes de exibição para tokens
 const TOKEN_LABEL: Record<string, string> = {
   ousado:       'Ousado',
@@ -120,7 +105,7 @@ function ChoiceButton({
   const earnToken   = escolha.concede_token
   const spendToken  = escolha.risco?.requer_token
   const hasEco      = !!(escolha.eco || escolha.risco?.sucesso?.eco)
-  const efeitosText = formatEfeitos(escolha.efeitos)
+  const hasBadges   = hasEco || !!earnToken || !!spendToken
 
   return (
     <button
@@ -151,20 +136,14 @@ function ChoiceButton({
           {escolha.texto}
         </span>
 
-        {/* Efeitos + badges */}
-        <div className="flex flex-wrap items-center gap-[5px] mt-[5px]">
-          {efeitosText && (
-            <span
-              className="font-headline font-bold uppercase leading-none"
-              style={{ color: 'var(--color-ink-soft)', fontSize: 'var(--fs-label)', letterSpacing: '0.08em' }}
-            >
-              {efeitosText}
-            </span>
-          )}
-          {hasEco && <EcoBadge />}
-          {earnToken && <TokenBadge token={earnToken} mode="earn" />}
-          {spendToken && <TokenBadge token={spendToken} mode="spend" available={(tokens[spendToken] ?? 0) > 0} />}
-        </div>
+        {/* Badges (eco, token ganho, token gasto) */}
+        {hasBadges && (
+          <div className="flex flex-wrap items-center gap-[5px] mt-[5px]">
+            {hasEco && <EcoBadge />}
+            {earnToken && <TokenBadge token={earnToken} mode="earn" />}
+            {spendToken && <TokenBadge token={spendToken} mode="spend" available={(tokens[spendToken] ?? 0) > 0} />}
+          </div>
+        )}
       </div>
     </button>
   )
