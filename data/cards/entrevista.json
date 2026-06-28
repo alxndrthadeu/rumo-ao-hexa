@@ -2661,5 +2661,305 @@
         }
       }
     }
+  },
+  {
+    "id": "ent_heroi_3",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "heroi",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Três jogos, três decisões. Você virou referência desta geração?",
+        "esquerda": {
+          "texto": "Sempre fui. Vocês que demoram a ver.",
+          "efeitos": {
+            "midia": 9,
+            "torcida": -6
+          }
+        },
+        "direita": {
+          "texto": "A referência é o coletivo. Fui só o mais visível hoje.",
+          "efeitos": {
+            "torcida": 13,
+            "moral": 6
+          }
+        }
+      },
+      "caido": {
+        "pergunta": "Gol importante, mas consistência é outra coisa. Vai manter o nível?",
+        "esquerda": {
+          "texto": "Já mostrei o que sei. O buraco foi mais embaixo.",
+          "efeitos": {
+            "midia": 8,
+            "torcida": -5
+          }
+        },
+        "direita": {
+          "texto": "Você tem razão. Gol isolado não faz o jogador. Vou trabalhar para isso.",
+          "efeitos": {
+            "torcida": 12,
+            "moral": 7
+          }
+        }
+      },
+      "futuro": {
+        "pergunta": "Você está construindo uma história bonita. Sente que começa o legado?",
+        "esquerda": {
+          "texto": "Legado estou construindo desde a base. Isso aqui é só o começo.",
+          "efeitos": {
+            "midia": 10,
+            "torcida": -3
+          }
+        },
+        "direita": {
+          "texto": "Não penso em legado. Penso no próximo treino.",
+          "efeitos": {
+            "torcida": 15,
+            "moral": 5
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_afobado_3",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "afobado",
+    "carga": "CRITICA",
+    "variantes": {
+      "estrela": {
+        "pergunta": "O técnico ficou frustrado com a precipitação. Como fica a relação?",
+        "esquerda": {
+          "texto": "Minha relação com o técnico não é assunto de coletiva.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -5
+          }
+        },
+        "direita": {
+          "texto": "Ele tem razão em cobrar. Vou ouvir e ajustar.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": 6
+          }
+        }
+      },
+      "caido": {
+        "pergunta": "A pressa te custou pontos. Você ou o técnico tem mais razão sobre seu jogo?",
+        "esquerda": {
+          "texto": "Trinta anos de carreira e sei o que funciona pra mim.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -5
+          }
+        },
+        "direita": {
+          "texto": "O técnico enxerga de fora. Preciso ouvir mais e reagir menos.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": 7
+          }
+        }
+      },
+      "futuro": {
+        "pergunta": "Você tentou demais e entregou demais. Sobrou ansiedade. Onde isso nasce?",
+        "esquerda": {
+          "texto": "Ansiedade é sinal de que me importo. Não troco isso por nada.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -3
+          }
+        },
+        "direita": {
+          "texto": "Da vontade de provar que mereço estar aqui. Tô aprendendo a controlar.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": 6
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_coletivo_3",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "coletivo",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Você parece diminuído em campo, mas o time explode. Sacrifício consciente?",
+        "esquerda": {
+          "texto": "Não chamo de sacrifício. É responsabilidade de quem pode ganhar de outras formas.",
+          "efeitos": {
+            "torcida": 11,
+            "moral": 7
+          }
+        },
+        "direita": {
+          "texto": "Sacrifício tem limite. Nos próximos jogos vou precisar aparecer mais.",
+          "efeitos": {
+            "midia": 11,
+            "torcida": -4
+          }
+        }
+      },
+      "caido": {
+        "pergunta": "Você sumiu individualmente, mas foi peça no quebra-cabeça. Como equilibra?",
+        "esquerda": {
+          "texto": "Pensando em dezembro. Se o Brasil levantar a taça, fui essencial.",
+          "efeitos": {
+            "torcida": 12,
+            "moral": 8
+          }
+        },
+        "direita": {
+          "texto": "Estou recalibrando. Preciso existir como jogador dentro do coletivo.",
+          "efeitos": {
+            "midia": 10,
+            "torcida": -5
+          }
+        }
+      },
+      "futuro": {
+        "pergunta": "Tão novo e tão disponível pra ser invisível. Não tem medo de não aparecer?",
+        "esquerda": {
+          "texto": "Apareço quando importa. O resto é ego.",
+          "efeitos": {
+            "torcida": 14,
+            "moral": 6
+          }
+        },
+        "direita": {
+          "texto": "Tenho sim. Mas hoje o time precisava disso de mim.",
+          "efeitos": {
+            "midia": 9,
+            "torcida": -3
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_vilao_3",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "vilao",
+    "carga": "CRITICA",
+    "variantes": {
+      "estrela": {
+        "pergunta": "A internet foi contra você hoje. Como se desconecta disso?",
+        "esquerda": {
+          "texto": "Não leio comentário de quem assistiu pelo celular.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -8
+          }
+        },
+        "direita": {
+          "texto": "Deixo incomodar e uso como combustível pra melhorar.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": 6
+          }
+        }
+      },
+      "caido": {
+        "pergunta": "Você foi o vilão da noite. Aceita ou é injustiça?",
+        "esquerda": {
+          "texto": "Fui vilão porque joguei. Quem não arrisca não erra.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -5
+          }
+        },
+        "direita": {
+          "texto": "Aceito. Fiz a escolha errada. Próxima partida será diferente.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": 7
+          }
+        }
+      },
+      "futuro": {
+        "pergunta": "Erro de juventude. Os veteranos te avisaram?",
+        "esquerda": {
+          "texto": "Não recebo conselho que não pedi.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -3
+          }
+        },
+        "direita": {
+          "texto": "Me avisaram, sim. Não ouvi. Essa é a lição.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": 6
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "ent_pavio_curto_3",
+    "fase": "entrevista",
+    "partida": 1,
+    "requer_flag": "pavio_curto",
+    "carga": "CRITICA",
+    "variantes": {
+      "estrela": {
+        "pergunta": "O adversário te provocou de novo. Quando para de cair nessa armadilha?",
+        "esquerda": {
+          "texto": "Quando pararem de me provocar.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -7
+          }
+        },
+        "direita": {
+          "texto": "Quando aprender que a resposta certa em campo vale mais que qualquer revanche.",
+          "efeitos": {
+            "midia": -9,
+            "torcida": 8
+          }
+        }
+      },
+      "caido": {
+        "pergunta": "Você tem cabeça pra ser referência, mas o coração sabota. Quando isso muda?",
+        "esquerda": {
+          "texto": "Meu coração é o que me trouxe até aqui.",
+          "efeitos": {
+            "midia": -11,
+            "torcida": -4
+          }
+        },
+        "direita": {
+          "texto": "Aos poucos. Cada jogo assim me ensina o que não quero repetir.",
+          "efeitos": {
+            "midia": -8,
+            "torcida": 8
+          }
+        }
+      },
+      "futuro": {
+        "pergunta": "A temperatura subiu e você esquentou primeiro. Vai custar caro?",
+        "esquerda": {
+          "texto": "Não vou ficar frio enquanto me atingem.",
+          "efeitos": {
+            "midia": -10,
+            "torcida": -3
+          }
+        },
+        "direita": {
+          "texto": "Custou hoje. Mas aprendo mais rápido do que parece. Podem cobrar.",
+          "efeitos": {
+            "midia": -9,
+            "torcida": 8
+          }
+        }
+      }
+    }
   }
 ]
