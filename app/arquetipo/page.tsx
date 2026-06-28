@@ -18,20 +18,35 @@ const TOP_COR: Record<ArchetypeKey, string> = {
   futuro:  'bg-verde',
 }
 
-const VIES_COR: Record<string, string> = {
-  neutro:     'text-preto/50',
-  hostil:     'text-vermelho',
-  permissivo: 'text-verde',
+const VIES_INK: Record<string, string> = {
+  neutro:     'var(--color-ink)',
+  hostil:     'var(--color-vermelho)',
+  permissivo: 'var(--color-verde)',
+}
+const VIES_OPACITY: Record<string, number> = {
+  neutro: 0.5,
+  hostil: 1,
+  permissivo: 1,
 }
 
 function BarRow({ label, value }: { label: string; value: number }) {
   return (
     <div className="flex items-center gap-[10px]">
-      <span className="font-headline font-bold text-[9px] tracking-[0.05em] uppercase text-preto/50 w-7 shrink-0">{label}</span>
-      <div className="flex-1 h-[6px] bg-black/10">
-        <div className="h-full bg-azul" style={{ width: `${value}%` }} />
+      <span
+        className="font-headline font-bold text-[9px] tracking-[0.05em] uppercase w-7 shrink-0"
+        style={{ color: 'var(--color-ink)', opacity: 0.5 }}
+      >
+        {label}
+      </span>
+      <div className="flex-1 h-[6px]" style={{ background: 'var(--bar-track)' }}>
+        <div className="h-full" style={{ width: `${value}%`, background: 'var(--color-azul)' }} />
       </div>
-      <span className="font-headline font-bold tabular-nums text-[11px] text-preto/50 w-6 text-right">{value}</span>
+      <span
+        className="font-headline font-bold tabular-nums text-[11px] w-6 text-right"
+        style={{ color: 'var(--color-ink)', opacity: 0.5 }}
+      >
+        {value}
+      </span>
     </div>
   )
 }
@@ -49,21 +64,37 @@ function ArquetipoCard({
   return (
     <button
       onClick={onClick}
-      className={clsx(
-        'w-full text-left bg-white border-2 transition-all duration-150',
-        selected ? 'border-preto' : 'border-transparent hover:border-preto/30'
-      )}
-      style={selected ? { boxShadow: '4px 4px 0 #100F0D' } : undefined}
+      className="w-full text-left transition-all duration-150"
+      style={{
+        background: 'var(--color-surface)',
+        border: selected
+          ? 'var(--border-w) solid var(--color-accent)'
+          : 'var(--border-w) solid var(--color-line)',
+        opacity: selected ? 1 : 0.78,
+        boxShadow: selected
+          ? '0 0 0 3px color-mix(in srgb, var(--color-accent) 44%, transparent), var(--card-shadow)'
+          : 'none',
+      }}
     >
-      {/* topo colorido */}
-      <div className={clsx('font-headline font-black italic text-[14px] tracking-[0.08em] uppercase text-white px-[14px] py-[6px]', TOP_COR[id])}>
+      {/* Topo colorido */}
+      <div
+        className={clsx(
+          'font-headline font-black italic text-[14px] tracking-[0.08em] uppercase text-white px-[14px] py-[6px]',
+          TOP_COR[id]
+        )}
+      >
         {d.nome}
       </div>
 
-      {/* body */}
+      {/* Body */}
       <div className="px-[16px] pt-[12px] pb-[4px]">
         {/* Lore */}
-        <p className="text-[13px] text-preto/70 leading-[1.4] mb-[12px]">{d.lore}</p>
+        <p
+          className="text-[13px] leading-[1.4] mb-[12px]"
+          style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fs-body)', lineHeight: 'var(--body-lh)', color: 'var(--color-ink)', opacity: 0.7 }}
+        >
+          {d.lore}
+        </p>
 
         {/* Barras */}
         <div className="flex flex-col gap-[6px] mb-[12px]">
@@ -74,17 +105,31 @@ function ArquetipoCard({
         </div>
 
         {/* Mecânica especial */}
-        <div className="bg-papel px-[10px] py-[7px] mb-[10px]">
-          <p className="font-headline font-bold text-[9px] tracking-[0.12em] uppercase text-preto/40 mb-[2px]">Mecânica especial</p>
-          <p className="font-headline font-bold text-[12px] text-preto leading-[1.3]">{d.especial}</p>
+        <div className="px-[10px] py-[7px] mb-[10px]" style={{ background: 'var(--bar-track)' }}>
+          <p
+            className="font-headline font-bold text-[9px] tracking-[0.12em] uppercase mb-[2px]"
+            style={{ color: 'var(--color-ink)', opacity: 0.4 }}
+          >
+            Mecânica especial
+          </p>
+          <p
+            className="font-headline font-bold text-[12px] leading-[1.3]"
+            style={{ color: 'var(--color-ink)' }}
+          >
+            {d.especial}
+          </p>
         </div>
       </div>
 
-      {/* rodapé: viés de mídia */}
-      <div className={clsx(
-        'font-headline font-bold text-[11px] tracking-[0.05em] uppercase mx-[16px] border-t-2 border-preto pt-[8px] pb-[10px]',
-        VIES_COR[d.viesMidia]
-      )}>
+      {/* Rodapé: viés de mídia */}
+      <div
+        className="font-headline font-bold text-[11px] tracking-[0.05em] uppercase mx-[16px] pt-[8px] pb-[10px]"
+        style={{
+          borderTop: 'var(--border-w) solid var(--color-line)',
+          color: VIES_INK[d.viesMidia] ?? 'var(--color-ink)',
+          opacity: VIES_OPACITY[d.viesMidia] ?? 0.5,
+        }}
+      >
         {d.viesExplicado}
       </div>
     </button>
@@ -144,26 +189,37 @@ export default function ArquetipoPage() {
   }
 
   return (
-    <div className="min-h-screen bg-papel flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: 'var(--color-surface)' }}>
       {/* Header */}
-      <div className="relative bg-azul px-[22px] pt-[44px] pb-[28px] overflow-hidden">
+      <div
+        className="relative px-[22px] pt-[44px] pb-[0px] overflow-hidden"
+        style={{ background: 'var(--color-hud)' }}
+      >
         <div
-          className="absolute bg-amarelo pointer-events-none"
-          style={{ top: '-10%', right: '-12%', width: '80%', height: '130%', transform: 'rotate(-12deg)', opacity: 0.12 }}
+          className="absolute pointer-events-none"
+          style={{ top: '-10%', right: '-12%', width: '80%', height: '130%', transform: 'rotate(-12deg)', opacity: 0.08, background: 'var(--color-accent)' }}
         />
         <Link
           href="/"
           className="font-headline font-bold text-[10px] tracking-[0.15em] uppercase mb-[16px] block"
-          style={{ color: 'rgba(255,255,255,0.5)' }}
+          style={{ color: 'var(--color-hud-ink)', opacity: 0.5 }}
         >
           ← Voltar
         </Link>
-        <h1 className="font-headline font-black italic text-[28px] leading-[0.9] tracking-[-1px] text-white">
+        <h1
+          className="font-headline font-black italic text-[28px] leading-[0.9] tracking-[-1px]"
+          style={{ color: 'var(--color-hud-ink)' }}
+        >
           Quem é você<br />nessa seleção?
         </h1>
-        <p className="font-headline font-bold text-[13px] mt-[8px]" style={{ color: 'rgba(255,255,255,0.6)' }}>
+        <p
+          className="font-headline font-bold text-[13px] mt-[8px] mb-[20px]"
+          style={{ color: 'var(--color-hud-ink)', opacity: 0.6 }}
+        >
           Escolha o arquétipo, depois seu nome e número.
         </p>
+        {/* Régua de acento */}
+        <div className="h-[3px] w-full" style={{ background: 'var(--color-accent)' }} />
       </div>
 
       {/* Arquétipos */}
@@ -176,10 +232,13 @@ export default function ArquetipoPage() {
       {/* Form de identificação */}
       {selected && (
         <div ref={formRef} className="px-[15px] pt-[20px] pb-[8px]">
-          <div className="border-2 border-preto bg-white p-[16px]" style={{ boxShadow: '4px 4px 0 #100F0D' }}>
+          <div
+            className="p-[16px]"
+            style={{ border: 'var(--border-w) solid var(--color-line)', background: 'var(--color-surface)', boxShadow: 'var(--card-shadow)' }}
+          >
             <p
               className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase mb-[14px]"
-              style={{ color: '#4B4A45' }}
+              style={{ color: 'var(--color-ink)', opacity: 0.5 }}
             >
               Suas informações
             </p>
@@ -187,7 +246,10 @@ export default function ArquetipoPage() {
             <div className="flex gap-[10px] items-start">
               {/* Nome */}
               <div className="flex-1 min-w-0">
-                <label className="font-headline font-bold text-[10px] tracking-[0.1em] uppercase text-preto/50 block mb-[5px]">
+                <label
+                  className="font-headline font-bold text-[10px] tracking-[0.1em] uppercase block mb-[5px]"
+                  style={{ color: 'var(--color-ink)', opacity: 0.5 }}
+                >
                   Nome
                 </label>
                 <input
@@ -196,13 +258,22 @@ export default function ArquetipoPage() {
                   onChange={e => setNome(e.target.value.slice(0, 20))}
                   placeholder="Ex: Ronaldo"
                   maxLength={20}
-                  className="w-full h-[46px] border-2 border-preto/20 focus:border-preto px-[10px] font-headline font-bold text-[15px] text-preto bg-papel outline-none transition-colors"
+                  className="w-full h-[46px] px-[10px] font-headline font-bold text-[15px] outline-none transition-colors"
+                  style={{
+                    border: 'var(--border-w) solid var(--color-line)',
+                    color: 'var(--color-ink)',
+                    background: 'var(--color-surface)',
+                    opacity: 0.85,
+                  }}
                 />
               </div>
 
               {/* Número */}
               <div className="w-[72px] shrink-0">
-                <label className="font-headline font-bold text-[10px] tracking-[0.1em] uppercase text-preto/50 block mb-[5px]">
+                <label
+                  className="font-headline font-bold text-[10px] tracking-[0.1em] uppercase block mb-[5px]"
+                  style={{ color: 'var(--color-ink)', opacity: 0.5 }}
+                >
                   Camisa
                 </label>
                 <input
@@ -211,17 +282,20 @@ export default function ArquetipoPage() {
                   value={camisa}
                   onChange={e => handleCamisa(e.target.value)}
                   placeholder="10"
-                  className="w-full h-[46px] border-2 border-preto/20 focus:border-preto px-[10px] font-headline font-black italic text-[20px] text-preto text-center bg-papel outline-none transition-colors"
+                  className="w-full h-[46px] px-[10px] font-headline font-black italic text-[20px] text-center outline-none transition-colors"
+                  style={{
+                    border: 'var(--border-w) solid var(--color-line)',
+                    color: 'var(--color-ink)',
+                    background: 'var(--color-surface)',
+                    opacity: 0.85,
+                  }}
                 />
               </div>
             </div>
 
             {/* Preview */}
             {nomeValido && camisaValida && (
-              <div className={clsx(
-                'mt-[12px] px-[12px] py-[8px] flex items-center gap-[10px]',
-                TOP_COR[selected]
-              )}>
+              <div className={clsx('mt-[12px] px-[12px] py-[8px] flex items-center gap-[10px]', TOP_COR[selected])}>
                 <span
                   className="font-headline font-black italic text-[28px] leading-none text-white shrink-0"
                   style={{ textShadow: '2px 2px 0 rgba(0,0,0,0.3)' }}
@@ -245,13 +319,16 @@ export default function ArquetipoPage() {
         <button
           onClick={startRun}
           disabled={!pronto || isLoading}
-          className={clsx(
-            'w-full font-headline font-black italic text-[22px] tracking-[0.5px] text-white py-[13px] transition-opacity',
-            pronto && !isLoading ? 'bg-verde' : 'bg-preto/20 cursor-not-allowed'
-          )}
-          style={pronto && !isLoading ? { boxShadow: '4px 4px 0 #100F0D' } : undefined}
+          className="w-full font-headline font-black italic text-[22px] tracking-[0.5px] py-[13px] transition-opacity disabled:cursor-not-allowed"
+          style={pronto && !isLoading
+            ? { background: 'var(--color-accent)', color: 'var(--color-accent-ink)', boxShadow: 'var(--btn-shadow)' }
+            : { background: 'color-mix(in srgb, var(--color-line) 20%, transparent)', color: 'var(--color-ink)', opacity: 0.5 }
+          }
         >
-          {isLoading ? 'Entrando em campo…' : 'Entrar em campo →'}
+          {isLoading
+            ? 'Entrando em campo…'
+            : `Vestir a camisa ${camisaValida ? camisaNum : 10} →`
+          }
         </button>
       </div>
     </div>

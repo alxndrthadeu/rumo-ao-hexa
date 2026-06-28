@@ -20,7 +20,6 @@ function buildMensagem(state: RunState): { titulo: string; subtitulo: string } {
   if (causaMorte === 'vitoria') {
     return { titulo: 'HEXA!', subtitulo: 'Campeão do Mundo.' }
   }
-
   if (causaMorte === 'placar') {
     return { titulo: 'ELIMINADO', subtitulo: 'Placar insuficiente. A jornada termina aqui.' }
   }
@@ -28,7 +27,7 @@ function buildMensagem(state: RunState): { titulo: string; subtitulo: string } {
     return { titulo: 'ELIMINADO', subtitulo: 'A Copa termina nas penalidades. Tão perto, tão longe.' }
   }
   if (causaMorte === 'barra' && barraMorte) {
-    const barra = BARRA_LABEL[barraMorte.barra] ?? barraMorte.barra
+    const barra   = BARRA_LABEL[barraMorte.barra] ?? barraMorte.barra
     const extremo = barraMorte.extreme === 'min' ? 'zerou' : 'estourou'
     return { titulo: 'ELIMINADO', subtitulo: `${barra} ${extremo}. Você perdeu o controle.` }
   }
@@ -57,7 +56,6 @@ export default function GameOverScreen({
 
   function handleCopySeed(e: React.MouseEvent) {
     e.stopPropagation()
-    // Para o auto-dismiss para o jogador ter tempo de copiar
     if (timerRef.current) clearTimeout(timerRef.current)
     navigator.clipboard.writeText(code).then(() => {
       setCopied(true)
@@ -71,17 +69,20 @@ export default function GameOverScreen({
       tabIndex={0}
       onClick={onDone}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onDone() }}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center text-center px-[22px] cursor-pointer select-none"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center text-center px-[22px] cursor-pointer select-none overflow-hidden relative"
       style={{
-        background: isVitoria ? 'var(--color-amarelo)' : 'var(--color-preto)',
+        background: 'var(--color-hud)',
         opacity: visible ? 1 : 0,
         transition: 'opacity 0.4s ease',
       }}
     >
+      {/* Scanlines overlay (pixel16 only) */}
+      <div className="fx-scan" />
+
       {!isVitoria && (
         <span
-          className="font-headline font-black italic text-[10px] tracking-[0.25em] uppercase text-white/40 mb-[20px]"
-          style={{ transform: 'skewX(-8deg)' }}
+          className="font-headline font-black italic text-[10px] tracking-[0.25em] uppercase mb-[20px]"
+          style={{ color: 'var(--color-hud-ink)', opacity: 0.4, transform: 'skewX(-8deg)', display: 'inline-block' }}
         >
           Fim de Jogo
         </span>
@@ -91,8 +92,9 @@ export default function GameOverScreen({
         className="font-headline font-black italic leading-none tracking-[-3px] mb-[16px]"
         style={{
           fontSize: isVitoria ? '80px' : '64px',
-          color: isVitoria ? 'var(--color-preto)' : 'var(--color-amarelo)',
-          textShadow: isVitoria ? '4px 4px 0 rgba(0,0,0,0.15)' : '4px 4px 0 rgba(255,203,5,0.2)',
+          fontFamily: 'var(--font-head)',
+          color: isVitoria ? 'var(--color-accent)' : 'var(--color-vermelho)',
+          textShadow: `4px 4px 0 color-mix(in srgb, var(--color-line) 40%, transparent)`,
         }}
       >
         {titulo}
@@ -100,26 +102,26 @@ export default function GameOverScreen({
 
       <p
         className="font-headline font-bold text-[16px] leading-[1.3]"
-        style={{ color: isVitoria ? 'rgba(16,15,13,0.7)' : 'rgba(255,255,255,0.6)' }}
+        style={{ color: 'var(--color-hud-ink)', opacity: 0.65 }}
       >
         {subtitulo}
       </p>
 
-      {/* Seed da run — para compartilhamento */}
+      {/* Seed */}
       <button
         onClick={handleCopySeed}
-        className="mt-[40px] flex flex-col items-center gap-[4px] group"
+        className="mt-[40px] flex flex-col items-center gap-[4px]"
         aria-label="Copiar seed da run"
       >
         <span
-          className="font-headline font-black italic text-[22px] tracking-[0.12em] transition-opacity"
-          style={{ color: isVitoria ? 'rgba(16,15,13,0.5)' : 'rgba(255,255,255,0.35)' }}
+          className="font-headline font-black italic text-[22px] tracking-[0.12em]"
+          style={{ color: 'var(--color-hud-ink)', opacity: 0.5 }}
         >
           {code}
         </span>
         <span
-          className="font-headline font-bold text-[8px] tracking-[0.2em] uppercase transition-opacity"
-          style={{ color: isVitoria ? 'rgba(16,15,13,0.3)' : 'rgba(255,255,255,0.2)' }}
+          className="font-headline font-bold text-[8px] tracking-[0.2em] uppercase"
+          style={{ color: 'var(--color-hud-ink)', opacity: 0.3 }}
         >
           {copied ? 'COPIADO!' : 'SEED · TOQUE PARA COPIAR'}
         </span>
@@ -127,7 +129,7 @@ export default function GameOverScreen({
 
       <p
         className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase mt-[24px]"
-        style={{ color: isVitoria ? 'rgba(16,15,13,0.35)' : 'rgba(255,255,255,0.25)' }}
+        style={{ color: 'var(--color-hud-ink)', opacity: 0.35 }}
       >
         toque para ver seu legado
       </p>
