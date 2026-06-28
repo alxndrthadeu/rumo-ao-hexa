@@ -419,7 +419,11 @@ export default function GamePage() {
   }
 
   return (
-    <div className="flex flex-col h-[100dvh] overflow-hidden bg-papel">
+    <div className="flex flex-col h-[100dvh] overflow-hidden bg-papel relative">
+      {/* Overlays de tema: textura de papel (Revista) e scanlines (Pixel) */}
+      <div className="fx-paper" />
+      <div className="fx-scan" />
+
       {/* ── Sticky: HUD + faixa de fase + placar ao vivo ── */}
       <div className="sticky top-0 z-40">
         <HUD state={state.runState} bracketEntry={state.bracketEntry} sessionId={sessionId} previewEfeitos={previewEfeitos} />
