@@ -410,6 +410,9 @@ export default function GamePage() {
     'camada' in state.currentCard &&
     (state.currentCard as Carta).camada === 'crise'
 
+  const isEcoCard = !!state.runState?.ecoPendente &&
+    state.currentCard?.id === state.runState.ecoPendente
+
   const FASE_LABEL: Record<string, string> = {
     grupo: 'Fase de Grupos', oitavas: 'Oitavas de Final',
     quartas: 'Quartas de Final', semi: 'Semifinal', final: 'Final',
@@ -512,6 +515,7 @@ export default function GamePage() {
             onPreview={setPreviewEfeitos}
             disabled={state.isSubmitting}
             showHint={showSwipeHint}
+            isEco={isEcoCard}
           />
         ) : (
           <div className="flex flex-col flex-1 items-center justify-center">

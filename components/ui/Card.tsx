@@ -105,6 +105,7 @@ export default function Card({
   onPreview,
   disabled = false,
   showHint = false,
+  isEco = false,
 }: {
   card: AnyCard
   arquetipo: Arquetipo
@@ -113,6 +114,7 @@ export default function Card({
   onPreview?: (efeitos: Efeitos | null) => void
   disabled?: boolean
   showHint?: boolean
+  isEco?: boolean
 }) {
   const [dragX, setDragX] = useState(0)
   const [confirming, setConfirming] = useState<'esquerda' | 'direita' | null>(null)
@@ -171,7 +173,7 @@ export default function Card({
         {...bind()}
         className={clsx(
           'flex-1 min-h-0 mx-[15px] flex flex-col justify-center bg-papel cursor-grab active:cursor-grabbing',
-          isCrise ? 'border-2 border-vermelho' : 'border-2 border-preto',
+          isCrise ? 'border-2 border-vermelho' : isEco ? 'border-2 border-azul' : 'border-2 border-preto',
           isHinting && 'animate-swipe-hint'
         )}
         onAnimationEnd={() => setHintDone(true)}
@@ -187,6 +189,8 @@ export default function Card({
             ? `inset -3px 0 0 var(--color-verde)`
             : isCrise
             ? '4px 4px 0 var(--color-vermelho)'
+            : isEco
+            ? '4px 4px 0 var(--color-azul)'
             : undefined,
         }}
       >
@@ -198,6 +202,18 @@ export default function Card({
             </span>
             <span className="font-headline font-bold text-[10px] text-white/60 ml-auto">
               Segunda chance
+            </span>
+          </div>
+        )}
+
+        {/* Cabeçalho de eco */}
+        {isEco && !isCrise && (
+          <div className="bg-azul px-[15px] py-[9px] flex items-center gap-[8px]">
+            <span className="font-headline font-black italic text-[11px] tracking-[0.2em] uppercase text-white">
+              ⚡ Reação
+            </span>
+            <span className="font-headline font-bold text-[10px] text-white/60 ml-auto">
+              Sem custo
             </span>
           </div>
         )}

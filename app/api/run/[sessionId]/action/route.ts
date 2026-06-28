@@ -126,12 +126,13 @@ export async function POST(req: NextRequest, { params }: Params) {
 
   if (!newState.morto && newState.cartasRestantes.length === 0) {
     if (state.fase === 'planejar') {
-      const { cards: reagirCards, seed: newSeed } = buildMatchDeck(
+      const { cards: reagirCards, seed: newSeed, especialsVistas: newEspecialsVistas } = buildMatchDeck(
         newState.partidaAtual,
         bracketEntry.classe,
         newState.arquetipo,
         newState.seed,
-        newState.barras
+        newState.barras,
+        newState.especialsVistas ?? []
       )
       newState = {
         ...newState,
@@ -141,6 +142,7 @@ export async function POST(req: NextRequest, { params }: Params) {
         golsBrasil: 0,
         golsAdversario: 0,
         cartasRestantes: reagirCards.map(c => c.id),
+        especialsVistas: newEspecialsVistas,
       }
       nextCards = reagirCards
     } else if (state.fase === 'reagir') {

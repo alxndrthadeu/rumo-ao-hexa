@@ -140,8 +140,9 @@ export function buildMatchDeck(
   classe: ClasseInimigo,
   arquetipo: Arquetipo,
   seed: number,
-  barras: { moral: number; fisico: number; torcida: number }
-): { cards: Carta[]; seed: number } {
+  barras: { moral: number; fisico: number; torcida: number },
+  especialsVistas: string[] = []
+): { cards: Carta[]; seed: number; especialsVistas: string[] } {
   let s = seed
   const { highThreshold, lowThreshold } = config.deckBonus
 
@@ -197,7 +198,7 @@ export function buildMatchDeck(
     }
   }
 
-  // 7. Seleciona carta especial (slot 4) baseada em torcida
+  // 7. Seleciona carta especial (slot 4) baseada em torcida — sem repetição entre partidas
   let especialPool: Carta[]
   if (barras.torcida >= highThreshold) {
     especialPool = especFavorCards
@@ -206,11 +207,16 @@ export function buildMatchDeck(
   } else {
     especialPool = especNeutroCards
   }
+  const especialPoolFiltrado = especialPool.filter(c => !especialsVistas.includes(c.id))
+  const especialSource = especialPoolFiltrado.length > 0 ? especialPoolFiltrado : especialPool
   s = advanceSeed(s)
-  const especial = especialPool[Math.floor(seedToFloat(s) * especialPool.length)]
+  const especial = especialSource[Math.floor(seedToFloat(s) * especialSource.length)]
+  const novasEspecialsVistas = especialPoolFiltrado.length > 0
+    ? [...especialsVistas, especial.id]
+    : [especial.id]
 
   const cards = [...standard, especial]
-  return { cards, seed: s }
+  return { cards, seed: s, especialsVistas: novasEspecialsVistas }
 }
 
 // ─── Lookup global ────────────────────────────────────────────────────────────
