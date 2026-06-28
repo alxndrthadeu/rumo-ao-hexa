@@ -60,14 +60,13 @@ const FAKE_NEWS: Array<{ secao: string; titulo: string }> = [
   { secao: 'VAR',          titulo: 'Tecnologia de linha do impedimento confirma: fora por 0,3 milímetros de sombra' },
 ]
 
-// Seleciona 3 fake news de forma pseudo-aleatória por partida + seed da run
 function getFakeNews(partida: number, initialSeed: number) {
-  const offset = (initialSeed % 37) // deslocamento diferente por run
+  const offset = (initialSeed % 37)
   const base = ((partida - 1) * 3 + offset) % FAKE_NEWS.length
   return [0, 1, 2].map(i => FAKE_NEWS[(base + i * 13) % FAKE_NEWS.length])
 }
 
-// ─── Pull quotes por resultado ────────────────────────────────────────────────
+// ─── Pull quotes ──────────────────────────────────────────────────────────────
 
 const PULL_QUOTES: Record<string, string[]> = {
   vitoria:  [
@@ -97,8 +96,6 @@ function getPullQuote(resultado: string, partida: number, seed: number): string 
   const pool = PULL_QUOTES[resultado] ?? PULL_QUOTES.vitoria
   return pool[(partida + seed) % pool.length]
 }
-
-// ─── Jornalistas fictícios ────────────────────────────────────────────────────
 
 const JORNALISTAS = [
   'Marcelo Sá Fortes', 'Ana Luísa Cardoso', 'Roberto Motta',
@@ -139,8 +136,8 @@ const FASE_LABEL: Record<string, string> = {
 function DoubleRule() {
   return (
     <div>
-      <div className="border-t-[3px] border-preto" />
-      <div className="mt-[2px] border-t border-preto" style={{ opacity: 0.25 }} />
+      <div className="border-t-[3px]" style={{ borderColor: 'var(--color-line)' }} />
+      <div className="mt-[2px] border-t" style={{ borderColor: 'var(--color-line)', opacity: 0.25 }} />
     </div>
   )
 }
@@ -148,18 +145,23 @@ function DoubleRule() {
 function PlacarBox({ record }: { record: MatchRecord }) {
   const advAbrev = record.adversario.slice(0, 3).toUpperCase()
   return (
-    <div className="flex-1 bg-preto p-[12px]">
-      <p className="font-headline font-bold text-[8px] tracking-[0.2em] uppercase text-white/40 mb-[8px]">
+    <div className="flex-1 p-[12px]" style={{ background: 'var(--color-line)' }}>
+      <p className="font-headline font-bold text-[8px] tracking-[0.2em] uppercase mb-[8px]"
+        style={{ color: 'var(--color-surface)', opacity: 0.4 }}>
         Placar Final
       </p>
       <div className="flex items-baseline gap-[6px]">
-        <span className="font-headline font-black italic text-[11px] text-white/60">BRA</span>
-        <span className="font-headline font-black italic text-[30px] leading-none text-white tracking-[-1px]">
+        <span className="font-headline font-black italic text-[11px]"
+          style={{ color: 'var(--color-surface)', opacity: 0.6 }}>BRA</span>
+        <span className="font-headline font-black italic text-[30px] leading-none tracking-[-1px]"
+          style={{ color: 'var(--color-surface)' }}>
           {record.golsBrasil} × {record.golsAdversario}
         </span>
-        <span className="font-headline font-black italic text-[11px] text-white/40">{advAbrev}</span>
+        <span className="font-headline font-black italic text-[11px]"
+          style={{ color: 'var(--color-surface)', opacity: 0.4 }}>{advAbrev}</span>
       </div>
-      <p className="font-headline font-bold text-[9px] text-white/35 mt-[3px] tracking-[0.05em] uppercase">
+      <p className="font-headline font-bold text-[9px] mt-[3px] tracking-[0.05em] uppercase"
+        style={{ color: 'var(--color-surface)', opacity: 0.35 }}>
         {record.adversario}
       </p>
     </div>
@@ -174,20 +176,23 @@ function GrupoBox({ runState }: { runState: RunState }) {
   const pts = runState.pontosGrupo
   const classificado = pts >= 5
   return (
-    <div className="flex-1 border-2 border-preto p-[12px]">
-      <p className="font-headline font-bold text-[8px] tracking-[0.2em] uppercase text-preto/40 mb-[8px]">
+    <div className="flex-1 p-[12px]" style={{ border: 'var(--border-w) solid var(--color-line)' }}>
+      <p className="font-headline font-bold text-[8px] tracking-[0.2em] uppercase mb-[8px]"
+        style={{ color: 'var(--color-ink)', opacity: 0.4 }}>
         Grupo G
       </p>
-      <p className="font-headline font-black italic text-[30px] leading-none text-preto tracking-[-1px]">
+      <p className="font-headline font-black italic text-[30px] leading-none tracking-[-1px]"
+        style={{ color: 'var(--color-ink)' }}>
         {pts}<span className="text-[14px] font-bold tracking-normal"> pts</span>
       </p>
-      <p className="font-headline font-bold text-[10px] text-preto/55 mt-[2px]">
+      <p className="font-headline font-bold text-[10px] mt-[2px]"
+        style={{ color: 'var(--color-ink)', opacity: 0.55 }}>
         {v}V {e}E {d}D
       </p>
       {classificado && (
         <span
-          className="inline-block font-headline font-black italic text-[8px] tracking-[0.1em] uppercase text-white px-[6px] py-[2px] mt-[4px]"
-          style={{ background: 'var(--color-verde)' }}
+          className="inline-block font-headline font-black italic text-[8px] tracking-[0.1em] uppercase px-[6px] py-[2px] mt-[4px]"
+          style={{ background: 'var(--color-verde)', color: '#fff' }}
         >
           Classificado
         </span>
@@ -212,49 +217,51 @@ export default function JornalScreen({
   const [visible, setVisible] = useState(false)
   useEffect(() => { requestAnimationFrame(() => setVisible(true)) }, [])
 
-  const seedOffset = runState.initialSeed % 7
-  const fakeNews     = getFakeNews(record.partida, runState.initialSeed)
-  const pullQuote    = getPullQuote(record.resultado, record.partida, seedOffset)
-  const jornalista   = getJornalista(record.partida, seedOffset)
-  const isGrupo      = record.fase === 'grupo'
-  const resultadoCor = RESULTADO_BG[record.resultado]  ?? 'var(--color-preto)'
-  const resultadoLabel = RESULTADO_LABEL[record.resultado] ?? record.resultado
-  const faseLabel    = FASE_LABEL[record.fase] ?? record.fase
+  const seedOffset      = runState.initialSeed % 7
+  const fakeNews        = getFakeNews(record.partida, runState.initialSeed)
+  const pullQuote       = getPullQuote(record.resultado, record.partida, seedOffset)
+  const jornalista      = getJornalista(record.partida, seedOffset)
+  const isGrupo         = record.fase === 'grupo'
+  const resultadoCor    = RESULTADO_BG[record.resultado] ?? 'var(--color-line)'
+  const resultadoLabel  = RESULTADO_LABEL[record.resultado] ?? record.resultado
+  const faseLabel       = FASE_LABEL[record.fase] ?? record.fase
 
-  // Primeira letra do corpo para drop cap
-  const corpo       = record.corpo
-  const corpoPrime  = corpo.charAt(0)
-  const corpoRest   = corpo.slice(1)
+  const corpo      = record.corpo
+  const corpoPrime = corpo.charAt(0)
+  const corpoRest  = corpo.slice(1)
 
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col md:flex-row md:justify-center md:bg-azul"
-      style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.3s ease' }}
+      className="fixed inset-0 z-50 flex flex-col md:flex-row md:justify-center"
+      style={{ background: 'var(--color-hud)', opacity: visible ? 1 : 0, transition: 'opacity 0.3s ease' }}
     >
-      <div className="w-full md:max-w-[480px] bg-papel flex flex-col overflow-y-auto">
+      <div className="w-full md:max-w-[480px] flex flex-col overflow-y-auto"
+        style={{ background: 'var(--color-surface)' }}>
 
         {/* ── Masthead ── */}
         <div className="px-[20px] pt-[44px] pb-[0px] flex-shrink-0">
-          {/* Faixa de resultado no topo */}
-          <div
-            className="h-[4px] w-full mb-[12px]"
-            style={{ background: resultadoCor }}
-          />
+          <div className="h-[4px] w-full mb-[12px]" style={{ background: resultadoCor }} />
 
           <div className="flex items-start justify-between mb-[6px]">
             <div>
-              <p className="font-headline font-black italic text-[18px] tracking-[0.25em] uppercase text-preto leading-none">
+              <p
+                className="font-headline font-black italic text-[18px] tracking-[0.25em] uppercase leading-none"
+                style={{ color: 'var(--color-ink)', fontFamily: 'var(--font-head)' }}
+              >
                 Diário da Copa
               </p>
-              <p className="font-headline font-bold text-[8px] tracking-[0.12em] uppercase text-preto/35 mt-[2px]">
+              <p className="font-headline font-bold text-[8px] tracking-[0.12em] uppercase mt-[2px]"
+                style={{ color: 'var(--color-ink)', opacity: 0.35 }}>
                 A verdade verdadeira do futebol brasileiro
               </p>
             </div>
             <div className="text-right shrink-0 ml-[12px]">
-              <p className="font-headline font-bold text-[9px] tracking-[0.08em] uppercase text-preto/50">
+              <p className="font-headline font-bold text-[9px] tracking-[0.08em] uppercase"
+                style={{ color: 'var(--color-ink)', opacity: 0.5 }}>
                 Edição Nº {record.partida}
               </p>
-              <p className="font-headline font-bold text-[8px] text-preto/30 mt-[1px]">
+              <p className="font-headline font-bold text-[8px] mt-[1px]"
+                style={{ color: 'var(--color-ink)', opacity: 0.3 }}>
                 R$ 5,90
               </p>
             </div>
@@ -262,17 +269,17 @@ export default function JornalScreen({
 
           {/* Dateline */}
           <div className="flex items-center gap-[6px] mb-[10px]">
-            <span className="font-headline font-bold text-[8px] tracking-[0.15em] uppercase text-preto/40">
-              Copa do Mundo 2026
-            </span>
-            <span className="text-preto/25 text-[8px]">·</span>
-            <span className="font-headline font-bold text-[8px] tracking-[0.15em] uppercase text-preto/40">
-              {faseLabel}
-            </span>
-            <span className="text-preto/25 text-[8px]">·</span>
-            <span className="font-headline font-bold text-[8px] tracking-[0.15em] uppercase text-preto/40">
-              EUA / CAN / MEX
-            </span>
+            {['Copa do Mundo 2026', faseLabel, 'EUA / CAN / MEX'].map((item, i, arr) => (
+              <span key={item} className="flex items-center gap-[6px]">
+                <span className="font-headline font-bold text-[8px] tracking-[0.15em] uppercase"
+                  style={{ color: 'var(--color-ink)', opacity: 0.4 }}>
+                  {item}
+                </span>
+                {i < arr.length - 1 && (
+                  <span className="text-[8px]" style={{ color: 'var(--color-ink)', opacity: 0.25 }}>·</span>
+                )}
+              </span>
+            ))}
           </div>
 
           <DoubleRule />
@@ -282,37 +289,73 @@ export default function JornalScreen({
         <div className="px-[20px] pt-[16px] flex-shrink-0">
           <div className="flex items-center gap-[8px] mb-[12px]">
             <span
-              className="font-headline font-black italic text-[10px] tracking-[0.2em] uppercase px-[9px] py-[3px] text-white"
-              style={{ background: resultadoCor, transform: 'skewX(-6deg)' }}
+              className="font-headline font-black italic text-[10px] tracking-[0.2em] uppercase px-[9px] py-[3px]"
+              style={{ background: resultadoCor, color: '#fff', transform: 'skewX(-6deg)', display: 'inline-block' }}
             >
               {resultadoLabel}
             </span>
-            <span className="font-headline font-bold text-[9px] tracking-[0.12em] uppercase text-preto/40">
+            <span className="font-headline font-bold text-[9px] tracking-[0.12em] uppercase"
+              style={{ color: 'var(--color-ink)', opacity: 0.4 }}>
               Brasil vs {record.adversario}
             </span>
           </div>
 
+          {/* Kicker em vermelho */}
+          <p className="font-headline font-bold text-[9px] tracking-[0.15em] uppercase mb-[6px]"
+            style={{ color: 'var(--color-vermelho)' }}>
+            Manchete
+          </p>
+
           <h1
-            className="font-headline font-black italic leading-[0.9] tracking-[-1.5px] text-preto mb-[10px]"
-            style={{ fontSize: 'clamp(28px, 8vw, 40px)' }}
+            className="font-headline font-black italic leading-[0.9] tracking-[-1.5px] mb-[10px]"
+            style={{ fontSize: 'var(--fs-title)', color: 'var(--color-ink)', fontFamily: 'var(--font-head)' }}
           >
             {record.manchete}
           </h1>
 
           {/* Byline */}
-          <div className="border-t border-b border-preto/12 py-[6px] mb-[14px] flex items-center justify-between">
-            <p className="font-headline font-bold text-[9px] tracking-[0.08em] uppercase text-preto/40">
+          <div
+            className="py-[6px] mb-[14px] flex items-center justify-between"
+            style={{ borderTop: '1px solid', borderBottom: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 12%, transparent)' }}
+          >
+            <p className="font-headline font-bold text-[9px] tracking-[0.08em] uppercase"
+              style={{ color: 'var(--color-ink)', opacity: 0.4 }}>
               Por {jornalista} · Enviado Especial
             </p>
-            <p className="font-headline font-bold text-[9px] text-preto/25">
+            <p className="font-headline font-bold text-[9px]"
+              style={{ color: 'var(--color-ink)', opacity: 0.25 }}>
               Copa 2026
             </p>
           </div>
 
+          {/* Placeholder de foto */}
+          <div
+            className="w-full mb-[14px] relative overflow-hidden"
+            style={{
+              aspectRatio: '16 / 7',
+              border: 'var(--border-w) solid var(--color-line)',
+              borderRadius: 'var(--radius)',
+            }}
+          >
+            <div
+              className="absolute inset-0"
+              style={{ background: 'repeating-linear-gradient(135deg, var(--bar-track) 0 9px, transparent 9px 18px)' }}
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span
+                className="font-headline font-bold text-[9px] tracking-[0.1em] uppercase"
+                style={{ color: 'var(--color-ink)', opacity: 0.2 }}
+              >
+                [ Foto — Lance do Gol ]
+              </span>
+            </div>
+          </div>
+
           {/* Corpo com drop cap */}
-          <p className="text-[13.5px] leading-[1.7] text-preto/72">
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fs-body)', lineHeight: 'var(--body-lh)', color: 'var(--color-ink)', opacity: 0.72 }}>
             <span
-              className="float-left font-headline font-black italic text-[54px] leading-[0.78] mr-[5px] mt-[3px] text-preto"
+              className="float-left font-headline font-black italic leading-[0.78] mr-[5px] mt-[3px]"
+              style={{ fontSize: 'clamp(40px, 10vw, 54px)', color: 'var(--color-ink)', fontFamily: 'var(--font-head)', opacity: 1 }}
             >
               {corpoPrime}
             </span>
@@ -322,9 +365,10 @@ export default function JornalScreen({
           {/* Pull quote */}
           <div
             className="my-[18px] pl-[14px] py-[10px]"
-            style={{ borderLeft: '4px solid var(--color-preto)' }}
+            style={{ borderLeft: '4px solid var(--color-line)' }}
           >
-            <p className="font-headline font-black italic text-[15px] leading-[1.2] tracking-[-0.3px] text-preto/80">
+            <p className="font-headline font-black italic text-[15px] leading-[1.2] tracking-[-0.3px]"
+              style={{ color: 'var(--color-ink)', opacity: 0.8 }}>
               {pullQuote}
             </p>
           </div>
@@ -336,7 +380,8 @@ export default function JornalScreen({
             {record.flagsDestaque.map(flag => (
               <span
                 key={flag}
-                className="font-headline font-bold text-[8px] tracking-[0.2em] uppercase px-[7px] py-[3px] border border-preto/20 text-preto/40"
+                className="font-headline font-bold text-[8px] tracking-[0.2em] uppercase px-[7px] py-[3px]"
+                style={{ border: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 20%, transparent)', color: 'var(--color-ink)', opacity: 0.4 }}
               >
                 #{flag.replace(/_/g, ' ')}
               </span>
@@ -348,12 +393,16 @@ export default function JornalScreen({
         <div className="px-[20px] mt-[22px] flex-shrink-0">
           <div
             className="flex items-center gap-[8px] mb-[10px] pb-[6px]"
-            style={{ borderBottom: '2px solid var(--color-preto)' }}
+            style={{ borderBottom: '2px solid var(--color-line)' }}
           >
-            <span className="font-headline font-black italic text-[9px] tracking-[0.15em] uppercase text-white bg-preto px-[7px] py-[2px]">
+            <span
+              className="font-headline font-black italic text-[9px] tracking-[0.15em] uppercase px-[7px] py-[2px]"
+              style={{ background: 'var(--color-line)', color: 'var(--color-surface)' }}
+            >
               Boletim
             </span>
-            <span className="font-headline font-bold text-[8px] tracking-[0.15em] uppercase text-preto/40">
+            <span className="font-headline font-bold text-[8px] tracking-[0.15em] uppercase"
+              style={{ color: 'var(--color-ink)', opacity: 0.4 }}>
               Copa do Mundo 2026
             </span>
           </div>
@@ -361,15 +410,26 @@ export default function JornalScreen({
             <PlacarBox record={record} />
             {isGrupo && <GrupoBox runState={runState} />}
             {!isGrupo && (
-              <div className="flex-1 border-2 border-preto p-[12px] flex flex-col justify-center">
-                <p className="font-headline font-bold text-[8px] tracking-[0.2em] uppercase text-preto/40 mb-[6px]">
+              <div className="flex-1 p-[12px] flex flex-col justify-center"
+                style={{ border: 'var(--border-w) solid var(--color-line)' }}>
+                <p className="font-headline font-bold text-[8px] tracking-[0.2em] uppercase mb-[6px]"
+                  style={{ color: 'var(--color-ink)', opacity: 0.4 }}>
                   Mata-mata
                 </p>
                 <span
-                  className="font-headline font-black italic text-[12px] tracking-[0.05em] uppercase text-white px-[8px] py-[4px] inline-block"
-                  style={{ background: (record.resultado === 'vitoria' || record.resultado === 'penaltis') ? 'var(--color-verde)' : 'var(--color-vermelho)' }}
+                  className="font-headline font-black italic text-[12px] tracking-[0.05em] uppercase px-[8px] py-[4px] inline-block"
+                  style={{
+                    background: (record.resultado === 'vitoria' || record.resultado === 'penaltis')
+                      ? 'var(--color-verde)'
+                      : 'var(--color-vermelho)',
+                    color: '#fff',
+                  }}
                 >
-                  {record.resultado === 'vitoria' ? 'Classificado' : record.resultado === 'penaltis' ? 'Via Pênaltis' : 'Eliminado'}
+                  {record.resultado === 'vitoria'
+                    ? 'Classificado'
+                    : record.resultado === 'penaltis'
+                    ? 'Via Pênaltis'
+                    : 'Eliminado'}
                 </span>
               </div>
             )}
@@ -380,31 +440,36 @@ export default function JornalScreen({
         <div className="px-[20px] mt-[24px] flex-shrink-0">
           <div
             className="flex items-center gap-[8px] mb-[12px] pb-[6px]"
-            style={{ borderBottom: '2px solid var(--color-preto)' }}
+            style={{ borderBottom: '2px solid var(--color-line)' }}
           >
-            <span className="font-headline font-black italic text-[9px] tracking-[0.15em] uppercase text-white bg-preto px-[7px] py-[2px]">
+            <span
+              className="font-headline font-black italic text-[9px] tracking-[0.15em] uppercase px-[7px] py-[2px]"
+              style={{ background: 'var(--color-line)', color: 'var(--color-surface)' }}
+            >
               Expediente
             </span>
-            <span className="font-headline font-bold text-[8px] tracking-[0.15em] uppercase text-preto/40">
+            <span className="font-headline font-bold text-[8px] tracking-[0.15em] uppercase"
+              style={{ color: 'var(--color-ink)', opacity: 0.4 }}>
               Notícias da Copa
             </span>
           </div>
 
-          {/* Grid 2 colunas */}
-          <div className="grid grid-cols-2 gap-x-[14px] gap-y-[0px]">
+          <div className="grid grid-cols-2 gap-x-[14px]">
             {fakeNews.map((n, i) => (
               <div
                 key={i}
                 className="py-[9px]"
-                style={{ borderBottom: '1px solid rgba(16,15,13,0.10)' }}
+                style={{ borderBottom: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 10%, transparent)' }}
               >
                 <span
-                  className="font-headline font-black italic text-[7px] tracking-[0.08em] uppercase text-white px-[4px] py-[1px] mb-[4px] inline-block"
-                  style={{ background: 'var(--color-preto)' }}
+                  className="font-headline font-black italic text-[7px] tracking-[0.08em] uppercase px-[4px] py-[1px] mb-[4px] inline-block"
+                  style={{ background: 'var(--color-line)', color: 'var(--color-surface)' }}
                 >
                   {n.secao}
                 </span>
-                <p className="text-[11px] leading-[1.35] text-preto/60">{n.titulo}</p>
+                <p className="text-[11px] leading-[1.35]" style={{ color: 'var(--color-ink)', opacity: 0.6 }}>
+                  {n.titulo}
+                </p>
               </div>
             ))}
           </div>
@@ -417,22 +482,28 @@ export default function JornalScreen({
         <div className="flex-shrink-0 mt-[24px]">
           <DoubleRule />
           <div className="px-[20px] py-[8px]">
-            <p className="font-headline font-bold text-[7px] tracking-[0.12em] uppercase text-preto/25 text-center">
+            <p className="font-headline font-bold text-[7px] tracking-[0.12em] uppercase text-center"
+              style={{ color: 'var(--color-ink)', opacity: 0.25 }}>
               Impresso no Brasil · Copa do Mundo 2026 · Proibida reprodução
             </p>
           </div>
-          <div className="border-t border-preto/10" />
+          <div className="border-t" style={{ borderColor: 'color-mix(in srgb, var(--color-line) 10%, transparent)' }} />
           <div className="px-[20px] py-[20px] flex items-center justify-between">
             <Link
               href={`/historico/${sessionId}`}
-              className="font-headline font-bold text-[11px] tracking-[0.1em] uppercase underline underline-offset-4 text-preto/40"
+              className="font-headline font-bold text-[11px] tracking-[0.1em] uppercase underline underline-offset-4"
+              style={{ color: 'var(--color-ink)', opacity: 0.4 }}
             >
               Arquivo →
             </Link>
             <button
               onClick={onDismiss}
-              className="font-headline font-black italic text-[13px] tracking-[0.08em] uppercase px-[22px] py-[11px] text-amarelo"
-              style={{ background: 'var(--color-preto)', boxShadow: '3px 3px 0 rgba(0,0,0,0.25)' }}
+              className="font-headline font-black italic text-[13px] tracking-[0.08em] uppercase px-[22px] py-[11px]"
+              style={{
+                background: 'var(--color-accent)',
+                color: 'var(--color-accent-ink)',
+                boxShadow: 'var(--btn-shadow)',
+              }}
             >
               Continuar →
             </button>

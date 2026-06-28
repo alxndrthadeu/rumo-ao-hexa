@@ -36,7 +36,7 @@
   --font-pixel:    var(--font-press), monospace;
 }
 
-/* Tokens não-Tailwind (sombras, bordas, fx) — defaults do tema Revista */
+/* Tokens não-Tailwind (sombras, bordas, fx, tipografia) — defaults do tema Revista */
 :root {
   --border-w:        2.5px;
   --radius:          2px;
@@ -46,6 +46,21 @@
 
   --fx-paper: block;
   --fx-scan:  none;
+
+  /* Tipografia semântica — usada nos componentes para responder ao tema */
+  --font-head:       var(--font-saira);
+  --font-body:       var(--font-inter);
+  --head-style:      italic;
+  --head-weight:     900;
+  --head-transform:  uppercase;
+  --head-track:      -0.02em;
+
+  --fs-title:   30px;
+  --fs-kicker:  10px;
+  --fs-body:    16.5px;
+  --fs-label:   10px;
+  --fs-btn:     16px;
+  --body-lh:    1.34;
 }
 
 /* ── Tema: Pixel 16-bit (ISS / console) ──────────────────────────────────── */
@@ -82,6 +97,21 @@
   /* FX */
   --fx-paper: none;
   --fx-scan:  block;
+
+  /* Tipografia pixel — Press Start 2P em tudo */
+  --font-headline:  var(--font-press), monospace;
+  --font-head:      var(--font-press), monospace;
+  --font-body:      var(--font-press), monospace;
+  --head-style:     normal;
+  --head-weight:    400;
+  --head-track:     0;
+
+  --fs-title:  13px;
+  --fs-kicker:  7px;
+  --fs-body:   9.5px;
+  --fs-label:   7px;
+  --fs-btn:     9px;
+  --body-lh:    1.8;
 
   image-rendering: pixelated;
 }
@@ -178,6 +208,15 @@ body {
 
 .animate-score-pulse {
   animation: score-pulse 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Blink — indicador AO VIVO no LiveScoreboard */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+.animate-blink {
+  animation: blink 1.4s ease-in-out infinite;
 }
 
 .touch-none {

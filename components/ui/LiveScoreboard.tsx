@@ -36,46 +36,69 @@ export default function LiveScoreboard({
   }, [bra, adv])
 
   return (
-    <div className="bg-preto px-[18px] py-[14px] flex items-center justify-between gap-[12px]">
-      {/* Brasil */}
-      <div className="text-center min-w-[48px]">
-        <p className="font-headline font-black italic text-[20px] leading-none text-white">BRA</p>
-        <p className="font-headline font-bold text-[9px] text-white/35 mt-[2px] tracking-[0.05em]">Brasil</p>
+    <div
+      className="px-[18px] py-[12px] flex items-center gap-[14px]"
+      style={{ background: 'var(--color-line)' }}
+    >
+      {/* Col 1: AO VIVO indicator */}
+      <div className="flex flex-col items-center gap-[4px] min-w-[36px]">
+        {!finalizado ? (
+          <>
+            <span
+              className="animate-blink w-[7px] h-[7px] rounded-full"
+              style={{ background: 'var(--color-vermelho)' }}
+            />
+            <span
+              className="font-headline font-bold text-[7px] tracking-[0.1em] uppercase"
+              style={{ color: 'var(--color-hud-ink)', opacity: 0.55 }}
+            >
+              Ao Vivo
+            </span>
+          </>
+        ) : (
+          <span
+            className="font-headline font-bold text-[8px] tracking-[0.1em] uppercase"
+            style={{ color: 'var(--color-hud-ink)', opacity: 0.3 }}
+          >
+            Fim
+          </span>
+        )}
       </div>
 
-      {/* Placar + minuto */}
+      {/* Col 2: Placar BRA n — n ADV */}
       <div className="flex-1 text-center">
         <div
           key={pulseKey}
-          className="font-headline font-black italic text-[48px] leading-none tracking-[-3px] text-white animate-score-pulse"
-          style={{ textShadow: '0 2px 0 rgba(0,0,0,0.5)' }}
+          className="animate-score-pulse leading-none tracking-[-2px]"
+          style={{
+            fontFamily: 'var(--font-head)',
+            fontStyle: 'var(--head-style)',
+            fontWeight: 'var(--head-weight)' as React.CSSProperties['fontWeight'],
+          }}
         >
-          {bra} — {adv}
-        </div>
-        <div className="flex items-center justify-center gap-[6px] mt-[5px]">
-          {!finalizado && (
-            <span
-              className="w-[6px] h-[6px] rounded-full bg-vermelho"
-              style={{ animation: 'pulse 1.4s ease-in-out infinite' }}
-            />
-          )}
-          <span
-            className="font-headline font-black italic text-[14px] tracking-[0.02em]"
-            style={{ color: finalizado ? 'rgba(255,255,255,0.4)' : is90 ? 'var(--color-vermelho)' : 'var(--color-amarelo)' }}
-          >
-            {minuto}
-          </span>
+          <span className="text-[13px]" style={{ color: 'var(--color-hud-ink)', opacity: 0.55 }}>BRA </span>
+          <span className="text-[42px]" style={{ color: 'var(--color-accent)' }}>{bra}</span>
+          <span className="text-[24px]" style={{ color: 'var(--color-hud-ink)', opacity: 0.35 }}> — </span>
+          <span className="text-[42px]" style={{ color: 'var(--color-accent)' }}>{adv}</span>
+          <span className="text-[13px]" style={{ color: 'var(--color-hud-ink)', opacity: 0.4 }}> {advAbrev}</span>
         </div>
       </div>
 
-      {/* Adversário */}
-      <div className="text-center min-w-[48px]">
-        <p className="font-headline font-black italic text-[20px] leading-none text-white/55">
-          {advAbrev}
-        </p>
-        <p className="font-headline font-bold text-[9px] text-white/35 mt-[2px] tracking-[0.05em] truncate max-w-[52px]">
-          {adversario}
-        </p>
+      {/* Col 3: Minuto */}
+      <div className="text-center min-w-[36px]">
+        <span
+          className="font-headline font-black italic text-[18px] leading-none"
+          style={{
+            color: finalizado
+              ? 'var(--color-hud-ink)'
+              : is90
+              ? 'var(--color-vermelho)'
+              : 'var(--color-accent)',
+            opacity: finalizado ? 0.35 : 1,
+          }}
+        >
+          {minuto}
+        </span>
       </div>
     </div>
   )
