@@ -61,6 +61,16 @@
   --fs-label:   10px;
   --fs-btn:     16px;
   --body-lh:    1.34;
+
+  /* HUD e placar */
+  --fs-hud-match:    18px;
+  --fs-hud-player:   10px;
+  --fs-score-big:    42px;
+  --fs-score-label:  13px;
+  --fs-score-sep:    24px;
+  --score-tracking:  -2px;
+  --seed-display:    inline;
+  --editions-display: inline;
 }
 
 /* ── Tema: Pixel 16-bit (ISS / console) ──────────────────────────────────── */
@@ -112,6 +122,16 @@
   --fs-label:   7px;
   --fs-btn:     9px;
   --body-lh:    1.8;
+
+  /* HUD e placar — reduzidos para caber em Press Start 2P */
+  --fs-hud-match:    8px;
+  --fs-hud-player:   6px;
+  --fs-score-big:    22px;
+  --fs-score-label:   7px;
+  --fs-score-sep:    13px;
+  --score-tracking:  0px;
+  --seed-display:    none;
+  --editions-display: none;
 
   image-rendering: pixelated;
 }
