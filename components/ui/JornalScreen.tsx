@@ -147,21 +147,21 @@ function PlacarBox({ record }: { record: MatchRecord }) {
   return (
     <div className="flex-1 p-[12px]" style={{ background: 'var(--color-line)' }}>
       <p className="font-headline font-bold text-[8px] tracking-[0.2em] uppercase mb-[8px]"
-        style={{ color: 'var(--color-surface)', opacity: 0.4 }}>
+        style={{ color: 'var(--color-hud-ink)', opacity: 0.4 }}>
         Placar Final
       </p>
       <div className="flex items-baseline gap-[6px]">
         <span className="font-headline font-black italic text-[11px]"
-          style={{ color: 'var(--color-surface)', opacity: 0.6 }}>BRA</span>
+          style={{ color: 'var(--color-hud-ink)', opacity: 0.6 }}>BRA</span>
         <span className="font-headline font-black italic text-[30px] leading-none tracking-[-1px]"
-          style={{ color: 'var(--color-surface)' }}>
+          style={{ color: 'var(--color-hud-ink)' }}>
           {record.golsBrasil} × {record.golsAdversario}
         </span>
         <span className="font-headline font-black italic text-[11px]"
-          style={{ color: 'var(--color-surface)', opacity: 0.4 }}>{advAbrev}</span>
+          style={{ color: 'var(--color-hud-ink)', opacity: 0.4 }}>{advAbrev}</span>
       </div>
       <p className="font-headline font-bold text-[9px] mt-[3px] tracking-[0.05em] uppercase"
-        style={{ color: 'var(--color-surface)', opacity: 0.35 }}>
+        style={{ color: 'var(--color-hud-ink)', opacity: 0.35 }}>
         {record.adversario}
       </p>
     </div>
@@ -316,7 +316,7 @@ export default function JornalScreen({
           {/* Byline */}
           <div
             className="py-[6px] mb-[14px] flex items-center justify-between"
-            style={{ borderTop: '1px solid', borderBottom: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 12%, transparent)' }}
+            style={{ borderTop: '1px solid', borderBottom: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 35%, transparent)' }}
           >
             <p className="font-headline font-bold text-[9px] tracking-[0.08em] uppercase"
               style={{ color: 'var(--color-ink)', opacity: 0.4 }}>
@@ -381,7 +381,7 @@ export default function JornalScreen({
               <span
                 key={flag}
                 className="font-headline font-bold text-[8px] tracking-[0.2em] uppercase px-[7px] py-[3px]"
-                style={{ border: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 20%, transparent)', color: 'var(--color-ink)', opacity: 0.4 }}
+                style={{ border: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 40%, transparent)', color: 'var(--color-ink)', opacity: 0.4 }}
               >
                 #{flag.replace(/_/g, ' ')}
               </span>
@@ -397,7 +397,7 @@ export default function JornalScreen({
           >
             <span
               className="font-headline font-black italic text-[9px] tracking-[0.15em] uppercase px-[7px] py-[2px]"
-              style={{ background: 'var(--color-line)', color: 'var(--color-surface)' }}
+              style={{ background: 'var(--color-line)', color: 'var(--color-hud-ink)' }}
             >
               Boletim
             </span>
@@ -444,7 +444,7 @@ export default function JornalScreen({
           >
             <span
               className="font-headline font-black italic text-[9px] tracking-[0.15em] uppercase px-[7px] py-[2px]"
-              style={{ background: 'var(--color-line)', color: 'var(--color-surface)' }}
+              style={{ background: 'var(--color-line)', color: 'var(--color-hud-ink)' }}
             >
               Expediente
             </span>
@@ -459,11 +459,11 @@ export default function JornalScreen({
               <div
                 key={i}
                 className="py-[9px]"
-                style={{ borderBottom: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 10%, transparent)' }}
+                style={{ borderBottom: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 30%, transparent)' }}
               >
                 <span
                   className="font-headline font-black italic text-[7px] tracking-[0.08em] uppercase px-[4px] py-[1px] mb-[4px] inline-block"
-                  style={{ background: 'var(--color-line)', color: 'var(--color-surface)' }}
+                  style={{ background: 'var(--color-line)', color: 'var(--color-hud-ink)' }}
                 >
                   {n.secao}
                 </span>
@@ -487,7 +487,7 @@ export default function JornalScreen({
               Impresso no Brasil · Copa do Mundo 2026 · Proibida reprodução
             </p>
           </div>
-          <div className="border-t" style={{ borderColor: 'color-mix(in srgb, var(--color-line) 10%, transparent)' }} />
+          <div className="border-t" style={{ borderColor: 'color-mix(in srgb, var(--color-line) 30%, transparent)' }} />
           <div className="px-[20px] py-[20px] flex items-center justify-between">
             <Link
               href={`/historico/${sessionId}`}

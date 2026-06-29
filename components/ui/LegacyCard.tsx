@@ -163,7 +163,7 @@ function Timeline({ historico }: { historico: MatchRecord[] }) {
               <div key={i} className="flex-1 min-w-0 text-center">
                 <div
                   className="h-[32px] flex items-center justify-center"
-                  style={{ background: 'color-mix(in srgb, var(--color-line) 12%, transparent)' }}
+                  style={{ background: 'color-mix(in srgb, var(--color-line) 35%, transparent)' }}
                 >
                   <span
                     className="font-headline font-bold text-[7px]"
@@ -298,7 +298,7 @@ export default function LegacyCard({
           <Link
             href="/historico"
             className="flex-1 text-center font-headline font-bold text-[12px] py-[9px] block"
-            style={{ border: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 20%, transparent)', color: 'var(--color-hud-ink)', opacity: 0.45 }}
+            style={{ border: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 50%, transparent)', color: 'var(--color-hud-ink)', opacity: 0.45 }}
           >
             Minhas Runs
           </Link>
@@ -384,7 +384,7 @@ export default function LegacyCard({
       {/* Código da Run */}
       <div
         className="flex items-center justify-between py-[10px] mb-[18px]"
-        style={{ borderTop: '1px solid', borderBottom: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 20%, transparent)' }}
+        style={{ borderTop: '1px solid', borderBottom: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 50%, transparent)' }}
       >
         <div>
           <p className="font-headline font-bold text-[8px] tracking-[0.15em] uppercase mb-[2px]"

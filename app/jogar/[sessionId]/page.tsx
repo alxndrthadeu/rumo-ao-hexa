@@ -518,7 +518,7 @@ export default function GamePage() {
       {state.error && (
         <div className="fixed bottom-6 z-50 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[448px]">
           <div className="bg-vermelho text-white px-4 py-3 font-headline font-bold text-sm text-center"
-            style={{ boxShadow: '3px 3px 0 #100F0D' }}>
+            style={{ boxShadow: 'var(--btn-shadow)' }}>
             {state.error} — tente novamente
           </div>
         </div>

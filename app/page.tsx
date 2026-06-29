@@ -62,7 +62,7 @@ export default function Home() {
         <div className="inline-block mb-[16px]">
           <span
             className="font-headline font-black italic text-white bg-vermelho px-[18px] py-[2px] inline-block text-[96px] leading-[0.78] tracking-[-3px]"
-            style={{ boxShadow: '5px 5px 0 #100F0D' }}
+            style={{ boxShadow: 'var(--card-shadow)' }}
           >
             26
           </span>
@@ -85,20 +85,21 @@ export default function Home() {
       {activeSession && (
         <div className="mx-[15px] mt-[18px] bg-amarelo/20 border-2 border-amarelo px-[14px] py-[10px] flex items-center justify-between gap-3">
           <div>
-            <p className="font-headline font-bold text-[13px] text-preto">Run em andamento</p>
-            <p className="text-[12px] text-preto/60 mt-[1px]">Continuar de onde parou?</p>
+            <p className="font-headline font-bold text-[13px]" style={{ color: 'var(--color-ink)' }}>Run em andamento</p>
+            <p className="text-[12px] mt-[1px]" style={{ color: 'var(--color-ink)', opacity: 0.6 }}>Continuar de onde parou?</p>
           </div>
           <div className="flex gap-2 shrink-0">
             <button
               onClick={() => router.push(`/jogar/${activeSession}`)}
               className="px-[12px] py-[7px] bg-verde text-white font-headline font-black text-[12px]"
-              style={{ boxShadow: '2px 2px 0 #100F0D' }}
+              style={{ boxShadow: 'var(--btn-shadow)' }}
             >
               Continuar
             </button>
             <button
               onClick={() => { localStorage.removeItem('rtt_active_run'); setActiveSession(null) }}
-              className="px-[10px] py-[7px] border-2 border-preto/30 text-preto/50 font-headline font-bold text-[11px]"
+              className="px-[10px] py-[7px] border-2 font-headline font-bold text-[11px]"
+              style={{ borderColor: 'color-mix(in srgb, var(--color-line) 30%, transparent)', color: 'var(--color-ink)', opacity: 0.5 }}
             >
               Abandonar
             </button>
@@ -108,11 +109,14 @@ export default function Home() {
 
       {/* ── Pitch editorial ── */}
       <div className="px-[15px] pt-[28px] pb-[6px]">
-        <div className="border-t-[3px] border-preto pt-[16px]">
-          <p className="font-headline font-black italic text-[22px] leading-[1.1] tracking-[-0.5px] text-preto mb-[12px]">
+        <div className="border-t-[3px] pt-[16px]" style={{ borderColor: 'var(--color-line)' }}>
+          <p
+            className="font-headline font-black italic text-[22px] leading-[1.1] tracking-[-0.5px] mb-[12px]"
+            style={{ color: 'var(--color-ink)' }}
+          >
             Você veste a camisa.<br />Cada escolha é sua.
           </p>
-          <p className="text-[14px] leading-[1.55] text-preto/70">
+          <p className="text-[14px] leading-[1.55]" style={{ color: 'var(--color-ink)', opacity: 0.7 }}>
             Do Grupo à Final, você toma decisões antes do apito, nos 90 minutos e na coletiva pós-jogo. Cada resposta move quatro forças — e basta uma delas chegar ao limite para a Copa acabar.
           </p>
 
@@ -120,14 +124,15 @@ export default function Home() {
             {BARRAS.map(b => (
               <span
                 key={b}
-                className="font-headline font-bold text-[10px] tracking-[0.08em] uppercase px-[9px] py-[4px] border-2 border-preto/20 text-preto/55"
+                className="font-headline font-bold text-[10px] tracking-[0.08em] uppercase px-[9px] py-[4px] border-2"
+                style={{ borderColor: 'color-mix(in srgb, var(--color-line) 25%, transparent)', color: 'var(--color-ink)', opacity: 0.55 }}
               >
                 {b}
               </span>
             ))}
           </div>
 
-          <p className="text-[12px] leading-[1.4] text-preto/45 mt-[14px]">
+          <p className="text-[12px] leading-[1.4] mt-[14px]" style={{ color: 'var(--color-ink)', opacity: 0.45 }}>
             Escolha seu arquétipo — Estrela, Craque Caído ou Promessa — e enfrente a Copa do Mundo 2026 do seu jeito.
           </p>
         </div>
@@ -138,22 +143,23 @@ export default function Home() {
         <Link
           href="/arquetipo"
           className="w-full text-center block font-headline font-black italic text-[22px] tracking-[0.5px] text-white py-[13px] bg-verde"
-          style={{ boxShadow: '4px 4px 0 #100F0D' }}
+          style={{ boxShadow: 'var(--btn-shadow)' }}
         >
           Escolher Arquétipo →
         </Link>
 
         <Link
           href="/historico"
-          className="w-full text-center block font-headline font-black italic text-[18px] tracking-[0.3px] text-amarelo py-[13px] bg-preto"
-          style={{ boxShadow: '4px 4px 0 rgba(0,0,0,0.25)' }}
+          className="w-full text-center block font-headline font-black italic text-[18px] tracking-[0.3px] text-amarelo py-[13px]"
+          style={{ background: 'var(--color-hud)', boxShadow: 'var(--btn-shadow)' }}
         >
           Histórico de Runs →
         </Link>
 
         <Link
           href="/como-jogar"
-          className="w-full text-center block font-headline font-bold text-[13px] text-preto/45 py-[10px] hover:text-preto/70 transition-colors"
+          className="w-full text-center block font-headline font-bold text-[13px] py-[10px] transition-colors"
+          style={{ color: 'var(--color-ink)', opacity: 0.45 }}
         >
           Primeira vez? Veja o guia →
         </Link>
@@ -161,7 +167,7 @@ export default function Home() {
 
       {/* ── Crédito de tema ── */}
       <div className="px-[15px] pb-[20px] text-center">
-        <p className="text-[10px] tracking-[0.12em] uppercase text-preto/30">
+        <p className="text-[10px] tracking-[0.12em] uppercase" style={{ color: 'var(--color-ink)', opacity: 0.3 }}>
           {isPixel ? '👾 Pixel 16-bit' : '📰 Tema Revista'}
         </p>
       </div>
