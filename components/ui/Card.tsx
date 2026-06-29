@@ -65,7 +65,7 @@ function TokenBadge({ token, mode, available }: { token: string; mode: 'earn' | 
       className="inline-flex items-center gap-[3px] font-headline font-bold text-[9px] tracking-[0.08em] uppercase px-[6px] py-[2px] whitespace-nowrap"
       style={available
         ? { background: 'var(--color-verde)', color: '#fff' }
-        : { background: 'var(--color-line)', color: 'var(--color-surface)', opacity: 0.4 }
+        : { background: 'var(--color-line)', color: 'var(--color-hud-ink)', opacity: 0.4 }
       }
     >
       {available ? '✓' : '?'} {label}
@@ -308,7 +308,7 @@ export default function Card({
             <div className="flex items-center justify-between px-[15px] pt-[12px] pb-[4px]">
               <span
                 className="font-headline font-bold text-[9px] tracking-[0.12em] uppercase px-[7px] py-[2px]"
-                style={{ background: 'var(--color-line)', color: 'var(--color-surface)', borderRadius: 'var(--radius)' }}
+                style={{ background: 'var(--color-line)', color: 'var(--color-ink)', borderRadius: 'var(--radius)' }}
               >
                 {naipe}
               </span>

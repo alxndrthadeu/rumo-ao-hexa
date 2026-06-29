@@ -30,7 +30,7 @@ export default function GoalToast({ event, onDone }: { event: GoalEvent; onDone:
       >
         <div
           className="bg-amarelo px-[28px] py-[20px] text-center"
-          style={{ boxShadow: '6px 6px 0 #100F0D' }}
+          style={{ boxShadow: 'var(--btn-shadow)' }}
         >
           <p className="font-headline font-black italic text-[11px] tracking-[0.25em] uppercase text-preto/60 mb-[2px]">
             Gol do Brasil!
@@ -53,7 +53,7 @@ export default function GoalToast({ event, onDone }: { event: GoalEvent; onDone:
     >
       <div
         className="bg-preto px-[28px] py-[20px] text-center border-2 border-vermelho"
-        style={{ boxShadow: '6px 6px 0 #5a0000' }}
+        style={{ boxShadow: '6px 6px 0 var(--color-vermelho-2)' }}
       >
         <p className="font-headline font-black italic text-[11px] tracking-[0.25em] uppercase text-vermelho mb-[2px]">
           Adversário marca

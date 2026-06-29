@@ -290,7 +290,7 @@ export default function TransitionScreen({
           <SkewBadge
             label={viaPenaltis ? 'Fim dos Pênaltis' : 'Fim dos 90 Minutos'}
             bg="var(--color-line)"
-            ink="var(--color-surface)"
+            ink="var(--color-hud-ink)"
           />
         </div>
 
@@ -328,7 +328,7 @@ export default function TransitionScreen({
 
       {lastResult?.viaPenaltis && (
         <div className="mb-[12px]">
-          <SkewBadge label="Classificado nas Penalidades" bg="var(--color-line)" ink="var(--color-surface)" />
+          <SkewBadge label="Classificado nas Penalidades" bg="var(--color-line)" ink="var(--color-hud-ink)" />
         </div>
       )}
 

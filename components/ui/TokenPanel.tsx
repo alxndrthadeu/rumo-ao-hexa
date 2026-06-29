@@ -22,7 +22,6 @@ export default function TokenPanel({
   const panelRef = useRef<HTMLDivElement>(null)
   const total = Object.values(tokens).reduce((s, n) => s + n, 0)
 
-  // Fechar ao clicar fora
   useEffect(() => {
     function handler(e: MouseEvent) {
       if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
@@ -33,7 +32,7 @@ export default function TokenPanel({
     return () => document.removeEventListener('mousedown', handler)
   }, [onClose])
 
-  const activeTokens = TOKEN_ORDER.filter(t => (tokens[t] ?? 0) > 0)
+  const activeTokens   = TOKEN_ORDER.filter(t => (tokens[t] ?? 0) > 0)
   const inactiveTokens = TOKEN_ORDER.filter(t => (tokens[t] ?? 0) === 0)
 
   return (
@@ -44,22 +43,36 @@ export default function TokenPanel({
       {/* Painel */}
       <div
         ref={panelRef}
-        className="relative w-full max-w-[448px] bg-papel border-t-2 border-preto"
-        style={{ boxShadow: '0 -4px 0 #100F0D' }}
+        className="relative w-full max-w-[448px]"
+        style={{
+          background: 'var(--color-surface)',
+          borderTop: 'var(--border-w) solid var(--color-line)',
+          boxShadow: '0 -4px 0 var(--color-line)',
+        }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-[16px] py-[14px] border-b-2 border-preto/10">
+        <div
+          className="flex items-center justify-between px-[16px] py-[14px]"
+          style={{ borderBottom: 'var(--border-w) solid', borderColor: 'color-mix(in srgb, var(--color-line) 25%, transparent)' }}
+        >
           <div>
-            <p className="font-headline font-black italic text-[18px] leading-none tracking-[-0.5px] text-preto">
+            <p
+              className="font-headline font-black italic text-[18px] leading-none tracking-[-0.5px]"
+              style={{ color: 'var(--color-ink)' }}
+            >
               Bônus Ativos
             </p>
-            <p className="font-headline font-bold text-[10px] tracking-[0.15em] uppercase text-preto/40 mt-[2px]">
+            <p
+              className="font-headline font-bold text-[10px] tracking-[0.15em] uppercase mt-[2px]"
+              style={{ color: 'var(--color-ink)', opacity: 0.4 }}
+            >
               {total > 0 ? `${total} token${total !== 1 ? 's' : ''} disponíveis` : 'Nenhum token ainda'}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="font-headline font-bold text-[11px] tracking-[0.1em] uppercase text-preto/40 border border-preto/20 px-[8px] py-[4px] hover:text-preto hover:border-preto/50 transition-colors"
+            className="font-headline font-bold text-[11px] tracking-[0.1em] uppercase px-[8px] py-[4px] transition-colors"
+            style={{ color: 'var(--color-ink)', opacity: 0.5, border: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 30%, transparent)' }}
           >
             Fechar
           </button>
@@ -68,13 +81,16 @@ export default function TokenPanel({
         {/* Lista */}
         <div className="px-[16px] py-[12px] space-y-[8px] max-h-[50vh] overflow-y-auto">
           {total === 0 ? (
-            <p className="text-[13px] text-preto/40 font-medium py-[8px] text-center">
+            <p
+              className="text-[13px] font-medium py-[8px] text-center"
+              style={{ color: 'var(--color-ink)', opacity: 0.4 }}
+            >
               Faça escolhas no pré-jogo e na zona mista para ganhar tokens.
             </p>
           ) : (
             <>
               {activeTokens.map(token => {
-                const meta = TOKEN_META[token]
+                const meta  = TOKEN_META[token]
                 const count = tokens[token] ?? 0
                 return (
                   <div key={token} className="flex items-center gap-[12px] py-[6px]">
@@ -84,10 +100,16 @@ export default function TokenPanel({
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-headline font-bold text-[14px] leading-none text-preto">
+                      <p
+                        className="font-headline font-bold text-[14px] leading-none"
+                        style={{ color: 'var(--color-ink)' }}
+                      >
                         {meta?.label ?? token}
                       </p>
-                      <p className="font-medium text-[11px] text-preto/50 mt-[2px] leading-[1.2]">
+                      <p
+                        className="font-medium text-[11px] mt-[2px] leading-[1.2]"
+                        style={{ color: 'var(--color-ink)', opacity: 0.5 }}
+                      >
                         {meta?.desc}
                       </p>
                     </div>
@@ -96,15 +118,29 @@ export default function TokenPanel({
               })}
 
               {inactiveTokens.length > 0 && activeTokens.length > 0 && (
-                <div className="border-t border-preto/10 pt-[8px] mt-[4px]">
+                <div
+                  className="pt-[8px] mt-[4px]"
+                  style={{ borderTop: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 20%, transparent)' }}
+                >
                   {inactiveTokens.map(token => {
                     const meta = TOKEN_META[token]
                     return (
                       <div key={token} className="flex items-center gap-[12px] py-[5px] opacity-30">
-                        <div className="flex items-center justify-center w-[32px] h-[32px] border border-preto/20 shrink-0">
-                          <span className="font-headline font-bold text-[13px] text-preto/50">0</span>
+                        <div
+                          className="flex items-center justify-center w-[32px] h-[32px] shrink-0"
+                          style={{ border: '1px solid', borderColor: 'var(--color-line)' }}
+                        >
+                          <span
+                            className="font-headline font-bold text-[13px]"
+                            style={{ color: 'var(--color-ink)', opacity: 0.5 }}
+                          >
+                            0
+                          </span>
                         </div>
-                        <p className="font-headline font-bold text-[13px] text-preto">
+                        <p
+                          className="font-headline font-bold text-[13px]"
+                          style={{ color: 'var(--color-ink)' }}
+                        >
                           {meta?.label ?? token}
                         </p>
                       </div>
