@@ -25,14 +25,14 @@ export default function PhaseHeader({
   return (
     <div className="flex items-center gap-[8px]">
       <span
-        className="font-headline font-black text-[10px] tracking-[0.1em] uppercase px-[8px] py-[3px] shrink-0"
-        style={{ background: bg, color: ink }}
+        className="font-headline font-black tracking-[0.1em] uppercase px-[8px] py-[3px] shrink-0"
+        style={{ fontSize: 'var(--fs-label)', background: bg, color: ink }}
       >
         {label}
       </span>
       <span
-        className="font-headline font-bold text-[9px] tracking-[0.15em] uppercase truncate"
-        style={{ color: 'var(--color-hud-ink)', opacity: 0.65 }}
+        className="font-headline font-bold tracking-[0.15em] uppercase truncate"
+        style={{ fontSize: 'var(--fs-label)', color: 'var(--color-hud-ink)', opacity: 0.65 }}
       >
         {context}
       </span>

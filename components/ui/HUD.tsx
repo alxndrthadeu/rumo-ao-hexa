@@ -48,8 +48,8 @@ export default function HUD({
             {/* Minuto (só em reagir) */}
             {minuto && (
               <span
-                className="font-headline font-black text-[14px] leading-none"
-                style={{ color: 'var(--color-accent)' }}
+                className="font-headline font-black leading-none"
+                style={{ fontSize: 'var(--fs-hud-player)', color: 'var(--color-accent)' }}
               >
                 {minuto}
               </span>
@@ -59,51 +59,60 @@ export default function HUD({
             {totalTokens > 0 ? (
               <button
                 onClick={() => setShowTokens(true)}
-                className="flex items-center gap-[4px] font-headline font-bold text-[10px] tracking-[0.06em] uppercase px-[8px] py-[3px]"
+                className="flex items-center gap-[4px] font-headline font-bold tracking-[0.06em] uppercase px-[8px] py-[3px]"
                 style={{
+                  fontSize: 'var(--fs-label)',
                   background: 'var(--color-accent)',
                   color: 'var(--color-accent-ink)',
                   border: 'var(--border-w) solid var(--color-accent)',
                 }}
                 title="Ver tokens de bônus"
               >
-                <span className="font-black text-[12px] leading-none">◆</span>
+                <span className="font-black leading-none">◆</span>
                 <span>{totalTokens}</span>
               </button>
             ) : (
               <button
                 onClick={() => setShowTokens(true)}
-                className="flex items-center gap-[4px] font-headline font-bold text-[9px] tracking-[0.06em] uppercase px-[7px] py-[3px] transition-colors"
+                className="flex items-center gap-[4px] font-headline font-bold tracking-[0.06em] uppercase px-[7px] py-[3px] transition-colors"
                 style={{
+                  fontSize: 'var(--fs-label)',
                   border: 'var(--border-w) solid var(--color-hud-ink)',
                   color: 'var(--color-hud-ink)',
                   opacity: 0.3,
                 }}
                 title="Ver tokens de bônus"
               >
-                <span className="text-[10px] leading-none">◆</span>
+                <span className="leading-none">◆</span>
                 <span>0</span>
               </button>
             )}
 
-            {/* Seed */}
+            {/* Seed — oculto no tema pixel (muito largo em Press Start 2P) */}
             <span
-              className="font-headline font-bold text-[8px] tracking-[0.08em] select-all"
-              style={{ color: 'var(--color-hud-ink)', opacity: 0.25 }}
+              className="font-headline font-bold tracking-[0.08em] select-all"
+              style={{
+                fontSize: 'var(--fs-label)',
+                color: 'var(--color-hud-ink)',
+                opacity: 0.25,
+                display: 'var(--seed-display)' as React.CSSProperties['display'],
+              }}
               title={`Seed da run: ${state.initialSeed}`}
             >
               {seedCode(state.initialSeed)}
             </span>
 
-            {/* Link do jornal */}
+            {/* Link do jornal — oculto no tema pixel */}
             {sessionId && state.fase === 'planejar' && (
               <Link
                 href={`/historico/${sessionId}`}
-                className="font-headline font-bold text-[9px] tracking-[0.12em] uppercase px-[7px] py-[3px] transition-colors hover:opacity-70"
+                className="font-headline font-bold tracking-[0.12em] uppercase px-[7px] py-[3px] transition-colors hover:opacity-70"
                 style={{
+                  fontSize: 'var(--fs-label)',
                   color: 'var(--color-hud-ink)',
                   border: 'var(--border-w) solid var(--color-hud-ink)',
                   opacity: 0.4,
+                  display: 'var(--editions-display)' as React.CSSProperties['display'],
                 }}
               >
                 Edições
@@ -114,14 +123,17 @@ export default function HUD({
 
         {/* Linha 2: confronto Brasil × Adversário + camisa/nome do jogador */}
         <div className="flex items-baseline justify-between gap-[8px] mb-[11px]">
-          <div className="font-headline font-black text-[18px] leading-none truncate" style={{ letterSpacing: '-0.3px' }}>
+          <div
+            className="font-headline font-black leading-none truncate"
+            style={{ fontSize: 'var(--fs-hud-match)', letterSpacing: 'var(--score-tracking)' }}
+          >
             Brasil{' '}
             <span style={{ opacity: 0.4 }}>×</span>{' '}
             <span style={{ color: 'var(--color-accent)' }}>{bracketEntry.adversario}</span>
           </div>
           <span
-            className="font-headline font-bold text-[10px] tracking-[0.06em] shrink-0"
-            style={{ color: 'var(--color-hud-ink)', opacity: 0.45 }}
+            className="font-headline font-bold tracking-[0.06em] shrink-0"
+            style={{ fontSize: 'var(--fs-hud-player)', color: 'var(--color-hud-ink)', opacity: 0.45 }}
           >
             #{state.camisa} {state.nomeJogador.toUpperCase()}
           </span>

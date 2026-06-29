@@ -69,26 +69,29 @@ export default function LiveScoreboard({
       <div className="flex-1 text-center">
         <div
           key={pulseKey}
-          className="animate-score-pulse leading-none tracking-[-2px]"
+          className="animate-score-pulse leading-none"
           style={{
             fontFamily: 'var(--font-head)',
             fontStyle: 'var(--head-style)',
             fontWeight: 'var(--head-weight)' as React.CSSProperties['fontWeight'],
+            letterSpacing: 'var(--score-tracking)',
           }}
         >
-          <span className="text-[13px]" style={{ color: 'var(--color-hud-ink)', opacity: 0.55 }}>BRA </span>
-          <span className="text-[42px]" style={{ color: 'var(--color-accent)' }}>{bra}</span>
-          <span className="text-[24px]" style={{ color: 'var(--color-hud-ink)', opacity: 0.35 }}> — </span>
-          <span className="text-[42px]" style={{ color: 'var(--color-accent)' }}>{adv}</span>
-          <span className="text-[13px]" style={{ color: 'var(--color-hud-ink)', opacity: 0.4 }}> {advAbrev}</span>
+          <span style={{ fontSize: 'var(--fs-score-label)', color: 'var(--color-hud-ink)', opacity: 0.55 }}>BRA </span>
+          <span style={{ fontSize: 'var(--fs-score-big)', color: 'var(--color-accent)' }}>{bra}</span>
+          <span style={{ fontSize: 'var(--fs-score-sep)', color: 'var(--color-hud-ink)', opacity: 0.35 }}> — </span>
+          <span style={{ fontSize: 'var(--fs-score-big)', color: 'var(--color-accent)' }}>{adv}</span>
+          <span style={{ fontSize: 'var(--fs-score-label)', color: 'var(--color-hud-ink)', opacity: 0.4 }}> {advAbrev}</span>
         </div>
       </div>
 
       {/* Col 3: Minuto */}
       <div className="text-center min-w-[36px]">
         <span
-          className="font-headline font-black italic text-[18px] leading-none"
+          className="font-headline font-black leading-none"
           style={{
+            fontStyle: 'var(--head-style)',
+            fontSize: 'var(--fs-hud-match)',
             color: finalizado
               ? 'var(--color-hud-ink)'
               : is90
