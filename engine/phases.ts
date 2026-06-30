@@ -430,6 +430,12 @@ export function resolvePenaltyEnd(state: RunState): RunState {
   }
 
   s = raiseFlag(s, 'penaltis')
+
+  // Final (partida 7) vencida nos pênaltis = HEXA
+  if (s.partidaAtual === 7) {
+    return { ...s, morto: true, causaMorte: 'vitoria' }
+  }
+
   return {
     ...s,
     penaltisResolvidos: true,

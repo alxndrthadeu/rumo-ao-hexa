@@ -6,6 +6,7 @@ import { advanceSeed, seedToFloat } from './rng'
 type MancheteRule = {
   flags: string[]
   resultado?: ResultadoPartida
+  fase?: string
   opcoes: Array<{ manchete: string; corpo: string }>
 }
 
@@ -207,6 +208,51 @@ const REGRAS: MancheteRule[] = [
   { flags: ['heroi'], resultado: 'penaltis', opcoes: [
     { manchete: 'O HERÓI DO CÍRCULO. O HERÓI DO BRASIL.',    corpo: 'Quando o jogo foi para os pênaltis, o Brasil precisava de alguém. Ele apareceu.' },
   ]},
+
+  // ── SEMIFINAL ─────────────────────────────────────────────────────────────
+
+  // SEMI — vitória (qualquer flag relevante)
+  { fase: 'semi', resultado: 'vitoria', flags: ['heroi', 'lider', 'raca', 'frieza', 'disciplinado', 'coletivo', 'showman', 'idolo', 'ousado', 'afobado', 'vilao', 'covarde', 'pavio_curto', 'arrogante', 'boemio', 'romance', 'climao_vestiario', 'polemica', 'proposta_europa', 'cabeca_em_casa'], opcoes: [
+    { manchete: 'BRASIL NA FINAL. O HEXA ESTÁ A UM PASSO.',         corpo: 'A semifinal foi superada. O Brasil entra na grande decisão com um único objetivo: o sexto título mundial.' },
+    { manchete: 'UM JOGO PARA O HEXA.',                             corpo: 'A torcida pode sonhar. A copa toda foi para chegar aqui. Falta apenas uma partida.' },
+    { manchete: 'SEMIFINAL VENCIDA. BRASIL MARCA A DECISÃO.',       corpo: 'A campanha segue firme. Mais um adversário superado. Agora, a maior decisão do futebol mundial.' },
+    { manchete: 'FINAL! BRASIL CONFIRMA FAVORITISMO E AVANÇA.',     corpo: 'Não foi simples, mas nunca é numa semifinal de Copa. O Brasil encontrou um jeito. E está na final.' },
+  ]},
+
+  // SEMI — pênaltis
+  { fase: 'semi', resultado: 'penaltis', flags: ['heroi', 'lider', 'raca', 'frieza', 'disciplinado', 'coletivo', 'showman', 'idolo', 'ousado', 'penaltis', 'afobado', 'vilao', 'covarde', 'pavio_curto', 'arrogante', 'boemio', 'romance', 'climao_vestiario', 'polemica', 'proposta_europa', 'cabeca_em_casa'], opcoes: [
+    { manchete: 'NOS PÊNALTIS, O BRASIL CHEGA À FINAL.',            corpo: 'Drama máximo na semifinal. O coração do Brasil parou em cada batida. No fim, a vaga foi nossa.' },
+    { manchete: 'PÊNALTIS, NERVOS, FINAL. BRASIL RESISTE.',         corpo: 'Não foi nos 90 minutos. Foi na loteria. E na loteria, quem estava mais frio foi o Brasil.' },
+    { manchete: 'O BRASIL SOFREU. O BRASIL PASSOU. ESTÁ NA FINAL.', corpo: 'Não havia forma fácil de chegar a uma final de Copa. O Brasil encontrou a mais difícil — e superou.' },
+  ]},
+
+  // SEMI — derrota
+  { fase: 'semi', resultado: 'derrota', flags: ['heroi', 'lider', 'raca', 'frieza', 'disciplinado', 'coletivo', 'showman', 'idolo', 'ousado', 'afobado', 'vilao', 'covarde', 'pavio_curto', 'arrogante', 'boemio', 'romance', 'climao_vestiario', 'polemica', 'proposta_europa', 'cabeca_em_casa'], opcoes: [
+    { manchete: 'A FINAL FICOU PARA OUTRA VEZ.',                    corpo: 'A Copa cobrou na hora mais importante. O Brasil caiu na semifinal e o sonho do Hexa espera uma nova tentativa.' },
+    { manchete: 'NA PORTA DA FINAL, O BRASIL PARA.',                corpo: 'Tão perto. Tão longe. A semifinal mostrou que o futebol não tem misericórdia.' },
+  ]},
+
+  // ── FINAL ────────────────────────────────────────────────────────────────
+
+  // FINAL — vitória
+  { fase: 'final', resultado: 'vitoria', flags: ['heroi', 'lider', 'raca', 'frieza', 'disciplinado', 'coletivo', 'showman', 'idolo', 'ousado', 'afobado', 'vilao', 'covarde', 'pavio_curto', 'arrogante', 'boemio', 'romance', 'climao_vestiario', 'polemica', 'proposta_europa', 'cabeca_em_casa'], opcoes: [
+    { manchete: 'HEXA!!! O BRASIL É CAMPEÃO DO MUNDO.',             corpo: 'Era o que o Brasil esperava desde 2002. Vinte e quatro anos de espera acabaram nesta noite. O Hexa é nosso.' },
+    { manchete: 'É HEXA! BRASIL CAMPEÃO DO MUNDO!',                 corpo: 'O grito que o país todo esperava ecoou pelo mundo. O Brasil voltou ao topo. Somos hexacampeões.' },
+    { manchete: 'O BRASIL VOLTOU. É HEXACAMPEÃO MUNDIAL.',         corpo: 'Não importa quantos anos passem — quando o Brasil decide que vai, o mundo assiste. Hoje o mundo assistiu.' },
+    { manchete: 'CAMPEÃO! O FUTEBOL VOLTOU PARA CASA.',            corpo: 'A Copa do Mundo tem um novo campeão. O mais vitorioso de todos. O Brasil é hexacampeão mundial.' },
+  ]},
+
+  // FINAL — pênaltis (vitória)
+  { fase: 'final', resultado: 'penaltis', flags: ['heroi', 'lider', 'raca', 'frieza', 'disciplinado', 'coletivo', 'showman', 'idolo', 'ousado', 'penaltis', 'afobado', 'vilao', 'covarde', 'pavio_curto', 'arrogante', 'boemio', 'romance', 'climao_vestiario', 'polemica', 'proposta_europa', 'cabeca_em_casa'], opcoes: [
+    { manchete: 'NOS PÊNALTIS, O HEXA. BRASIL CAMPEÃO DO MUNDO.',  corpo: 'Não foi nos 90 minutos. Não foi na prorrogação. Foi na alma. E a alma do Brasil foi mais forte.' },
+    { manchete: 'PÊNALTIS NA FINAL. HEXA NO CORAÇÃO.',             corpo: 'A Copa mais emocionante terminou da forma mais dramática possível. E o troféu ficou com o Brasil.' },
+  ]},
+
+  // FINAL — derrota
+  { fase: 'final', resultado: 'derrota', flags: ['heroi', 'lider', 'raca', 'frieza', 'disciplinado', 'coletivo', 'showman', 'idolo', 'ousado', 'afobado', 'vilao', 'covarde', 'pavio_curto', 'arrogante', 'boemio', 'romance', 'climao_vestiario', 'polemica', 'proposta_europa', 'cabeca_em_casa'], opcoes: [
+    { manchete: 'NA FINAL, O HEXA ESCAPA.',                        corpo: 'O Brasil chegou até o último jogo. Mas o troféu não veio. A dor é grande — o respeito também.' },
+    { manchete: 'VICE-CAMPEÃO. A DOR DA DECISÃO PERDIDA.',         corpo: 'Chegar à final é conquista. Perder é devastação. O Brasil sentiu os dois em uma única noite.' },
+  ]},
 ]
 
 function match(flags: string[], rule: MancheteRule): boolean {
@@ -217,13 +263,18 @@ export function generateManchete(
   resultado: ResultadoPartida,
   flags: string[],
   adversario: string,
-  seed: number
+  seed: number,
+  fase?: string
 ): { manchete: string; corpo: string; seed: number } {
   let s = seed
-  const matching = REGRAS.filter(rule => {
+  const allMatching = REGRAS.filter(rule => {
     if (rule.resultado && rule.resultado !== resultado) return false
+    if (rule.fase && rule.fase !== fase) return false
     return match(flags, rule)
   })
+  // Prioriza regras com fase específica; fallback para regras genéricas
+  const faseSpecific = allMatching.filter(r => r.fase === fase)
+  const matching = faseSpecific.length > 0 ? faseSpecific : allMatching.filter(r => !r.fase)
 
   let manchete: string
   let corpo: string
@@ -300,7 +351,7 @@ export function buildMatchRecord(
   seed: number
 ): { record: MatchRecord; seed: number } {
   const topFlags = [...flags].slice(-4) // mais recentes têm mais peso
-  const { manchete, corpo, seed: newSeed } = generateManchete(resultado, topFlags, adversario, seed)
+  const { manchete, corpo, seed: newSeed } = generateManchete(resultado, topFlags, adversario, seed, fase)
   const record: MatchRecord = {
     partida,
     adversario,

@@ -261,7 +261,13 @@ export function getInterviewCard(
   state: Parameters<typeof resolveInterviewFlag>[0]
 ): CartaEntrevista {
   const flag = resolveInterviewFlag(state)
-  const candidatas = entrevistaCards.filter(c => c.requer_flag === flag)
+  const partida = state.partidaAtual
+  const todasComFlag = entrevistaCards.filter(c => c.requer_flag === flag)
+
+  // Prefere cartas específicas da partida atual; fallback para todo o pool da flag
+  const especificas = todasComFlag.filter(c => c.partida === partida)
+  const candidatas = especificas.length > 0 ? especificas : todasComFlag
+
   if (candidatas.length === 0) return entrevistaCards.find(c => c.requer_flag === 'fallback')!
   const idx = Math.floor(seedToFloat(advanceSeed(state.seed)) * candidatas.length)
   return candidatas[idx] ?? entrevistaCards.find(c => c.requer_flag === 'fallback')!

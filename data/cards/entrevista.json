@@ -3261,5 +3261,348 @@
         }
       }
     }
+  },
+
+  {
+    "id": "ent_semi_heroi",
+    "fase": "entrevista",
+    "partida": 6,
+    "requer_flag": "heroi",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Você colocou o Brasil na final. O Hexa passa por você?",
+        "esquerda": {
+          "texto": "Passa por mim, sim. E eu estou pronto.",
+          "efeitos": { "midia": 12, "torcida": -6 },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Passa pelo grupo. Eu só apareço quando o grupo me libera.",
+          "efeitos": { "torcida": 14, "moral": 6 },
+          "flag_carreira": "lider"
+        }
+      },
+      "caido": {
+        "pergunta": "Você foi o decisivo da semifinal. Esse momento apaga as críticas?",
+        "esquerda": {
+          "texto": "Nunca precisei que ninguém apagasse nada. Estou aqui.",
+          "efeitos": { "midia": 10, "torcida": -4 },
+          "flag_carreira": "raca"
+        },
+        "direita": {
+          "texto": "Cada jogo foi um degrau. A final é o topo. Ainda falta um.",
+          "efeitos": { "torcida": 12, "moral": 8 },
+          "flag_carreira": "disciplinado"
+        }
+      },
+      "futuro": {
+        "pergunta": "Semifinal decidida! É o momento mais importante da sua carreira até agora?",
+        "esquerda": {
+          "texto": "Com certeza. Mas a final vai ser maior ainda.",
+          "efeitos": { "midia": 10, "torcida": 6 },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Cada passo dessa Copa é o maior até agora. Que venha a final.",
+          "efeitos": { "torcida": 14, "moral": 5 },
+          "flag_carreira": "humilde"
+        }
+      }
+    }
+  },
+
+  {
+    "id": "ent_semi_lider",
+    "fase": "entrevista",
+    "partida": 6,
+    "requer_flag": "lider",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Você conduziu o time até a final. O capitão tem mais um passo a dar?",
+        "esquerda": {
+          "texto": "Sempre tive. Meu trabalho só termina quando a taça vier.",
+          "efeitos": { "midia": 10, "torcida": 8 },
+          "flag_carreira": "lider"
+        },
+        "direita": {
+          "texto": "Não me vejo sozinho nisso. O grupo inteiro merece esse crédito.",
+          "efeitos": { "torcida": 15, "moral": 5 },
+          "flag_carreira": "humilde"
+        }
+      },
+      "caido": {
+        "pergunta": "Seu time te seguiu até a final. Você se surpreendeu com essa confiança?",
+        "esquerda": {
+          "texto": "Sabia que era minha hora de liderar de novo. Não me surpreendi.",
+          "efeitos": { "midia": 8, "torcida": 6 },
+          "flag_carreira": "raca"
+        },
+        "direita": {
+          "texto": "Eles acreditaram antes de mim. Isso me deu força.",
+          "efeitos": { "torcida": 14, "moral": 8 },
+          "flag_carreira": "humilde"
+        }
+      },
+      "futuro": {
+        "pergunta": "Você liderou experientes e veteranos até a final. Como um jovem faz isso?",
+        "esquerda": {
+          "texto": "Não penso em idade. Penso em responsabilidade.",
+          "efeitos": { "midia": 10, "torcida": 8 },
+          "flag_carreira": "lider"
+        },
+        "direita": {
+          "texto": "Eles me ensinaram. Eu só devolvi em campo.",
+          "efeitos": { "torcida": 12, "moral": 6 },
+          "flag_carreira": "humilde"
+        }
+      }
+    }
+  },
+
+  {
+    "id": "ent_semi_raca",
+    "fase": "entrevista",
+    "partida": 6,
+    "requer_flag": "raca",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Pura raça para chegar à final. Mas na decisão tem que ser mais do que isso?",
+        "esquerda": {
+          "texto": "Raça é o que me trouxe até aqui. Vai ser o que me leva ao Hexa.",
+          "efeitos": { "torcida": 12, "moral": 6 },
+          "flag_carreira": "raca"
+        },
+        "direita": {
+          "texto": "Na final, vou juntar tudo: raça, técnica e cabeça fria.",
+          "efeitos": { "midia": 8, "torcida": 10 },
+          "flag_carreira": "disciplinado"
+        }
+      },
+      "caido": {
+        "pergunta": "Você brigou com tudo e está na final. O que sobrou na reserva para a decisão?",
+        "esquerda": {
+          "texto": "Nunca guardo nada. E nunca fico sem.",
+          "efeitos": { "torcida": 14, "moral": 5 },
+          "flag_carreira": "raca"
+        },
+        "direita": {
+          "texto": "A final vai me encontrar inteiro. Prometo.",
+          "efeitos": { "moral": 10, "torcida": 8 },
+          "flag_carreira": "disciplinado"
+        }
+      },
+      "futuro": {
+        "pergunta": "Todo mundo falava em experiência. Você foi na raça. Funciona na final também?",
+        "esquerda": {
+          "texto": "Funciona. Só não me digam o contrário antes da partida.",
+          "efeitos": { "midia": 8, "torcida": 8 },
+          "flag_carreira": "raca"
+        },
+        "direita": {
+          "texto": "Raça é o que os jovens têm de sobra. Vou usar cada gota.",
+          "efeitos": { "torcida": 12, "moral": 5 },
+          "flag_carreira": "raca"
+        }
+      }
+    }
+  },
+
+  {
+    "id": "ent_semi_penaltis",
+    "fase": "entrevista",
+    "partida": 6,
+    "requer_flag": "penaltis",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Pênaltis na semifinal e Brasil na final. Como você está agora?",
+        "esquerda": {
+          "texto": "Aliviado e com fome. A final está esperando.",
+          "efeitos": { "torcida": 12, "moral": 6 },
+          "flag_carreira": "frieza"
+        },
+        "direita": {
+          "texto": "Feliz demais. Cada batida foi um ano de vida a menos. Valeu.",
+          "efeitos": { "torcida": 15, "moral": 4 },
+          "flag_carreira": "idolo"
+        }
+      },
+      "caido": {
+        "pergunta": "Você se manteve firme nos pênaltis depois de tudo que passou. Como segurou os nervos?",
+        "esquerda": {
+          "texto": "Quem passou pelo que passei aprende a viver na pressão.",
+          "efeitos": { "midia": 10, "torcida": 8 },
+          "flag_carreira": "raca"
+        },
+        "direita": {
+          "texto": "Foquei na bola. Só na bola. O resto era barulho.",
+          "efeitos": { "torcida": 12, "moral": 6 },
+          "flag_carreira": "frieza"
+        }
+      },
+      "futuro": {
+        "pergunta": "Primeira vez numa semifinal, primeiro pênalti decisivo de Copa. Pesou?",
+        "esquerda": {
+          "texto": "Pesou na fila. Na hora de bater, a cabeça foi mais forte.",
+          "efeitos": { "torcida": 12, "moral": 5 },
+          "flag_carreira": "frieza"
+        },
+        "direita": {
+          "texto": "Treinei isso mil vezes. Na hora H, o corpo lembrou.",
+          "efeitos": { "midia": 8, "torcida": 10 },
+          "flag_carreira": "disciplinado"
+        }
+      }
+    }
+  },
+
+  {
+    "id": "ent_final_heroi",
+    "fase": "entrevista",
+    "partida": 7,
+    "requer_flag": "heroi",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Você decidiu a final. É o maior momento da sua carreira?",
+        "esquerda": {
+          "texto": "É o maior. E só estou começando.",
+          "efeitos": { "midia": 14, "torcida": -4 },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "O maior momento foi esse grupo acreditar junto. Eu só finalizei.",
+          "efeitos": { "torcida": 16, "moral": 8 },
+          "flag_carreira": "humilde"
+        }
+      },
+      "caido": {
+        "pergunta": "Você ressurgiu para decidir a final. O que esse momento representa?",
+        "esquerda": {
+          "texto": "Representa que nunca deveria ter duvidado de mim.",
+          "efeitos": { "midia": 12, "torcida": 5 },
+          "flag_carreira": "raca"
+        },
+        "direita": {
+          "texto": "Representa que o futebol é justo quando você não desiste.",
+          "efeitos": { "torcida": 16, "moral": 10 },
+          "flag_carreira": "humilde"
+        }
+      },
+      "futuro": {
+        "pergunta": "Campeão mundial na sua primeira Copa! O que você diria para o garoto que começou essa jornada?",
+        "esquerda": {
+          "texto": "Diria: confie no seu talento e não ouça os que limitam você.",
+          "efeitos": { "midia": 12, "torcida": 8 },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Diria: o sonho era real. Valeu cada treino, cada sacrifício.",
+          "efeitos": { "torcida": 18, "moral": 8 },
+          "flag_carreira": "humilde"
+        }
+      }
+    }
+  },
+
+  {
+    "id": "ent_final_lider",
+    "fase": "entrevista",
+    "partida": 7,
+    "requer_flag": "lider",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "Capitão de um time campeão mundial. Como você resume esse título?",
+        "esquerda": {
+          "texto": "Um título construído com autoridade, desde o primeiro treino.",
+          "efeitos": { "midia": 12, "torcida": 6 },
+          "flag_carreira": "lider"
+        },
+        "direita": {
+          "texto": "Eu só abri o caminho. Esse título tem 26 nomes.",
+          "efeitos": { "torcida": 18, "moral": 8 },
+          "flag_carreira": "humilde"
+        }
+      },
+      "caido": {
+        "pergunta": "Você liderou esse time de volta ao topo. O que você prova com esse título?",
+        "esquerda": {
+          "texto": "Que líderes de verdade não pedem permissão para voltar.",
+          "efeitos": { "midia": 10, "torcida": 8 },
+          "flag_carreira": "raca"
+        },
+        "direita": {
+          "texto": "Que o Brasil nunca havia perdido a grandeza. Só precisava encontrá-la.",
+          "efeitos": { "torcida": 16, "moral": 10 },
+          "flag_carreira": "idolo"
+        }
+      },
+      "futuro": {
+        "pergunta": "Você assumiu a liderança jovem e trouxe o Hexa. Isso muda sua trajetória?",
+        "esquerda": {
+          "texto": "Coloca uma responsabilidade maior. E eu aceito.",
+          "efeitos": { "midia": 10, "torcida": 10 },
+          "flag_carreira": "lider"
+        },
+        "direita": {
+          "texto": "Muda tudo. A partir de hoje, começo de novo com mais peso e mais orgulho.",
+          "efeitos": { "torcida": 16, "moral": 8 },
+          "flag_carreira": "humilde"
+        }
+      }
+    }
+  },
+
+  {
+    "id": "ent_final_penaltis",
+    "fase": "entrevista",
+    "partida": 7,
+    "requer_flag": "penaltis",
+    "carga": "ELOGIO",
+    "variantes": {
+      "estrela": {
+        "pergunta": "O Hexa veio nos pênaltis. Você vai lembrar desse momento para sempre?",
+        "esquerda": {
+          "texto": "Para sempre. E o Brasil também vai lembrar do meu nome.",
+          "efeitos": { "midia": 14, "torcida": 5 },
+          "flag_carreira": "arrogante"
+        },
+        "direita": {
+          "texto": "Cada segundo vai ficar gravado. Que privilégio estar aqui.",
+          "efeitos": { "torcida": 18, "moral": 8 },
+          "flag_carreira": "idolo"
+        }
+      },
+      "caido": {
+        "pergunta": "Pênaltis na final, Brasil campeão. Depois de tudo, esse é o final que você imaginava?",
+        "esquerda": {
+          "texto": "Não imaginei — eu sabia que ia acontecer.",
+          "efeitos": { "midia": 10, "torcida": 8 },
+          "flag_carreira": "raca"
+        },
+        "direita": {
+          "texto": "Não. Mas foi o que merecemos. E isso basta.",
+          "efeitos": { "torcida": 16, "moral": 10 },
+          "flag_carreira": "humilde"
+        }
+      },
+      "futuro": {
+        "pergunta": "Decidiu nos pênaltis na final da Copa. Quantos anos de vida você perdeu na fila?",
+        "esquerda": {
+          "texto": "Não perdi. Vivi cada segundo como se fosse o último.",
+          "efeitos": { "torcida": 14, "moral": 8 },
+          "flag_carreira": "frieza"
+        },
+        "direita": {
+          "texto": "Muitos. Mas o Hexa devolveu todos de uma vez.",
+          "efeitos": { "torcida": 18, "moral": 6 },
+          "flag_carreira": "idolo"
+        }
+      }
+    }
   }
 ]
