@@ -7,40 +7,17 @@
     "texto": "As vaias são ensurdecedoras. Cada toque seu é recebido com hostilidade. Acréscimos.",
     "esquerda": {
       "texto": "Transforma raiva em energia",
-      "efeitos": {
-        "placar": "condicional"
-      },
+      "efeitos": { "placar": "condicional" },
       "condicional": {
         "limiar": 0,
-        "ramoA": {
-          "efeitos": {
-            "placar": 2
-          },
-          "flags_partida": [
-            "raca"
-          ],
-          "climax": true
-        },
-        "ramoB": {
-          "efeitos": {
-            "placar": -1
-          },
-          "flags_partida": [
-            "pavio_curto"
-          ]
-        }
+        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["raca"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["pavio_curto"] }
       }
     },
     "direita": {
       "texto": "Joga frio, ignora o barulho",
-      "efeitos": {
-        "placar": 1,
-        "moral": 5
-      },
-      "flags_partida": [
-        "frieza",
-        "disciplinado"
-      ]
+      "efeitos": { "placar": 1, "moral": 5 },
+      "flags_partida": ["frieza", "disciplinado"]
     }
   },
   {
@@ -51,29 +28,18 @@
     "texto": "Hostilidade total. O adversário sabe que a torcida está contra você. É agora ou nunca.",
     "esquerda": {
       "texto": "Cala todos com um gol",
-      "efeitos": {
-        "placar": 2
-      },
-      "flags_partida": [
-        "heroi"
-      ],
+      "efeitos": { "placar": 2 },
+      "flags_partida": ["heroi"],
       "risco": {
         "tipo": "pressao_maxima",
         "chance": 0.35,
-        "efeitos": {
-          "placar": -1,
-          "moral": -8
-        }
+        "efeitos": { "placar": -1, "moral": -8 }
       }
     },
     "direita": {
       "texto": "Segura o resultado, não dá espaço",
-      "efeitos": {
-        "moral": 5
-      },
-      "flags_partida": [
-        "disciplinado"
-      ]
+      "efeitos": { "moral": 5 },
+      "flags_partida": ["disciplinado"]
     }
   },
   {
@@ -87,34 +53,18 @@
       "efeitos": {},
       "risco": {
         "chance": 0.5,
-        "efeitos": {
-          "midia": -5,
-          "moral": -4
-        },
-        "flags_partida": [
-          "arrogante"
-        ],
+        "efeitos": { "midia": -5, "moral": -4 },
+        "flags_partida": ["arrogante"],
         "sucesso": {
-          "efeitos": {
-            "placar": 1,
-            "torcida": 8
-          },
-          "flags_partida": [
-            "heroi",
-            "ousado"
-          ]
+          "efeitos": { "placar": 1, "torcida": 8 },
+          "flags_partida": ["heroi", "ousado"]
         }
       }
     },
     "direita": {
       "texto": "Cabeça baixa, deixa o jogo falar",
-      "efeitos": {
-        "placar": 1,
-        "moral": 4
-      },
-      "flags_partida": [
-        "frieza"
-      ]
+      "efeitos": { "placar": 1, "moral": 4 },
+      "flags_partida": ["frieza"]
     }
   },
   {
@@ -125,24 +75,197 @@
     "texto": "Apontam laser no seu rosto a cada lance decisivo. A arbitragem ignora. A provocação é covarde e funciona.",
     "esquerda": {
       "texto": "Apela ao juiz, exige providência",
-      "efeitos": {
-        "midia": 4,
-        "moral": -3
-      },
-      "flags_partida": [
-        "disciplinado"
-      ]
+      "efeitos": { "midia": 4, "moral": -3 },
+      "flags_partida": ["disciplinado"]
     },
     "direita": {
       "texto": "Ignora o laser, joga no automático",
-      "efeitos": {
-        "placar": 1,
-        "moral": 5
-      },
-      "flags_partida": [
-        "frieza",
-        "raca"
-      ]
+      "efeitos": { "placar": 1, "moral": 5 },
+      "flags_partida": ["frieza", "raca"]
+    }
+  },
+  {
+    "id": "esp_bandeira_rival",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "A torcida deles supera a nossa numericamente. O estádio parece o campo deles. Cada erro seu é celebrado em massa.",
+    "esquerda": {
+      "texto": "Ignora o ambiente, finge que é treino",
+      "efeitos": { "moral": 6, "placar": 1 },
+      "flags_partida": ["frieza"]
+    },
+    "direita": {
+      "texto": "Usa a adversidade como combustível",
+      "efeitos": { "placar": 2, "torcida": -4 },
+      "flags_partida": ["raca", "ousado"]
+    }
+  },
+  {
+    "id": "esp_vaias_aquecimento",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Eles já vaiavam no aquecimento. Agora dentro do jogo, a cada toque seu o apito retorna. Você é o alvo escolhido.",
+    "esquerda": {
+      "texto": "Evita a bola, deixa os outros jogarem",
+      "efeitos": { "moral": -5, "fisico": 3 },
+      "flags_partida": ["covarde"]
+    },
+    "direita": {
+      "texto": "Pede a bola o tempo todo, enfrenta o barulho",
+      "efeitos": { "placar": "condicional" },
+      "condicional": {
+        "limiar": 0,
+        "ramoA": { "efeitos": { "placar": 2, "torcida": 6 }, "flags_partida": ["heroi", "raca"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1, "moral": -6 }, "flags_partida": ["pavio_curto"] }
+      }
+    }
+  },
+  {
+    "id": "esp_fake_ovacao",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Você erra um toque simples e a torcida deles explode em aplausos irônicos. Dói mais do que qualquer vaia.",
+    "esquerda": {
+      "texto": "Sorri de volta — mostra que não abala",
+      "efeitos": { "moral": 5, "midia": 4 },
+      "flags_partida": ["frieza", "showman"]
+    },
+    "direita": {
+      "texto": "Canaliza a humilhação pra próxima jogada",
+      "efeitos": { "placar": "condicional" },
+      "condicional": {
+        "limiar": 0,
+        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["raca", "heroi"], "climax": true },
+        "ramoB": { "efeitos": { "moral": -8 }, "flags_partida": ["pavio_curto"] }
+      }
+    }
+  },
+  {
+    "id": "esp_cartaz_ofensivo",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Um cartaz com ofensas pessoais — família, origem, carreira — está visível da linha de fundo. A câmera evita mostrar, mas todos viram.",
+    "esquerda": {
+      "texto": "Para o jogo, aponta pro cartaz, exige retirada",
+      "efeitos": { "midia": 6, "moral": -4 },
+      "flags_partida": ["lider"]
+    },
+    "direita": {
+      "texto": "Ignora. O campo é maior que qualquer cartaz.",
+      "efeitos": { "moral": 5, "placar": 1 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "esp_batucada_contra",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "A torcida deles tem instrumentos e bate sem parar há quarenta minutos. O barulho entrou na sua cabeça.",
+    "esquerda": {
+      "texto": "Pede foco aos companheiros, lidera o silêncio interno",
+      "efeitos": { "moral": 6, "lider": 1 },
+      "flags_partida": ["lider", "disciplinado"]
+    },
+    "direita": {
+      "texto": "Entra no ritmo deles e usa o caos a seu favor",
+      "efeitos": { "placar": 1, "torcida": 4 },
+      "flags_partida": ["ousado"]
+    }
+  },
+  {
+    "id": "esp_goleiro_provoca",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "O goleiro adversário provoca toda vez que você passa perto. Faz sinal de dinheiro, imita seus gestos. A torcida deles ri.",
+    "esquerda": {
+      "texto": "Ignora — o que fala é o gol",
+      "efeitos": { "moral": 5 },
+      "risco": {
+        "chance": 0.4,
+        "sucesso": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"] },
+        "efeitos": { "placar": -1 },
+        "flags_partida": ["afobado"]
+      }
+    },
+    "direita": {
+      "texto": "Devolve na mesma moeda — palavra por palavra",
+      "efeitos": { "moral": -4 },
+      "flags_partida": ["pavio_curto"],
+      "eco": "eco_cartao_juiz"
+    }
+  },
+  {
+    "id": "esp_micro_apito",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Apitos ensurdecedores toda vez que você recebe a bola. A comunicação em campo está impossível. Você precisa jogar no grito.",
+    "esquerda": {
+      "texto": "Usa sinais com as mãos, lidera sem voz",
+      "efeitos": { "moral": 5, "placar": 1 },
+      "flags_partida": ["lider", "disciplinado"]
+    },
+    "direita": {
+      "texto": "Simplifica o jogo — bola e movimento",
+      "efeitos": { "placar": 1, "fisico": -3 },
+      "flags_partida": ["raca"]
+    }
+  },
+  {
+    "id": "esp_ameaca_arquibancada",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Algo foi jogado das arquibancadas perto de você. O jogo para. O árbitro consulta os fiscais. Você está no meio disso.",
+    "esquerda": {
+      "texto": "Sinaliza que tudo bem, pede pra continuar",
+      "efeitos": { "midia": 6, "torcida": 4 },
+      "flags_partida": ["lider", "showman"]
+    },
+    "direita": {
+      "texto": "Se afasta, deixa a confusão se resolver sozinha",
+      "efeitos": { "moral": 5, "fisico": 3 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "esp_pressao_emocional",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "A hostilidade do estádio encontra uma rachadura dentro de você. Por um segundo, deu vontade de sair de campo. Só um segundo.",
+    "esquerda": {
+      "texto": "Engole seco e olha pra frente",
+      "efeitos": { "moral": 8 },
+      "flags_partida": ["raca", "frieza"]
+    },
+    "direita": {
+      "texto": "Busca um companheiro, pede apoio em campo",
+      "efeitos": { "moral": 5, "torcida": -3 },
+      "flags_partida": ["lider"]
+    }
+  },
+  {
+    "id": "esp_imitacao_adversario",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Um jogador adversário imita sua comemoração característica depois de um lance qualquer. A torcida deles gargalha.",
+    "esquerda": {
+      "texto": "Ignora com elegância — você vai comemorar de verdade logo",
+      "efeitos": { "moral": 5 },
+      "flags_partida": ["frieza"]
+    },
+    "direita": {
+      "texto": "Vai pra cima dele — mostra quem é o dono da comemoração",
+      "efeitos": { "torcida": 6, "moral": -3 },
+      "flags_partida": ["pavio_curto", "ousado"]
     }
   }
 ]

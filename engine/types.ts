@@ -143,6 +143,7 @@ export interface RunState {
   penaltisResolvidos?: boolean
   cartasVistas: string[]
   especialsVistas?: string[]
+  genericasVistas?: string[]
   morto: boolean
   causaMorte?: CausaMorte
   barraMorte?: { barra: Barra; extreme: 'min' | 'max' }

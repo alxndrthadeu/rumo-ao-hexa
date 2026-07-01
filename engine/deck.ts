@@ -151,19 +151,25 @@ export function buildMatchDeck(
   arquetipo: Arquetipo,
   seed: number,
   barras: { moral: number; fisico: number; torcida: number },
-  especialsVistas: string[] = []
-): { cards: Carta[]; seed: number; especialsVistas: string[] } {
+  especialsVistas: string[] = [],
+  genericasVistas: string[] = []
+): { cards: Carta[]; seed: number; especialsVistas: string[]; genericasVistas: string[] } {
   let s = seed
   const { highThreshold, lowThreshold } = config.deckBonus
 
-  // 1. Embaralha genéricas e pega 4 base
-  const shuffled = [...genericCards]
+  // 1. Embaralha genéricas sem repetição entre partidas
+  const genericPool = genericCards.filter(c => !genericasVistas.includes(c.id))
+  const genericSource = genericPool.length >= 4 ? genericPool : genericCards
+  const shuffled = [...genericSource]
   for (let i = shuffled.length - 1; i > 0; i--) {
     s = advanceSeed(s)
     const j = Math.floor(seedToFloat(s) * (i + 1))
     ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
   }
   const base = shuffled.slice(0, 4)
+  const novasGenericasVistas = genericPool.length >= 4
+    ? [...genericasVistas, ...base.map(c => c.id)]
+    : base.map(c => c.id)
 
   // 2. Injeta cartas da classe
   const classePool = CLASS_CARDS[classe] ?? []
@@ -226,7 +232,7 @@ export function buildMatchDeck(
     : [especial.id]
 
   const cards = [...standard, especial]
-  return { cards, seed: s, especialsVistas: novasEspecialsVistas }
+  return { cards, seed: s, especialsVistas: novasEspecialsVistas, genericasVistas: novasGenericasVistas }
 }
 
 // ─── Lookup global ────────────────────────────────────────────────────────────

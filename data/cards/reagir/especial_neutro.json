@@ -7,40 +7,18 @@
     "texto": "Pênalti pro Brasil nos acréscimos. O estádio para. A bola é sua.",
     "esquerda": {
       "texto": "Assume a cobrança",
-      "efeitos": {
-        "placar": "condicional"
-      },
+      "efeitos": { "placar": "condicional" },
       "climax": true,
       "condicional": {
         "limiar": 1,
-        "ramoA": {
-          "efeitos": {
-            "placar": 2
-          },
-          "flags_partida": [
-            "heroi"
-          ],
-          "climax": true
-        },
-        "ramoB": {
-          "efeitos": {
-            "placar": -1
-          },
-          "flags_partida": [
-            "afobado"
-          ],
-          "climax": true
-        }
+        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
       }
     },
     "direita": {
       "texto": "Passa pro batedor oficial",
-      "efeitos": {
-        "placar": 1
-      },
-      "flags_partida": [
-        "coletivo"
-      ]
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["coletivo"]
     }
   },
   {
@@ -51,23 +29,13 @@
     "texto": "Acréscimos. Você rouba a bola no meio-campo e só tem o goleiro na frente.",
     "esquerda": {
       "texto": "Vai pro gol sem olhar pra trás",
-      "efeitos": {
-        "placar": 2
-      },
-      "flags_partida": [
-        "heroi",
-        "ousado"
-      ]
+      "efeitos": { "placar": 2 },
+      "flags_partida": ["heroi", "ousado"]
     },
     "direita": {
       "texto": "Espera o apoio antes de finalizar",
-      "efeitos": {
-        "placar": 1,
-        "torcida": 5
-      },
-      "flags_partida": [
-        "coletivo"
-      ]
+      "efeitos": { "placar": 1, "torcida": 5 },
+      "flags_partida": ["coletivo"]
     }
   },
   {
@@ -78,40 +46,18 @@
     "texto": "Escanteio nos acréscimos. Você sobe mais alto que todo mundo na área.",
     "esquerda": {
       "texto": "Cabeceia com toda força",
-      "efeitos": {
-        "placar": "condicional"
-      },
+      "efeitos": { "placar": "condicional" },
       "climax": true,
       "condicional": {
         "limiar": 0,
-        "ramoA": {
-          "efeitos": {
-            "placar": 2
-          },
-          "flags_partida": [
-            "heroi"
-          ],
-          "climax": true
-        },
-        "ramoB": {
-          "efeitos": {
-            "placar": -1
-          },
-          "flags_partida": [
-            "afobado"
-          ],
-          "climax": true
-        }
+        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"], "climax": true }
       }
     },
     "direita": {
       "texto": "Desvia de cabeça pro companheiro melhor posicionado",
-      "efeitos": {
-        "placar": 1
-      },
-      "flags_partida": [
-        "disciplinado"
-      ]
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["disciplinado"]
     }
   },
   {
@@ -122,29 +68,18 @@
     "texto": "Bola dividida no finalzinho que define quem ataca por último. Ninguém quer ceder. Você entra de sola ou protege a perna?",
     "esquerda": {
       "texto": "Entra inteiro, a bola é nossa",
-      "efeitos": {
-        "torcida": 5
-      },
+      "efeitos": { "torcida": 5 },
       "risco": {
         "chance": 0.4,
-        "efeitos": {
-          "fisico": -8
-        },
+        "efeitos": { "fisico": -8 },
         "niggle": "divida_lesao",
-        "flags_partida": [
-          "amarelo"
-        ]
+        "flags_partida": ["amarelo"]
       }
     },
     "direita": {
       "texto": "Protege a perna, cede o lance",
-      "efeitos": {
-        "fisico": 3,
-        "placar": -1
-      },
-      "flags_partida": [
-        "covarde"
-      ]
+      "efeitos": { "fisico": 3, "placar": -1 },
+      "flags_partida": ["covarde"]
     }
   },
   {
@@ -158,33 +93,18 @@
       "efeitos": {},
       "risco": {
         "chance": 0.45,
-        "efeitos": {
-          "moral": -5
-        },
-        "flags_partida": [
-          "afobado"
-        ],
+        "efeitos": { "moral": -5 },
+        "flags_partida": ["afobado"],
         "sucesso": {
-          "efeitos": {
-            "placar": 2,
-            "torcida": 6
-          },
-          "flags_partida": [
-            "heroi",
-            "lider"
-          ]
+          "efeitos": { "placar": 2, "torcida": 6 },
+          "flags_partida": ["heroi", "lider"]
         }
       }
     },
     "direita": {
       "texto": "Joga no coletivo, divide o peso",
-      "efeitos": {
-        "placar": 1,
-        "moral": 4
-      },
-      "flags_partida": [
-        "coletivo"
-      ]
+      "efeitos": { "placar": 1, "moral": 4 },
+      "flags_partida": ["coletivo"]
     }
   },
   {
@@ -195,25 +115,215 @@
     "texto": "O clima do jogo vira: começa o empurra-empurra geral entre os times. Dá pra ser o pacificador ou entrar na confusão.",
     "esquerda": {
       "texto": "Separa a briga, acalma os ânimos",
-      "efeitos": {
-        "midia": 5,
-        "moral": 4
-      },
-      "flags_partida": [
-        "lider",
-        "disciplinado"
-      ]
+      "efeitos": { "midia": 5, "moral": 4 },
+      "flags_partida": ["lider", "disciplinado"]
     },
     "direita": {
       "texto": "Entra na confusão, defende o grupo",
-      "efeitos": {
-        "moral": 5,
-        "torcida": 4
-      },
-      "flags_partida": [
-        "raca"
-      ],
+      "efeitos": { "moral": 5, "torcida": 4 },
+      "flags_partida": ["raca"],
       "eco": "eco_cartao_juiz"
+    }
+  },
+  {
+    "id": "esp_var_decisao",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "O VAR revisando uma jogada sua. O jogo parou. Três minutos de silêncio tenso. Metade do estádio quer gol, metade quer anular.",
+    "esquerda": {
+      "texto": "Mantém a postura — seja o resultado qual for",
+      "efeitos": { "moral": 6, "midia": 4 },
+      "flags_partida": ["frieza", "lider"]
+    },
+    "direita": {
+      "texto": "Gesticula pro árbitro, tenta influenciar",
+      "efeitos": { "placar": "condicional" },
+      "condicional": {
+        "limiar": 0,
+        "ramoA": { "efeitos": { "placar": 1 }, "flags_partida": ["ousado"] },
+        "ramoB": { "efeitos": { "moral": -4 }, "flags_partida": ["pavio_curto"] }
+      }
+    }
+  },
+  {
+    "id": "esp_substituicao_decisiva",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "O técnico está na beira do campo com seu colete. Sinaliza pra você sair. Você ainda tem fôlego e discorda.",
+    "esquerda": {
+      "texto": "Obedece — confia no plano do técnico",
+      "efeitos": { "fisico": 8, "moral": -4 },
+      "flags_partida": ["coletivo", "disciplinado"]
+    },
+    "direita": {
+      "texto": "Faz sinal que aguenta — pede mais tempo",
+      "efeitos": { "fisico": -5 },
+      "flags_partida": ["raca"],
+      "risco": {
+        "chance": 0.5,
+        "sucesso": { "efeitos": { "placar": 2 }, "flags_partida": ["heroi"] },
+        "efeitos": { "fisico": -8 }
+      }
+    }
+  },
+  {
+    "id": "esp_lesao_companheiro",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Seu companheiro mais próximo cai e pede substituição. O time precisa se reorganizar. Você vira referência no campo.",
+    "esquerda": {
+      "texto": "Assume o papel de líder, faz o jogo girar por você",
+      "efeitos": { "placar": 1, "fisico": -4, "torcida": 5 },
+      "flags_partida": ["lider", "raca"]
+    },
+    "direita": {
+      "texto": "Distribui responsabilidades, jogo coletivo",
+      "efeitos": { "moral": 5, "placar": 1 },
+      "flags_partida": ["coletivo"]
+    }
+  },
+  {
+    "id": "esp_chuva_forte",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Uma chuva forte abre no segundo tempo. Campo encharcado. A bola para onde não deveria. O jogo vira um caos controlado.",
+    "esquerda": {
+      "texto": "Adapta o jogo — chuta de longe, explora o caos",
+      "efeitos": { "placar": "condicional" },
+      "condicional": {
+        "limiar": 0,
+        "ramoA": { "efeitos": { "placar": 2 }, "flags_partida": ["ousado", "heroi"] },
+        "ramoB": { "efeitos": { "placar": -1 }, "flags_partida": ["afobado"] }
+      }
+    },
+    "direita": {
+      "texto": "Jogo seguro — mantém a posse, não arrisca",
+      "efeitos": { "placar": 1, "fisico": -3 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "esp_intervalo_tenso",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "O técnico não poupou palavras no intervalo. Saiu do vestiário com raiva. Você carrega o peso de uma cobrança pesada.",
+    "esquerda": {
+      "texto": "Responde dentro de campo — sem desculpas",
+      "efeitos": { "placar": 2, "moral": -4 },
+      "flags_partida": ["raca", "heroi"]
+    },
+    "direita": {
+      "texto": "Processa a crítica, joga com mais calma",
+      "efeitos": { "moral": 6, "placar": 1 },
+      "flags_partida": ["frieza", "disciplinado"]
+    }
+  },
+  {
+    "id": "esp_disputa_bola_companheiro",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Você e um companheiro disputam a bola num momento decisivo. Dois estavam no lugar certo. Alguém tem que ceder.",
+    "esquerda": {
+      "texto": "Toma a bola pra você — é o momento",
+      "efeitos": { "placar": "condicional" },
+      "condicional": {
+        "limiar": 0,
+        "ramoA": { "efeitos": { "placar": 2, "midia": 5 }, "flags_partida": ["heroi", "ousado"] },
+        "ramoB": { "efeitos": { "placar": -1, "moral": -4 }, "flags_partida": ["afobado"] }
+      }
+    },
+    "direita": {
+      "texto": "Deixa pra ele — confia no companheiro",
+      "efeitos": { "placar": 1, "moral": 4 },
+      "flags_partida": ["coletivo"]
+    }
+  },
+  {
+    "id": "esp_arbitro_aviso",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "O árbitro vem até você e avisa: mais uma reclamação e vai ver o cartão. O jogo está nervoso e ele perdeu a paciência.",
+    "esquerda": {
+      "texto": "Aceita, sai da confusão",
+      "efeitos": { "moral": 5, "fisico": 2 },
+      "flags_partida": ["disciplinado", "frieza"]
+    },
+    "direita": {
+      "texto": "Argumenta mais uma vez — tem razão nisso",
+      "efeitos": { "moral": -3 },
+      "flags_partida": ["pavio_curto"],
+      "eco": "eco_cartao_juiz"
+    }
+  },
+  {
+    "id": "esp_segundo_amarelo_risco",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Você já tem cartão amarelo. Há uma disputa física na frente, bola dividida. Ir pra dividir pode significar o vermelho.",
+    "esquerda": {
+      "texto": "Entra na disputa — a bola é mais importante",
+      "efeitos": { "torcida": 5 },
+      "risco": {
+        "chance": 0.4,
+        "efeitos": { "moral": -15, "fisico": -5 },
+        "flags_partida": ["expulsao"]
+      }
+    },
+    "direita": {
+      "texto": "Recua — jogar com dez é pior que perder a bola",
+      "efeitos": { "fisico": 4, "moral": 3 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "esp_tiro_livre_direto",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Falta na entrada da área — posição perfeita. Todos te olham. Você bate ou passa?",
+    "esquerda": {
+      "texto": "Você bate — essa falta tem seu nome",
+      "efeitos": { "placar": "condicional" },
+      "climax": true,
+      "condicional": {
+        "limiar": 1,
+        "ramoA": { "efeitos": { "placar": 2, "midia": 8 }, "flags_partida": ["heroi", "showman"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1, "moral": -5 }, "flags_partida": ["afobado"] }
+      }
+    },
+    "direita": {
+      "texto": "Deixa pro especialista — jogo coletivo",
+      "efeitos": { "placar": 1 },
+      "flags_partida": ["coletivo", "disciplinado"]
+    }
+  },
+  {
+    "id": "esp_gol_anulado_vexame",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Você fez o gol. Comemorou. O VAR desfez. Você ainda sente o gosto da euforia na boca enquanto precisa recomeçar.",
+    "esquerda": {
+      "texto": "Respira fundo e volta pra posição",
+      "efeitos": { "moral": 5 },
+      "flags_partida": ["frieza", "disciplinado"]
+    },
+    "direita": {
+      "texto": "Usa a raiva — vai buscar de novo agora",
+      "efeitos": { "placar": "condicional" },
+      "condicional": {
+        "limiar": 0,
+        "ramoA": { "efeitos": { "placar": 2, "torcida": 5 }, "flags_partida": ["raca", "heroi"], "climax": true },
+        "ramoB": { "efeitos": { "moral": -6 }, "flags_partida": ["pavio_curto"] }
+      }
     }
   }
 ]

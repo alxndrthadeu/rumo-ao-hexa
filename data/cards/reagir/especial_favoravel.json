@@ -7,24 +7,13 @@
     "texto": "A torcida vira uma onda verde e amarela nos acréscimos. Energia impossível de ignorar.",
     "esquerda": {
       "texto": "Canaliza e parte pra cima",
-      "efeitos": {
-        "placar": 2,
-        "torcida": 5
-      },
-      "flags_partida": [
-        "heroi",
-        "showman"
-      ]
+      "efeitos": { "placar": 2, "torcida": 5 },
+      "flags_partida": ["heroi", "showman"]
     },
     "direita": {
       "texto": "Mantém o foco no sistema tático",
-      "efeitos": {
-        "placar": 1,
-        "moral": 5
-      },
-      "flags_partida": [
-        "disciplinado"
-      ]
+      "efeitos": { "placar": 1, "moral": 5 },
+      "flags_partida": ["disciplinado"]
     }
   },
   {
@@ -35,24 +24,13 @@
     "texto": "A torcida nunca parou de acreditar. No acréscimo, eles cantam mais alto do que nunca.",
     "esquerda": {
       "texto": "Joga por eles, dá tudo que tem",
-      "efeitos": {
-        "placar": 1,
-        "torcida": 10
-      },
-      "flags_partida": [
-        "showman",
-        "lider"
-      ]
+      "efeitos": { "placar": 1, "torcida": 10 },
+      "flags_partida": ["showman", "lider"]
     },
     "direita": {
       "texto": "Transforma o barulho em concentração",
-      "efeitos": {
-        "placar": 2,
-        "moral": 5
-      },
-      "flags_partida": [
-        "frieza"
-      ]
+      "efeitos": { "placar": 2, "moral": 5 },
+      "flags_partida": ["frieza"]
     }
   },
   {
@@ -63,23 +41,13 @@
     "texto": "Uma família atravessou o país (ou o oceano) só pra te ver jogar. Eles estão na primeira fila com a sua camisa. Você sente o olhar deles.",
     "esquerda": {
       "texto": "Dedica o próximo lance a eles",
-      "efeitos": {
-        "torcida": 8,
-        "moral": 5
-      },
-      "flags_partida": [
-        "idolo"
-      ]
+      "efeitos": { "torcida": 8, "moral": 5 },
+      "flags_partida": ["idolo"]
     },
     "direita": {
       "texto": "Usa como combustível silencioso",
-      "efeitos": {
-        "placar": 1,
-        "moral": 4
-      },
-      "flags_partida": [
-        "frieza"
-      ]
+      "efeitos": { "placar": 1, "moral": 4 },
+      "flags_partida": ["frieza"]
     }
   },
   {
@@ -90,24 +58,197 @@
     "texto": "A torcida começa uma ola gigante e canta seu nome no meio dela. O estádio é uma festa só por você estar em campo.",
     "esquerda": {
       "texto": "Levanta os braços, rege a torcida",
-      "efeitos": {
-        "torcida": 10,
-        "fisico": -3
-      },
-      "flags_partida": [
-        "showman",
-        "idolo"
-      ]
+      "efeitos": { "torcida": 10, "fisico": -3 },
+      "flags_partida": ["showman", "idolo"]
     },
     "direita": {
       "texto": "Canaliza a energia pra cima do adversário",
-      "efeitos": {
-        "placar": 1,
-        "torcida": 4
-      },
-      "flags_partida": [
-        "raca"
-      ]
+      "efeitos": { "placar": 1, "torcida": 4 },
+      "flags_partida": ["raca"]
+    }
+  },
+  {
+    "id": "esp_canto_nome",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Sessenta mil vozes cantam seu nome em uníssono. O estádio pulsa no seu ritmo. Você nunca sentiu isso antes.",
+    "esquerda": {
+      "texto": "Devolve com um gesto, acende ainda mais",
+      "efeitos": { "torcida": 12, "midia": 6 },
+      "flags_partida": ["showman", "idolo"]
+    },
+    "direita": {
+      "texto": "Usa a energia pra tomar as rédeas do jogo",
+      "efeitos": { "placar": 2, "moral": 4 },
+      "flags_partida": ["lider"]
+    }
+  },
+  {
+    "id": "esp_camisa_nas_arquibancadas",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Centenas de torcedores levantam camisas com o seu nome. Não só do Brasil — de países que torcem por você.",
+    "esquerda": {
+      "texto": "Para um segundo, absorve o momento",
+      "efeitos": { "moral": 8, "torcida": 6 },
+      "flags_partida": ["idolo"]
+    },
+    "direita": {
+      "texto": "Transforma em urgência — não pode desperdiçar isso",
+      "efeitos": { "placar": 2, "fisico": -2 },
+      "flags_partida": ["raca", "heroi"]
+    }
+  },
+  {
+    "id": "esp_ovacao_entrada",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Você toca na bola e o estádio inteiro explode. Até torcedores neutros estão de pé. Esse calor é real.",
+    "esquerda": {
+      "texto": "Aproveita o momento, tenta o espetacular",
+      "efeitos": { "placar": "condicional" },
+      "condicional": {
+        "limiar": 0,
+        "ramoA": { "efeitos": { "placar": 2, "torcida": 8 }, "flags_partida": ["heroi", "showman"], "climax": true },
+        "ramoB": { "efeitos": { "placar": -1, "moral": -4 }, "flags_partida": ["afobado"] }
+      }
+    },
+    "direita": {
+      "texto": "Joga simples, guarda a energia",
+      "efeitos": { "placar": 1, "fisico": 4 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "esp_faixa_gigante",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Uma faixa enorme com o seu nome e número se abre na arquibancada principal. A câmera fecha no seu rosto.",
+    "esquerda": {
+      "texto": "Aponta pra faixa, assume o papel de herói",
+      "efeitos": { "midia": 8, "torcida": 6, "moral": 4 },
+      "flags_partida": ["showman", "idolo"]
+    },
+    "direita": {
+      "texto": "Cabeça no jogo — a faixa fica, o resultado também",
+      "efeitos": { "placar": 1, "moral": 6 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "esp_crianca_campo",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Na pausa do jogo, uma criança invade o campo e corre na sua direção. Segurança tarda. Você decide o que fazer.",
+    "esquerda": {
+      "texto": "Para tudo, recebe a criança com um abraço",
+      "efeitos": { "midia": 10, "torcida": 8, "fisico": -2 },
+      "flags_partida": ["idolo", "showman"]
+    },
+    "direita": {
+      "texto": "Sorri de longe, deixa a segurança agir",
+      "efeitos": { "moral": 5 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "esp_retorno_apos_lesao",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Você estava dúvida até ontem. Agora está em campo e a torcida sabe o quanto custou pra você chegar aqui.",
+    "esquerda": {
+      "texto": "Joga sem medo — esse momento vale a dor",
+      "efeitos": { "placar": 2, "torcida": 8 },
+      "flags_partida": ["raca", "heroi"],
+      "risco": {
+        "chance": 0.25,
+        "efeitos": { "fisico": -10 },
+        "niggle": "divida_lesao"
+      }
+    },
+    "direita": {
+      "texto": "Joga inteligente, preserva o físico",
+      "efeitos": { "placar": 1, "fisico": 5 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "esp_video_viral",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Um lance seu viralizou fora do estádio. Notificações pipocando no celular de todo mundo nas arquibancadas. O estádio está eufórico.",
+    "esquerda": {
+      "texto": "Alimenta o momento, tenta repetir",
+      "efeitos": { "midia": 10, "torcida": 6 },
+      "flags_partida": ["showman"]
+    },
+    "direita": {
+      "texto": "Foca no jogo — a fama vem depois",
+      "efeitos": { "placar": 1, "moral": 5 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "esp_ritmo_torcida",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "A batucada da torcida entra em sincronia com cada movimento seu. É como se o estádio inteiro fosse jogando junto.",
+    "esquerda": {
+      "texto": "Entra no ritmo, dança com a bola",
+      "efeitos": { "torcida": 10, "placar": 1 },
+      "flags_partida": ["showman", "lider"]
+    },
+    "direita": {
+      "texto": "Usa o ritmo pra impor cadência ao jogo",
+      "efeitos": { "moral": 6, "placar": 1 },
+      "flags_partida": ["disciplinado"]
+    }
+  },
+  {
+    "id": "esp_veterano_elogia",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Um ídolo histórico está na tribuna. A câmera o mostra aplaudindo de pé um lance seu. O estádio percebe e dobra o volume.",
+    "esquerda": {
+      "texto": "Sente o peso e honra o legado",
+      "efeitos": { "moral": 8, "torcida": 6 },
+      "flags_partida": ["lider", "idolo"]
+    },
+    "direita": {
+      "texto": "Foca no que está na frente — ainda falta muito",
+      "efeitos": { "placar": 2 },
+      "flags_partida": ["frieza"]
+    }
+  },
+  {
+    "id": "esp_ultimo_jogo_estadio",
+    "fase": "reagir",
+    "camada": "especial",
+    "partida": 0,
+    "texto": "Anunciaram que esse estádio será demolido após a Copa. Os torcedores sabem. Você sente que estão jogando cada minuto como se fosse o último.",
+    "efeitos": {},
+    "esquerda": {
+      "texto": "Honra o momento com um grande lance",
+      "efeitos": { "placar": "condicional" },
+      "condicional": {
+        "limiar": 0,
+        "ramoA": { "efeitos": { "placar": 2, "torcida": 8, "midia": 5 }, "flags_partida": ["heroi"], "climax": true },
+        "ramoB": { "efeitos": { "moral": -5 }, "flags_partida": ["afobado"] }
+      }
+    },
+    "direita": {
+      "texto": "Joga o que manda o coração — sem cálculo",
+      "efeitos": { "torcida": 8, "moral": 4 },
+      "flags_partida": ["raca"]
     }
   }
 ]

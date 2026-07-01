@@ -22,6 +22,7 @@ export function createRunState(arquetipo: Arquetipo, seed: number, nomeJogador: 
     historicoPartidas: [],
     crise: undefined,
     cartasVistas: [],
+    genericasVistas: [],
     morto: false,
     causaMorte: undefined,
     seed,
