@@ -232,7 +232,7 @@ export async function POST(req: NextRequest, { params }: Params) {
     nextCards = getRemainingCards(newState) as Carta[] | CartaEntrevista[]
   }
 
-  const newBracketEntry = bracket[newState.partidaAtual - 1] ?? bracketEntry
+  const newBracketEntry = resolveBracketEntry(bracket[newState.partidaAtual - 1] ?? bracketEntry, state.initialSeed)
 
   return NextResponse.json({
     state: newState,
