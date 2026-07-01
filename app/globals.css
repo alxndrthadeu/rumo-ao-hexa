@@ -63,6 +63,18 @@
   --fs-btn:     16px;
   --body-lh:    1.34;
 
+  /* Home page */
+  --home-badge:    62px;
+  --home-h1:       34px;
+  --home-tagline:  13px;
+  --home-pitch-h:  21px;
+  --home-body:     13px;
+  --home-body-sm:  12px;
+  --home-chips:     9px;
+  --home-cta-main: 20px;
+  --home-cta-sec:  16px;
+  --home-cta-ter:  12px;
+
   /* HUD e placar */
   --fs-hud-match:    18px;
   --fs-hud-player:   10px;
@@ -125,6 +137,18 @@
   --fs-label:   7px;
   --fs-btn:     9px;
   --body-lh:    1.8;
+
+  /* Home page — reduzido para Press Start 2P */
+  --home-badge:    22px;
+  --home-h1:       13px;
+  --home-tagline:   8px;
+  --home-pitch-h:   9px;
+  --home-body:      8px;
+  --home-body-sm:   7px;
+  --home-chips:     7px;
+  --home-cta-main:  9px;
+  --home-cta-sec:   8px;
+  --home-cta-ter:   7px;
 
   /* HUD e placar — reduzidos para caber em Press Start 2P */
   --fs-hud-match:    8px;
