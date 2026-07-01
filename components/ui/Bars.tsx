@@ -5,7 +5,7 @@ const BAR_CONFIG = [
   { key: 'torcida' as const, label: 'Tor', color: 'var(--color-accent)'   },
   { key: 'midia'   as const, label: 'Míd', color: 'var(--color-vermelho)' },
   { key: 'moral'   as const, label: 'Mor', color: 'var(--color-verde)'    },
-  { key: 'fisico'  as const, label: 'Fís', color: 'var(--color-azul)'     },
+  { key: 'fisico'  as const, label: 'Fís', color: 'var(--color-bar-fisico)' },
 ]
 
 const ALERT_MIN = 15

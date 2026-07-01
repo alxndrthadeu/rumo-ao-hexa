@@ -42,7 +42,8 @@
   --radius:          2px;
   --card-shadow:     5px 5px 0 var(--color-line);
   --btn-shadow:      3px 3px 0 var(--color-line);
-  --bar-track:       rgba(16,15,13,.13);
+  --bar-track:       rgba(255,255,255,.18);
+  --color-bar-fisico: #5b9bd5;
 
   --fx-paper: block;
   --fx-scan:  none;
@@ -103,7 +104,8 @@
   --radius:      0px;
   --card-shadow: 0 7px 0 #0c1e42;
   --btn-shadow:  0 5px 0 #0c1e42;
-  --bar-track:   rgba(0,0,0,.40);
+  --bar-track:   rgba(255,255,255,.12);
+  --color-bar-fisico: var(--color-azul);
 
   /* FX */
   --fx-paper: none;
