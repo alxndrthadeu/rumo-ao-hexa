@@ -76,13 +76,14 @@ function NotaSeal({ nota }: { nota: number }) {
   const letter = getNotaLetter(nota)
   return (
     <div
-      className="w-[68px] h-[68px] rounded-full flex items-center justify-center font-headline font-black shrink-0"
+      className="w-[64px] h-[64px] rounded-full flex items-center justify-center font-headline font-black shrink-0"
       style={{
         fontFamily: 'var(--font-head)',
-        fontSize: '32px',
+        fontSize: '30px',
         background: 'var(--color-accent)',
         color: 'var(--color-accent-ink)',
-        boxShadow: '0 0 0 5px var(--color-hud), 0 0 0 8px var(--color-accent)',
+        outline: '3px solid var(--color-accent)',
+        outlineOffset: '3px',
       }}
     >
       {letter}
@@ -90,21 +91,13 @@ function NotaSeal({ nota }: { nota: number }) {
   )
 }
 
-// ─── Stats Row ────────────────────────────────────────────────────────────────
+// ─── Stats (on light surface) ────────────────────────────────────────────────
 
-function StatsRow({
-  jogos,
-  gols,
-  nota,
-}: {
-  jogos: number
-  gols: number
-  nota: number
-}) {
+function CardStatsRow({ jogos, gols, nota }: { jogos: number; gols: number; nota: number }) {
   const boxes = [
-    { label: 'Jogos',  value: String(jogos),       accent: false },
-    { label: 'Gols',   value: String(gols),        accent: false },
-    { label: 'Legado', value: formatNota(nota),    accent: true  },
+    { label: 'Jogos',  value: String(jogos),    accent: false },
+    { label: 'Gols',   value: String(gols),      accent: false },
+    { label: 'Legado', value: formatNota(nota),  accent: true  },
   ]
   return (
     <div className="flex gap-[6px]">
@@ -119,13 +112,13 @@ function StatsRow({
         >
           <p
             className="font-headline font-bold text-[8px] tracking-[0.15em] uppercase mb-[4px]"
-            style={{ color: accent ? 'var(--color-accent-ink)' : 'var(--color-hud-ink)', opacity: 0.5 }}
+            style={{ color: accent ? 'var(--color-accent-ink)' : 'var(--color-ink)', opacity: 0.5 }}
           >
             {label}
           </p>
           <p
             className="font-headline font-black italic text-[22px] leading-none tracking-[-1px]"
-            style={{ color: accent ? 'var(--color-accent-ink)' : 'var(--color-hud-ink)' }}
+            style={{ color: accent ? 'var(--color-accent-ink)' : 'var(--color-ink)' }}
           >
             {value}
           </p>
@@ -135,25 +128,25 @@ function StatsRow({
   )
 }
 
-// ─── Timeline ────────────────────────────────────────────────────────────────
+// ─── Timeline (on light surface) ─────────────────────────────────────────────
 
 type BracketSlot = { partida: number; fase: string; adversario: string }
 
-function Timeline({ historico }: { historico: MatchRecord[] }) {
+function CardTimeline({ historico }: { historico: MatchRecord[] }) {
   const bracket = bracketData as BracketSlot[]
 
   return (
     <div>
       <p
         className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase mb-[9px]"
-        style={{ color: 'var(--color-hud-ink)', opacity: 0.4 }}
+        style={{ color: 'var(--color-ink)', opacity: 0.35 }}
       >
         Jornada pela Copa 2026
       </p>
       <div className="flex gap-[5px]">
         {bracket.map((slot, i) => {
           const record = historico.find(r => r.partida === slot.partida)
-          const adv = slot.adversario.slice(0, 3).toUpperCase()
+          const adv  = slot.adversario.slice(0, 3).toUpperCase()
           const fase = slot.fase === 'grupo'
             ? `G${slot.partida}`
             : (FASE_ABREV[slot.fase] ?? slot.fase)
@@ -163,18 +156,18 @@ function Timeline({ historico }: { historico: MatchRecord[] }) {
               <div key={i} className="flex-1 min-w-0 text-center">
                 <div
                   className="h-[32px] flex items-center justify-center"
-                  style={{ background: 'color-mix(in srgb, var(--color-line) 35%, transparent)' }}
+                  style={{ background: 'color-mix(in srgb, var(--color-ink) 8%, transparent)' }}
                 >
                   <span
                     className="font-headline font-bold text-[7px]"
-                    style={{ color: 'var(--color-hud-ink)', opacity: 0.2 }}
+                    style={{ color: 'var(--color-ink)', opacity: 0.2 }}
                   >
                     {adv}
                   </span>
                 </div>
                 <p
                   className="font-headline font-bold text-[6px] mt-[3px] truncate"
-                  style={{ color: 'var(--color-hud-ink)', opacity: 0.35 }}
+                  style={{ color: 'var(--color-ink)', opacity: 0.3 }}
                 >
                   {fase}
                 </p>
@@ -195,7 +188,7 @@ function Timeline({ historico }: { historico: MatchRecord[] }) {
               </div>
               <p
                 className="font-headline font-bold text-[6px] mt-[3px] truncate"
-                style={{ color: 'var(--color-hud-ink)', opacity: 0.4 }}
+                style={{ color: 'var(--color-ink)', opacity: 0.4 }}
               >
                 {fase}
               </p>
@@ -203,34 +196,6 @@ function Timeline({ historico }: { historico: MatchRecord[] }) {
           )
         })}
       </div>
-    </div>
-  )
-}
-
-// ─── Masthead ─────────────────────────────────────────────────────────────────
-
-function Masthead({ titulo, nomeJogador, camisa, arquetipo }: {
-  titulo: string
-  nomeJogador: string
-  camisa: number
-  arquetipo: string
-}) {
-  return (
-    <div className="text-center mb-[18px]">
-      <p
-        className="font-headline font-black italic text-[10px] tracking-[0.35em] uppercase mb-[3px]"
-        style={{ color: 'var(--color-hud-ink)', opacity: 0.4 }}
-      >
-        {titulo}
-      </p>
-      <div className="border-t-4 mb-[1px]" style={{ borderColor: 'var(--color-line)' }} />
-      <div className="border-t mb-[6px]" style={{ borderColor: 'var(--color-line)', opacity: 0.25 }} />
-      <p
-        className="font-headline font-bold text-[8px] tracking-[0.12em] uppercase"
-        style={{ color: 'var(--color-hud-ink)', opacity: 0.4 }}
-      >
-        {nomeJogador} · #{camisa} · {ARQUETIPO_LABEL[arquetipo] ?? arquetipo}
-      </p>
     </div>
   )
 }
@@ -248,31 +213,211 @@ export default function LegacyCard({
 }: Props) {
   const { nota, epitafio, causa, reputacao } = legacy
   const [copied, setCopied] = useState(false)
-  const isVitoria = causa === 'vitoria'
-  const code       = seedCode(initialSeed)
+  const isVitoria    = causa === 'vitoria'
+  const code         = seedCode(initialSeed)
   const partidaFinal = historicoPartidas.length
   const totalGols    = historicoPartidas.reduce((s, r) => s + r.golsBrasil, 0)
 
   async function handleShare() {
-    const caminho = historicoPartidas
-      .map(r => `${r.adversario.slice(0, 3).toUpperCase()} ${r.golsBrasil}-${r.golsAdversario}`)
-      .join(' · ')
+    const url  = typeof window !== 'undefined' ? window.location.href : ''
     const quem = `#${camisa} ${nomeJogador} (${ARQUETIPO_LABEL[arquetipo] ?? arquetipo})`
     const text = isVitoria
-      ? `🇧🇷 HEXACAMPEÃO DO MUNDO!\n${quem}\n"${epitafio}"\n\n${caminho}\nNota ${formatNota(nota)}/10 · Run ${code}\n#RumoAoHexa`
-      : `🇧🇷 ${quem} · P${partidaFinal}/7\n"${epitafio}"\n\n${caminho}\nNota ${formatNota(nota)}/10 · Run ${code}\n#RumoAoHexa`
+      ? `🇧🇷 HEXACAMPEÃO DO MUNDO!\n${quem}\nNota ${formatNota(nota)}/10 · Run ${code}\n#RumoAoHexa`
+      : `🇧🇷 ${quem} · P${partidaFinal}/7\nNota ${formatNota(nota)}/10 · Run ${code}\n#RumoAoHexa`
 
     if (typeof navigator !== 'undefined' && navigator.share) {
-      try { await navigator.share({ title: 'Rumo ao Hexa', text }) } catch {}
+      try { await navigator.share({ title: 'Rumo ao Hexa', text, url }) } catch {}
     } else if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      await navigator.clipboard.writeText(text)
+      await navigator.clipboard.writeText(url || text)
       setCopied(true)
       setTimeout(() => setCopied(false), 2200)
     }
   }
 
-  function FooterButtons() {
-    return (
+  return (
+    <div
+      className="flex flex-col min-h-screen px-[15px] pt-[20px] pb-[32px] relative overflow-hidden"
+      style={{ background: 'var(--color-hud)' }}
+    >
+      {/* Scanlines overlay (pixel16 only) */}
+      <div className="fx-scan" />
+
+      {/* ═══════════════ SHARE CARD ═══════════════ */}
+      <div
+        className="mb-[16px]"
+        style={{
+          background: 'var(--color-surface)',
+          border: 'var(--border-w) solid var(--color-line)',
+          boxShadow: 'var(--card-shadow)',
+        }}
+      >
+        {/* Header strip */}
+        <div
+          className="px-[15px] py-[8px] flex items-center justify-between"
+          style={{ background: 'var(--color-accent)' }}
+        >
+          <span
+            className="font-headline font-black italic text-[12px] tracking-[0.18em] uppercase"
+            style={{ color: 'var(--color-accent-ink)' }}
+          >
+            Rumo ao Hexa
+          </span>
+          <span
+            className="font-headline font-bold text-[9px] tracking-[0.1em] uppercase"
+            style={{ color: 'var(--color-accent-ink)', opacity: 0.75 }}
+          >
+            Copa 2026
+          </span>
+        </div>
+
+        <div className="px-[15px] pt-[16px] pb-[18px]">
+
+          {/* Hero: resultado + identidade */}
+          <div className="mb-[14px]">
+            {/* Badge de causa */}
+            <div className="flex items-center gap-[8px] mb-[10px]">
+              <span
+                className="inline-block font-headline font-black italic text-[10px] tracking-[0.2em] uppercase px-[12px] py-[4px]"
+                style={{
+                  background: isVitoria ? 'var(--color-accent)' : 'var(--color-vermelho)',
+                  color: isVitoria ? 'var(--color-accent-ink)' : '#fff',
+                  transform: 'skewX(-8deg)',
+                }}
+              >
+                {CAUSA_LABEL[causa] ?? causa}
+              </span>
+              {!isVitoria && (
+                <span
+                  className="font-headline font-bold text-[9px] tracking-[0.1em] uppercase"
+                  style={{ color: 'var(--color-ink)', opacity: 0.4 }}
+                >
+                  Partida {partidaFinal} de 7
+                </span>
+              )}
+            </div>
+
+            {/* Título + jogador */}
+            <div className="flex items-start justify-between gap-[10px]">
+              <h1
+                className="font-headline font-black italic leading-[0.85] tracking-[-2px] shrink-0"
+                style={{
+                  fontSize: isVitoria ? '68px' : '54px',
+                  fontFamily: 'var(--font-head)',
+                  color: isVitoria ? 'var(--color-accent)' : 'var(--color-ink)',
+                }}
+              >
+                {isVitoria ? 'HEXA!' : 'FIM'}
+              </h1>
+
+              <div className="text-right min-w-0 pt-[2px]">
+                <p
+                  className="font-headline font-black italic text-[26px] leading-[0.9] tracking-[-1px]"
+                  style={{ color: 'var(--color-ink)' }}
+                >
+                  #{camisa}
+                </p>
+                <p
+                  className="font-headline font-black italic text-[16px] leading-none tracking-[-0.3px] truncate"
+                  style={{ color: 'var(--color-ink)' }}
+                >
+                  {nomeJogador.toUpperCase()}
+                </p>
+                <p
+                  className="font-headline font-bold text-[9px] tracking-[0.05em] uppercase mt-[4px]"
+                  style={{ color: 'var(--color-ink)', opacity: 0.4 }}
+                >
+                  {ARQUETIPO_LABEL[arquetipo] ?? arquetipo}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Divisor grosso */}
+          <div
+            className="mb-[14px]"
+            style={{ borderTop: '3px solid var(--color-ink)', opacity: 0.1 }}
+          />
+
+          {/* Nota + Stats */}
+          <div className="flex items-center gap-[12px] mb-[14px]">
+            <NotaSeal nota={nota} />
+            <div className="flex-1">
+              <CardStatsRow jogos={partidaFinal} gols={totalGols} nota={nota} />
+            </div>
+          </div>
+
+          {/* Divisor fino */}
+          <div
+            className="mb-[12px]"
+            style={{ borderTop: '1px solid', borderColor: 'color-mix(in srgb, var(--color-ink) 12%, transparent)' }}
+          />
+
+          {/* Epitáfio */}
+          <p
+            className="italic text-[14px] leading-[1.45] text-center mb-[14px]"
+            style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.58 }}
+          >
+            &ldquo;{epitafio}&rdquo;
+          </p>
+
+          {/* Divisor fino */}
+          <div
+            className="mb-[12px]"
+            style={{ borderTop: '1px solid', borderColor: 'color-mix(in srgb, var(--color-ink) 12%, transparent)' }}
+          />
+
+          {/* Timeline */}
+          <div className="mb-[14px]">
+            <CardTimeline historico={historicoPartidas} />
+          </div>
+
+          {/* Card footer: seed + reputação */}
+          <div
+            className="flex items-center justify-between pt-[10px]"
+            style={{ borderTop: '1px solid', borderColor: 'color-mix(in srgb, var(--color-ink) 12%, transparent)' }}
+          >
+            <div>
+              <p
+                className="font-headline font-bold text-[7px] tracking-[0.15em] uppercase mb-[1px]"
+                style={{ color: 'var(--color-ink)', opacity: 0.3 }}
+              >
+                Run
+              </p>
+              <p
+                className="font-headline font-black italic text-[18px] tracking-[0.06em]"
+                style={{ color: 'var(--color-ink)', opacity: 0.65 }}
+              >
+                {code}
+              </p>
+            </div>
+            {!isVitoria ? (
+              <div className="text-right">
+                <p
+                  className="font-headline font-bold text-[7px] tracking-[0.15em] uppercase mb-[1px]"
+                  style={{ color: 'var(--color-ink)', opacity: 0.3 }}
+                >
+                  Reputação
+                </p>
+                <p
+                  className="font-headline font-bold text-[12px] capitalize"
+                  style={{ color: 'var(--color-ink)', opacity: 0.6 }}
+                >
+                  {reputacao.replace(/_/g, ' ')}
+                </p>
+              </div>
+            ) : (
+              <p
+                className="font-headline font-bold text-[9px] tracking-[0.06em] uppercase"
+                style={{ color: 'var(--color-ink)', opacity: 0.25 }}
+              >
+                rumoaohexa.com.br
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* ═══════════════ ACTIONS ═══════════════ */}
       <div className="flex flex-col gap-[8px]">
         <button
           onClick={handleShare}
@@ -283,13 +428,17 @@ export default function LegacyCard({
             boxShadow: 'var(--btn-shadow)',
           }}
         >
-          {copied ? 'Copiado!' : 'Compartilhar'}
+          {copied ? 'Link copiado!' : 'Compartilhar →'}
         </button>
 
         <Link
           href={`/historico/${sessionId}`}
           className="w-full text-center font-headline font-bold text-[13px] py-[10px] block"
-          style={{ border: 'var(--border-w) solid var(--color-line)', color: 'var(--color-hud-ink)', opacity: 0.65 }}
+          style={{
+            border: 'var(--border-w) solid color-mix(in srgb, var(--color-line) 50%, transparent)',
+            color: 'var(--color-hud-ink)',
+            opacity: 0.65,
+          }}
         >
           Ver Jornais da Copa
         </Link>
@@ -298,7 +447,12 @@ export default function LegacyCard({
           <Link
             href="/historico"
             className="flex-1 text-center font-headline font-bold text-[12px] py-[9px] block"
-            style={{ border: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 50%, transparent)', color: 'var(--color-hud-ink)', opacity: 0.45 }}
+            style={{
+              border: '1px solid',
+              borderColor: 'color-mix(in srgb, var(--color-line) 50%, transparent)',
+              color: 'var(--color-hud-ink)',
+              opacity: 0.45,
+            }}
           >
             Minhas Runs
           </Link>
@@ -311,111 +465,6 @@ export default function LegacyCard({
           </Link>
         </div>
       </div>
-    )
-  }
-
-  // ── Tela compartilhada ────────────────────────────────────────────────────
-
-  return (
-    <div
-      className="flex flex-col min-h-screen px-[15px] pt-[22px] pb-[32px] relative overflow-hidden"
-      style={{ background: 'var(--color-hud)' }}
-    >
-      {/* Scanlines overlay (pixel16 only) */}
-      <div className="fx-scan" />
-
-      <Masthead
-        titulo={isVitoria ? 'Diário da Copa · Edição Histórica' : 'Diário da Copa · Edição Final'}
-        nomeJogador={nomeJogador}
-        camisa={camisa}
-        arquetipo={arquetipo}
-      />
-
-      {/* Badge de causa */}
-      <div className="flex items-center justify-center gap-[10px] mb-[14px]">
-        <span
-          className="inline-block font-headline font-black italic text-[10px] tracking-[0.2em] uppercase px-[14px] py-[5px]"
-          style={{
-            background: isVitoria ? 'var(--color-accent)' : 'var(--color-vermelho)',
-            color: isVitoria ? 'var(--color-accent-ink)' : '#fff',
-            transform: 'skewX(-8deg)',
-          }}
-        >
-          {CAUSA_LABEL[causa] ?? causa}
-        </span>
-        {!isVitoria && (
-          <span
-            className="font-headline font-bold text-[10px] tracking-[0.1em] uppercase"
-            style={{ color: 'var(--color-hud-ink)', opacity: 0.35 }}
-          >
-            P{partidaFinal} de 7
-          </span>
-        )}
-      </div>
-
-      {/* Título */}
-      <h1
-        className="font-headline font-black italic leading-[0.85] tracking-[-3px] text-center mb-[8px]"
-        style={{
-          fontSize: isVitoria ? '76px' : '56px',
-          fontFamily: 'var(--font-head)',
-          color: isVitoria ? 'var(--color-accent)' : 'var(--color-hud-ink)',
-        }}
-      >
-        {isVitoria ? 'HEXA!' : 'FIM'}
-      </h1>
-
-      {/* Nota Seal + Stats */}
-      <div className="flex items-center gap-[14px] mb-[18px]">
-        <NotaSeal nota={nota} />
-        <div className="flex-1">
-          <StatsRow jogos={partidaFinal} gols={totalGols} nota={nota} />
-        </div>
-      </div>
-
-      {/* Epitáfio */}
-      <p
-        className="italic text-[17px] leading-[1.35] text-center px-[2px] mb-[22px] tracking-[-0.2px]"
-        style={{ fontFamily: 'var(--font-body)', color: 'var(--color-hud-ink)', opacity: 0.65 }}
-      >
-        &ldquo;{epitafio}&rdquo;
-      </p>
-
-      {/* Código da Run */}
-      <div
-        className="flex items-center justify-between py-[10px] mb-[18px]"
-        style={{ borderTop: '1px solid', borderBottom: '1px solid', borderColor: 'color-mix(in srgb, var(--color-line) 50%, transparent)' }}
-      >
-        <div>
-          <p className="font-headline font-bold text-[8px] tracking-[0.15em] uppercase mb-[2px]"
-            style={{ color: 'var(--color-hud-ink)', opacity: 0.35 }}>
-            Código da Run
-          </p>
-          <p className="font-headline font-black italic text-[20px] tracking-[0.08em]"
-            style={{ color: 'var(--color-hud-ink)', opacity: 0.8 }}>
-            {code}
-          </p>
-        </div>
-        {!isVitoria && (
-          <div className="text-right">
-            <p className="font-headline font-bold text-[8px] tracking-[0.15em] uppercase mb-[2px]"
-              style={{ color: 'var(--color-hud-ink)', opacity: 0.35 }}>
-              Reputação
-            </p>
-            <p className="font-headline font-bold text-[13px] capitalize"
-              style={{ color: 'var(--color-hud-ink)', opacity: 0.7 }}>
-              {reputacao.replace(/_/g, ' ')}
-            </p>
-          </div>
-        )}
-      </div>
-
-      {/* Timeline */}
-      <div className="mb-[22px]">
-        <Timeline historico={historicoPartidas} />
-      </div>
-
-      <FooterButtons />
     </div>
   )
 }
