@@ -111,11 +111,14 @@ function ChoiceButton({
     <button
       onClick={onChoose}
       disabled={disabled}
-      className="w-full flex items-center gap-[10px] text-left transition-colors disabled:opacity-40 active:scale-[0.985]"
+      className={`w-full flex items-center gap-[10px] transition-colors disabled:opacity-40 active:scale-[0.985]${isLeft ? '' : ' flex-row-reverse'}`}
       style={{
         background: isDragging ? `color-mix(in srgb, ${accentColor} 8%, var(--color-surface))` : 'var(--color-surface)',
         border: `var(--border-w) solid var(--color-line)`,
-        borderLeft: `6px solid ${accentColor}`,
+        ...(isLeft
+          ? { borderLeft: `6px solid ${accentColor}` }
+          : { borderRight: `6px solid ${accentColor}` }
+        ),
         borderRadius: 'var(--radius)',
         boxShadow: 'var(--btn-shadow)',
         padding: '11px 13px',
@@ -127,7 +130,7 @@ function ChoiceButton({
       </span>
 
       {/* Conteúdo */}
-      <div className="flex-1 min-w-0">
+      <div className={`flex-1 min-w-0 ${isLeft ? 'text-left' : 'text-right'}`}>
         {/* Texto da escolha */}
         <span
           className="block font-headline font-black leading-tight"
@@ -138,7 +141,7 @@ function ChoiceButton({
 
         {/* Badges (eco, token ganho, token gasto) */}
         {hasBadges && (
-          <div className="flex flex-wrap items-center gap-[5px] mt-[5px]">
+          <div className={`flex flex-wrap items-center gap-[5px] mt-[5px] ${isLeft ? 'justify-start' : 'justify-end'}`}>
             {hasEco && <EcoBadge />}
             {earnToken && <TokenBadge token={earnToken} mode="earn" />}
             {spendToken && <TokenBadge token={spendToken} mode="spend" available={(tokens[spendToken] ?? 0) > 0} />}
