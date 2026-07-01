@@ -25,6 +25,28 @@
     }
   },
   {
+    "id": "penalti_ritual",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "Você tem um ritual antes de cada cobrança importante. No vestiário, todo mundo já conhece. Vai seguir o ritual ou quebrar a rotina?",
+    "esquerda": {
+      "texto": "Ritual de sempre. Não muda nada.",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Essa é diferente. Respira só. Sem ritual.",
+      "efeitos": {
+        "moral": 2,
+        "fisico": 2
+      }
+    }
+  },
+  {
     "id": "penalti_abertura",
     "fase": "penaltis",
     "partida": 0,
@@ -43,6 +65,237 @@
       "efeitos": {
         "moral": -2
       }
+    }
+  },
+  {
+    "id": "penalti_fila_espera",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "Você está no círculo central esperando sua vez. Dois companheiros já bateram. A espera pesa mais do que a cobrança em si.",
+    "esquerda": {
+      "texto": "Fecha os olhos, visualiza o gol",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Fica de olho no goleiro, tenta decifrar o padrão",
+      "efeitos": {
+        "moral": 3,
+        "fisico": -2
+      },
+      "flags_partida": [
+        "ousado"
+      ]
+    }
+  },
+  {
+    "id": "penalti_pressao_torcida",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "Caminhando pra marca do pênalti, a torcida adversária faz um barulho ensurdecedor pra te desconcentrar. Como você blinda a cabeça?",
+    "esquerda": {
+      "texto": "Respira fundo, isola o som",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Encara a torcida, usa a raiva",
+      "efeitos": {
+        "placar": 1,
+        "torcida": 4
+      },
+      "flags_partida": [
+        "ousado",
+        "raca"
+      ]
+    }
+  },
+  {
+    "id": "penalti_torcida_brasil",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "Nossa torcida canta seu nome enquanto você caminha. Sessenta mil vozes num só fôlego. Como você recebe isso?",
+    "esquerda": {
+      "texto": "Levanta o punho, abraça o peso",
+      "efeitos": {
+        "torcida": 6,
+        "moral": 4
+      },
+      "flags_partida": [
+        "heroi",
+        "idolo"
+      ]
+    },
+    "direita": {
+      "texto": "Cabeça baixa, foco total no gol",
+      "efeitos": {
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza",
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "penalti_goleiro_provoca",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "O goleiro deles tenta o jogo mental: aponta o canto, fala no seu ouvido, dança na linha. Você cai no jogo dele ou ignora?",
+    "esquerda": {
+      "texto": "Ignora totalmente, foco na bola",
+      "efeitos": {
+        "placar": 1,
+        "moral": 5
+      },
+      "flags_partida": [
+        "frieza",
+        "disciplinado"
+      ]
+    },
+    "direita": {
+      "texto": "Devolve a provocação, intimida de volta",
+      "efeitos": {
+        "placar": 1
+      },
+      "flags_partida": [
+        "ousado",
+        "pavio_curto"
+      ]
+    }
+  },
+  {
+    "id": "penalti_goleiro_adianta",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "O goleiro se move antes da batida, claramente saindo da linha. O árbitro não apita. Você percebe, mas o juiz não vai mudar a decisão.",
+    "esquerda": {
+      "texto": "Bate no canto oposto — ele traiu o movimento",
+      "efeitos": {
+        "placar": 1,
+        "moral": 4
+      },
+      "flags_partida": [
+        "ousado",
+        "frieza"
+      ]
+    },
+    "direita": {
+      "texto": "Apela ao árbitro antes de bater",
+      "efeitos": {
+        "moral": -3
+      },
+      "flags_partida": [
+        "disciplinado"
+      ]
+    }
+  },
+  {
+    "id": "penalti_companheiro_falha",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "Um companheiro acabou de perder a cobrança e desabou no gramado, destruído. Você é o próximo. Levanta o cara ou foca só em você?",
+    "esquerda": {
+      "texto": "Levanta o companheiro antes de bater",
+      "efeitos": {
+        "moral": 6
+      },
+      "flags_partida": [
+        "lider",
+        "coletivo"
+      ],
+      "concede_token": "lider"
+    },
+    "direita": {
+      "texto": "Foca só na sua cobrança, frio",
+      "efeitos": {
+        "placar": 1,
+        "moral": 3
+      },
+      "flags_partida": [
+        "frieza"
+      ]
+    }
+  },
+  {
+    "id": "penalti_decisivo",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "O placar dos pênaltis está empatado e você é o último batedor. Se converter, avança. Se errar, acabou.",
+    "esquerda": {
+      "texto": "Decide no ângulo — potência máxima",
+      "efeitos": {
+        "placar": 1,
+        "moral": 6
+      },
+      "risco": {
+        "tipo": "miss_penalti",
+        "chance": 0.38,
+        "efeitos": {
+          "placar": -1,
+          "moral": -12
+        }
+      },
+      "flags_partida": [
+        "ousado",
+        "heroi"
+      ],
+      "climax": true
+    },
+    "direita": {
+      "texto": "Colocado no centro — depende do goleiro pular",
+      "efeitos": {
+        "placar": 1,
+        "moral": 2
+      },
+      "risco": {
+        "tipo": "miss_penalti",
+        "chance": 0.18,
+        "efeitos": {
+          "placar": -1,
+          "moral": -8
+        }
+      },
+      "flags_partida": [
+        "frieza"
+      ],
+      "climax": true
+    }
+  },
+  {
+    "id": "penalti_bola_escorregadia",
+    "fase": "penaltis",
+    "partida": 0,
+    "texto": "O campo está molhado e a bola escorregou da mão do árbitro ao posicionar. Você nota o gramado encharcado antes de bater.",
+    "esquerda": {
+      "texto": "Ajusta o ângulo, bate mais forte pra compensar",
+      "efeitos": {
+        "placar": 1,
+        "fisico": -2
+      },
+      "flags_partida": [
+        "raca"
+      ]
+    },
+    "direita": {
+      "texto": "Mantém a bola baixa — menor risco com chuva",
+      "efeitos": {
+        "placar": 1,
+        "moral": 3
+      },
+      "flags_partida": [
+        "disciplinado",
+        "frieza"
+      ]
     }
   },
   {
@@ -79,87 +332,6 @@
           "moral": -5
         }
       }
-    }
-  },
-  {
-    "id": "penalti_pressao_torcida",
-    "fase": "penaltis",
-    "partida": 0,
-    "texto": "Caminhando pra marca do pênalti, a torcida adversária faz um barulho ensurdecedor pra te desconcentrar. Como você blinda a cabeça?",
-    "esquerda": {
-      "texto": "Respira fundo, isola o som",
-      "efeitos": {
-        "placar": 1,
-        "moral": 4
-      },
-      "flags_partida": [
-        "frieza"
-      ]
-    },
-    "direita": {
-      "texto": "Encara a torcida, usa a raiva",
-      "efeitos": {
-        "placar": 1,
-        "torcida": 4
-      },
-      "flags_partida": [
-        "ousado",
-        "raca"
-      ]
-    }
-  },
-  {
-    "id": "penalti_goleiro_provoca",
-    "fase": "penaltis",
-    "partida": 0,
-    "texto": "O goleiro deles tenta o jogo mental: aponta o canto, fala no seu ouvido, dança na linha. Você cai no jogo dele ou ignora?",
-    "esquerda": {
-      "texto": "Ignora totalmente, foco na bola",
-      "efeitos": {
-        "placar": 1,
-        "moral": 5
-      },
-      "flags_partida": [
-        "frieza",
-        "disciplinado"
-      ]
-    },
-    "direita": {
-      "texto": "Devolve a provocação, intimida de volta",
-      "efeitos": {
-        "placar": 1
-      },
-      "flags_partida": [
-        "ousado",
-        "pavio_curto"
-      ]
-    }
-  },
-  {
-    "id": "penalti_companheiro_falha",
-    "fase": "penaltis",
-    "partida": 0,
-    "texto": "Um companheiro acabou de perder a cobrança e desabou no gramado, destruído. Você é o próximo. Levanta o cara ou foca só em você?",
-    "esquerda": {
-      "texto": "Levanta o companheiro antes de bater",
-      "efeitos": {
-        "moral": 6
-      },
-      "flags_partida": [
-        "lider",
-        "coletivo"
-      ],
-      "concede_token": "lider"
-    },
-    "direita": {
-      "texto": "Foca só na sua cobrança, frio",
-      "efeitos": {
-        "placar": 1,
-        "moral": 3
-      },
-      "flags_partida": [
-        "frieza"
-      ]
     }
   }
 ]

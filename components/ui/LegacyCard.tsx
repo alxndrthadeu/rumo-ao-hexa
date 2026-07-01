@@ -146,7 +146,7 @@ function CardTimeline({ historico }: { historico: MatchRecord[] }) {
       <div className="flex gap-[5px]">
         {bracket.map((slot, i) => {
           const record = historico.find(r => r.partida === slot.partida)
-          const adv  = slot.adversario.slice(0, 3).toUpperCase()
+          const adv  = (record ? record.adversario : slot.adversario).slice(0, 3).toUpperCase()
           const fase = slot.fase === 'grupo'
             ? `G${slot.partida}`
             : (FASE_ABREV[slot.fase] ?? slot.fase)

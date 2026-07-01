@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { applyCardChoice, resolveMatchEnd, resolvePenaltyEnd, resolveEcosDiferidos } from '@/engine/phases'
 import { applyMatchDecay } from '@/engine/bars'
-import { BRACKET, buildPreGameDeck, buildMatchDeck, buildPenaltyDeck, PENALTY_CARD_IDS, getCardById, getInterviewCard, resolveBracketEntry } from '@/engine/deck'
+import { BRACKET, buildPreGameDeck, buildMatchDeck, buildPenaltyDeck, getCardById, getInterviewCard, resolveBracketEntry } from '@/engine/deck'
 import { checkMatchResult } from '@/engine/score'
 import type { Carta, CartaEntrevista, RunState } from '@/engine/types'
 import { assertUnreachable } from '@/engine/types'
@@ -164,8 +164,8 @@ export async function POST(req: NextRequest, { params }: Params) {
         const flagsSnapshot = [...newState.flagsPartida]
         newState = resolveMatchEnd(newState, bracketEntry, flagsSnapshot)
         if (!newState.morto && newState.fase === 'penaltis') {
-          const { cards: penaltyCards } = buildPenaltyDeck()
-          newState = { ...newState, cartasRestantes: PENALTY_CARD_IDS }
+          const { cards: penaltyCards, cardIds: penaltyCardIds, seed: penaltySeed } = buildPenaltyDeck(newState.seed)
+          newState = { ...newState, cartasRestantes: penaltyCardIds, seed: penaltySeed }
           nextCards = penaltyCards
         }
       } else {

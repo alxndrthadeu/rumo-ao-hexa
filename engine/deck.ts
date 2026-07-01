@@ -263,8 +263,22 @@ if (PENALTY_CARD_IDS.length === 0) {
   throw new Error('penaltis.json está vazio — nenhuma carta de pênalti disponível')
 }
 
-export function buildPenaltyDeck(): { cards: Carta[] } {
-  return { cards: penaltisCards }
+// Selects 5 penalty cards using the run seed: always includes penalti_cobranca + 4 random others.
+export function buildPenaltyDeck(seed: number): { cards: Carta[]; cardIds: string[]; seed: number } {
+  const cobranca = penaltisCards.find(c => c.id === 'penalti_cobranca')!
+  const optional = penaltisCards.filter(c => c.id !== 'penalti_cobranca')
+
+  let s = seed
+  const shuffled = [...optional]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    s = advanceSeed(s)
+    const j = Math.floor(seedToFloat(s) * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+
+  const selected = [...shuffled.slice(0, 4), cobranca]
+  const cardIds = selected.map(c => c.id)
+  return { cards: selected, cardIds, seed: s }
 }
 
 export function getCardById(id: string): Carta | CartaEntrevista | null {
