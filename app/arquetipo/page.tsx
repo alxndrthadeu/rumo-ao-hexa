@@ -143,6 +143,8 @@ export default function ArquetipoPage() {
   const [camisa, setCamisa] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [showSeed, setShowSeed] = useState(false)
+  const [seedInput, setSeedInput] = useState('')
   const formRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -156,7 +158,8 @@ export default function ArquetipoPage() {
   const camisaNum = parseInt(camisa, 10)
   const camisaValida = camisa !== '' && !isNaN(camisaNum) && camisaNum >= 1 && camisaNum <= 99
   const nomeValido = nome.trim().length >= 2
-  const pronto = selected !== null && nomeValido && camisaValida
+  const seedValida = seedInput === '' || /^[0-9A-Fa-f]{1,8}$/.test(seedInput)
+  const pronto = selected !== null && nomeValido && camisaValida && seedValida
 
   function handleCamisa(v: string) {
     const num = v.replace(/\D/g, '').slice(0, 2)
@@ -171,7 +174,12 @@ export default function ArquetipoPage() {
       const res = await fetch('/api/session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ arquetipo: selected, nome: nome.trim(), camisa: camisaNum }),
+        body: JSON.stringify({
+          arquetipo: selected,
+          nome: nome.trim(),
+          camisa: camisaNum,
+          ...(seedInput.trim() ? { seed: seedInput.trim().toUpperCase() } : {}),
+        }),
       })
       if (!res.ok) throw new Error()
       const data = await res.json()
@@ -311,6 +319,59 @@ export default function ArquetipoPage() {
         </div>
       )}
 
+      {/* Seed (replay) — seção colapsável */}
+      <div className="px-[15px] pb-[4px]">
+        <button
+          type="button"
+          onClick={() => { setShowSeed(v => !v); setSeedInput('') }}
+          className="font-headline font-bold tracking-[0.1em] uppercase transition-opacity hover:opacity-70"
+          style={{ fontSize: 'var(--fs-label)', color: 'var(--color-ink)', opacity: 0.4 }}
+        >
+          {showSeed ? '▾' : '▸'} Jogar com seed específica
+        </button>
+
+        {showSeed && (
+          <div className="mt-[10px]">
+            <label
+              className="font-headline font-bold tracking-[0.1em] uppercase block mb-[5px]"
+              style={{ fontSize: 'var(--fs-label)', color: 'var(--color-ink)', opacity: 0.5 }}
+            >
+              Seed da run
+            </label>
+            <input
+              type="text"
+              value={seedInput}
+              onChange={e => setSeedInput(e.target.value.replace(/[^0-9A-Fa-f]/g, '').slice(0, 8))}
+              placeholder="Ex: 1A2B3C4D"
+              maxLength={8}
+              spellCheck={false}
+              className="w-full h-[46px] px-[10px] font-headline font-bold text-[15px] uppercase outline-none tracking-[0.12em]"
+              style={{
+                border: `var(--border-w) solid ${seedValida ? 'var(--color-line)' : 'var(--color-vermelho)'}`,
+                color: 'var(--color-ink)',
+                background: 'var(--color-surface)',
+              }}
+            />
+            {!seedValida && (
+              <p
+                className="font-headline font-bold mt-[4px]"
+                style={{ fontSize: 'var(--fs-label)', color: 'var(--color-vermelho)' }}
+              >
+                Use até 8 caracteres hex (0–9, A–F)
+              </p>
+            )}
+            {seedInput && seedValida && (
+              <p
+                className="font-headline font-bold mt-[4px]"
+                style={{ fontSize: 'var(--fs-label)', color: 'var(--color-ink)', opacity: 0.4 }}
+              >
+                Esta run repetirá a campanha {seedInput.toUpperCase().padStart(8, '0')}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+
       {/* CTA */}
       <div className="px-[15px] pt-[16px] pb-[32px] flex flex-col gap-[10px]">
         {error && (
@@ -327,7 +388,9 @@ export default function ArquetipoPage() {
         >
           {isLoading
             ? 'Entrando em campo…'
-            : `Vestir a camisa ${camisaValida ? camisaNum : 10} →`
+            : seedInput && seedValida
+              ? `Repetir campanha ${seedInput.toUpperCase().padStart(8, '0')} →`
+              : `Vestir a camisa ${camisaValida ? camisaNum : 10} →`
           }
         </button>
       </div>

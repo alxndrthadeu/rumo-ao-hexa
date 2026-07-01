@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'nome obrigatório' }, { status: 400 })
   }
 
-  const seed = Date.now()
+  const rawSeed = typeof body.seed === 'string' ? parseInt(body.seed, 16) : NaN
+  const seed = (isNaN(rawSeed) || rawSeed < 0 ? Math.floor(Math.random() * 0x100000000) : rawSeed) >>> 0
   const sessionId = crypto.randomUUID()
   const baseState = createRunState(arquetipo, seed, nomeJogador, camisa)
   const { cards: preGameCards, seed: newSeed, cartasVistas } = buildPreGameDeck(
