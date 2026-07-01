@@ -308,7 +308,7 @@ export default function Card({
             <div className="flex items-center justify-between px-[15px] pt-[12px] pb-[4px]">
               <span
                 className="font-headline font-bold text-[9px] tracking-[0.12em] uppercase px-[7px] py-[2px]"
-                style={{ background: 'var(--color-line)', color: 'var(--color-ink)', borderRadius: 'var(--radius)' }}
+                style={{ background: 'var(--color-ink)', color: 'var(--color-surface)', borderRadius: 'var(--radius)' }}
               >
                 {naipe}
               </span>

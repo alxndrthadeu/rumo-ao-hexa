@@ -40,8 +40,8 @@
 :root {
   --border-w:        2.5px;
   --radius:          2px;
-  --card-shadow:     7px 7px 0 var(--color-line);
-  --btn-shadow:      4px 4px 0 var(--color-line);
+  --card-shadow:     5px 5px 0 var(--color-line);
+  --btn-shadow:      3px 3px 0 var(--color-line);
   --bar-track:       rgba(16,15,13,.13);
 
   --fx-paper: block;
@@ -69,8 +69,9 @@
   --fs-score-label:  13px;
   --fs-score-sep:    24px;
   --score-tracking:  -2px;
-  --seed-display:    inline;
-  --editions-display: inline;
+  --seed-display:       inline;
+  --editions-display:   inline;
+  --hud-player-display: inline;
 }
 
 /* ── Tema: Pixel 16-bit (ISS / console) ──────────────────────────────────── */
@@ -130,8 +131,9 @@
   --fs-score-label:   7px;
   --fs-score-sep:    13px;
   --score-tracking:  0px;
-  --seed-display:    none;
-  --editions-display: none;
+  --seed-display:       none;
+  --editions-display:   none;
+  --hud-player-display: none;
 
   image-rendering: pixelated;
 }

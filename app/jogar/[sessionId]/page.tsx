@@ -442,28 +442,53 @@ export default function GamePage() {
 
       {/* ── Banner de pré-jogo (concentração) — não sticky ── */}
       {state.runState.fase === 'planejar' && !isCriseActive && (
-        <div className="bg-papel border-b-2 border-preto/10 px-[15px] py-[14px]">
-          <p className="font-headline font-bold text-[9px] tracking-[0.2em] uppercase text-preto/40 mb-[4px]">
+        <div
+          className="bg-papel px-[15px] py-[14px]"
+          style={{ borderBottom: 'var(--border-w) solid color-mix(in srgb, var(--color-ink) 10%, transparent)' }}
+        >
+          <p
+            className="font-headline font-bold tracking-[0.2em] uppercase mb-[4px]"
+            style={{ fontSize: 'var(--fs-label)', color: 'var(--color-ink)', opacity: 0.45 }}
+          >
             Concentração · Jogo {state.runState.partidaAtual} de 7
           </p>
-          <h2 className="font-headline font-black italic text-[28px] leading-[0.9] tracking-[-1px] text-preto">
+          <h2
+            className="font-headline leading-[0.9] mb-[8px]"
+            style={{
+              fontSize: 'var(--fs-title)',
+              fontWeight: 'var(--head-weight)',
+              fontStyle: 'var(--head-style)',
+              letterSpacing: 'var(--head-track)',
+              color: 'var(--color-ink)',
+            }}
+          >
             vs {state.bracketEntry.adversario}
           </h2>
-          <div className="flex items-center gap-[5px] mt-[8px] mb-[6px]">
+          <div className="flex items-center gap-[5px] mb-[8px]">
             {Array.from({ length: state.runState.cartasRestantes.length }).map((_, i) => (
-              <span key={i} className="w-[6px] h-[6px] rounded-full bg-preto/25" />
+              <span
+                key={i}
+                className="w-[6px] h-[6px]"
+                style={{ background: 'var(--color-ink)', opacity: 0.28, borderRadius: 'var(--radius)' }}
+              />
             ))}
           </div>
           <div className="flex items-center justify-between">
             <span
-              className="font-headline font-bold text-[9px] tracking-[0.05em] uppercase text-white px-[8px] py-[3px]"
-              style={{ background: 'var(--color-azul)', transform: 'skewX(-6deg)' }}
+              className="font-headline font-bold tracking-[0.05em] uppercase text-white px-[8px] py-[3px]"
+              style={{ fontSize: 'var(--fs-label)', background: 'var(--color-azul)', transform: 'skewX(-6deg)' }}
             >
               {FASE_LABEL[state.bracketEntry.fase] ?? state.bracketEntry.fase}
             </span>
             <Link
               href={`/historico/${sessionId}`}
-              className="font-headline font-bold text-[11px] tracking-[0.05em] uppercase text-preto/50 border-2 border-preto/20 px-[10px] py-[5px] hover:bg-preto hover:text-white transition-colors"
+              className="font-headline font-bold tracking-[0.05em] uppercase px-[10px] py-[5px] transition-colors"
+              style={{
+                fontSize: 'var(--fs-label)',
+                color: 'color-mix(in srgb, var(--color-ink) 50%, transparent)',
+                border: 'var(--border-w) solid color-mix(in srgb, var(--color-ink) 20%, transparent)',
+                display: 'var(--editions-display)' as React.CSSProperties['display'],
+              }}
             >
               Edições →
             </Link>

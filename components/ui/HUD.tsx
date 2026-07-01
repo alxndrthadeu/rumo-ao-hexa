@@ -133,7 +133,7 @@ export default function HUD({
           </div>
           <span
             className="font-headline font-bold tracking-[0.06em] shrink-0"
-            style={{ fontSize: 'var(--fs-hud-player)', color: 'var(--color-hud-ink)', opacity: 0.45 }}
+            style={{ fontSize: 'var(--fs-hud-player)', color: 'var(--color-hud-ink)', opacity: 0.45, display: 'var(--hud-player-display)' as React.CSSProperties['display'] }}
           >
             #{state.camisa} {state.nomeJogador.toUpperCase()}
           </span>
