@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { applyCardChoice, resolveMatchEnd, resolvePenaltyEnd, resolveEcosDiferidos } from '@/engine/phases'
 import { applyMatchDecay } from '@/engine/bars'
-import { BRACKET, buildPreGameDeck, buildMatchDeck, buildPenaltyDeck, PENALTY_CARD_IDS, getCardById, getInterviewCard } from '@/engine/deck'
+import { BRACKET, buildPreGameDeck, buildMatchDeck, buildPenaltyDeck, PENALTY_CARD_IDS, getCardById, getInterviewCard, resolveBracketEntry } from '@/engine/deck'
 import { checkMatchResult } from '@/engine/score'
 import type { Carta, CartaEntrevista, RunState } from '@/engine/types'
 import { assertUnreachable } from '@/engine/types'
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest, { params }: Params) {
   }
 
   const bracket = BRACKET
-  const bracketEntry = bracket[state.partidaAtual - 1]
+  const bracketEntry = resolveBracketEntry(bracket[state.partidaAtual - 1], state.initialSeed)
 
   // ── Validação: eco pendente, carta normal, ou idempotência ──────────────────
 
@@ -90,7 +90,7 @@ export async function POST(req: NextRequest, { params }: Params) {
     const ecoCard = getCardById(newState.ecoPendente) as Carta | null
     if (ecoCard) {
       // Persiste currentCard = eco para resume-after-refresh
-      const newBracketEntry = bracket[newState.partidaAtual - 1] ?? bracketEntry
+      const newBracketEntry = resolveBracketEntry(bracket[newState.partidaAtual - 1] ?? bracketEntry, state.initialSeed)
       return NextResponse.json({
         state: newState,
         nextCards: [ecoCard],

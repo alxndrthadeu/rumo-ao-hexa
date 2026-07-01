@@ -2,8 +2,8 @@
   { "partida": 1, "fase": "grupo",   "adversario": "Marrocos",  "classe": "tecnico",          "alvoVitoria": 2, "empateValido": true  },
   { "partida": 2, "fase": "grupo",   "adversario": "Haiti",     "classe": "saco_pancada",     "alvoVitoria": 2, "empateValido": true  },
   { "partida": 3, "fase": "grupo",   "adversario": "Escocia",   "classe": "fisico",           "alvoVitoria": 2, "empateValido": true  },
-  { "partida": 4, "fase": "oitavas", "adversario": "Holanda",   "classe": "favorito",         "alvoVitoria": 2, "empateValido": false },
-  { "partida": 5, "fase": "quartas", "adversario": "Senegal",   "classe": "fisico",           "alvoVitoria": 3, "empateValido": false },
-  { "partida": 6, "fase": "semi",    "adversario": "Argentina", "classe": "rival_historico",  "alvoVitoria": 3, "empateValido": false },
-  { "partida": 7, "fase": "final",   "adversario": "Franca",    "classe": "favorito",         "alvoVitoria": 4, "empateValido": false }
+  { "partida": 4, "fase": "oitavas", "adversario": "Holanda",   "adversarios": ["Holanda", "Japao"],                          "classe": "favorito",         "alvoVitoria": 2, "empateValido": false },
+  { "partida": 5, "fase": "quartas", "adversario": "Senegal",   "adversarios": ["Senegal", "Noruega"],                        "classe": "fisico",           "alvoVitoria": 3, "empateValido": false },
+  { "partida": 6, "fase": "semi",    "adversario": "Argentina", "adversarios": ["Argentina", "Inglaterra"],                   "classe": "rival_historico",  "alvoVitoria": 3, "empateValido": false },
+  { "partida": 7, "fase": "final",   "adversario": "Franca",    "adversarios": ["Franca", "Portugal", "Espanha", "Argentina"],"classe": "favorito",         "alvoVitoria": 4, "empateValido": false }
 ]

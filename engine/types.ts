@@ -106,6 +106,7 @@ export interface BracketEntry {
   partida: number
   fase: string
   adversario: string
+  adversarios?: string[]
   classe: ClasseInimigo
   alvoVitoria: number
   empateValido: boolean

@@ -64,6 +64,16 @@ export function loadBracket(): BracketEntry[] {
   return BRACKET
 }
 
+// Resolve o adversário de uma partida usando o seed inicial da run.
+// Se o entry tiver apenas um adversário (ou nenhum array), retorna sem mudança.
+export function resolveBracketEntry(entry: BracketEntry, initialSeed: number): BracketEntry {
+  const pool = entry.adversarios
+  if (!pool || pool.length <= 1) return entry
+  let s = advanceSeed(initialSeed ^ (entry.partida * 0x9e3779b9))
+  const idx = Math.floor(seedToFloat(s) * pool.length)
+  return { ...entry, adversario: pool[idx] }
+}
+
 // ─── Pré-jogo ─────────────────────────────────────────────────────────────────
 // Retorna 2-4 cartas:
 //   [ancora, circo] base
